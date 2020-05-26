@@ -133,10 +133,8 @@ public class ArrayProto implements TypeProto {
 
         if (other instanceof ClassProto) {
             try {
-                if (other.isInterface()) {
-                    if (implementsInterface(other.getType())) {
-                        return other;
-                    }
+                if ((other.isInterface()) && (implementsInterface(other.getType()))) {
+                    return other;
                 }
             } catch (UnresolvedClassException ex) {
                 // ignore

@@ -128,21 +128,15 @@ public class Baksmali {
         try
         {
             File smaliParent = smaliFile.getParentFile();
-            if (!smaliParent.exists()) {
-                if (!smaliParent.mkdirs()) {
-                    // check again, it's likely it was created in a different thread
-                    if (!smaliParent.exists()) {
-                        System.err.println("Unable to create directory " + smaliParent.toString() + " - skipping class");
-                        return false;
-                    }
-                }
+            // check again, it's likely it was created in a different thread
+            if (((!smaliParent.exists()) && (!smaliParent.mkdirs())) && (!smaliParent.exists())) {
+                System.err.println("Unable to create directory " + smaliParent.toString() + " - skipping class");
+                return false;
             }
 
-            if (!smaliFile.exists()){
-                if (!smaliFile.createNewFile()) {
-                    System.err.println("Unable to create file " + smaliFile.toString() + " - skipping class");
-                    return false;
-                }
+            if ((!smaliFile.exists()) && (!smaliFile.createNewFile())) {
+                System.err.println("Unable to create file " + smaliFile.toString() + " - skipping class");
+                return false;
             }
 
             BufferedWriter bufWriter = new BufferedWriter(new OutputStreamWriter(

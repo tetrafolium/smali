@@ -52,10 +52,8 @@ public class LabelMethodItem extends MethodItem {
     public int compareTo(final MethodItem methodItem) {
         int result = super.compareTo(methodItem);
 
-        if (result == 0) {
-            if (methodItem instanceof LabelMethodItem) {
-                result = labelPrefix.compareTo(((LabelMethodItem) methodItem).labelPrefix);
-            }
+        if ((result == 0) && (methodItem instanceof LabelMethodItem)) {
+            result = labelPrefix.compareTo(((LabelMethodItem) methodItem).labelPrefix);
         }
         return result;
     }

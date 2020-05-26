@@ -304,11 +304,9 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
         preRegisterMap[registerNumber] = mergedType;
         verifiedInstructions.clear(instructionIndex);
 
-        if (!setsRegister(registerNumber)) {
-            if (!postRegisterMap[registerNumber].equals(mergedType)) {
-                postRegisterMap[registerNumber] = mergedType;
-                return true;
-            }
+        if ((!setsRegister(registerNumber)) && (!postRegisterMap[registerNumber].equals(mergedType))) {
+            postRegisterMap[registerNumber] = mergedType;
+            return true;
         }
 
         return false;

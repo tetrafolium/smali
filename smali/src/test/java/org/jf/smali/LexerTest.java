@@ -210,12 +210,10 @@ public class LexerTest {
                         expectedTokenIndex - 1, expectedToken.tokenName, getTokenName(token.getType()), token.getText()));
             }
 
-            if (expectedToken.tokenText != null) {
-                if (!expectedToken.tokenText.equals(token.getText())) {
-                    Assert.fail(
-                            String.format("Invalid token text at index %d. Expecting text \"%s\", got \"%s\"",
-                                    expectedTokenIndex - 1, expectedToken.tokenText, token.getText()));
-                }
+            if ((expectedToken.tokenText != null) && (!expectedToken.tokenText.equals(token.getText()))) {
+                Assert.fail(
+                        String.format("Invalid token text at index %d. Expecting text \"%s\", got \"%s\"",
+                                expectedTokenIndex - 1, expectedToken.tokenText, token.getText()));
             }
         }
 

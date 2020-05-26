@@ -86,12 +86,10 @@ public class RegisterFormatter {
      * @param register the register number
      */
     public void writeTo(final IndentingWriter writer, final int register) throws IOException {
-        if (options.parameterRegisters) {
-            if (register >= registerCount - parameterRegisterCount) {
-                writer.write('p');
-                writer.printSignedIntAsDec((register - (registerCount - parameterRegisterCount)));
-                return;
-            }
+        if ((options.parameterRegisters) && (register >= registerCount - parameterRegisterCount)) {
+            writer.write('p');
+            writer.printSignedIntAsDec((register - (registerCount - parameterRegisterCount)));
+            return;
         }
         writer.write('v');
         writer.printSignedIntAsDec(register);

@@ -107,12 +107,10 @@ public class SyntheticAccessorResolver {
         MethodImplementation matchedMethodImpl = null;
         for (Method method: classDef.getMethods()) {
             MethodImplementation methodImpl = method.getImplementation();
-            if (methodImpl != null) {
-                if (methodReferenceEquals(method, methodReference)) {
-                    matchedMethod = method;
-                    matchedMethodImpl = methodImpl;
-                    break;
-                }
+            if ((methodImpl != null) && (methodReferenceEquals(method, methodReference))) {
+                matchedMethod = method;
+                matchedMethodImpl = methodImpl;
+                break;
             }
         }
 

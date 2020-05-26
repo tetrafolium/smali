@@ -451,19 +451,19 @@ case 1:
 	case 23:
 // line 168 "SyntheticAccessorFSM.rl"
 	{
-                accessorType = SyntheticAccessorResolver.GETTER; { p += 1; _goto_targ = 5; if (true)  continue _goto;}
+                accessorType = SyntheticAccessorResolver.GETTER; { p += 1; _goto_targ = 5; continue _goto;}
             }
 	break;
 	case 24:
 // line 172 "SyntheticAccessorFSM.rl"
 	{
-                accessorType = SyntheticAccessorResolver.SETTER; { p += 1; _goto_targ = 5; if (true)  continue _goto;}
+                accessorType = SyntheticAccessorResolver.SETTER; { p += 1; _goto_targ = 5; continue _goto;}
             }
 	break;
 	case 25:
 // line 176 "SyntheticAccessorFSM.rl"
 	{
-                accessorType = SyntheticAccessorResolver.METHOD; { p += 1; _goto_targ = 5; if (true)  continue _goto;}
+                accessorType = SyntheticAccessorResolver.METHOD; { p += 1; _goto_targ = 5; continue _goto;}
             }
 	break;
 	case 26:
@@ -481,7 +481,7 @@ case 1:
 	case 28:
 // line 192 "SyntheticAccessorFSM.rl"
 	{
-                accessorType = mathOp; { p += 1; _goto_targ = 5; if (true)  continue _goto;}
+                accessorType = mathOp; { p += 1; _goto_targ = 5; continue _goto;}
             }
 	break;
 // line 487 "/home/jesusfreke/projects/smali/dexlib2/src/main/java/org/jf/dexlib2/util/SyntheticAccessorFSM.java"

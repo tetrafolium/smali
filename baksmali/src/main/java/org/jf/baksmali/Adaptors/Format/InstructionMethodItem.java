@@ -200,11 +200,9 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
             }
         }
 
-        if (opcode.odexOnly()) {
-            if (!isAllowedOdex(opcode)) {
-                writer.write("#disallowed odex opcode\n");
-                commentOutInstruction = true;
-            }
+        if ((opcode.odexOnly()) && (!isAllowedOdex(opcode))) {
+            writer.write("#disallowed odex opcode\n");
+            commentOutInstruction = true;
         }
 
         if (commentOutInstruction) {

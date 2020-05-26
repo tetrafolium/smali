@@ -148,13 +148,11 @@ public class DexReader<T extends DexBuffer> {
                         if (currentByteValue < 0) {
                             throw new ExceptionWithContext(
                                     "Invalid uleb128 integer encountered at offset 0x%x", offset);
-                        } else if ((currentByteValue & 0xf) > 0x07) {
-                            if (!allowLarge) {
-                                // for non-large uleb128s, we assume most significant bit of the result will not be
-                                // set, so that it can fit into a signed integer without wrapping
-                                throw new ExceptionWithContext(
-                                        "Encountered valid uleb128 that is out of range at offset 0x%x", offset);
-                            }
+                        } else if (((currentByteValue & 0xf) > 0x07) && (!allowLarge)) {
+                            // for non-large uleb128s, we assume most significant bit of the result will not be
+                            // set, so that it can fit into a signed integer without wrapping
+                            throw new ExceptionWithContext(
+                                    "Encountered valid uleb128 that is out of range at offset 0x%x", offset);
                         }
                         result |= currentByteValue << 28;
                     }
@@ -186,13 +184,11 @@ public class DexReader<T extends DexBuffer> {
                         if (currentByteValue < 0) {
                             throw new ExceptionWithContext(
                                 "Invalid uleb128 integer encountered at offset 0x%x", offset);
-                        } else if ((currentByteValue & 0xf) > 0x07) {
-                            if (!allowLarge) {
-                                // for non-large uleb128s, we assume most significant bit of the result will not be
-                                // set, so that it can fit into a signed integer without wrapping
-                                throw new ExceptionWithContext(
-                                    "Encountered valid uleb128 that is out of range at offset 0x%x", offset);
-                            }
+                        } else if (((currentByteValue & 0xf) > 0x07) && (!allowLarge)) {
+                            // for non-large uleb128s, we assume most significant bit of the result will not be
+                            // set, so that it can fit into a signed integer without wrapping
+                            throw new ExceptionWithContext(
+                                "Encountered valid uleb128 that is out of range at offset 0x%x", offset);
                         }
                     }
                 }

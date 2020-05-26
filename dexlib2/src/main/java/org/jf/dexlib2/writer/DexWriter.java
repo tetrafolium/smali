@@ -1015,12 +1015,10 @@ public abstract class DexWriter<
                 if (instructions != null && stringSection.hasJumboIndexes()) {
                     boolean needsFix = false;
                     for (Instruction instruction: instructions) {
-                        if (instruction.getOpcode() == Opcode.CONST_STRING) {
-                            if (stringSection.getItemIndex(
-                                    (StringRef) ((ReferenceInstruction) instruction).getReference()) >= 65536) {
-                                needsFix = true;
-                                break;
-                            }
+                        if ((instruction.getOpcode() == Opcode.CONST_STRING) && (stringSection.getItemIndex(
+                                    (StringRef) ((ReferenceInstruction) instruction).getReference()) >= 65536)) {
+                            needsFix = true;
+                            break;
                         }
                     }
 
@@ -1070,13 +1068,11 @@ public abstract class DexWriter<
         for (int i = 0; i < instructions.size(); i++) {
             Instruction instruction = instructions.get(i);
 
-            if (instruction.getOpcode() == Opcode.CONST_STRING) {
-                if (stringSection.getItemIndex(
-                        (StringRef) ((ReferenceInstruction) instruction).getReference()) >= 65536) {
-                    methodImplementation.replaceInstruction(i, new BuilderInstruction31c(Opcode.CONST_STRING_JUMBO,
-                            ((OneRegisterInstruction) instruction).getRegisterA(),
-                            ((ReferenceInstruction) instruction).getReference()));
-                }
+            if ((instruction.getOpcode() == Opcode.CONST_STRING) && (stringSection.getItemIndex(
+                        (StringRef) ((ReferenceInstruction) instruction).getReference()) >= 65536)) {
+                methodImplementation.replaceInstruction(i, new BuilderInstruction31c(Opcode.CONST_STRING_JUMBO,
+                        ((OneRegisterInstruction) instruction).getRegisterA(),
+                        ((ReferenceInstruction) instruction).getReference()));
             }
         }
     }

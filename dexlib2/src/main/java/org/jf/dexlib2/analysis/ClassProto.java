@@ -462,11 +462,9 @@ public class ClassProto implements TypeProto {
     private int findMethodIndexInVtable(final @Nonnull List<Method> vtable, final MethodReference method) {
         for (int i = 0; i < vtable.size(); i++) {
             Method candidate = vtable.get(i);
-            if (MethodUtil.methodSignaturesMatch(candidate, method)) {
-                if (!classPath.shouldCheckPackagePrivateAccess()
-                        || AnalyzedMethodUtil.canAccess(this, candidate, true, false, false)) {
-                    return i;
-                }
+            if ((MethodUtil.methodSignaturesMatch(candidate, method)) && (!classPath.shouldCheckPackagePrivateAccess()
+                        || AnalyzedMethodUtil.canAccess(this, candidate, true, false, false))) {
+                return i;
             }
         }
         return -1;
@@ -475,11 +473,9 @@ public class ClassProto implements TypeProto {
     private int findMethodIndexInVtableReverse(final @Nonnull List<Method> vtable, final MethodReference method) {
         for (int i = vtable.size() - 1; i >= 0; i--) {
             Method candidate = vtable.get(i);
-            if (MethodUtil.methodSignaturesMatch(candidate, method)) {
-                if (!classPath.shouldCheckPackagePrivateAccess()
-                        || AnalyzedMethodUtil.canAccess(this, candidate, true, false, false)) {
-                    return i;
-                }
+            if ((MethodUtil.methodSignaturesMatch(candidate, method)) && (!classPath.shouldCheckPackagePrivateAccess()
+                        || AnalyzedMethodUtil.canAccess(this, candidate, true, false, false))) {
+                return i;
             }
         }
         return -1;
@@ -982,20 +978,14 @@ public class ClassProto implements TypeProto {
 
                         for (int j = 0; j < vtable.size(); j++) {
                             Method candidate = vtable.get(j);
-                            if (MethodUtil.methodSignaturesMatch(candidate, interfaceMethod)) {
-                                if (!classPath.shouldCheckPackagePrivateAccess()
-                                        || AnalyzedMethodUtil.canAccess(ClassProto.this, candidate, true, false, false)) {
-                                    if (interfaceMethodOverrides(interfaceMethod, candidate)) {
-                                        vtable.set(j, interfaceMethod);
-                                    }
-                                }
+                            if (((MethodUtil.methodSignaturesMatch(candidate, interfaceMethod)) && (!classPath.shouldCheckPackagePrivateAccess()
+                                        || AnalyzedMethodUtil.canAccess(ClassProto.this, candidate, true, false, false))) && (interfaceMethodOverrides(interfaceMethod, candidate))) {
+                                vtable.set(j, interfaceMethod);
                             }
                         }
 
-                        if (vtableIndex >= 0) {
-                            if (!isOverridableByDefaultMethod(vtable.get(vtableIndex))) {
-                                continue;
-                            }
+                        if ((vtableIndex >= 0) && (!isOverridableByDefaultMethod(vtable.get(vtableIndex)))) {
+                            continue;
                         }
 
                         int defaultMethodIndex = findMethodIndexInVtable(defaultMethods, interfaceMethod);
@@ -1038,10 +1028,8 @@ public class ClassProto implements TypeProto {
                         }
 
                         if (!AccessFlags.ABSTRACT.isSet(interfaceMethod.getAccessFlags())) {
-                            if (oldVtableMethod != null) {
-                                if (!interfaceMethodOverrides(interfaceMethod, oldVtableMethod)) {
-                                    continue;
-                                }
+                            if ((oldVtableMethod != null) && (!interfaceMethodOverrides(interfaceMethod, oldVtableMethod))) {
+                                continue;
                             }
                             defaultMethods.add(interfaceMethod);
                             methodOrder.put(interfaceMethod, methodOrder.size());

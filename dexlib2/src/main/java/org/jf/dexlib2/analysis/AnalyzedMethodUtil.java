@@ -51,10 +51,8 @@ public class AnalyzedMethodUtil {
             }
         }
 
-        if (checkProtected && (virtualMethod.getAccessFlags() & AccessFlags.PROTECTED.getValue()) != 0) {
-            if (!TypeProtoUtils.extendsFrom(type, virtualMethod.getDefiningClass())) {
-                return false;
-            }
+        if ((checkProtected && (virtualMethod.getAccessFlags() & AccessFlags.PROTECTED.getValue()) != 0) && (!TypeProtoUtils.extendsFrom(type, virtualMethod.getDefiningClass()))) {
+            return false;
         }
 
         if (checkClass) {

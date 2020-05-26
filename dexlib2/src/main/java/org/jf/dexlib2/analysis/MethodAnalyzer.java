@@ -463,11 +463,9 @@ public class MethodAnalyzer {
                 currentCodeAddress = getInstructionAddress(instruction);
 
                 //check if we have gone past the end of the current try
-                if (currentTry != null) {
-                    if (currentTry.getStartCodeAddress() + currentTry.getCodeUnitCount()  <= currentCodeAddress) {
-                        currentTry = null;
-                        triesIndex++;
-                    }
+                if ((currentTry != null) && (currentTry.getStartCodeAddress() + currentTry.getCodeUnitCount()  <= currentCodeAddress)) {
+                    currentTry = null;
+                    triesIndex++;
                 }
 
                 //check if the next try is applicable yet

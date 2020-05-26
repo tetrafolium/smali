@@ -346,11 +346,9 @@ public class ClassFileNameHandler {
             }
 
             File path = file;
-            if (path.exists() && path.isFile()) {
-                if (!path.delete()) {
-                    throw new ExceptionWithContext("Can't delete %s to make it into a directory",
-                            path.getAbsolutePath());
-                }
+            if ((path.exists() && path.isFile()) && (!path.delete())) {
+                throw new ExceptionWithContext("Can't delete %s to make it into a directory",
+                        path.getAbsolutePath());
             }
 
             if (!path.exists() && !path.mkdirs()) {

@@ -54,11 +54,9 @@ public abstract class BuilderOffsetInstruction extends BuilderInstruction implem
                 throw new ExceptionWithContext("Invalid instruction offset: %d. "
                         + "Offset must be in [-128, 127]", codeOffset);
             }
-        } else if (this.getCodeUnits() == 2) {
-            if (codeOffset < Short.MIN_VALUE || codeOffset > Short.MAX_VALUE) {
-                throw new ExceptionWithContext("Invalid instruction offset: %d. "
-                        + "Offset must be in [-32768, 32767]", codeOffset);
-            }
+        } else if ((this.getCodeUnits() == 2) && (codeOffset < Short.MIN_VALUE || codeOffset > Short.MAX_VALUE)) {
+            throw new ExceptionWithContext("Invalid instruction offset: %d. "
+                    + "Offset must be in [-32768, 32767]", codeOffset);
         }
         return codeOffset;
     }

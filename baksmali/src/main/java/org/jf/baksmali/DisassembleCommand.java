@@ -169,11 +169,9 @@ public class DisassembleCommand extends DexInputCommand {
         }
 
         File outputDirectoryFile = new File(outputDir);
-        if (!outputDirectoryFile.exists()) {
-            if (!outputDirectoryFile.mkdirs()) {
-                System.err.println("Can't create the output directory " + outputDir);
-                System.exit(-1);
-            }
+        if ((!outputDirectoryFile.exists()) && (!outputDirectoryFile.mkdirs())) {
+            System.err.println("Can't create the output directory " + outputDir);
+            System.exit(-1);
         }
 
         if (analysisArguments.classPathDirectories == null || analysisArguments.classPathDirectories.isEmpty()) {
