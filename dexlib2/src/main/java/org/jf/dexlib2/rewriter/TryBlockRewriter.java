@@ -41,19 +41,19 @@ import java.util.List;
 public class TryBlockRewriter implements Rewriter<TryBlock<? extends ExceptionHandler>> {
     @Nonnull protected final Rewriters rewriters;
 
-    public TryBlockRewriter(@Nonnull Rewriters rewriters) {
+    public TryBlockRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
     @Nonnull @Override public TryBlock<? extends ExceptionHandler> rewrite(
-            @Nonnull TryBlock<? extends ExceptionHandler> tryBlock) {
+            final @Nonnull TryBlock<? extends ExceptionHandler> tryBlock) {
         return new RewrittenTryBlock(tryBlock);
     }
 
     protected class RewrittenTryBlock extends BaseTryBlock<ExceptionHandler> {
         @Nonnull protected TryBlock<? extends ExceptionHandler> tryBlock;
 
-        public RewrittenTryBlock(@Nonnull TryBlock<? extends ExceptionHandler> tryBlock) {
+        public RewrittenTryBlock(final @Nonnull TryBlock<? extends ExceptionHandler> tryBlock) {
             this.tryBlock = tryBlock;
         }
 

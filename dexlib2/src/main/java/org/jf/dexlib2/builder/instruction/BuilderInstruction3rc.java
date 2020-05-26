@@ -48,21 +48,26 @@ public class BuilderInstruction3rc extends BuilderInstruction implements Instruc
 
     @Nonnull protected final Reference reference;
 
-    public BuilderInstruction3rc(@Nonnull Opcode opcode,
-                                 int startRegister,
-                                 int registerCount,
-                                 @Nonnull Reference reference) {
+    public BuilderInstruction3rc(final @Nonnull Opcode opcode,
+                                 final int startRegister,
+                                 final int registerCount,
+                                 final @Nonnull Reference reference) {
         super(opcode);
         this.startRegister = Preconditions.checkShortRegister(startRegister);
         this.registerCount = Preconditions.checkRegisterRangeCount(registerCount);
         this.reference = reference;
     }
 
-    @Override public int getStartRegister() { return startRegister; }
-    @Override public int getRegisterCount() { return registerCount; }
-    @Nonnull @Override public Reference getReference() { return reference; }
-    @Override public int getReferenceType() { return opcode.referenceType; }
+    @Override public int getStartRegister() {
+        return startRegister; }
+    @Override public int getRegisterCount() {
+        return registerCount; }
+    @Nonnull @Override public Reference getReference() {
+        return reference; }
+    @Override public int getReferenceType() {
+        return opcode.referenceType; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }
 

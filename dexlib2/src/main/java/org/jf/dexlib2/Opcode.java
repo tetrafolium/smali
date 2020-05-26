@@ -339,11 +339,11 @@ public enum Opcode
 
     private static final int ALL_APIS = 0xFFFF0000;
 
-    private static int minApi(int api) {
+    private static int minApi(final int api) {
         return 0xFFFF0000 | (api & 0xFFFF);
     }
 
-    private static int maxApi(int api) {
+    private static int maxApi(final int api) {
         return api << 16;
     }
 
@@ -358,29 +358,29 @@ public enum Opcode
     public final int flags;
     public final int referenceType2;
 
-    Opcode(int opcodeValue, String opcodeName, int referenceType, Format format) {
+    Opcode(final int opcodeValue, final String opcodeName, final int referenceType, final Format format) {
         this(opcodeValue, opcodeName, referenceType, format, 0);
     }
 
-    Opcode(int opcodeValue, String opcodeName, int referenceType, Format format, int flags) {
+    Opcode(final int opcodeValue, final String opcodeName, final int referenceType, final Format format, final int flags) {
         this(allVersions(opcodeValue), opcodeName, referenceType, format, flags);
     }
 
-    Opcode(List<VersionConstraint> versionConstraints, String opcodeName, int referenceType, Format format, int flags) {
+    Opcode(final List<VersionConstraint> versionConstraints, final String opcodeName, final int referenceType, final Format format, final int flags) {
         this(versionConstraints, opcodeName, referenceType, -1, format, flags);
     }
 
-    Opcode(List<VersionConstraint> versionConstraints, String opcodeName, int referenceType, int referenceType2,
-           Format format, int flags) {
+    Opcode(final List<VersionConstraint> versionConstraints, final String opcodeName, final int referenceType, final int referenceType2,
+           final Format format, final int flags) {
         ImmutableRangeMap.Builder<Integer, Short> apiToValueBuilder = ImmutableRangeMap.builder();
         ImmutableRangeMap.Builder<Integer, Short> artVersionToValueBuilder = ImmutableRangeMap.builder();
 
         for (VersionConstraint versionConstraint : versionConstraints) {
             if (!versionConstraint.apiRange.isEmpty()) {
-                apiToValueBuilder.put(versionConstraint.apiRange, (short)versionConstraint.opcodeValue);
+                apiToValueBuilder.put(versionConstraint.apiRange, (short) versionConstraint.opcodeValue);
             }
             if (!versionConstraint.artVersionRange.isEmpty()) {
-                artVersionToValueBuilder.put(versionConstraint.artVersionRange, (short)versionConstraint.opcodeValue);
+                artVersionToValueBuilder.put(versionConstraint.artVersionRange, (short) versionConstraint.opcodeValue);
             }
         }
 
@@ -393,41 +393,41 @@ public enum Opcode
         this.flags = flags;
     }
 
-    private static List<VersionConstraint> firstApi(int opcodeValue, int api) {
+    private static List<VersionConstraint> firstApi(final int opcodeValue, final int api) {
         return Lists.newArrayList(new VersionConstraint(Range.atLeast(api), Range.openClosed(0, 0), opcodeValue));
     }
 
-    private static List<VersionConstraint> lastApi(int opcodeValue, int api) {
+    private static List<VersionConstraint> lastApi(final int opcodeValue, final int api) {
         return Lists.newArrayList(new VersionConstraint(Range.atMost(api), Range.openClosed(0, 0), opcodeValue));
     }
 
-    private static List<VersionConstraint> betweenApi(int opcodeValue, int minApi, int maxApi) {
+    private static List<VersionConstraint> betweenApi(final int opcodeValue, final int minApi, final int maxApi) {
         return Lists.newArrayList(new VersionConstraint(Range.closed(minApi, maxApi), Range.openClosed(0, 0),
                 opcodeValue));
     }
 
-    private static List<VersionConstraint> firstArtVersion(int opcodeValue, int artVersion) {
+    private static List<VersionConstraint> firstArtVersion(final int opcodeValue, final int artVersion) {
         return Lists.newArrayList(new VersionConstraint(Range.openClosed(0, 0), Range.atLeast(artVersion), opcodeValue));
     }
 
-    private static List<VersionConstraint> lastArtVersion(int opcodeValue, int artVersion) {
+    private static List<VersionConstraint> lastArtVersion(final int opcodeValue, final int artVersion) {
         return Lists.newArrayList(new VersionConstraint(Range.openClosed(0, 0), Range.atMost(artVersion), opcodeValue));
     }
 
-    private static List<VersionConstraint> allVersions(int opcodeValue) {
+    private static List<VersionConstraint> allVersions(final int opcodeValue) {
         return Lists.newArrayList(new VersionConstraint(Range.<Integer>all(), Range.<Integer>all(), opcodeValue));
     }
 
-    private static List<VersionConstraint> allApis(int opcodeValue) {
+    private static List<VersionConstraint> allApis(final int opcodeValue) {
         return Lists.newArrayList(new VersionConstraint(Range.<Integer>all(), Range.openClosed(0, 0), opcodeValue));
     }
 
-    private static List<VersionConstraint> allArtVersions(int opcodeValue) {
+    private static List<VersionConstraint> allArtVersions(final int opcodeValue) {
         return Lists.newArrayList(new VersionConstraint(Range.openClosed(0, 0), Range.<Integer>all(), opcodeValue));
     }
 
     @SuppressWarnings("unchecked")
-    private static List<VersionConstraint> combine(List<VersionConstraint>... versionConstraints) {
+    private static List<VersionConstraint> combine(final List<VersionConstraint>... versionConstraints) {
         List<VersionConstraint> combinedList = Lists.newArrayList();
         for (List<VersionConstraint> versionConstraintList: versionConstraints) {
             combinedList.addAll(versionConstraintList);
@@ -484,8 +484,8 @@ public enum Opcode
         @Nonnull public final Range<Integer> artVersionRange;
         public final int opcodeValue;
 
-        public VersionConstraint(@Nonnull Range<Integer> apiRange, @Nonnull Range<Integer> artVersionRange,
-                                 int opcodeValue) {
+        public VersionConstraint(final @Nonnull Range<Integer> apiRange, final @Nonnull Range<Integer> artVersionRange,
+                                 final int opcodeValue) {
             this.apiRange = apiRange;
             this.artVersionRange = artVersionRange;
             this.opcodeValue = opcodeValue;

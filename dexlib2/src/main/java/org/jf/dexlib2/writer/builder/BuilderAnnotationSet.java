@@ -46,7 +46,7 @@ public class BuilderAnnotationSet extends AbstractSet<BuilderAnnotation> {
     @Nonnull final Set<BuilderAnnotation> annotations;
     int offset = DexWriter.NO_OFFSET;
 
-    public BuilderAnnotationSet(@Nonnull Set<BuilderAnnotation> annotations) {
+    public BuilderAnnotationSet(final @Nonnull Set<BuilderAnnotation> annotations) {
         this.annotations = annotations;
     }
 

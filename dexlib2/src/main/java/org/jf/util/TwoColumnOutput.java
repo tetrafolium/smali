@@ -61,8 +61,8 @@ public final class TwoColumnOutput {
      * @param rightWidth &gt; 0; width of the right column, in characters
      * @param spacer non-null; spacer string to sit between the two columns
      */
-    public TwoColumnOutput(@Nonnull Writer out, int leftWidth, int rightWidth,
-                           @Nonnull String spacer) {
+    public TwoColumnOutput(final @Nonnull Writer out, final int leftWidth, final int rightWidth,
+                           final @Nonnull String spacer) {
 
         if (leftWidth < 1) {
             throw new IllegalArgumentException("leftWidth < 1");
@@ -86,20 +86,20 @@ public final class TwoColumnOutput {
      * @param rightWidth &gt;= 1; width of the right column, in characters
      * @param spacer non-null; spacer string to sit between the two columns
      */
-    public TwoColumnOutput(OutputStream out, int leftWidth, int rightWidth,
-                           String spacer) {
+    public TwoColumnOutput(final OutputStream out, final int leftWidth, final int rightWidth,
+                           final String spacer) {
         this(new OutputStreamWriter(out), leftWidth, rightWidth, spacer);
     }
 
     private String[] leftLines = null;
     private String[] rightLines = null;
-    public void write(String left, String right) throws IOException {
+    public void write(final String left, final String right) throws IOException {
         leftLines = StringWrapper.wrapString(left, leftWidth, leftLines);
         rightLines = StringWrapper.wrapString(right, rightWidth, rightLines);
         int leftCount = leftLines.length;
         int rightCount = rightLines.length;
 
-        for (int i=0; i<leftCount || i <rightCount; i++) {
+        for (int i = 0; i < leftCount || i < rightCount; i++) {
             String leftLine = null;
             String rightLine = null;
 
@@ -146,7 +146,7 @@ public final class TwoColumnOutput {
      * @param out non-null; where to write
      * @param amt &gt;= 0; the number of spaces to write
      */
-    private static void writeSpaces(Writer out, int amt) throws IOException {
+    private static void writeSpaces(final Writer out, final int amt) throws IOException {
         while (amt > 0) {
             out.write(' ');
             amt--;

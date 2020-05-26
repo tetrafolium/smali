@@ -64,7 +64,7 @@ public class ClassPath {
      * @param classProviders A varargs array of ClassProviders. When loading a class, these providers will be searched
      *                       in order
      */
-    public ClassPath(ClassProvider... classProviders) throws IOException {
+    public ClassPath(final ClassProvider... classProviders) throws IOException {
         this(Arrays.asList(classProviders), false, NOT_ART);
     }
 
@@ -74,7 +74,7 @@ public class ClassPath {
      * @param classProviders An iterable of ClassProviders. When loading a class, these providers will be searched in
      *                       order
      */
-    public ClassPath(Iterable<ClassProvider> classProviders) throws IOException {
+    public ClassPath(final Iterable<ClassProvider> classProviders) throws IOException {
         this(classProviders, false, NOT_ART);
     }
 
@@ -87,8 +87,8 @@ public class ClassPath {
      *                                  default
      * @param oatVersion The applicable oat version, or NOT_ART
      */
-    public ClassPath(@Nonnull Iterable<? extends ClassProvider> classProviders, boolean checkPackagePrivateAccess,
-                     int oatVersion) {
+    public ClassPath(final @Nonnull Iterable<? extends ClassProvider> classProviders, final boolean checkPackagePrivateAccess,
+                     final int oatVersion) {
         // add fallbacks for certain special classes that must be present
         unknownClass = new UnknownClassProto(this);
         loadedClasses.put(unknownClass.getType(), unknownClass);
@@ -109,7 +109,7 @@ public class ClassPath {
         this.classProviders.add(getBasicClasses());
     }
 
-    private void loadPrimitiveType(String type) {
+    private void loadPrimitiveType(final String type) {
         loadedClasses.put(type, new PrimitiveProto(this, type));
     }
 
@@ -129,12 +129,12 @@ public class ClassPath {
     }
 
     @Nonnull
-    public TypeProto getClass(@Nonnull CharSequence type) {
+    public TypeProto getClass(final @Nonnull CharSequence type) {
         return loadedClasses.getUnchecked(type.toString());
     }
 
     private final CacheLoader<String, TypeProto> classLoader = new CacheLoader<String, TypeProto>() {
-        @Override public TypeProto load(String type) throws Exception {
+        @Override public TypeProto load(final String type) throws Exception {
             if (type.charAt(0) == '[') {
                 return new ArrayProto(ClassPath.this, type);
             } else {
@@ -146,7 +146,7 @@ public class ClassPath {
     @Nonnull private LoadingCache<String, TypeProto> loadedClasses = CacheBuilder.newBuilder().build(classLoader);
 
     @Nonnull
-    public ClassDef getClassDef(String type) {
+    public ClassDef getClassDef(final String type) {
         for (ClassProvider provider: classProviders) {
             ClassDef classDef = provider.getClassDef(type);
             if (classDef != null) {

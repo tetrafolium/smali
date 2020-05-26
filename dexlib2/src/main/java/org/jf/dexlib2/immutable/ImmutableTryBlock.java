@@ -47,25 +47,25 @@ public class ImmutableTryBlock extends BaseTryBlock<ImmutableExceptionHandler> {
     protected final int codeUnitCount;
     @Nonnull protected final ImmutableList<? extends ImmutableExceptionHandler> exceptionHandlers;
 
-    public ImmutableTryBlock(int startCodeAddress,
-                             int codeUnitCount,
-                             @Nullable List<? extends ExceptionHandler> exceptionHandlers) {
+    public ImmutableTryBlock(final int startCodeAddress,
+                             final int codeUnitCount,
+                             final @Nullable List<? extends ExceptionHandler> exceptionHandlers) {
         this.startCodeAddress = startCodeAddress;
         this.codeUnitCount = codeUnitCount;
         this.exceptionHandlers = ImmutableExceptionHandler.immutableListOf(exceptionHandlers);
     }
 
-    public ImmutableTryBlock(int startCodeAddress,
-                             int codeUnitCount,
-                             @Nullable ImmutableList<? extends ImmutableExceptionHandler> exceptionHandlers) {
+    public ImmutableTryBlock(final int startCodeAddress,
+                             final int codeUnitCount,
+                             final @Nullable ImmutableList<? extends ImmutableExceptionHandler> exceptionHandlers) {
         this.startCodeAddress = startCodeAddress;
         this.codeUnitCount = codeUnitCount;
         this.exceptionHandlers = ImmutableUtils.nullToEmptyList(exceptionHandlers);
     }
 
-    public static ImmutableTryBlock of(TryBlock<? extends ExceptionHandler> tryBlock) {
+    public static ImmutableTryBlock of(final TryBlock<? extends ExceptionHandler> tryBlock) {
         if (tryBlock instanceof ImmutableTryBlock) {
-            return (ImmutableTryBlock)tryBlock;
+            return (ImmutableTryBlock) tryBlock;
         }
         return new ImmutableTryBlock(
                 tryBlock.getStartCodeAddress(),
@@ -73,8 +73,10 @@ public class ImmutableTryBlock extends BaseTryBlock<ImmutableExceptionHandler> {
                 tryBlock.getExceptionHandlers());
     }
 
-    @Override public int getStartCodeAddress() { return startCodeAddress; }
-    @Override public int getCodeUnitCount() { return codeUnitCount; }
+    @Override public int getStartCodeAddress() {
+        return startCodeAddress; }
+    @Override public int getCodeUnitCount() {
+        return codeUnitCount; }
 
     @Nonnull @Override public ImmutableList<? extends ImmutableExceptionHandler> getExceptionHandlers() {
         return exceptionHandlers;
@@ -82,20 +84,20 @@ public class ImmutableTryBlock extends BaseTryBlock<ImmutableExceptionHandler> {
 
     @Nonnull
     public static ImmutableList<ImmutableTryBlock> immutableListOf(
-            @Nullable List<? extends TryBlock<? extends ExceptionHandler>> list) {
+            final @Nullable List<? extends TryBlock<? extends ExceptionHandler>> list) {
         return CONVERTER.toList(list);
     }
 
     private static final ImmutableConverter<ImmutableTryBlock, TryBlock<? extends ExceptionHandler>> CONVERTER =
             new ImmutableConverter<ImmutableTryBlock, TryBlock<? extends ExceptionHandler>>() {
                 @Override
-                protected boolean isImmutable(@Nonnull TryBlock item) {
+                protected boolean isImmutable(final @Nonnull TryBlock item) {
                     return item instanceof ImmutableTryBlock;
                 }
 
                 @Nonnull
                 @Override
-                protected ImmutableTryBlock makeImmutable(@Nonnull TryBlock<? extends ExceptionHandler> item) {
+                protected ImmutableTryBlock makeImmutable(final @Nonnull TryBlock<? extends ExceptionHandler> item) {
                     return ImmutableTryBlock.of(item);
                 }
             };

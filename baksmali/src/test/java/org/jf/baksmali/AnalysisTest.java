@@ -89,11 +89,11 @@ public class AnalysisTest {
         runTest("LocalTest", false);
     }
 
-    public void runTest(String test, boolean registerInfo) throws IOException, URISyntaxException {
+    public void runTest(final String test, final boolean registerInfo) throws IOException, URISyntaxException {
         runTest(test, registerInfo, false);
     }
 
-    public void runTest(String test, boolean registerInfo, boolean isArt) throws IOException, URISyntaxException {
+    public void runTest(final String test, final boolean registerInfo, final boolean isArt) throws IOException, URISyntaxException {
         String dexFilePath = String.format("%s%sclasses.dex", test, File.separatorChar);
 
         DexFile dexFile = DexFileFactory.loadDexFile(findResource(dexFilePath), Opcodes.getDefault());
@@ -127,13 +127,13 @@ public class AnalysisTest {
     }
 
     @Nonnull
-    private File findResource(String resource) throws URISyntaxException {
+    private File findResource(final String resource) throws URISyntaxException {
         URL resUrl = Resources.getResource(resource);
         return new File(resUrl.toURI());
     }
 
     @Nonnull
-    private String readResource(String resource) throws URISyntaxException, IOException {
+    private String readResource(final String resource) throws URISyntaxException, IOException {
         URL url = Resources.getResource(resource);
         return Resources.toString(url, Charsets.UTF_8);
     }

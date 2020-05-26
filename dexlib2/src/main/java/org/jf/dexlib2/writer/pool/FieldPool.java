@@ -40,11 +40,11 @@ import javax.annotation.Nonnull;
 public class FieldPool extends BaseIndexPool<FieldReference>
         implements FieldSection<CharSequence, CharSequence, FieldReference, Field> {
 
-    public FieldPool(@Nonnull DexPool dexPool) {
+    public FieldPool(final @Nonnull DexPool dexPool) {
         super(dexPool);
     }
 
-    public void intern(@Nonnull FieldReference field) {
+    public void intern(final @Nonnull FieldReference field) {
         Integer prev = internedItems.put(field, 0);
         if (prev == null) {
             dexPool.typeSection.intern(field.getDefiningClass());
@@ -53,19 +53,19 @@ public class FieldPool extends BaseIndexPool<FieldReference>
         }
     }
 
-    @Nonnull @Override public CharSequence getDefiningClass(@Nonnull FieldReference fieldReference) {
+    @Nonnull @Override public CharSequence getDefiningClass(final @Nonnull FieldReference fieldReference) {
         return fieldReference.getDefiningClass();
     }
 
-    @Nonnull @Override public CharSequence getFieldType(@Nonnull FieldReference fieldReference) {
+    @Nonnull @Override public CharSequence getFieldType(final @Nonnull FieldReference fieldReference) {
         return fieldReference.getType();
     }
 
-    @Nonnull @Override public CharSequence getName(@Nonnull FieldReference fieldReference) {
+    @Nonnull @Override public CharSequence getName(final @Nonnull FieldReference fieldReference) {
         return fieldReference.getName();
     }
 
-    @Override public int getFieldIndex(@Nonnull Field field) {
+    @Override public int getFieldIndex(final @Nonnull Field field) {
         return getItemIndex(field);
     }
 }

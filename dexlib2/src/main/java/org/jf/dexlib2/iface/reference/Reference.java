@@ -46,22 +46,22 @@ public interface Reference {
     class InvalidReferenceException extends Exception {
         private final String invalidReferenceRepresentation;
 
-        public InvalidReferenceException(String invalidReferenceRepresentation) {
+        public InvalidReferenceException(final String invalidReferenceRepresentation) {
             super("Invalid reference");
             this.invalidReferenceRepresentation = invalidReferenceRepresentation;
         }
 
-        public InvalidReferenceException(String invalidReferenceRepresentation, String msg) {
+        public InvalidReferenceException(final String invalidReferenceRepresentation, final String msg) {
             super(msg);
             this.invalidReferenceRepresentation = invalidReferenceRepresentation;
         }
 
-        public InvalidReferenceException(String invalidReferenceRepresentation, String s, Throwable throwable) {
+        public InvalidReferenceException(final String invalidReferenceRepresentation, final String s, final Throwable throwable) {
             super(s, throwable);
             this.invalidReferenceRepresentation = invalidReferenceRepresentation;
         }
 
-        public InvalidReferenceException(String invalidReferenceRepresentation, Throwable throwable) {
+        public InvalidReferenceException(final String invalidReferenceRepresentation, final Throwable throwable) {
             super(throwable);
             this.invalidReferenceRepresentation = invalidReferenceRepresentation;
         }

@@ -45,19 +45,19 @@ public class ImmutableInstruction22t extends ImmutableInstruction implements Ins
     protected final int registerB;
     protected final int codeOffset;
 
-    public ImmutableInstruction22t(@Nonnull Opcode opcode,
-                                   int registerA,
-                                   int registerB,
-                                   int codeOffset) {
+    public ImmutableInstruction22t(final @Nonnull Opcode opcode,
+                                   final int registerA,
+                                   final int registerB,
+                                   final int codeOffset) {
         super(opcode);
         this.registerA = Preconditions.checkNibbleRegister(registerA);
         this.registerB = Preconditions.checkNibbleRegister(registerB);
         this.codeOffset = Preconditions.checkShortCodeOffset(codeOffset);
     }
 
-    public static ImmutableInstruction22t of(Instruction22t instruction) {
+    public static ImmutableInstruction22t of(final Instruction22t instruction) {
         if (instruction instanceof ImmutableInstruction22t) {
-            return (ImmutableInstruction22t)instruction;
+            return (ImmutableInstruction22t) instruction;
         }
         return new ImmutableInstruction22t(
                 instruction.getOpcode(),
@@ -66,9 +66,13 @@ public class ImmutableInstruction22t extends ImmutableInstruction implements Ins
                 instruction.getCodeOffset());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
-    @Override public int getCodeOffset() { return codeOffset; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getRegisterB() {
+        return registerB; }
+    @Override public int getCodeOffset() {
+        return codeOffset; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

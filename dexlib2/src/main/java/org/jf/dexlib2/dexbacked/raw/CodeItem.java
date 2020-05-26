@@ -81,7 +81,7 @@ public class CodeItem {
         public static final int HANDLER_OFFSET = 6;
     }
 
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         if (annotator.dexFile instanceof CDexBackedDexFile) {
             return makeAnnotatorForCDex(annotator, mapItem);
         } else {
@@ -90,17 +90,17 @@ public class CodeItem {
     }
 
     @Nonnull
-    private static SectionAnnotator makeAnnotatorForDex(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    private static SectionAnnotator makeAnnotatorForDex(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new CodeItemAnnotator(annotator, mapItem);
     }
 
     @Nonnull
-    private static SectionAnnotator makeAnnotatorForCDex(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    private static SectionAnnotator makeAnnotatorForCDex(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new CodeItemAnnotator(annotator, mapItem) {
 
             private List<Integer> sortedItems;
 
-            @Override public void annotateSection(@Nonnull AnnotatedBytes out) {
+            @Override public void annotateSection(final @Nonnull AnnotatedBytes out) {
                 sortedItems = new ArrayList<>(itemIdentities.keySet());
                 sortedItems.sort(Integer::compareTo);
 
@@ -110,13 +110,13 @@ public class CodeItem {
             }
 
             @Override
-            protected int getItemOffset(int itemIndex, int currentOffset) {
+            protected int getItemOffset(final int itemIndex, final int currentOffset) {
                 return sortedItems.get(itemIndex);
             }
 
             @Override
             protected PreInstructionInfo annotatePreInstructionFields(
-                    @Nonnull AnnotatedBytes out, @Nonnull DexReader reader, @Nullable String itemIdentity) {
+                    final @Nonnull AnnotatedBytes out, final @Nonnull DexReader reader, final @Nullable String itemIdentity) {
                 int sizeFields = reader.readUshort();
 
                 int triesCount = (sizeFields >> CDEX_TRIES_SIZE_SHIFT) & 0xf;
@@ -226,7 +226,7 @@ public class CodeItem {
     private static class CodeItemAnnotator extends SectionAnnotator {
         private SectionAnnotator debugInfoAnnotator;
 
-        public CodeItemAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+        public CodeItemAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
             super(annotator, mapItem);
         }
 
@@ -242,14 +242,14 @@ public class CodeItem {
             public int triesCount;
             public int instructionSize;
 
-            public PreInstructionInfo(int triesCount, int instructionSize) {
+            public PreInstructionInfo(final int triesCount, final int instructionSize) {
                 this.triesCount = triesCount;
                 this.instructionSize = instructionSize;
             }
         }
 
         protected PreInstructionInfo annotatePreInstructionFields(
-                @Nonnull AnnotatedBytes out, @Nonnull DexReader reader, @Nullable String itemIdentity) {
+                final @Nonnull AnnotatedBytes out, final @Nonnull DexReader reader, final @Nullable String itemIdentity) {
 
             int registers = reader.readUshort();
             out.annotate(2, "registers_size = %d", registers);
@@ -277,16 +277,16 @@ public class CodeItem {
         }
 
         protected void annotateInstructions(
-                @Nonnull AnnotatedBytes out,
-                @Nonnull DexReader reader,
-                int instructionSize) {
+                final @Nonnull AnnotatedBytes out,
+                final @Nonnull DexReader reader,
+                final int instructionSize) {
 
             out.annotate(0, "instructions:");
             out.indent();
 
             out.setLimit(out.getCursor(), out.getCursor() + instructionSize * 2);
 
-            int end = reader.getOffset() + instructionSize*2;
+            int end = reader.getOffset() + instructionSize * 2;
             try {
                 while (reader.getOffset() < end) {
                     Instruction instruction = DexBackedInstruction.readFrom(dexFile, reader);
@@ -301,19 +301,19 @@ public class CodeItem {
                                 annotateInstruction10x(out, instruction);
                                 break;
                             case Format35c:
-                                annotateInstruction35c(out, (Instruction35c)instruction);
+                                annotateInstruction35c(out, (Instruction35c) instruction);
                                 break;
                             case Format3rc:
-                                annotateInstruction3rc(out, (Instruction3rc)instruction);
+                                annotateInstruction3rc(out, (Instruction3rc) instruction);
                                 break;
                             case ArrayPayload:
-                                annotateArrayPayload(out, (ArrayPayload)instruction);
+                                annotateArrayPayload(out, (ArrayPayload) instruction);
                                 break;
                             case PackedSwitchPayload:
-                                annotatePackedSwitchPayload(out, (PackedSwitchPayload)instruction);
+                                annotatePackedSwitchPayload(out, (PackedSwitchPayload) instruction);
                                 break;
                             case SparseSwitchPayload:
-                                annotateSparseSwitchPayload(out, (SparseSwitchPayload)instruction);
+                                annotateSparseSwitchPayload(out, (SparseSwitchPayload) instruction);
                                 break;
                             default:
                                 annotateDefaultInstruction(out, instruction);
@@ -334,9 +334,9 @@ public class CodeItem {
             }
         }
 
-        protected void annotatePostInstructionFields(@Nonnull AnnotatedBytes out,
-                                                     @Nonnull DexReader reader,
-                                                     int triesCount) {
+        protected void annotatePostInstructionFields(final @Nonnull AnnotatedBytes out,
+                                                     final @Nonnull DexReader reader,
+                                                     final int triesCount) {
             if (triesCount > 0) {
                 if ((reader.getOffset() % 4) != 0) {
                     reader.readUshort();
@@ -415,7 +415,7 @@ public class CodeItem {
         }
 
         @Override
-        public void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+        public void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
             try {
                 DexReader reader = dexFile.getBuffer().readerAt(out.getCursor());
 
@@ -427,15 +427,15 @@ public class CodeItem {
             }
         }
 
-        private String formatRegister(int registerNum) {
+        private String formatRegister(final int registerNum) {
             return String.format("v%d", registerNum);
         }
 
-        private void annotateInstruction10x(@Nonnull AnnotatedBytes out, @Nonnull Instruction instruction) {
+        private void annotateInstruction10x(final @Nonnull AnnotatedBytes out, final @Nonnull Instruction instruction) {
             out.annotate(2, instruction.getOpcode().name);
         }
 
-        private void annotateInstruction35c(@Nonnull AnnotatedBytes out, @Nonnull Instruction35c instruction) {
+        private void annotateInstruction35c(final @Nonnull AnnotatedBytes out, final @Nonnull Instruction35c instruction) {
             List<String> args = Lists.newArrayList();
 
             int registerCount = instruction.getRegisterCount();
@@ -467,7 +467,7 @@ public class CodeItem {
                     instruction.getOpcode().name, Joiner.on(", ").join(args), reference));
         }
 
-        private void annotateInstruction3rc(@Nonnull AnnotatedBytes out, @Nonnull Instruction3rc instruction) {
+        private void annotateInstruction3rc(final @Nonnull AnnotatedBytes out, final @Nonnull Instruction3rc instruction) {
             int startRegister = instruction.getStartRegister();
             int endRegister = startRegister + instruction.getRegisterCount() - 1;
             String reference = ReferenceUtil.getReferenceString(instruction.getReference());
@@ -476,15 +476,15 @@ public class CodeItem {
                     reference));
         }
 
-        private void annotateDefaultInstruction(@Nonnull AnnotatedBytes out, @Nonnull Instruction instruction) {
+        private void annotateDefaultInstruction(final @Nonnull AnnotatedBytes out, final @Nonnull Instruction instruction) {
             List<String> args = Lists.newArrayList();
 
             if (instruction instanceof OneRegisterInstruction) {
-                args.add(formatRegister(((OneRegisterInstruction)instruction).getRegisterA()));
+                args.add(formatRegister(((OneRegisterInstruction) instruction).getRegisterA()));
                 if (instruction instanceof TwoRegisterInstruction) {
-                    args.add(formatRegister(((TwoRegisterInstruction)instruction).getRegisterB()));
+                    args.add(formatRegister(((TwoRegisterInstruction) instruction).getRegisterB()));
                     if (instruction instanceof ThreeRegisterInstruction) {
-                        args.add(formatRegister(((ThreeRegisterInstruction)instruction).getRegisterC()));
+                        args.add(formatRegister(((ThreeRegisterInstruction) instruction).getRegisterC()));
                     }
                 }
             }  else if (instruction instanceof VerificationErrorInstruction) {
@@ -498,41 +498,41 @@ public class CodeItem {
             }
 
             if (instruction instanceof ReferenceInstruction) {
-                args.add(ReferenceUtil.getReferenceString(((ReferenceInstruction)instruction).getReference()));
+                args.add(ReferenceUtil.getReferenceString(((ReferenceInstruction) instruction).getReference()));
             } else if (instruction instanceof OffsetInstruction) {
-                int offset = ((OffsetInstruction)instruction).getCodeOffset();
-                String sign = offset>=0?"+":"-";
+                int offset = ((OffsetInstruction) instruction).getCodeOffset();
+                String sign = offset >= 0 ? "+" : "-";
                 args.add(String.format("%s0x%x", sign, Math.abs(offset)));
             } else if (instruction instanceof NarrowLiteralInstruction) {
-                int value = ((NarrowLiteralInstruction)instruction).getNarrowLiteral();
+                int value = ((NarrowLiteralInstruction) instruction).getNarrowLiteral();
                 if (NumberUtils.isLikelyFloat(value)) {
                     args.add(String.format("%d # %f", value, Float.intBitsToFloat(value)));
                 } else {
                     args.add(String.format("%d", value));
                 }
             } else if (instruction instanceof WideLiteralInstruction) {
-                long value = ((WideLiteralInstruction)instruction).getWideLiteral();
+                long value = ((WideLiteralInstruction) instruction).getWideLiteral();
                 if (NumberUtils.isLikelyDouble(value)) {
                     args.add(String.format("%d # %f", value, Double.longBitsToDouble(value)));
                 } else {
                     args.add(String.format("%d", value));
                 }
             } else if (instruction instanceof FieldOffsetInstruction) {
-                int fieldOffset = ((FieldOffsetInstruction)instruction).getFieldOffset();
+                int fieldOffset = ((FieldOffsetInstruction) instruction).getFieldOffset();
                 args.add(String.format("field@0x%x", fieldOffset));
             } else if (instruction instanceof VtableIndexInstruction) {
-                int vtableIndex = ((VtableIndexInstruction)instruction).getVtableIndex();
+                int vtableIndex = ((VtableIndexInstruction) instruction).getVtableIndex();
                 args.add(String.format("vtable@%d", vtableIndex));
             } else if (instruction instanceof InlineIndexInstruction) {
-                int inlineIndex = ((InlineIndexInstruction)instruction).getInlineIndex();
+                int inlineIndex = ((InlineIndexInstruction) instruction).getInlineIndex();
                 args.add(String.format("inline@%d", inlineIndex));
             }
 
-            out.annotate(instruction.getCodeUnits()*2, "%s %s",
+            out.annotate(instruction.getCodeUnits() * 2, "%s %s",
                     instruction.getOpcode().name, Joiner.on(", ").join(args));
         }
 
-        private void annotateArrayPayload(@Nonnull AnnotatedBytes out, @Nonnull ArrayPayload instruction) {
+        private void annotateArrayPayload(final @Nonnull AnnotatedBytes out, final @Nonnull ArrayPayload instruction) {
             List<Number> elements = instruction.getArrayElements();
             int elementWidth = instruction.getElementWidth();
 
@@ -570,8 +570,8 @@ public class CodeItem {
             out.deindent();
         }
 
-        private void annotatePackedSwitchPayload(@Nonnull AnnotatedBytes out,
-                                                 @Nonnull PackedSwitchPayload instruction) {
+        private void annotatePackedSwitchPayload(final @Nonnull AnnotatedBytes out,
+                                                 final @Nonnull PackedSwitchPayload instruction) {
             List<? extends SwitchElement> elements = instruction.getSwitchElements();
 
             out.annotate(2, instruction.getOpcode().name);
@@ -584,7 +584,7 @@ public class CodeItem {
                 out.annotate(4, "first_key = %d", elements.get(0).getKey());
                 out.annotate(0, "targets:");
                 out.indent();
-                for (int i=0; i<elements.size(); i++) {
+                for (int i = 0; i < elements.size(); i++) {
                     out.annotate(4, "target[%d] = %d", i, elements.get(i).getOffset());
                 }
                 out.deindent();
@@ -592,8 +592,8 @@ public class CodeItem {
             out.deindent();
         }
 
-        private void annotateSparseSwitchPayload(@Nonnull AnnotatedBytes out,
-                                                 @Nonnull SparseSwitchPayload instruction) {
+        private void annotateSparseSwitchPayload(final @Nonnull AnnotatedBytes out,
+                                                 final @Nonnull SparseSwitchPayload instruction) {
             List<? extends SwitchElement> elements = instruction.getSwitchElements();
 
             out.annotate(2, instruction.getOpcode().name);
@@ -602,13 +602,13 @@ public class CodeItem {
             if (elements.size() > 0) {
                 out.annotate(0, "keys:");
                 out.indent();
-                for (int i=0; i<elements.size(); i++) {
+                for (int i = 0; i < elements.size(); i++) {
                     out.annotate(4, "key[%d] = %d", i, elements.get(i).getKey());
                 }
                 out.deindent();
                 out.annotate(0, "targets:");
                 out.indent();
-                for (int i=0; i<elements.size(); i++) {
+                for (int i = 0; i < elements.size(); i++) {
                     out.annotate(4, "target[%d] = %d", i, elements.get(i).getOffset());
                 }
                 out.deindent();
@@ -616,7 +616,7 @@ public class CodeItem {
             out.deindent();
         }
 
-        private void addDebugInfoIdentity(int debugInfoOffset, String methodString) {
+        private void addDebugInfoIdentity(final int debugInfoOffset, final String methodString) {
             if (debugInfoAnnotator != null) {
                 debugInfoAnnotator.setItemIdentity(debugInfoOffset, methodString);
             }

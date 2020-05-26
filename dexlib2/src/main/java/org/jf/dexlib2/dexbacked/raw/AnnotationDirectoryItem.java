@@ -44,7 +44,7 @@ public class AnnotationDirectoryItem {
     public static final int ANNOTATED_PARAMETERS_SIZE = 12;
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "annotation_directory_item";
@@ -55,7 +55,7 @@ public class AnnotationDirectoryItem {
             }
 
             @Override
-            protected void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            protected void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 int classAnnotationsOffset = dexFile.getBuffer().readSmallUint(out.getCursor());
                 out.annotate(4, "class_annotations_off = %s",
                         AnnotationSetItem.getReferenceAnnotation(dexFile, classAnnotationsOffset));
@@ -72,7 +72,7 @@ public class AnnotationDirectoryItem {
                 if (fieldsSize > 0) {
                     out.annotate(0, "field_annotations:");
                     out.indent();
-                    for (int i=0; i<fieldsSize; i++) {
+                    for (int i = 0; i < fieldsSize; i++) {
                         out.annotate(0, "field_annotation[%d]", i);
                         out.indent();
                         int fieldIndex = dexFile.getBuffer().readSmallUint(out.getCursor());
@@ -87,7 +87,7 @@ public class AnnotationDirectoryItem {
                 if (annotatedMethodsSize > 0) {
                     out.annotate(0, "method_annotations:");
                     out.indent();
-                    for (int i=0; i<annotatedMethodsSize; i++) {
+                    for (int i = 0; i < annotatedMethodsSize; i++) {
                         out.annotate(0, "method_annotation[%d]", i);
                         out.indent();
                         int methodIndex = dexFile.getBuffer().readSmallUint(out.getCursor());
@@ -102,7 +102,7 @@ public class AnnotationDirectoryItem {
                 if (annotatedParameterSize > 0) {
                     out.annotate(0, "parameter_annotations:");
                     out.indent();
-                    for (int i=0; i<annotatedParameterSize; i++) {
+                    for (int i = 0; i < annotatedParameterSize; i++) {
                         out.annotate(0, "parameter_annotation[%d]", i);
                         out.indent();
                         int methodIndex = dexFile.getBuffer().readSmallUint(out.getCursor());

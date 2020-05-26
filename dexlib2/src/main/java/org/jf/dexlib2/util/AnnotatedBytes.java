@@ -83,7 +83,7 @@ public class AnnotatedBytes {
     private int startLimit = -1;
     private int endLimit = -1;
 
-    public AnnotatedBytes(int width) {
+    public AnnotatedBytes(final int width) {
         this.outputWidth = width;
     }
 
@@ -92,7 +92,7 @@ public class AnnotatedBytes {
      *
      * @param offset The offset to move to
      */
-    public void moveTo(int offset) {
+    public void moveTo(final int offset) {
         cursor = offset;
     }
 
@@ -101,11 +101,11 @@ public class AnnotatedBytes {
      *
      * @param offset The amount to move the cursor
      */
-    public void moveBy(int offset) {
+    public void moveBy(final int offset) {
         cursor += offset;
     }
 
-    public void annotateTo(int offset, @Nonnull String msg, Object... formatArgs) {
+    public void annotateTo(final int offset, final @Nonnull String msg, final Object... formatArgs) {
         annotate(offset - cursor, msg, formatArgs);
     }
 
@@ -119,7 +119,7 @@ public class AnnotatedBytes {
      * @param msg the annotation message
      * @param formatArgs format arguments to pass to String.format
      */
-    public void annotate(int length, @Nonnull String msg, Object... formatArgs) {
+    public void annotate(final int length, final @Nonnull String msg, final Object... formatArgs) {
         if (startLimit != -1 && endLimit != -1 && (cursor < startLimit || cursor >= endLimit)) {
             throw new ExceptionWithContext("Annotating outside the parent bounds");
         }
@@ -220,12 +220,12 @@ public class AnnotatedBytes {
         cursor += length;
     }
 
-    private String formatAnnotation(int offset, String annotationMsg) {
+    private String formatAnnotation(final int offset, final String annotationMsg) {
         Integer endOffset = annotatations.higherKey(offset);
         return formatAnnotation(offset, endOffset, annotationMsg);
     }
 
-    private String formatAnnotation(int offset, Integer endOffset, String annotationMsg) {
+    private String formatAnnotation(final int offset, final Integer endOffset, final String annotationMsg) {
         if (endOffset != null) {
             return String.format("[0x%x, 0x%x) \"%s\"", offset, endOffset, annotationMsg);
         } else {
@@ -261,7 +261,7 @@ public class AnnotatedBytes {
         public final int indentLevel;
         public final String annotation;
 
-        public AnnotationItem(int  indentLevel, String annotation) {
+        public AnnotationItem(final int  indentLevel, final String annotation) {
             this.indentLevel = indentLevel;
             this.annotation = annotation;
         }
@@ -281,7 +281,7 @@ public class AnnotatedBytes {
      *
      * @param out non-null; where to write to
      */
-    public void writeAnnotations(Writer out, byte[] data, int offset) throws IOException {
+    public void writeAnnotations(final Writer out, final byte[] data, final int offset) throws IOException {
         int rightWidth = getAnnotationWidth();
         int leftWidth = outputWidth - rightWidth - 1;
 
@@ -295,21 +295,21 @@ public class AnnotatedBytes {
         AnnotationEndpoint[] values = new AnnotationEndpoint[annotatations.size()];
         values = annotatations.values().toArray(values);
 
-        for (int i=0; i<keys.length-1; i++) {
+        for (int i = 0; i < keys.length - 1; i++) {
             int rangeStart = keys[i];
-            int rangeEnd = keys[i+1];
+            int rangeEnd = keys[i + 1];
 
             AnnotationEndpoint annotations = values[i];
 
             for (AnnotationItem pointAnnotation: annotations.pointAnnotations) {
-                String paddingSub = padding.substring(0, pointAnnotation.indentLevel*2);
+                String paddingSub = padding.substring(0, pointAnnotation.indentLevel * 2);
                 twoc.write("", paddingSub + pointAnnotation.annotation);
             }
 
             String right;
             AnnotationItem rangeAnnotation = annotations.rangeAnnotation;
             if (rangeAnnotation != null) {
-                right = padding.substring(0, rangeAnnotation.indentLevel*2);
+                right = padding.substring(0, rangeAnnotation.indentLevel * 2);
                 right += rangeAnnotation.annotation;
             } else {
                 right = "";
@@ -320,14 +320,14 @@ public class AnnotatedBytes {
             twoc.write(left, right);
         }
 
-        int lastKey = keys[keys.length-1];
+        int lastKey = keys[keys.length - 1];
         if (lastKey < data.length) {
             String left = Hex.dump(data, lastKey + offset, (data.length - offset) - lastKey, lastKey + offset, hexCols, 6);
             twoc.write(left, "");
         }
     }
 
-    public void setLimit(int start, int end) {
+    public void setLimit(final int start, final int end) {
         this.startLimit = start;
         this.endLimit = end;
     }

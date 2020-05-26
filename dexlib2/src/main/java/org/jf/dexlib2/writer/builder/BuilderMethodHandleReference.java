@@ -42,7 +42,7 @@ public class BuilderMethodHandleReference extends BaseMethodHandleReference impl
     @Nonnull final BuilderReference memberReference;
     int index = NO_INDEX;
 
-    public BuilderMethodHandleReference(int methodHandleType, @Nonnull BuilderReference memberReference) {
+    public BuilderMethodHandleReference(final int methodHandleType, final @Nonnull BuilderReference memberReference) {
         this.methodHandleType = methodHandleType;
         this.memberReference = memberReference;
     }
@@ -59,7 +59,7 @@ public class BuilderMethodHandleReference extends BaseMethodHandleReference impl
         return index;
     }
 
-    @Override public void setIndex(int index) {
+    @Override public void setIndex(final int index) {
         this.index = index;
     }
 }

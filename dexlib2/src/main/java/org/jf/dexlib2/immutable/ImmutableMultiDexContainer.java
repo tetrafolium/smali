@@ -44,7 +44,7 @@ public class ImmutableMultiDexContainer implements MultiDexContainer<ImmutableDe
 
     private final ImmutableMap<String, ImmutableDexEntry> entries;
 
-    public ImmutableMultiDexContainer(Map<String, ImmutableDexFile> entries) {
+    public ImmutableMultiDexContainer(final Map<String, ImmutableDexFile> entries) {
         ImmutableMap.Builder<String, ImmutableDexEntry> builder = ImmutableMap.builder();
 
         for (Map.Entry<String, ImmutableDexFile> entry : entries.entrySet()) {
@@ -64,7 +64,7 @@ public class ImmutableMultiDexContainer implements MultiDexContainer<ImmutableDe
 
     @Nullable
     @Override
-    public ImmutableDexEntry getEntry(@Nonnull String entryName) {
+    public ImmutableDexEntry getEntry(final @Nonnull String entryName) {
         return entries.get(entryName);
     }
 
@@ -73,7 +73,7 @@ public class ImmutableMultiDexContainer implements MultiDexContainer<ImmutableDe
         private final String entryName;
         private final ImmutableDexFile dexFile;
 
-        protected ImmutableDexEntry(String entryName, ImmutableDexFile dexFile) {
+        protected ImmutableDexEntry(final String entryName, final ImmutableDexFile dexFile) {
             this.entryName = entryName;
             this.dexFile = dexFile;
         }

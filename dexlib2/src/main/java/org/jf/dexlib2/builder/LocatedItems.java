@@ -21,7 +21,7 @@ public abstract class LocatedItems<T extends ItemWithLocation> {
         return items;
     }
 
-    public Set<T> getModifiableItems(MethodLocation newItemsLocation) {
+    public Set<T> getModifiableItems(final MethodLocation newItemsLocation) {
         return new AbstractSet<T>() {
             @Nonnull
             @Override
@@ -59,7 +59,7 @@ public abstract class LocatedItems<T extends ItemWithLocation> {
             }
 
             @Override
-            public boolean add(@Nonnull T item) {
+            public boolean add(final @Nonnull T item) {
                 if (item.isPlaced()) {
                     throw new IllegalArgumentException(getAddLocatedItemError());
                 }
@@ -70,7 +70,7 @@ public abstract class LocatedItems<T extends ItemWithLocation> {
         };
     }
 
-    private void addItem(@Nonnull T item) {
+    private void addItem(final @Nonnull T item) {
         if (items == null) {
             items = new ArrayList<>(1);
         }
@@ -79,7 +79,7 @@ public abstract class LocatedItems<T extends ItemWithLocation> {
 
     protected abstract String getAddLocatedItemError();
 
-    public void mergeItemsIntoNext(@Nonnull MethodLocation nextLocation, LocatedItems<T> otherLocatedItems) {
+    public void mergeItemsIntoNext(final @Nonnull MethodLocation nextLocation, final LocatedItems<T> otherLocatedItems) {
         if (otherLocatedItems == this) {
             return;
         }

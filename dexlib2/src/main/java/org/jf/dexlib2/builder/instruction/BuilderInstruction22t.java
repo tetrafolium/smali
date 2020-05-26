@@ -46,17 +46,20 @@ public class BuilderInstruction22t extends BuilderOffsetInstruction implements I
     protected final int registerA;
     protected final int registerB;
 
-    public BuilderInstruction22t(@Nonnull Opcode opcode,
-                                 int registerA,
-                                 int registerB,
-                                 @Nonnull Label target) {
+    public BuilderInstruction22t(final @Nonnull Opcode opcode,
+                                 final int registerA,
+                                 final int registerB,
+                                 final @Nonnull Label target) {
         super(opcode, target);
         this.registerA = Preconditions.checkNibbleRegister(registerA);
         this.registerB = Preconditions.checkNibbleRegister(registerB);
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getRegisterB() {
+        return registerB; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

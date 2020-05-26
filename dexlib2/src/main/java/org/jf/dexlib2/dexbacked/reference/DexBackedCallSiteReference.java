@@ -53,7 +53,7 @@ public class DexBackedCallSiteReference extends BaseCallSiteReference {
     public final int callSiteIdOffset;
     private int callSiteOffset = -1;
 
-    public DexBackedCallSiteReference(DexBackedDexFile dexFile, int callSiteIndex) {
+    public DexBackedCallSiteReference(final DexBackedDexFile dexFile, final int callSiteIndex) {
         this.dexFile = dexFile;
         this.callSiteIndex = callSiteIndex;
         this.callSiteIdOffset = dexFile.getCallSiteSection().getOffset(callSiteIndex);

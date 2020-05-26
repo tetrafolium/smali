@@ -36,15 +36,15 @@ import org.jf.util.ExceptionWithContext;
 public class AnalysisException extends ExceptionWithContext {
     public int codeAddress;
 
-    public AnalysisException(Throwable cause) {
+    public AnalysisException(final Throwable cause) {
         super(cause);
     }
 
-    public AnalysisException(Throwable cause, String message, Object... formatArgs) {
+    public AnalysisException(final Throwable cause, final String message, final Object... formatArgs) {
         super(cause, message, formatArgs);
     }
 
-    public AnalysisException(String message, Object... formatArgs) {
+    public AnalysisException(final String message, final Object... formatArgs) {
         super(message, formatArgs);
     }
 }

@@ -38,12 +38,14 @@ import org.jf.dexlib2.iface.instruction.formats.Instruction32x;
 import javax.annotation.Nonnull;
 
 public class DexBackedInstruction32x extends DexBackedInstruction implements Instruction32x {
-    public DexBackedInstruction32x(@Nonnull DexBackedDexFile dexFile,
-                                   @Nonnull Opcode opcode,
-                                   int instructionStart) {
+    public DexBackedInstruction32x(final @Nonnull DexBackedDexFile dexFile,
+                                   final @Nonnull Opcode opcode,
+                                   final int instructionStart) {
         super(dexFile, opcode, instructionStart);
     }
 
-    @Override public int getRegisterA() { return dexFile.getDataBuffer().readUshort(instructionStart + 2); }
-    @Override public int getRegisterB() { return dexFile.getDataBuffer().readUshort(instructionStart + 4); }
+    @Override public int getRegisterA() {
+        return dexFile.getDataBuffer().readUshort(instructionStart + 2); }
+    @Override public int getRegisterB() {
+        return dexFile.getDataBuffer().readUshort(instructionStart + 4); }
 }

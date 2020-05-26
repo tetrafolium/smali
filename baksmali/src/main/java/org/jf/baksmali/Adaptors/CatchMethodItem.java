@@ -42,9 +42,9 @@ public class CatchMethodItem extends MethodItem {
     private final LabelMethodItem tryEndLabel;
     private final LabelMethodItem handlerLabel;
 
-    public CatchMethodItem(@Nonnull BaksmaliOptions options, @Nonnull MethodDefinition.LabelCache labelCache,
-                           int codeAddress, @Nullable String exceptionType, int startAddress, int endAddress,
-                           int handlerAddress) {
+    public CatchMethodItem(final @Nonnull BaksmaliOptions options, final @Nonnull MethodDefinition.LabelCache labelCache,
+                           final int codeAddress, final @Nullable String exceptionType, final int startAddress, final int endAddress,
+                           final int handlerAddress) {
         super(codeAddress);
         this.exceptionType = exceptionType;
 
@@ -79,7 +79,7 @@ public class CatchMethodItem extends MethodItem {
     }
 
     @Override
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         if (exceptionType == null) {
             writer.write(".catchall");
         } else {

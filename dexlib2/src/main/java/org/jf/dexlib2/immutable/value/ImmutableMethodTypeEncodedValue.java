@@ -40,12 +40,12 @@ import javax.annotation.Nonnull;
 public class ImmutableMethodTypeEncodedValue extends BaseMethodTypeEncodedValue implements ImmutableEncodedValue {
     @Nonnull protected final ImmutableMethodProtoReference methodProtoReference;
 
-    public ImmutableMethodTypeEncodedValue(@Nonnull ImmutableMethodProtoReference methodProtoReference) {
+    public ImmutableMethodTypeEncodedValue(final @Nonnull ImmutableMethodProtoReference methodProtoReference) {
         this.methodProtoReference = methodProtoReference;
     }
 
     @Nonnull
-    public static ImmutableMethodTypeEncodedValue of(@Nonnull MethodTypeEncodedValue methodTypeEncodedValue) {
+    public static ImmutableMethodTypeEncodedValue of(final @Nonnull MethodTypeEncodedValue methodTypeEncodedValue) {
         if (methodTypeEncodedValue instanceof ImmutableMethodTypeEncodedValue) {
             return (ImmutableMethodTypeEncodedValue) methodTypeEncodedValue;
         }
@@ -53,5 +53,6 @@ public class ImmutableMethodTypeEncodedValue extends BaseMethodTypeEncodedValue 
                 ImmutableMethodProtoReference.of(methodTypeEncodedValue.getValue()));
     }
 
-    @Nonnull @Override public ImmutableMethodProtoReference getValue() { return methodProtoReference; }
+    @Nonnull @Override public ImmutableMethodProtoReference getValue() {
+        return methodProtoReference; }
 }

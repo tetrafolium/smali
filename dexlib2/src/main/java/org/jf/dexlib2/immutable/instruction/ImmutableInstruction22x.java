@@ -44,17 +44,17 @@ public class ImmutableInstruction22x extends ImmutableInstruction implements Ins
     protected final int registerA;
     protected final int registerB;
 
-    public ImmutableInstruction22x(@Nonnull Opcode opcode,
-                                   int registerA,
-                                   int registerB) {
+    public ImmutableInstruction22x(final @Nonnull Opcode opcode,
+                                   final int registerA,
+                                   final int registerB) {
         super(opcode);
         this.registerA = Preconditions.checkByteRegister(registerA);
         this.registerB = Preconditions.checkShortRegister(registerB);
     }
 
-    public static ImmutableInstruction22x of(Instruction22x instruction) {
+    public static ImmutableInstruction22x of(final Instruction22x instruction) {
         if (instruction instanceof ImmutableInstruction22x) {
-            return (ImmutableInstruction22x)instruction;
+            return (ImmutableInstruction22x) instruction;
         }
         return new ImmutableInstruction22x(
                 instruction.getOpcode(),
@@ -62,8 +62,11 @@ public class ImmutableInstruction22x extends ImmutableInstruction implements Ins
                 instruction.getRegisterB());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getRegisterB() {
+        return registerB; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

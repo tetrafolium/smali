@@ -40,14 +40,14 @@ public final class AnnotationVisibility {
 
     private static String[] NAMES = new String[] {"build", "runtime", "system"};
 
-    public static String getVisibility(int visibility) {
+    public static String getVisibility(final int visibility) {
         if (visibility < 0 || visibility >= NAMES.length) {
             throw new ExceptionWithContext("Invalid annotation visibility %d", visibility);
         }
         return NAMES[visibility];
     }
 
-    public static int getVisibility(String visibility) {
+    public static int getVisibility(final String visibility) {
         visibility = visibility.toLowerCase();
         if (visibility.equals("build")) {
             return BUILD;
@@ -61,5 +61,5 @@ public final class AnnotationVisibility {
         throw new ExceptionWithContext("Invalid annotation visibility: %s", visibility);
     }
 
-    private AnnotationVisibility() {}
+    private AnnotationVisibility() { }
 }

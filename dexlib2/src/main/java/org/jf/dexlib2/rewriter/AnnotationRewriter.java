@@ -41,18 +41,18 @@ import java.util.Set;
 public class AnnotationRewriter implements Rewriter<Annotation> {
     @Nonnull protected final Rewriters rewriters;
 
-    public AnnotationRewriter(@Nonnull Rewriters rewriters) {
+    public AnnotationRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public Annotation rewrite(@Nonnull Annotation value) {
+    @Nonnull @Override public Annotation rewrite(final @Nonnull Annotation value) {
         return new RewrittenAnnotation(value);
     }
 
     protected class RewrittenAnnotation extends BaseAnnotation {
         @Nonnull protected Annotation annotation;
 
-        public RewrittenAnnotation(@Nonnull Annotation annotation) {
+        public RewrittenAnnotation(final @Nonnull Annotation annotation) {
             this.annotation = annotation;
         }
 

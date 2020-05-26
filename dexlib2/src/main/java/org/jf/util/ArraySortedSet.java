@@ -40,13 +40,13 @@ public class ArraySortedSet<T> implements SortedSet<T> {
     @Nonnull private final Comparator<? super T> comparator;
     @Nonnull private final Object[] arr;
 
-    private ArraySortedSet(@Nonnull Comparator<? super T> comparator, @Nonnull T[] arr) {
+    private ArraySortedSet(final @Nonnull Comparator<? super T> comparator, final @Nonnull T[] arr) {
         // we assume arr is already sorted by comparator, and all entries are unique
         this.comparator = comparator;
         this.arr = arr;
     }
 
-    public static <T> ArraySortedSet<T> of(@Nonnull Comparator<? super T> comparator, @Nonnull T[] arr) {
+    public static <T> ArraySortedSet<T> of(final @Nonnull Comparator<? super T> comparator, final @Nonnull T[] arr) {
         return new ArraySortedSet<T>(comparator, arr);
     }
 
@@ -62,14 +62,14 @@ public class ArraySortedSet<T> implements SortedSet<T> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean contains(Object o) {
-        return Arrays.binarySearch((T[])arr, (T)o, comparator) >= 0;
+    public boolean contains(final Object o) {
+        return Arrays.binarySearch((T[]) arr, (T) o, comparator) >= 0;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public Iterator<T> iterator() {
-        return Iterators.forArray((T[])arr);
+        return Iterators.forArray((T[]) arr);
     }
 
     @Override
@@ -79,26 +79,26 @@ public class ArraySortedSet<T> implements SortedSet<T> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T[] toArray(T[] a) {
+    public <T> T[] toArray(final T[] a) {
         if (a.length <= arr.length) {
-            System.arraycopy(arr, 0, (Object[])a, 0, arr.length);
+            System.arraycopy(arr, 0, (Object[]) a, 0, arr.length);
             return a;
         }
-        return Arrays.copyOf((T[])arr, arr.length);
+        return Arrays.copyOf((T[]) arr, arr.length);
     }
 
     @Override
-    public boolean add(T t) {
+    public boolean add(final T t) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean remove(Object o) {
+    public boolean remove(final Object o) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean containsAll(Collection<?> c) {
+    public boolean containsAll(final Collection<?> c) {
         for (Object o: c) {
             if (!contains(o)) {
                 return false;
@@ -108,17 +108,17 @@ public class ArraySortedSet<T> implements SortedSet<T> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
+    public boolean addAll(final Collection<? extends T> c) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(final Collection<?> c) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(final Collection<?> c) {
         throw new UnsupportedOperationException();
     }
 
@@ -133,17 +133,17 @@ public class ArraySortedSet<T> implements SortedSet<T> {
     }
 
     @Override
-    public SortedSet<T> subSet(T fromElement, T toElement) {
+    public SortedSet<T> subSet(final T fromElement, final T toElement) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public SortedSet<T> headSet(T toElement) {
+    public SortedSet<T> headSet(final T toElement) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public SortedSet<T> tailSet(T fromElement) {
+    public SortedSet<T> tailSet(final T fromElement) {
         throw new UnsupportedOperationException();
     }
 
@@ -153,7 +153,7 @@ public class ArraySortedSet<T> implements SortedSet<T> {
         if (arr.length == 0) {
             throw new NoSuchElementException();
         }
-        return (T)arr[0];
+        return (T) arr[0];
     }
 
     @Override
@@ -162,7 +162,7 @@ public class ArraySortedSet<T> implements SortedSet<T> {
         if (arr.length == 0) {
             throw new NoSuchElementException();
         }
-        return (T)arr[arr.length-1];
+        return (T) arr[arr.length - 1];
     }
 
     @Override
@@ -175,19 +175,19 @@ public class ArraySortedSet<T> implements SortedSet<T> {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (o == null) {
             return false;
         }
         if (o instanceof SortedSet) {
-            SortedSet other = (SortedSet)o;
+            SortedSet other = (SortedSet) o;
             if (arr.length != other.size()) {
                 return false;
             }
             return Iterators.elementsEqual(iterator(), other.iterator());
         }
         if (o instanceof Set) {
-            Set other = (Set)o;
+            Set other = (Set) o;
             if (arr.length != other.size()) {
                 return false;
             }

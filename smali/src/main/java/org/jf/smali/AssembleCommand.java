@@ -77,12 +77,12 @@ public class AssembleCommand extends Command {
             description = "Allows the odex opcodes that dalvik doesn't reject to be assembled.")
     private boolean allowOdexOpcodes;
 
-    @Parameter(description = "Assembles the given files. If a directory is specified, it will be " +
-            "recursively searched for any files with a .smali prefix")
+    @Parameter(description = "Assembles the given files. If a directory is specified, it will be "
+            + "recursively searched for any files with a .smali prefix")
     @ExtendedParameter(argumentNames = "[<file>|<dir>]+")
     private List<String> input;
 
-    public AssembleCommand(@Nonnull List<JCommander> commandAncestors) {
+    public AssembleCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);
     }
 

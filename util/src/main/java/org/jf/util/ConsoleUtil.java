@@ -81,7 +81,7 @@ public class ConsoleUtil {
         return Integer.parseInt(m.group(1));
     }
 
-    private static String attemptCommand(String[] command) {
+    private static String attemptCommand(final String[] command) {
         StringBuffer buffer = null;
 
         try {

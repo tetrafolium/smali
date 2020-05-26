@@ -46,7 +46,7 @@ public class SparseSwitchMethodItem extends InstructionMethodItem<SparseSwitchPa
     // Whether this sparse switch instruction should be commented out because it is never referenced
     private boolean commentedOut;
 
-    public SparseSwitchMethodItem(MethodDefinition methodDef, int codeAddress, SparseSwitchPayload instruction) {
+    public SparseSwitchMethodItem(final MethodDefinition methodDef, final int codeAddress, final SparseSwitchPayload instruction) {
         super(methodDef, codeAddress, instruction);
 
         int baseCodeAddress = methodDef.getSparseSwitchBaseAddress(codeAddress);
@@ -55,7 +55,7 @@ public class SparseSwitchMethodItem extends InstructionMethodItem<SparseSwitchPa
         if (baseCodeAddress >= 0) {
             for (SwitchElement switchElement: instruction.getSwitchElements()) {
                 LabelMethodItem label = methodDef.getLabelCache().internLabel(
-                        new LabelMethodItem( methodDef.classDef.options, baseCodeAddress + switchElement.getOffset(),
+                        new LabelMethodItem(methodDef.classDef.options, baseCodeAddress + switchElement.getOffset(),
                                 "sswitch_"));
                 targets.add(new SparseSwitchLabelTarget(switchElement.getKey(), label));
             }
@@ -69,7 +69,7 @@ public class SparseSwitchMethodItem extends InstructionMethodItem<SparseSwitchPa
     }
 
     @Override
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         if (commentedOut) {
             writer = new CommentingIndentingWriter(writer);
         }
@@ -90,33 +90,34 @@ public class SparseSwitchMethodItem extends InstructionMethodItem<SparseSwitchPa
 
     private static abstract class SparseSwitchTarget {
         private final int key;
-        public SparseSwitchTarget(int key) {
+        public SparseSwitchTarget(final int key) {
             this.key = key;
         }
-        public int getKey() { return key; }
+        public int getKey() {
+            return key; }
         public abstract void writeTargetTo(IndentingWriter writer) throws IOException;
     }
 
     private static class SparseSwitchLabelTarget extends SparseSwitchTarget {
         private final LabelMethodItem target;
-        public SparseSwitchLabelTarget(int key, LabelMethodItem target) {
+        public SparseSwitchLabelTarget(final int key, final LabelMethodItem target) {
             super(key);
             this.target = target;
         }
 
-        public void writeTargetTo(IndentingWriter writer) throws IOException {
+        public void writeTargetTo(final IndentingWriter writer) throws IOException {
             target.writeTo(writer);
         }
     }
 
     private static class SparseSwitchOffsetTarget extends SparseSwitchTarget {
         private final int target;
-        public SparseSwitchOffsetTarget(int key, int target) {
+        public SparseSwitchOffsetTarget(final int key, final int target) {
             super(key);
             this.target = target;
         }
 
-        public void writeTargetTo(IndentingWriter writer) throws IOException {
+        public void writeTargetTo(final IndentingWriter writer) throws IOException {
             if (target >= 0) {
                 writer.write('+');
             }

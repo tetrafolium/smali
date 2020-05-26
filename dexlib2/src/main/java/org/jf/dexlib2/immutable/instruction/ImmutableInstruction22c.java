@@ -48,19 +48,19 @@ public class ImmutableInstruction22c extends ImmutableInstruction implements Ins
     protected final int registerB;
     @Nonnull protected final ImmutableReference reference;
 
-    public ImmutableInstruction22c(@Nonnull Opcode opcode,
-                                   int registerA,
-                                   int registerB,
-                                   @Nonnull Reference reference) {
+    public ImmutableInstruction22c(final @Nonnull Opcode opcode,
+                                   final int registerA,
+                                   final int registerB,
+                                   final @Nonnull Reference reference) {
         super(opcode);
         this.registerA = Preconditions.checkNibbleRegister(registerA);
         this.registerB = Preconditions.checkNibbleRegister(registerB);
         this.reference = ImmutableReferenceFactory.of(opcode.referenceType, reference);
     }
 
-    public static ImmutableInstruction22c of(Instruction22c instruction) {
+    public static ImmutableInstruction22c of(final Instruction22c instruction) {
         if (instruction instanceof ImmutableInstruction22c) {
-            return (ImmutableInstruction22c)instruction;
+            return (ImmutableInstruction22c) instruction;
         }
         return new ImmutableInstruction22c(
                 instruction.getOpcode(),
@@ -69,10 +69,15 @@ public class ImmutableInstruction22c extends ImmutableInstruction implements Ins
                 instruction.getReference());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
-    @Nonnull @Override public ImmutableReference getReference() { return reference; }
-    @Override public int getReferenceType() { return opcode.referenceType; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getRegisterB() {
+        return registerB; }
+    @Nonnull @Override public ImmutableReference getReference() {
+        return reference; }
+    @Override public int getReferenceType() {
+        return opcode.referenceType; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

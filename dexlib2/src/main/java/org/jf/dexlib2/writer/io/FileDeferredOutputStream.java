@@ -16,16 +16,16 @@ public class FileDeferredOutputStream extends DeferredOutputStream {
     @Nonnull private final NakedBufferedOutputStream output;
     private int writtenBytes;
 
-    public FileDeferredOutputStream(@Nonnull File backingFile) throws FileNotFoundException {
+    public FileDeferredOutputStream(final @Nonnull File backingFile) throws FileNotFoundException {
         this(backingFile, DEFAULT_BUFFER_SIZE);
     }
 
-    public FileDeferredOutputStream(@Nonnull File backingFile, int bufferSize) throws FileNotFoundException {
+    public FileDeferredOutputStream(final @Nonnull File backingFile, final int bufferSize) throws FileNotFoundException {
         this.backingFile = backingFile;
         output = new NakedBufferedOutputStream(new FileOutputStream(backingFile), bufferSize);
     }
 
-    @Override public void writeTo(@Nonnull OutputStream dest) throws IOException {
+    @Override public void writeTo(final @Nonnull OutputStream dest) throws IOException {
         byte[] outBuf = output.getBuffer();
         int count = output.getCount();
         output.resetBuffer();
@@ -41,17 +41,17 @@ public class FileDeferredOutputStream extends DeferredOutputStream {
         dest.write(outBuf, 0, count);
     }
 
-    @Override public void write(int i) throws IOException {
+    @Override public void write(final int i) throws IOException {
         output.write(i);
         writtenBytes++;
     }
 
-    @Override public void write(byte[] bytes) throws IOException {
+    @Override public void write(final byte[] bytes) throws IOException {
         output.write(bytes);
         writtenBytes += bytes.length;
     }
 
-    @Override public void write(byte[] bytes, int off, int len) throws IOException {
+    @Override public void write(final byte[] bytes, final int off, final int len) throws IOException {
         output.write(bytes, off, len);
         writtenBytes += len;
     }
@@ -65,11 +65,11 @@ public class FileDeferredOutputStream extends DeferredOutputStream {
     }
 
     private static class NakedBufferedOutputStream extends BufferedOutputStream {
-        public NakedBufferedOutputStream(OutputStream outputStream) {
+        public NakedBufferedOutputStream(final OutputStream outputStream) {
             super(outputStream);
         }
 
-        public NakedBufferedOutputStream(OutputStream outputStream, int i) {
+        public NakedBufferedOutputStream(final OutputStream outputStream, final int i) {
             super(outputStream, i);
         }
 
@@ -87,7 +87,7 @@ public class FileDeferredOutputStream extends DeferredOutputStream {
     }
 
     @Nonnull
-    public static DeferredOutputStreamFactory getFactory(@Nullable File containingDirectory) {
+    public static DeferredOutputStreamFactory getFactory(final @Nullable File containingDirectory) {
         return getFactory(containingDirectory, DEFAULT_BUFFER_SIZE);
     }
 

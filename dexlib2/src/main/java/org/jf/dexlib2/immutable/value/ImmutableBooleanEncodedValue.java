@@ -40,17 +40,18 @@ public class ImmutableBooleanEncodedValue extends BaseBooleanEncodedValue implem
 
     protected final boolean value;
 
-    private ImmutableBooleanEncodedValue(boolean value) {
+    private ImmutableBooleanEncodedValue(final boolean value) {
         this.value = value;
     }
 
-    public static ImmutableBooleanEncodedValue forBoolean(boolean value) {
-        return value?TRUE_VALUE:FALSE_VALUE;
+    public static ImmutableBooleanEncodedValue forBoolean(final boolean value) {
+        return value ? TRUE_VALUE : FALSE_VALUE;
     }
 
-    public static ImmutableBooleanEncodedValue of(BooleanEncodedValue booleanEncodedValue) {
+    public static ImmutableBooleanEncodedValue of(final BooleanEncodedValue booleanEncodedValue) {
         return forBoolean(booleanEncodedValue.getValue());
     }
 
-    @Override public boolean getValue() { return value; }
+    @Override public boolean getValue() {
+        return value; }
 }

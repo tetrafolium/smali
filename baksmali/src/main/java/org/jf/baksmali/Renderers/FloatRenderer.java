@@ -33,7 +33,7 @@ import org.jf.util.IndentingWriter;
 import java.io.IOException;
 
 public class FloatRenderer {
-    public static void writeTo(IndentingWriter writer, float val) throws IOException {
+    public static void writeTo(final IndentingWriter writer, final float val) throws IOException {
         writer.write(Float.toString(val));
         writer.write('f');
     }

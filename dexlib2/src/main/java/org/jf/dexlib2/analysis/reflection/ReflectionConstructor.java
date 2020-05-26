@@ -51,7 +51,7 @@ import java.util.Set;
 public class ReflectionConstructor extends BaseMethodReference implements Method {
     private final Constructor constructor;
 
-    public ReflectionConstructor(Constructor constructor) {
+    public ReflectionConstructor(final Constructor constructor) {
         this.constructor = constructor;
     }
 
@@ -106,7 +106,7 @@ public class ReflectionConstructor extends BaseMethodReference implements Method
         return new AbstractList<String>() {
             private final List<? extends MethodParameter> parameters = getParameters();
 
-            @Override public String get(int index) {
+            @Override public String get(final int index) {
                 return parameters.get(index).getType();
             }
 

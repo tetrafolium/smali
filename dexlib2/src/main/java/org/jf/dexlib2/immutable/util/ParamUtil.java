@@ -37,7 +37,7 @@ import javax.annotation.Nonnull;
 import java.util.Iterator;
 
 public class ParamUtil {
-    private static int findTypeEnd(@Nonnull String str, int index) {
+    private static int findTypeEnd(final @Nonnull String str, final int index) {
         char c = str.charAt(index);
         switch (c) {
             case 'Z':
@@ -48,12 +48,12 @@ public class ParamUtil {
             case 'J':
             case 'F':
             case 'D':
-                return index+1;
+                return index + 1;
             case 'L':
-                while (str.charAt(index++) != ';') {}
+                while (str.charAt(index++) != ';') { }
                 return index;
             case '[':
-                while (str.charAt(index++) != '[') {}
+                while (str.charAt(index++) != '[') { }
                 return findTypeEnd(str, index);
             default:
                 throw new IllegalArgumentException(String.format("Param string \"%s\" contains invalid type prefix: %s",

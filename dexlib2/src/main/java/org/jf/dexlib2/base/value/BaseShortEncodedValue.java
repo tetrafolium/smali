@@ -47,19 +47,20 @@ public abstract class BaseShortEncodedValue implements ShortEncodedValue {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof ShortEncodedValue) {
-            return getValue() == ((ShortEncodedValue)o).getValue();
+            return getValue() == ((ShortEncodedValue) o).getValue();
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull EncodedValue o) {
+    public int compareTo(final @Nonnull EncodedValue o) {
         int res = Ints.compare(getValueType(), o.getValueType());
         if (res != 0) return res;
-        return Shorts.compare(getValue(), ((ShortEncodedValue)o).getValue());
+        return Shorts.compare(getValue(), ((ShortEncodedValue) o).getValue());
     }
 
-    public int getValueType() { return ValueType.SHORT; }
+    public int getValueType() {
+        return ValueType.SHORT; }
 }

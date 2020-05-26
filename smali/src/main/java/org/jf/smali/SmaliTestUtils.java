@@ -49,11 +49,11 @@ import java.io.StringReader;
 
 public class SmaliTestUtils {
 
-    public static DexBackedClassDef compileSmali(String smaliText) throws RecognitionException, IOException {
+    public static DexBackedClassDef compileSmali(final String smaliText) throws RecognitionException, IOException {
         return compileSmali(smaliText, 15);
     }
 
-    public static DexBackedClassDef compileSmali(String smaliText, int apiLevel)
+    public static DexBackedClassDef compileSmali(final String smaliText, final int apiLevel)
             throws RecognitionException, IOException {
         CommonTokenStream tokens;
         LexerErrorInterface lexer;
@@ -62,7 +62,7 @@ public class SmaliTestUtils {
         Reader reader = new StringReader(smaliText);
 
         lexer = new smaliFlexLexer(reader, apiLevel);
-        tokens = new CommonTokenStream((TokenSource)lexer);
+        tokens = new CommonTokenStream((TokenSource) lexer);
 
         smaliParser parser = new smaliParser(tokens);
         parser.setVerboseErrors(true);
@@ -71,7 +71,7 @@ public class SmaliTestUtils {
 
         smaliParser.smali_file_return result = parser.smali_file();
 
-        if(parser.getNumberOfSyntaxErrors() > 0 || lexer.getNumberOfSyntaxErrors() > 0) {
+        if (parser.getNumberOfSyntaxErrors() > 0 || lexer.getNumberOfSyntaxErrors() > 0) {
             throw new RuntimeException("Error occurred while compiling text");
         }
 

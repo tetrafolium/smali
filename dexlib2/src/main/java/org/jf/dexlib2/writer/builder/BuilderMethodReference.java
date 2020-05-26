@@ -42,9 +42,9 @@ public class BuilderMethodReference extends BaseMethodReference implements Build
     @Nonnull final BuilderMethodProtoReference proto;
     int index = DexWriter.NO_INDEX;
 
-    BuilderMethodReference(@Nonnull BuilderTypeReference definingClass,
-                           @Nonnull BuilderStringReference name,
-                           @Nonnull BuilderMethodProtoReference proto) {
+    BuilderMethodReference(final @Nonnull BuilderTypeReference definingClass,
+                           final @Nonnull BuilderStringReference name,
+                           final @Nonnull BuilderMethodProtoReference proto) {
         this.definingClass = definingClass;
         this.name = name;
         this.proto = proto;
@@ -70,7 +70,7 @@ public class BuilderMethodReference extends BaseMethodReference implements Build
         return index;
     }
 
-    @Override public void setIndex(int index) {
+    @Override public void setIndex(final int index) {
         this.index = index;
     }
 }

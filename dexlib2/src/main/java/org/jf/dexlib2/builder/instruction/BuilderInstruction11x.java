@@ -44,13 +44,15 @@ public class BuilderInstruction11x extends BuilderInstruction implements Instruc
 
     protected final int registerA;
 
-    public BuilderInstruction11x(@Nonnull Opcode opcode,
-                                 int registerA) {
+    public BuilderInstruction11x(final @Nonnull Opcode opcode,
+                                 final int registerA) {
         super(opcode);
         this.registerA = Preconditions.checkByteRegister(registerA);
     }
 
-    @Override public int getRegisterA() { return registerA; }
+    @Override public int getRegisterA() {
+        return registerA; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

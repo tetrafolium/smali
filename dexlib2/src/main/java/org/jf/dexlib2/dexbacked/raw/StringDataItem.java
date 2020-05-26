@@ -41,14 +41,14 @@ import javax.annotation.Nullable;
 
 public class StringDataItem {
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "string_data_item";
             }
 
             @Override
-            protected void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            protected void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 DexReader reader = dexFile.getBuffer().readerAt(out.getCursor());
                 int utf16Length = reader.readSmallUleb128();
                 out.annotateTo(reader.getOffset(), "utf16_size = %d", utf16Length);

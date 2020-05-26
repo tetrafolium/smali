@@ -45,7 +45,7 @@ public class DexBackedMethodProtoReference extends BaseMethodProtoReference {
     @Nonnull public final DexBackedDexFile dexFile;
     private final int protoIndex;
 
-    public DexBackedMethodProtoReference(@Nonnull DexBackedDexFile dexFile, int protoIndex) {
+    public DexBackedMethodProtoReference(final @Nonnull DexBackedDexFile dexFile, final int protoIndex) {
         this.dexFile = dexFile;
         this.protoIndex = protoIndex;
     }
@@ -53,8 +53,8 @@ public class DexBackedMethodProtoReference extends BaseMethodProtoReference {
     @Nonnull
     @Override
     public List<String> getParameterTypes() {
-        final int parametersOffset = dexFile.getBuffer().readSmallUint(dexFile.getProtoSection().getOffset(protoIndex) +
-                ProtoIdItem.PARAMETERS_OFFSET);
+        final int parametersOffset = dexFile.getBuffer().readSmallUint(dexFile.getProtoSection().getOffset(protoIndex)
+                + ProtoIdItem.PARAMETERS_OFFSET);
         if (parametersOffset > 0) {
             final int parameterCount = dexFile.getDataBuffer().readSmallUint(
                     parametersOffset + TypeListItem.SIZE_OFFSET);
@@ -63,9 +63,10 @@ public class DexBackedMethodProtoReference extends BaseMethodProtoReference {
                 @Nonnull
                 @Override
                 public String readItem(final int index) {
-                    return dexFile.getTypeSection().get(dexFile.getDataBuffer().readUshort(paramListStart + 2*index));
+                    return dexFile.getTypeSection().get(dexFile.getDataBuffer().readUshort(paramListStart + 2 * index));
                 }
-                @Override public int size() { return parameterCount; }
+                @Override public int size() {
+                    return parameterCount; }
             };
         }
         return ImmutableList.of();

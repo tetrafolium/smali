@@ -38,9 +38,9 @@ import org.jf.dexlib2.iface.instruction.formats.Instruction3rmi;
 import javax.annotation.Nonnull;
 
 public class DexBackedInstruction3rmi extends DexBackedInstruction implements Instruction3rmi {
-    public DexBackedInstruction3rmi(@Nonnull DexBackedDexFile dexFile,
-                                    @Nonnull Opcode opcode,
-                                    int instructionStart) {
+    public DexBackedInstruction3rmi(final @Nonnull DexBackedDexFile dexFile,
+                                    final @Nonnull Opcode opcode,
+                                    final int instructionStart) {
         super(dexFile, opcode, instructionStart);
     }
 

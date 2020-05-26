@@ -40,13 +40,14 @@ import org.jf.dexlib2.iface.reference.Reference;
 import javax.annotation.Nonnull;
 
 public class DexBackedInstruction21c extends DexBackedInstruction implements Instruction21c {
-    public DexBackedInstruction21c(@Nonnull DexBackedDexFile dexFile,
-                                   @Nonnull Opcode opcode,
-                                   int instructionStart) {
+    public DexBackedInstruction21c(final @Nonnull DexBackedDexFile dexFile,
+                                   final @Nonnull Opcode opcode,
+                                   final int instructionStart) {
         super(dexFile, opcode, instructionStart);
     }
 
-    @Override public int getRegisterA() { return dexFile.getDataBuffer().readUbyte(instructionStart + 1); }
+    @Override public int getRegisterA() {
+        return dexFile.getDataBuffer().readUbyte(instructionStart + 1); }
 
     @Nonnull
     @Override

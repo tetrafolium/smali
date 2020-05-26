@@ -39,9 +39,9 @@ import org.jf.util.NibbleUtils;
 import javax.annotation.Nonnull;
 
 public class DexBackedInstruction12x extends DexBackedInstruction implements Instruction12x {
-    public DexBackedInstruction12x(@Nonnull DexBackedDexFile dexFile,
-                                   @Nonnull Opcode opcode,
-                                   int instructionStart) {
+    public DexBackedInstruction12x(final @Nonnull DexBackedDexFile dexFile,
+                                   final @Nonnull Opcode opcode,
+                                   final int instructionStart) {
         super(dexFile, opcode, instructionStart);
     }
 

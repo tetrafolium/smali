@@ -47,28 +47,31 @@ public class ImmutableSparseSwitchPayload extends ImmutableInstruction implement
 
     @Nonnull protected final ImmutableList<? extends ImmutableSwitchElement> switchElements;
 
-    public ImmutableSparseSwitchPayload(@Nullable List<? extends SwitchElement> switchElements) {
+    public ImmutableSparseSwitchPayload(final @Nullable List<? extends SwitchElement> switchElements) {
         super(OPCODE);
         this.switchElements = ImmutableSwitchElement.immutableListOf(switchElements);
     }
 
     public ImmutableSparseSwitchPayload(
-            @Nullable ImmutableList<? extends ImmutableSwitchElement> switchElements) {
+            final @Nullable ImmutableList<? extends ImmutableSwitchElement> switchElements) {
         super(OPCODE);
         this.switchElements = ImmutableUtils.nullToEmptyList(switchElements);
     }
 
     @Nonnull
-    public static ImmutableSparseSwitchPayload of(SparseSwitchPayload instruction) {
+    public static ImmutableSparseSwitchPayload of(final SparseSwitchPayload instruction) {
         if (instruction instanceof ImmutableSparseSwitchPayload) {
-            return (ImmutableSparseSwitchPayload)instruction;
+            return (ImmutableSparseSwitchPayload) instruction;
         }
         return new ImmutableSparseSwitchPayload(
                 instruction.getSwitchElements());
     }
 
-    @Nonnull @Override public List<? extends SwitchElement> getSwitchElements() { return switchElements; }
+    @Nonnull @Override public List<? extends SwitchElement> getSwitchElements() {
+        return switchElements; }
 
-    @Override public int getCodeUnits() { return 2 + switchElements.size() * 4; }
-    @Override public Format getFormat() { return OPCODE.format; }
+    @Override public int getCodeUnits() {
+        return 2 + switchElements.size() * 4; }
+    @Override public Format getFormat() {
+        return OPCODE.format; }
 }

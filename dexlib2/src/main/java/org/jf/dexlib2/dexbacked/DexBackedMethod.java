@@ -72,11 +72,11 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
     private int protoIdItemOffset;
     private int parametersOffset = -1;
 
-    public DexBackedMethod(@Nonnull DexBackedDexFile dexFile,
-                           @Nonnull DexReader reader,
-                           @Nonnull DexBackedClassDef classDef,
-                           int previousMethodIndex,
-                           int hiddenApiRestrictions) {
+    public DexBackedMethod(final @Nonnull DexBackedDexFile dexFile,
+                           final @Nonnull DexReader reader,
+                           final @Nonnull DexBackedClassDef classDef,
+                           final int previousMethodIndex,
+                           final int hiddenApiRestrictions) {
         this.dexFile = dexFile;
         this.classDef = classDef;
         startOffset = reader.getOffset();
@@ -93,13 +93,13 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
         this.parameterAnnotationSetListOffset = 0;
     }
 
-    public DexBackedMethod(@Nonnull DexBackedDexFile dexFile,
-                           @Nonnull DexReader reader,
-                           @Nonnull DexBackedClassDef classDef,
-                           int previousMethodIndex,
-                           @Nonnull AnnotationsDirectory.AnnotationIterator methodAnnotationIterator,
-                           @Nonnull AnnotationsDirectory.AnnotationIterator paramaterAnnotationIterator,
-                           int hiddenApiRestrictions) {
+    public DexBackedMethod(final @Nonnull DexBackedDexFile dexFile,
+                           final @Nonnull DexReader reader,
+                           final @Nonnull DexBackedClassDef classDef,
+                           final int previousMethodIndex,
+                           final @Nonnull AnnotationsDirectory.AnnotationIterator methodAnnotationIterator,
+                           final @Nonnull AnnotationsDirectory.AnnotationIterator paramaterAnnotationIterator,
+                           final int hiddenApiRestrictions) {
         this.dexFile = dexFile;
         this.classDef = classDef;
         startOffset = reader.getOffset();
@@ -116,9 +116,12 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
         this.parameterAnnotationSetListOffset = paramaterAnnotationIterator.seekTo(methodIndex);
     }
 
-    public int getMethodIndex() { return methodIndex; }
-    @Nonnull @Override public String getDefiningClass() { return classDef.getType(); }
-    @Override public int getAccessFlags() { return accessFlags; }
+    public int getMethodIndex() {
+        return methodIndex; }
+    @Nonnull @Override public String getDefiningClass() {
+        return classDef.getType(); }
+    @Override public int getAccessFlags() {
+        return accessFlags; }
 
     @Nonnull
     @Override
@@ -181,9 +184,10 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
                 @Nonnull
                 @Override
                 public String readItem(final int index) {
-                    return dexFile.getTypeSection().get(dexFile.getDataBuffer().readUshort(paramListStart + 2*index));
+                    return dexFile.getTypeSection().get(dexFile.getDataBuffer().readUshort(paramListStart + 2 * index));
                 }
-                @Override public int size() { return parameterCount; }
+                @Override public int size() {
+                    return parameterCount; }
             };
         }
         return ImmutableList.of();
@@ -243,8 +247,8 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
      * @param reader The reader to skip
      * @param count The number of encoded_method structures to skip over
      */
-    public static void skipMethods(@Nonnull DexReader reader, int count) {
-        for (int i=0; i<count; i++) {
+    public static void skipMethods(final @Nonnull DexReader reader, final int count) {
+        for (int i = 0; i < count; i++) {
             reader.skipUleb128();
             reader.skipUleb128();
             reader.skipUleb128();

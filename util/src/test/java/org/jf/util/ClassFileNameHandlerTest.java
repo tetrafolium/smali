@@ -45,8 +45,8 @@ public class ClassFileNameHandlerTest {
     @Test
     public void test1ByteEncodings() {
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i<100; i++) {
-            sb.append((char)i);
+        for (int i = 0; i < 100; i++) {
+            sb.append((char) i);
         }
 
         String result = ClassFileNameHandler.shortenPathComponent(sb.toString(), 5);
@@ -57,8 +57,8 @@ public class ClassFileNameHandlerTest {
     @Test
     public void test2ByteEncodings() {
         StringBuilder sb = new StringBuilder();
-        for (int i=0x80; i<0x80+100; i++) {
-            sb.append((char)i);
+        for (int i = 0x80; i < 0x80 + 100; i++) {
+            sb.append((char) i);
         }
 
         // remove a total of 3 2-byte characters, and then add back in the 1-byte '#'
@@ -77,8 +77,8 @@ public class ClassFileNameHandlerTest {
     @Test
     public void test3ByteEncodings() {
         StringBuilder sb = new StringBuilder();
-        for (int i=0x800; i<0x800+100; i++) {
-            sb.append((char)i);
+        for (int i = 0x800; i < 0x800 + 100; i++) {
+            sb.append((char) i);
         }
 
         // remove a total of 3 3-byte characters, and then add back in the 1-byte '#'
@@ -97,7 +97,7 @@ public class ClassFileNameHandlerTest {
     @Test
     public void test4ByteEncodings() {
         StringBuilder sb = new StringBuilder();
-        for (int i=0x10000; i<0x10000+100; i++) {
+        for (int i = 0x10000; i < 0x10000 + 100; i++) {
             sb.appendCodePoint(i);
         }
 
@@ -205,7 +205,7 @@ public class ClassFileNameHandlerTest {
 
         for (String reservedName: new String[] {"con", "prn", "aux", "nul", "com1", "com9", "lpt1", "lpt9"}) {
             file = handler.getUniqueFilenameForClass("L" + reservedName + ";");
-            checkFilename(tempDir, file, reservedName +"#.smali");
+            checkFilename(tempDir, file, reservedName + "#.smali");
         }
     }
 
@@ -231,12 +231,12 @@ public class ClassFileNameHandlerTest {
 
         for (String reservedName: new String[] {"con", "prn", "aux", "nul", "com1", "com9", "lpt1", "lpt9"}) {
             file = handler.getUniqueFilenameForClass("L" + reservedName + ";");
-            checkFilename(tempDir, file, reservedName +".smali");
+            checkFilename(tempDir, file, reservedName + ".smali");
         }
     }
 
-    private void checkFilename(File base, File file, String... elements) {
-        for (int i=elements.length-1; i>=0; i--) {
+    private void checkFilename(final File base, final File file, final String... elements) {
+        for (int i = elements.length - 1; i >= 0; i--) {
             Assert.assertEquals(elements[i], file.getName());
             file = file.getParentFile();
         }

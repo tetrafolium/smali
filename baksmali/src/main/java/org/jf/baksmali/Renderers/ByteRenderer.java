@@ -33,8 +33,8 @@ import org.jf.util.IndentingWriter;
 import java.io.IOException;
 
 public class ByteRenderer  {
-    public static void writeTo(IndentingWriter writer, byte val) throws IOException {
-        if (val<0) {
+    public static void writeTo(final IndentingWriter writer, final byte val) throws IOException {
+        if (val < 0) {
             writer.write("-0x");
             writer.printUnsignedLongAsHex(-val);
             writer.write('t');
@@ -45,7 +45,7 @@ public class ByteRenderer  {
         }
     }
 
-    public static void writeUnsignedTo(IndentingWriter writer, byte val) throws IOException {
+    public static void writeUnsignedTo(final IndentingWriter writer, final byte val) throws IOException {
         writer.write("0x");
         writer.printUnsignedLongAsHex(val & 0xFF);
         writer.write('t');

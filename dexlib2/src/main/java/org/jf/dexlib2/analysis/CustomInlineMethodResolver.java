@@ -52,7 +52,7 @@ public class CustomInlineMethodResolver extends InlineMethodResolver {
     @Nonnull private final ClassPath classPath;
     @Nonnull private final Method[] inlineMethods;
 
-    public CustomInlineMethodResolver(@Nonnull ClassPath classPath, @Nonnull String inlineTable) {
+    public CustomInlineMethodResolver(final @Nonnull ClassPath classPath, final @Nonnull String inlineTable) {
         this.classPath = classPath;
 
         StringReader reader = new StringReader(inlineTable);
@@ -76,19 +76,19 @@ public class CustomInlineMethodResolver extends InlineMethodResolver {
 
         inlineMethods = new Method[lines.size()];
 
-        for (int i=0; i<inlineMethods.length; i++) {
+        for (int i = 0; i < inlineMethods.length; i++) {
             inlineMethods[i] = parseAndResolveInlineMethod(lines.get(i));
         }
     }
 
-    public CustomInlineMethodResolver(@Nonnull ClassPath classPath, @Nonnull File inlineTable) throws IOException {
+    public CustomInlineMethodResolver(final @Nonnull ClassPath classPath, final @Nonnull File inlineTable) throws IOException {
         this(classPath, Files.toString(inlineTable, Charset.forName("UTF-8")));
     }
 
     @Override
     @Nonnull
-    public Method resolveExecuteInline(@Nonnull AnalyzedInstruction analyzedInstruction) {
-        InlineIndexInstruction instruction = (InlineIndexInstruction)analyzedInstruction.instruction;
+    public Method resolveExecuteInline(final @Nonnull AnalyzedInstruction analyzedInstruction) {
+        InlineIndexInstruction instruction = (InlineIndexInstruction) analyzedInstruction.instruction;
         int methodIndex = instruction.getInlineIndex();
 
         if (methodIndex < 0 || methodIndex >= inlineMethods.length) {
@@ -100,7 +100,7 @@ public class CustomInlineMethodResolver extends InlineMethodResolver {
     private static final Pattern longMethodPattern = Pattern.compile("(L[^;]+;)->([^(]+)\\(([^)]*)\\)(.+)");
 
     @Nonnull
-    private Method parseAndResolveInlineMethod(@Nonnull String inlineMethod) {
+    private Method parseAndResolveInlineMethod(final @Nonnull String inlineMethod) {
         Matcher m = longMethodPattern.matcher(inlineMethod);
         if (!m.matches()) {
             assert false;
@@ -119,7 +119,7 @@ public class CustomInlineMethodResolver extends InlineMethodResolver {
         boolean resolved = false;
         TypeProto typeProto = classPath.getClass(className);
         if (typeProto instanceof ClassProto) {
-            ClassDef classDef = ((ClassProto)typeProto).getClassDef();
+            ClassDef classDef = ((ClassProto) typeProto).getClassDef();
             for (Method method: classDef.getMethods()) {
                 if (method.equals(methodRef)) {
                     resolved = true;

@@ -44,7 +44,7 @@ public abstract class Command {
     @Nonnull
     protected final List<JCommander> commandAncestors;
 
-    public Command(@Nonnull List<JCommander> commandAncestors) {
+    public Command(final @Nonnull List<JCommander> commandAncestors) {
         this.commandAncestors = commandAncestors;
     }
 
@@ -54,7 +54,7 @@ public abstract class Command {
                 .format(getCommandHierarchy()));
     }
 
-    protected void setupCommand(JCommander jc) {
+    protected void setupCommand(final JCommander jc) {
     }
 
     protected JCommander getJCommander() {

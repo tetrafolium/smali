@@ -41,10 +41,13 @@ import javax.annotation.Nullable;
 
 public abstract class EncodedArrayItemIterator {
     public static final EncodedArrayItemIterator EMPTY = new EncodedArrayItemIterator() {
-        @Nullable @Override public EncodedValue getNextOrNull() { return null; }
-        @Override public void skipNext() {}
-        @Override public int getReaderOffset() { return 0; }
-        @Override public int getItemCount() { return 0; }
+        @Nullable @Override public EncodedValue getNextOrNull() {
+            return null; }
+        @Override public void skipNext() { }
+        @Override public int getReaderOffset() {
+            return 0; }
+        @Override public int getItemCount() {
+            return 0; }
     };
 
     @Nullable public abstract EncodedValue getNextOrNull();
@@ -53,7 +56,7 @@ public abstract class EncodedArrayItemIterator {
     public abstract int getItemCount();
 
     @Nonnull
-    public static EncodedArrayItemIterator newOrEmpty(@Nonnull DexBackedDexFile dexFile, int offset) {
+    public static EncodedArrayItemIterator newOrEmpty(final @Nonnull DexBackedDexFile dexFile, final int offset) {
         if (offset == 0) {
             return EMPTY;
         }
@@ -66,7 +69,7 @@ public abstract class EncodedArrayItemIterator {
         private final int size;
         private int index = 0;
 
-        public EncodedArrayItemIteratorImpl(@Nonnull DexBackedDexFile dexFile, int offset) {
+        public EncodedArrayItemIteratorImpl(final @Nonnull DexBackedDexFile dexFile, final int offset) {
             this.dexFile = dexFile;
             this.reader = dexFile.getDataBuffer().readerAt(offset);
             this.size = reader.readSmallUleb128();

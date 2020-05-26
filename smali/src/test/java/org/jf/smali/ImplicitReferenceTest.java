@@ -61,16 +61,16 @@ import java.util.Map;
 public class ImplicitReferenceTest extends SmaliTestUtils {
     @Test
     public void testImplicitMethodReference() throws RecognitionException, IOException {
-        ClassDef classDef = SmaliTestUtils.compileSmali("" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".method public static main([Ljava/lang/String;)V\n" +
-                "    .registers 1\n" +
-                "    invoke-static {p0}, toString()V\n" +
-                "    invoke-static {p0}, V()V\n" +
-                "    invoke-static {p0}, I()V\n" +
-                "    return-void\n" +
-                ".end method");
+        ClassDef classDef = SmaliTestUtils.compileSmali(""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".method public static main([Ljava/lang/String;)V\n"
+                + "    .registers 1\n"
+                + "    invoke-static {p0}, toString()V\n"
+                + "    invoke-static {p0}, V()V\n"
+                + "    invoke-static {p0}, I()V\n"
+                + "    return-void\n"
+                + ".end method");
 
         Method mainMethod = null;
         for (Method method: classDef.getMethods()) {
@@ -85,37 +85,37 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
 
         List<Instruction> instructions = Lists.newArrayList(methodImpl.getInstructions());
 
-        Instruction35c instruction = (Instruction35c)instructions.get(0);
+        Instruction35c instruction = (Instruction35c) instructions.get(0);
         Assert.assertNotNull(instruction);
         Assert.assertEquals(Opcode.INVOKE_STATIC, instruction.getOpcode());
-        MethodReference method = (MethodReference)instruction.getReference();
+        MethodReference method = (MethodReference) instruction.getReference();
         Assert.assertEquals(classDef.getType(), method.getDefiningClass());
         Assert.assertEquals("toString", method.getName());
 
-        instruction = (Instruction35c)instructions.get(1);
+        instruction = (Instruction35c) instructions.get(1);
         Assert.assertNotNull(instruction);
         Assert.assertEquals(Opcode.INVOKE_STATIC, instruction.getOpcode());
-        method = (MethodReference)instruction.getReference();
+        method = (MethodReference) instruction.getReference();
         Assert.assertEquals(classDef.getType(), method.getDefiningClass());
         Assert.assertEquals("V", method.getName());
 
-        instruction = (Instruction35c)instructions.get(2);
+        instruction = (Instruction35c) instructions.get(2);
         Assert.assertNotNull(instruction);
         Assert.assertEquals(Opcode.INVOKE_STATIC, instruction.getOpcode());
-        method = (MethodReference)instruction.getReference();
+        method = (MethodReference) instruction.getReference();
         Assert.assertEquals(classDef.getType(), method.getDefiningClass());
         Assert.assertEquals("I", method.getName());
     }
 
     @Test
     public void testImplicitMethodLiteral() throws RecognitionException, IOException {
-        ClassDef classDef = SmaliTestUtils.compileSmali("" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".field public static field1:Ljava/lang/reflect/Method; = toString()V\n" +
-                ".field public static field2:Ljava/lang/reflect/Method; = V()V\n" +
-                ".field public static field3:Ljava/lang/reflect/Method; = I()V\n" +
-                ".field public static field4:Ljava/lang/Class; = I");
+        ClassDef classDef = SmaliTestUtils.compileSmali(""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".field public static field1:Ljava/lang/reflect/Method; = toString()V\n"
+                + ".field public static field2:Ljava/lang/reflect/Method; = V()V\n"
+                + ".field public static field3:Ljava/lang/reflect/Method; = I()V\n"
+                + ".field public static field4:Ljava/lang/Class; = I");
 
         Map<String, Field> fields = Maps.newHashMap();
         for (Field field: classDef.getFields()) {
@@ -126,7 +126,7 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
         Assert.assertNotNull(field);
         Assert.assertNotNull(field.getInitialValue());
         Assert.assertEquals(ValueType.METHOD, field.getInitialValue().getValueType());
-        MethodEncodedValue methodEncodedValue = (MethodEncodedValue)field.getInitialValue();
+        MethodEncodedValue methodEncodedValue = (MethodEncodedValue) field.getInitialValue();
         Assert.assertEquals(classDef.getType(), methodEncodedValue.getValue().getDefiningClass());
         Assert.assertEquals("toString", methodEncodedValue.getValue().getName());
 
@@ -134,7 +134,7 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
         Assert.assertNotNull(field);
         Assert.assertNotNull(field.getInitialValue());
         Assert.assertEquals(ValueType.METHOD, field.getInitialValue().getValueType());
-        methodEncodedValue = (MethodEncodedValue)field.getInitialValue();
+        methodEncodedValue = (MethodEncodedValue) field.getInitialValue();
         Assert.assertEquals(classDef.getType(), methodEncodedValue.getValue().getDefiningClass());
         Assert.assertEquals("V", methodEncodedValue.getValue().getName());
 
@@ -142,7 +142,7 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
         Assert.assertNotNull(field);
         Assert.assertNotNull(field.getInitialValue());
         Assert.assertEquals(ValueType.METHOD, field.getInitialValue().getValueType());
-        methodEncodedValue = (MethodEncodedValue)field.getInitialValue();
+        methodEncodedValue = (MethodEncodedValue) field.getInitialValue();
         Assert.assertEquals(classDef.getType(), methodEncodedValue.getValue().getDefiningClass());
         Assert.assertEquals("I", methodEncodedValue.getValue().getName());
 
@@ -150,22 +150,22 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
         Assert.assertNotNull(field);
         Assert.assertNotNull(field.getInitialValue());
         Assert.assertEquals(ValueType.TYPE, field.getInitialValue().getValueType());
-        TypeEncodedValue typeEncodedValue = (TypeEncodedValue)field.getInitialValue();
+        TypeEncodedValue typeEncodedValue = (TypeEncodedValue) field.getInitialValue();
         Assert.assertEquals("I", typeEncodedValue.getValue());
     }
 
     @Test
     public void testImplicitFieldReference() throws RecognitionException, IOException {
-        ClassDef classDef = SmaliTestUtils.compileSmali("" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".method public static main([Ljava/lang/String;)V\n" +
-                "    .registers 1\n" +
-                "    sget-object v0, someField:I\n" +
-                "    sget-object v0, V:I\n" +
-                "    sget-object v0, I:I\n" +
-                "    return-void\n" +
-                ".end method");
+        ClassDef classDef = SmaliTestUtils.compileSmali(""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".method public static main([Ljava/lang/String;)V\n"
+                + "    .registers 1\n"
+                + "    sget-object v0, someField:I\n"
+                + "    sget-object v0, V:I\n"
+                + "    sget-object v0, I:I\n"
+                + "    return-void\n"
+                + ".end method");
 
         Method mainMethod = null;
         for (Method method: classDef.getMethods()) {
@@ -180,36 +180,36 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
 
         List<Instruction> instructions = Lists.newArrayList(methodImpl.getInstructions());
 
-        Instruction21c instruction = (Instruction21c)instructions.get(0);
+        Instruction21c instruction = (Instruction21c) instructions.get(0);
         Assert.assertNotNull(instruction);
         Assert.assertEquals(Opcode.SGET_OBJECT, instruction.getOpcode());
-        FieldReference field = (FieldReference)instruction.getReference();
+        FieldReference field = (FieldReference) instruction.getReference();
         Assert.assertEquals(classDef.getType(), field.getDefiningClass());
         Assert.assertEquals("someField", field.getName());
 
-        instruction = (Instruction21c)instructions.get(1);
+        instruction = (Instruction21c) instructions.get(1);
         Assert.assertNotNull(instruction);
         Assert.assertEquals(Opcode.SGET_OBJECT, instruction.getOpcode());
-        field = (FieldReference)instruction.getReference();
+        field = (FieldReference) instruction.getReference();
         Assert.assertEquals(classDef.getType(), field.getDefiningClass());
         Assert.assertEquals("V", field.getName());
 
-        instruction = (Instruction21c)instructions.get(2);
+        instruction = (Instruction21c) instructions.get(2);
         Assert.assertNotNull(instruction);
         Assert.assertEquals(Opcode.SGET_OBJECT, instruction.getOpcode());
-        field = (FieldReference)instruction.getReference();
+        field = (FieldReference) instruction.getReference();
         Assert.assertEquals(classDef.getType(), field.getDefiningClass());
         Assert.assertEquals("I", field.getName());
     }
 
     @Test
     public void testImplicitFieldLiteral() throws RecognitionException, IOException {
-        ClassDef classDef = SmaliTestUtils.compileSmali("" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".field public static field1:Ljava/lang/reflect/Field; = someField:I\n" +
-                ".field public static field2:Ljava/lang/reflect/Field; = V:I\n" +
-                ".field public static field3:Ljava/lang/reflect/Field; = I:I\n");
+        ClassDef classDef = SmaliTestUtils.compileSmali(""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".field public static field1:Ljava/lang/reflect/Field; = someField:I\n"
+                + ".field public static field2:Ljava/lang/reflect/Field; = V:I\n"
+                + ".field public static field3:Ljava/lang/reflect/Field; = I:I\n");
 
         Map<String, Field> fields = Maps.newHashMap();
         for (Field field: classDef.getFields()) {
@@ -220,7 +220,7 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
         Assert.assertNotNull(field);
         Assert.assertNotNull(field.getInitialValue());
         Assert.assertEquals(ValueType.FIELD, field.getInitialValue().getValueType());
-        FieldEncodedValue fieldEncodedValue = (FieldEncodedValue)field.getInitialValue();
+        FieldEncodedValue fieldEncodedValue = (FieldEncodedValue) field.getInitialValue();
         Assert.assertEquals(classDef.getType(), fieldEncodedValue.getValue().getDefiningClass());
         Assert.assertEquals("someField", fieldEncodedValue.getValue().getName());
 
@@ -228,7 +228,7 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
         Assert.assertNotNull(field);
         Assert.assertNotNull(field.getInitialValue());
         Assert.assertEquals(ValueType.FIELD, field.getInitialValue().getValueType());
-        fieldEncodedValue = (FieldEncodedValue)field.getInitialValue();
+        fieldEncodedValue = (FieldEncodedValue) field.getInitialValue();
         Assert.assertEquals(classDef.getType(), fieldEncodedValue.getValue().getDefiningClass());
         Assert.assertEquals("V", fieldEncodedValue.getValue().getName());
 
@@ -236,7 +236,7 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
         Assert.assertNotNull(field);
         Assert.assertNotNull(field.getInitialValue());
         Assert.assertEquals(ValueType.FIELD, field.getInitialValue().getValueType());
-        fieldEncodedValue = (FieldEncodedValue)field.getInitialValue();
+        fieldEncodedValue = (FieldEncodedValue) field.getInitialValue();
         Assert.assertEquals(classDef.getType(), fieldEncodedValue.getValue().getDefiningClass());
         Assert.assertEquals("I", fieldEncodedValue.getValue().getName());
     }

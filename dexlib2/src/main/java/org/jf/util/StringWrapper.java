@@ -89,8 +89,8 @@ public class StringWrapper {
                                 break;
                             }
 
-                            if (string.charAt(lineEnd-1) == '\n') {
-                                nextLine = string.substring(currentLineStart, lineEnd-1);
+                            if (string.charAt(lineEnd - 1) == '\n') {
+                                nextLine = string.substring(currentLineStart, lineEnd - 1);
                                 nextLineSet = true;
                                 currentLineStart = lineEnd;
                                 return;
@@ -134,27 +134,27 @@ public class StringWrapper {
      *         array. If there is no null entry, then the size of the array exactly matches the number of lines.
      *         The returned lines will not contain an ending newline
      */
-    public static String[] wrapString(@Nonnull String str, int maxWidth, @Nullable String[] output) {
+    public static String[] wrapString(final @Nonnull String str, final int maxWidth, final @Nullable String[] output) {
         if (output == null) {
-            output = new String[(int)((str.length() / maxWidth) * 1.5d + 1)];
+            output = new String[(int) ((str.length() / maxWidth) * 1.5d + 1)];
         }
 
         int lineStart = 0;
         int arrayIndex = 0;
         int i;
-        for (i=0; i<str.length(); i++) {
+        for (i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
 
             if (c == '\n') {
                 output = addString(output, str.substring(lineStart, i), arrayIndex++);
-                lineStart = i+1;
+                lineStart = i + 1;
             } else if (i - lineStart == maxWidth) {
                 output = addString(output, str.substring(lineStart, i), arrayIndex++);
                 lineStart = i;
             }
         }
         if (lineStart != i || i == 0) {
-            output = addString(output, str.substring(lineStart), arrayIndex++, output.length+1);
+            output = addString(output, str.substring(lineStart), arrayIndex++, output.length + 1);
         }
 
         if (arrayIndex < output.length) {
@@ -163,16 +163,16 @@ public class StringWrapper {
         return output;
     }
 
-    private static String[] addString(@Nonnull String[] arr, String str, int index) {
+    private static String[] addString(final @Nonnull String[] arr, final String str, final int index) {
         if (index >= arr.length) {
-            arr = enlargeArray(arr, (int)(Math.ceil((arr.length + 1) * 1.5)));
+            arr = enlargeArray(arr, (int) (Math.ceil((arr.length + 1) * 1.5)));
         }
 
         arr[index] = str;
         return arr;
     }
 
-    private static String[] addString(@Nonnull String[] arr, String str, int index, int newLength) {
+    private static String[] addString(final @Nonnull String[] arr, final String str, final int index, final int newLength) {
         if (index >= arr.length) {
             arr = enlargeArray(arr, newLength);
         }
@@ -181,13 +181,13 @@ public class StringWrapper {
         return arr;
     }
 
-    private static String[] enlargeArray(String[] arr, int newLength) {
+    private static String[] enlargeArray(final String[] arr, final int newLength) {
         String[] newArr = new String[newLength];
         System.arraycopy(arr, 0, newArr, 0, arr.length);
         return newArr;
     }
 
-    public static void printWrappedString(@Nonnull PrintStream stream, @Nonnull String string, int maxWidth) {
+    public static void printWrappedString(final @Nonnull PrintStream stream, final @Nonnull String string, final int maxWidth) {
         for (String str: wrapStringOnBreaks(string, maxWidth)) {
             stream.println(str);
         }

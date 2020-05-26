@@ -42,15 +42,15 @@ public class StartLocalMethodItem extends DebugMethodItem {
     @Nonnull private final StartLocal startLocal;
     @Nonnull private final RegisterFormatter registerFormatter;
 
-    public StartLocalMethodItem(int codeAddress, int sortOrder, @Nonnull RegisterFormatter registerFormatter,
-                                @Nonnull StartLocal startLocal) {
+    public StartLocalMethodItem(final int codeAddress, final int sortOrder, final @Nonnull RegisterFormatter registerFormatter,
+                                final @Nonnull StartLocal startLocal) {
         super(codeAddress, sortOrder);
         this.startLocal = startLocal;
         this.registerFormatter = registerFormatter;
     }
 
     @Override
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         writer.write(".local ");
         registerFormatter.writeTo(writer, startLocal.getRegister());
 

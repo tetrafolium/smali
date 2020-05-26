@@ -38,9 +38,9 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class ArrayEncodedValueAdaptor {
-    public static void writeTo(@Nonnull IndentingWriter writer,
-                               @Nonnull ArrayEncodedValue arrayEncodedValue,
-                               @Nullable String containingClass) throws IOException {
+    public static void writeTo(final @Nonnull IndentingWriter writer,
+                               final @Nonnull ArrayEncodedValue arrayEncodedValue,
+                               final @Nullable String containingClass) throws IOException {
         writer.write('{');
         Collection<? extends EncodedValue> values = arrayEncodedValue.getValue();
         if (values.size() == 0) {

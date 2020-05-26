@@ -48,11 +48,11 @@ public class BuilderField extends BaseFieldReference implements Field {
     @Nonnull final BuilderAnnotationSet annotations;
     @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
 
-    BuilderField(@Nonnull BuilderFieldReference fieldReference,
-                 int accessFlags,
-                 @Nullable BuilderEncodedValue initialValue,
-                 @Nonnull BuilderAnnotationSet annotations,
-                 @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions) {
+    BuilderField(final @Nonnull BuilderFieldReference fieldReference,
+                 final int accessFlags,
+                 final @Nullable BuilderEncodedValue initialValue,
+                 final @Nonnull BuilderAnnotationSet annotations,
+                 final @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions) {
         this.fieldReference = fieldReference;
         this.accessFlags = accessFlags;
         this.initialValue = initialValue;

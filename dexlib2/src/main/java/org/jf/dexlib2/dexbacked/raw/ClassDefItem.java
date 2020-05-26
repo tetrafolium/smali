@@ -53,11 +53,11 @@ public class ClassDefItem {
     public static final int STATIC_VALUES_OFFSET = 28;
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             private SectionAnnotator classDataAnnotator = null;
 
-            @Override public void annotateSection(@Nonnull AnnotatedBytes out) {
+            @Override public void annotateSection(final @Nonnull AnnotatedBytes out) {
                 classDataAnnotator = annotator.getAnnotator(ItemType.CLASS_DATA_ITEM);
                 super.annotateSection(out);
             }
@@ -67,7 +67,7 @@ public class ClassDefItem {
             }
 
             @Override
-            protected void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            protected void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 int classIndex = dexFile.getBuffer().readSmallUint(out.getCursor());
                 out.annotate(4, "class_idx = %s", TypeIdItem.getReferenceAnnotation(dexFile, classIndex));
 
@@ -109,7 +109,7 @@ public class ClassDefItem {
                 }
             }
 
-            private void addClassDataIdentity(int classDataOffset, String classType) {
+            private void addClassDataIdentity(final int classDataOffset, final String classType) {
                 if (classDataAnnotator != null) {
                     classDataAnnotator.setItemIdentity(classDataOffset, classType);
                 }
@@ -118,13 +118,13 @@ public class ClassDefItem {
     }
 
     @Nonnull
-    public static String asString(@Nonnull DexBackedDexFile dexFile, int classIndex) {
+    public static String asString(final @Nonnull DexBackedDexFile dexFile, final int classIndex) {
         int offset = dexFile.getClassSection().getOffset(classIndex);
         int typeIndex = dexFile.getBuffer().readSmallUint(offset + CLASS_OFFSET);
         return dexFile.getTypeSection().get(typeIndex);
     }
 
-    public static String[] getClasses(@Nonnull DexBackedDexFile dexFile) {
+    public static String[] getClasses(final @Nonnull DexBackedDexFile dexFile) {
         MapItem mapItem = dexFile.getMapItemForSection(ItemType.CLASS_DEF_ITEM);
         if (mapItem == null) {
             return new String[0];
@@ -132,7 +132,7 @@ public class ClassDefItem {
 
         int classCount = mapItem.getItemCount();
         String[] ret = new String[classCount];
-        for (int i=0; i<classCount; i++) {
+        for (int i = 0; i < classCount; i++) {
             ret[i] = asString(dexFile, i);
         }
         return ret;

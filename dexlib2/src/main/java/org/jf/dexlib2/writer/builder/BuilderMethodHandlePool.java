@@ -49,11 +49,11 @@ public class BuilderMethodHandlePool extends BaseBuilderPool
     @Nonnull private final ConcurrentMap<MethodHandleReference, BuilderMethodHandleReference> internedItems =
             Maps.newConcurrentMap();
 
-    public BuilderMethodHandlePool(@Nonnull DexBuilder dexBuilder) {
+    public BuilderMethodHandlePool(final @Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
     }
 
-    public BuilderMethodHandleReference internMethodHandle(MethodHandleReference methodHandleReference) {
+    public BuilderMethodHandleReference internMethodHandle(final MethodHandleReference methodHandleReference) {
         BuilderMethodHandleReference internedMethodHandle = internedItems.get(methodHandleReference);
         if (internedMethodHandle != null) {
             return internedMethodHandle;
@@ -88,17 +88,17 @@ public class BuilderMethodHandlePool extends BaseBuilderPool
     }
 
     @Override
-    public BuilderFieldReference getFieldReference(BuilderMethodHandleReference methodHandleReference) {
+    public BuilderFieldReference getFieldReference(final BuilderMethodHandleReference methodHandleReference) {
         return (BuilderFieldReference) methodHandleReference.getMemberReference();
     }
 
     @Override
-    public BuilderMethodReference getMethodReference(BuilderMethodHandleReference methodHandleReference) {
+    public BuilderMethodReference getMethodReference(final BuilderMethodHandleReference methodHandleReference) {
         return (BuilderMethodReference) methodHandleReference.getMemberReference();
     }
 
     @Override
-    public int getItemIndex(@Nonnull BuilderMethodHandleReference builderMethodHandleReference) {
+    public int getItemIndex(final @Nonnull BuilderMethodHandleReference builderMethodHandleReference) {
         return builderMethodHandleReference.index;
     }
 
@@ -107,12 +107,12 @@ public class BuilderMethodHandlePool extends BaseBuilderPool
     public Collection<? extends Map.Entry<? extends BuilderMethodHandleReference, Integer>> getItems() {
         return new BuilderMapEntryCollection<BuilderMethodHandleReference>(internedItems.values()) {
             @Override
-            protected int getValue(@Nonnull BuilderMethodHandleReference builderMethodHandleReference) {
+            protected int getValue(final @Nonnull BuilderMethodHandleReference builderMethodHandleReference) {
                 return builderMethodHandleReference.index;
             }
 
             @Override
-            protected int setValue(@Nonnull BuilderMethodHandleReference builderMethodHandleReference, int value) {
+            protected int setValue(final @Nonnull BuilderMethodHandleReference builderMethodHandleReference, final int value) {
                 int prev = builderMethodHandleReference.index;
                 builderMethodHandleReference.index = value;
                 return prev;

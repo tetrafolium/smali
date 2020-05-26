@@ -42,7 +42,7 @@ public class BasePool<Key, Value> implements Markable {
     @Nonnull protected final Map<Key, Value> internedItems = Maps.newLinkedHashMap();
     private int markedItemCount = -1;
 
-    public BasePool(@Nonnull DexPool dexPool) {
+    public BasePool(final @Nonnull DexPool dexPool) {
         this.dexPool = dexPool;
     }
 
@@ -60,7 +60,7 @@ public class BasePool<Key, Value> implements Markable {
         }
 
         Iterator<Key> keys = internedItems.keySet().iterator();
-        for (int i=0; i<markedItemCount; i++) {
+        for (int i = 0; i < markedItemCount; i++) {
             keys.next();
         }
         while (keys.hasNext()) {

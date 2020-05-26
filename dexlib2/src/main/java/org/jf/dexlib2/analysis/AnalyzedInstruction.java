@@ -100,8 +100,8 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
      */
     protected final Instruction originalInstruction;
 
-    public AnalyzedInstruction(@Nonnull MethodAnalyzer methodAnalyzer, @Nonnull Instruction instruction,
-                               int instructionIndex, int registerCount) {
+    public AnalyzedInstruction(final @Nonnull MethodAnalyzer methodAnalyzer, final @Nonnull Instruction instruction,
+                               final int instructionIndex, final int registerCount) {
         this.methodAnalyzer = methodAnalyzer;
         this.instruction = instruction;
         this.originalInstruction = instruction;
@@ -109,7 +109,7 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
         this.postRegisterMap = new RegisterType[registerCount];
         this.preRegisterMap = new RegisterType[registerCount];
         RegisterType unknown = RegisterType.getRegisterType(RegisterType.UNKNOWN, null);
-        for (int i=0; i<registerCount; i++) {
+        for (int i = 0; i < registerCount; i++) {
             preRegisterMap[i] = unknown;
             postRegisterMap[i] = unknown;
         }
@@ -127,7 +127,7 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
         return Collections.unmodifiableSortedSet(predecessors);
     }
 
-    public RegisterType getPredecessorRegisterType(@Nonnull AnalyzedInstruction predecessor, int registerNumber) {
+    public RegisterType getPredecessorRegisterType(final @Nonnull AnalyzedInstruction predecessor, final int registerNumber) {
         if (predecessorRegisterOverrides != null) {
             RegisterType override = predecessorRegisterOverrides.get(
                     new PredecessorOverrideKey(predecessor, registerNumber));
@@ -138,15 +138,15 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
         return predecessor.postRegisterMap[registerNumber];
     }
 
-    protected boolean addPredecessor(AnalyzedInstruction predecessor) {
+    protected boolean addPredecessor(final AnalyzedInstruction predecessor) {
         return predecessors.add(predecessor);
     }
 
-    protected void addSuccessor(AnalyzedInstruction successor) {
+    protected void addSuccessor(final AnalyzedInstruction successor) {
         successors.add(successor);
     }
 
-    protected void setDeodexedInstruction(Instruction instruction) {
+    protected void setDeodexedInstruction(final Instruction instruction) {
         assert originalInstruction.getOpcode().odexOnly();
         this.instruction = instruction;
     }
@@ -201,8 +201,8 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
      * register is a destination register for this instruction, or if the pre-instruction register type didn't change
      * after merging in the given register type
      */
-    protected boolean mergeRegister(int registerNumber, RegisterType registerType, BitSet verifiedInstructions,
-                                    boolean override) {
+    protected boolean mergeRegister(final int registerNumber, final RegisterType registerType, final BitSet verifiedInstructions,
+                                    final boolean override) {
         assert registerNumber >= 0 && registerNumber < postRegisterMap.length;
         assert registerType != null;
 
@@ -239,7 +239,7 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
      * @return The register type resulting from merging the post-instruction register types from all predecessors
      */
     @Nonnull
-    protected RegisterType getMergedPreRegisterTypeFromPredecessors(int registerNumber) {
+    protected RegisterType getMergedPreRegisterTypeFromPredecessors(final int registerNumber) {
         RegisterType mergedRegisterType = null;
         for (AnalyzedInstruction predecessor: predecessors) {
             RegisterType predecessorRegisterType = getPredecessorRegisterType(predecessor, registerNumber);
@@ -263,7 +263,7 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
      * @param registerType The "post-instruction" register type
      * @return true if the given register type is different than the existing post-instruction register type
      */
-    protected boolean setPostRegisterType(int registerNumber, RegisterType registerType) {
+    protected boolean setPostRegisterType(final int registerNumber, final RegisterType registerType) {
         assert registerNumber >= 0 && registerNumber < postRegisterMap.length;
         assert registerType != null;
 
@@ -288,8 +288,8 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
      *
      * @return true if the post-instruction register type for this instruction changed as a result of this override
      */
-    protected boolean overridePredecessorRegisterType(@Nonnull AnalyzedInstruction predecessor, int registerNumber,
-                                                      @Nonnull RegisterType registerType, BitSet verifiedInstructions) {
+    protected boolean overridePredecessorRegisterType(final @Nonnull AnalyzedInstruction predecessor, final int registerNumber,
+                                                      final @Nonnull RegisterType registerType, final BitSet verifiedInstructions) {
         if (predecessorRegisterOverrides == null) {
             predecessorRegisterOverrides = Maps.newHashMap();
         }
@@ -319,11 +319,11 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
             return false;
         }
 
-        ReferenceInstruction instruction = (ReferenceInstruction)this.instruction;
+        ReferenceInstruction instruction = (ReferenceInstruction) this.instruction;
 
         Reference reference = instruction.getReference();
         if (reference instanceof MethodReference) {
-            return ((MethodReference)reference).getName().equals("<init>");
+            return ((MethodReference) reference).getName().equals("<init>");
         }
 
         return false;
@@ -335,7 +335,7 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
      * @param registerNumber The register to check
      * @return true if this instruction sets the given register or alters its type
      */
-    public boolean setsRegister(int registerNumber) {
+    public boolean setsRegister(final int registerNumber) {
         // This method could be implemented by calling getSetRegisters and checking if registerNumber is in the result
         // However, this is a frequently called method, and this is a more efficient implementation, because it doesn't
         // allocate a new list, and it can potentially exit earlier
@@ -348,11 +348,11 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
             // be initialized as well, so we need to check for that too
             int destinationRegister;
             if (instruction instanceof FiveRegisterInstruction) {
-                assert ((FiveRegisterInstruction)instruction).getRegisterCount() > 0;
-                destinationRegister = ((FiveRegisterInstruction)instruction).getRegisterC();
+                assert ((FiveRegisterInstruction) instruction).getRegisterCount() > 0;
+                destinationRegister = ((FiveRegisterInstruction) instruction).getRegisterC();
             } else {
                 assert instruction instanceof RegisterRangeInstruction;
-                RegisterRangeInstruction rangeInstruction = (RegisterRangeInstruction)instruction;
+                RegisterRangeInstruction rangeInstruction = (RegisterRangeInstruction) instruction;
                 assert rangeInstruction.getRegisterCount() > 0;
                 destinationRegister = rangeInstruction.getStartRegister();
             }
@@ -363,14 +363,14 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
                 // unknown This is because the uninitialized reference may be an alias to the reference being
                 // initialized, but we can't know that until the object register's type is known
                 RegisterType preInstructionRegisterType = getPreInstructionRegisterType(registerNumber);
-                if (preInstructionRegisterType.category == RegisterType.UNINIT_REF ||
-                        preInstructionRegisterType.category == RegisterType.UNINIT_THIS) {
+                if (preInstructionRegisterType.category == RegisterType.UNINIT_REF
+                        || preInstructionRegisterType.category == RegisterType.UNINIT_THIS) {
                     return true;
                 }
             }
 
-            if (preInstructionDestRegisterType.category != RegisterType.UNINIT_REF &&
-                    preInstructionDestRegisterType.category != RegisterType.UNINIT_THIS) {
+            if (preInstructionDestRegisterType.category != RegisterType.UNINIT_REF
+                    && preInstructionDestRegisterType.category != RegisterType.UNINIT_THIS) {
                 return false;
             }
 
@@ -386,16 +386,16 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
         // Normally, check-cast is where the register type actually changes.
         // In order to correctly handle this case, we have to propagate the narrowed register type to the appropriate
         // branch of the following if-eqz/if-nez
-        if (instructionIndex > 0 &&
-                methodAnalyzer.getClassPath().isArt() &&
-                getPredecessorCount() == 1 &&
-                (instruction.getOpcode() == Opcode.IF_EQZ || instruction.getOpcode() == Opcode.IF_NEZ)) {
+        if (instructionIndex > 0
+                && methodAnalyzer.getClassPath().isArt()
+                && getPredecessorCount() == 1
+                && (instruction.getOpcode() == Opcode.IF_EQZ || instruction.getOpcode() == Opcode.IF_NEZ)) {
 
             AnalyzedInstruction prevInstruction = predecessors.first();
-            if (prevInstruction.instruction.getOpcode() == Opcode.INSTANCE_OF &&
-                    MethodAnalyzer.canPropagateTypeAfterInstanceOf(
+            if (prevInstruction.instruction.getOpcode() == Opcode.INSTANCE_OF
+                    && MethodAnalyzer.canPropagateTypeAfterInstanceOf(
                             prevInstruction, this, methodAnalyzer.getClassPath())) {
-                Instruction22c instanceOfInstruction = (Instruction22c)prevInstruction.instruction;
+                Instruction22c instanceOfInstruction = (Instruction22c) prevInstruction.instruction;
 
                 if (registerNumber == instanceOfInstruction.getRegisterB()) {
                     return true;
@@ -414,10 +414,10 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
 
                     for (AnalyzedInstruction prevPrevAnalyzedInstruction : prevInstruction.predecessors) {
                         Opcode opcode = prevPrevAnalyzedInstruction.instruction.getOpcode();
-                        if (opcode == Opcode.MOVE_OBJECT || opcode == Opcode.MOVE_OBJECT_16 ||
-                                opcode == Opcode.MOVE_OBJECT_FROM16) {
+                        if (opcode == Opcode.MOVE_OBJECT || opcode == Opcode.MOVE_OBJECT_16
+                                || opcode == Opcode.MOVE_OBJECT_FROM16) {
                             TwoRegisterInstruction moveInstruction =
-                                    ((TwoRegisterInstruction)prevPrevAnalyzedInstruction.instruction);
+                                    ((TwoRegisterInstruction) prevPrevAnalyzedInstruction.instruction);
                             RegisterType originalType =
                                     prevPrevAnalyzedInstruction.getPostInstructionRegisterType(
                                             moveInstruction.getRegisterB());
@@ -432,7 +432,7 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
 
                             if (newType == null) {
                                 newType = RegisterType.getRegisterType(methodAnalyzer.getClassPath(),
-                                        (TypeReference)instanceOfInstruction.getReference());
+                                        (TypeReference) instanceOfInstruction.getReference());
                             }
 
                             if (MethodAnalyzer.isNotWideningConversion(originalType, newType)) {
@@ -490,18 +490,18 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
 
             int destinationRegister;
             if (instruction instanceof FiveRegisterInstruction) {
-                destinationRegister = ((FiveRegisterInstruction)instruction).getRegisterC();
-                assert ((FiveRegisterInstruction)instruction).getRegisterCount() > 0;
+                destinationRegister = ((FiveRegisterInstruction) instruction).getRegisterC();
+                assert ((FiveRegisterInstruction) instruction).getRegisterCount() > 0;
             } else {
                 assert instruction instanceof RegisterRangeInstruction;
-                RegisterRangeInstruction rangeInstruction = (RegisterRangeInstruction)instruction;
+                RegisterRangeInstruction rangeInstruction = (RegisterRangeInstruction) instruction;
                 assert rangeInstruction.getRegisterCount() > 0;
                 destinationRegister = rangeInstruction.getStartRegister();
             }
 
             RegisterType preInstructionDestRegisterType = getPreInstructionRegisterType(destinationRegister);
-            if (preInstructionDestRegisterType.category == RegisterType.UNINIT_REF ||
-                    preInstructionDestRegisterType.category == RegisterType.UNINIT_THIS) {
+            if (preInstructionDestRegisterType.category == RegisterType.UNINIT_REF
+                    || preInstructionDestRegisterType.category == RegisterType.UNINIT_THIS) {
                 setRegisters.add(destinationRegister);
 
                 RegisterType objectRegisterType = preRegisterMap[destinationRegister];
@@ -514,8 +514,8 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
 
                     if (preInstructionRegisterType.equals(objectRegisterType)) {
                         setRegisters.add(i);
-                    } else if (preInstructionRegisterType.category == RegisterType.UNINIT_REF ||
-                            preInstructionRegisterType.category == RegisterType.UNINIT_THIS) {
+                    } else if (preInstructionRegisterType.category == RegisterType.UNINIT_REF
+                            || preInstructionRegisterType.category == RegisterType.UNINIT_THIS) {
                         RegisterType postInstructionRegisterType = postRegisterMap[i];
                         if (postInstructionRegisterType.category == RegisterType.UNKNOWN) {
                             setRegisters.add(i);
@@ -529,8 +529,8 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
 
                 for (int i = 0; i < preRegisterMap.length; i++) {
                     RegisterType registerType = preRegisterMap[i];
-                    if (registerType.category == RegisterType.UNINIT_REF ||
-                            registerType.category == RegisterType.UNINIT_THIS) {
+                    if (registerType.category == RegisterType.UNINIT_REF
+                            || registerType.category == RegisterType.UNINIT_THIS) {
                         setRegisters.add(i);
                     }
                 }
@@ -541,16 +541,16 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
         // Normally, check-cast is where the register type actually changes.
         // In order to correctly handle this case, we have to propagate the narrowed register type to the appropriate
         // branch of the following if-eqz/if-nez
-        if (instructionIndex > 0 &&
-                methodAnalyzer.getClassPath().isArt() &&
-                getPredecessorCount() == 1 &&
-                (instruction.getOpcode() == Opcode.IF_EQZ || instruction.getOpcode() == Opcode.IF_NEZ)) {
+        if (instructionIndex > 0
+                && methodAnalyzer.getClassPath().isArt()
+                && getPredecessorCount() == 1
+                && (instruction.getOpcode() == Opcode.IF_EQZ || instruction.getOpcode() == Opcode.IF_NEZ)) {
 
             AnalyzedInstruction prevInstruction = predecessors.first();
-            if (prevInstruction.instruction.getOpcode() == Opcode.INSTANCE_OF &&
-                    MethodAnalyzer.canPropagateTypeAfterInstanceOf(
+            if (prevInstruction.instruction.getOpcode() == Opcode.INSTANCE_OF
+                    && MethodAnalyzer.canPropagateTypeAfterInstanceOf(
                             prevInstruction, this, methodAnalyzer.getClassPath())) {
-                Instruction22c instanceOfInstruction = (Instruction22c)prevInstruction.instruction;
+                Instruction22c instanceOfInstruction = (Instruction22c) prevInstruction.instruction;
                 setRegisters.add(instanceOfInstruction.getRegisterB());
 
                 // Additionally, there may be a move instruction just before the instance-of, in order to put the value
@@ -566,10 +566,10 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
 
                     for (AnalyzedInstruction prevPrevAnalyzedInstruction : prevInstruction.predecessors) {
                         Opcode opcode = prevPrevAnalyzedInstruction.instruction.getOpcode();
-                        if (opcode == Opcode.MOVE_OBJECT || opcode == Opcode.MOVE_OBJECT_16 ||
-                                opcode == Opcode.MOVE_OBJECT_FROM16) {
+                        if (opcode == Opcode.MOVE_OBJECT || opcode == Opcode.MOVE_OBJECT_16
+                                || opcode == Opcode.MOVE_OBJECT_FROM16) {
                             TwoRegisterInstruction moveInstruction =
-                                    ((TwoRegisterInstruction)prevPrevAnalyzedInstruction.instruction);
+                                    ((TwoRegisterInstruction) prevPrevAnalyzedInstruction.instruction);
                             RegisterType originalType =
                                     prevPrevAnalyzedInstruction.getPostInstructionRegisterType(
                                             moveInstruction.getRegisterB());
@@ -584,7 +584,7 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
 
                             if (newType == null) {
                                 newType = RegisterType.getRegisterType(methodAnalyzer.getClassPath(),
-                                        (TypeReference)instanceOfInstruction.getReference());
+                                        (TypeReference) instanceOfInstruction.getReference());
                             }
 
                             if (MethodAnalyzer.isNotWideningConversion(originalType, newType)) {
@@ -614,10 +614,10 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
 
     public int getDestinationRegister() {
         if (!this.instruction.getOpcode().setsRegister()) {
-            throw new ExceptionWithContext("Cannot call getDestinationRegister() for an instruction that doesn't " +
-                    "store a value");
+            throw new ExceptionWithContext("Cannot call getDestinationRegister() for an instruction that doesn't "
+                    + "store a value");
         }
-        return ((OneRegisterInstruction)instruction).getRegisterA();
+        return ((OneRegisterInstruction) instruction).getRegisterA();
     }
 
     public int getRegisterCount() {
@@ -625,16 +625,16 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
     }
 
     @Nonnull
-    public RegisterType getPostInstructionRegisterType(int registerNumber) {
+    public RegisterType getPostInstructionRegisterType(final int registerNumber) {
         return postRegisterMap[registerNumber];
     }
 
     @Nonnull
-    public RegisterType getPreInstructionRegisterType(int registerNumber) {
+    public RegisterType getPreInstructionRegisterType(final int registerNumber) {
         return preRegisterMap[registerNumber];
     }
 
-    public int compareTo(@Nonnull AnalyzedInstruction analyzedInstruction) {
+    public int compareTo(final @Nonnull AnalyzedInstruction analyzedInstruction) {
         if (instructionIndex < analyzedInstruction.instructionIndex) {
             return -1;
         } else if (instructionIndex == analyzedInstruction.instructionIndex) {
@@ -648,17 +648,17 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
         public final AnalyzedInstruction analyzedInstruction;
         public final int registerNumber;
 
-        public PredecessorOverrideKey(AnalyzedInstruction analyzedInstruction, int registerNumber) {
+        public PredecessorOverrideKey(final AnalyzedInstruction analyzedInstruction, final int registerNumber) {
             this.analyzedInstruction = analyzedInstruction;
             this.registerNumber = registerNumber;
         }
 
-        @Override public boolean equals(Object o) {
+        @Override public boolean equals(final Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            PredecessorOverrideKey that = (PredecessorOverrideKey)o;
-            return com.google.common.base.Objects.equal(registerNumber, that.registerNumber) &&
-                    Objects.equal(analyzedInstruction, that.analyzedInstruction);
+            PredecessorOverrideKey that = (PredecessorOverrideKey) o;
+            return com.google.common.base.Objects.equal(registerNumber, that.registerNumber)
+                    && Objects.equal(analyzedInstruction, that.analyzedInstruction);
         }
 
         @Override public int hashCode() {

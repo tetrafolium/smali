@@ -45,18 +45,18 @@ public class ImmutableMethodHandleReference extends BaseMethodHandleReference im
     protected final int methodHandleType;
     @Nonnull protected final ImmutableReference memberReference;
 
-    public ImmutableMethodHandleReference(int methodHandleType, @Nonnull ImmutableReference memberReference) {
+    public ImmutableMethodHandleReference(final int methodHandleType, final @Nonnull ImmutableReference memberReference) {
         this.methodHandleType = methodHandleType;
         this.memberReference = memberReference;
     }
 
-    public ImmutableMethodHandleReference(int methodHandleType, @Nonnull Reference memberReference) {
+    public ImmutableMethodHandleReference(final int methodHandleType, final @Nonnull Reference memberReference) {
         this.methodHandleType = methodHandleType;
         this.memberReference = ImmutableReferenceFactory.of(memberReference);
     }
 
     @Nonnull
-    public static ImmutableMethodHandleReference of(@Nonnull MethodHandleReference methodHandleReference) {
+    public static ImmutableMethodHandleReference of(final @Nonnull MethodHandleReference methodHandleReference) {
         if (methodHandleReference instanceof ImmutableMethodHandleReference) {
             return (ImmutableMethodHandleReference) methodHandleReference;
         }
@@ -85,6 +85,8 @@ public class ImmutableMethodHandleReference extends BaseMethodHandleReference im
         return new ImmutableMethodHandleReference(methodHandleType, memberReference);
     }
 
-    @Override public int getMethodHandleType() { return methodHandleType; }
-    @Nonnull @Override public Reference getMemberReference() { return memberReference; }
+    @Override public int getMethodHandleType() {
+        return methodHandleType; }
+    @Nonnull @Override public Reference getMemberReference() {
+        return memberReference; }
 }

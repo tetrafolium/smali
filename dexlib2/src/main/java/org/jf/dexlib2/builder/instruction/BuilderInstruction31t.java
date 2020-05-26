@@ -45,15 +45,17 @@ public class BuilderInstruction31t extends BuilderOffsetInstruction implements I
 
     protected final int registerA;
 
-    public BuilderInstruction31t(@Nonnull Opcode opcode,
-                                 int registerA,
-                                 @Nonnull Label target) {
+    public BuilderInstruction31t(final @Nonnull Opcode opcode,
+                                 final int registerA,
+                                 final @Nonnull Label target) {
         super(opcode, target);
         this.registerA = Preconditions.checkByteRegister(registerA);
     }
 
-    @Override public int getRegisterA() { return registerA; }
+    @Override public int getRegisterA() {
+        return registerA; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }
 

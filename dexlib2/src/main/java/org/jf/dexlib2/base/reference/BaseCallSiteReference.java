@@ -37,21 +37,21 @@ public abstract class BaseCallSiteReference extends BaseReference implements Cal
     @Override
     public int hashCode() {
         int hashCode = getName().hashCode();
-        hashCode = hashCode*31 + getMethodHandle().hashCode();
-        hashCode = hashCode*31 + getMethodName().hashCode();
-        hashCode = hashCode*31 + getMethodProto().hashCode();
-        hashCode = hashCode*31 + getExtraArguments().hashCode();
+        hashCode = hashCode * 31 + getMethodHandle().hashCode();
+        hashCode = hashCode * 31 + getMethodName().hashCode();
+        hashCode = hashCode * 31 + getMethodProto().hashCode();
+        hashCode = hashCode * 31 + getExtraArguments().hashCode();
         return hashCode;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (o != null && o instanceof CallSiteReference) {
             CallSiteReference other = (CallSiteReference) o;
-            return getMethodHandle().equals(other.getMethodHandle()) &&
-                    getMethodName().equals(other.getMethodName()) &&
-                    getMethodProto().equals(other.getMethodProto()) &&
-                    getExtraArguments().equals(other.getExtraArguments());
+            return getMethodHandle().equals(other.getMethodHandle())
+                    && getMethodName().equals(other.getMethodName())
+                    && getMethodProto().equals(other.getMethodProto())
+                    && getExtraArguments().equals(other.getExtraArguments());
         }
         return false;
     }

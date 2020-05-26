@@ -41,8 +41,8 @@ public abstract class BuilderOffsetInstruction extends BuilderInstruction implem
     @Nonnull
     protected final Label target;
 
-    public BuilderOffsetInstruction(@Nonnull Opcode opcode,
-                                    @Nonnull Label target) {
+    public BuilderOffsetInstruction(final @Nonnull Opcode opcode,
+                                    final @Nonnull Label target) {
         super(opcode);
         this.target = target;
     }
@@ -51,13 +51,13 @@ public abstract class BuilderOffsetInstruction extends BuilderInstruction implem
         int codeOffset = internalGetCodeOffset();
         if (this.getCodeUnits() == 1) {
             if (codeOffset < Byte.MIN_VALUE || codeOffset > Byte.MAX_VALUE) {
-                throw new ExceptionWithContext("Invalid instruction offset: %d. " +
-                        "Offset must be in [-128, 127]", codeOffset);
+                throw new ExceptionWithContext("Invalid instruction offset: %d. "
+                        + "Offset must be in [-128, 127]", codeOffset);
             }
         } else if (this.getCodeUnits() == 2) {
             if (codeOffset < Short.MIN_VALUE || codeOffset > Short.MAX_VALUE) {
-                throw new ExceptionWithContext("Invalid instruction offset: %d. " +
-                        "Offset must be in [-32768, 32767]", codeOffset);
+                throw new ExceptionWithContext("Invalid instruction offset: %d. "
+                        + "Offset must be in [-32768, 32767]", codeOffset);
             }
         }
         return codeOffset;

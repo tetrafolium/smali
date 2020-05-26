@@ -42,7 +42,7 @@ public class DexClassProvider implements ClassProvider {
     private final DexFile dexFile;
     private Map<String, ClassDef> classMap = Maps.newHashMap();
 
-    public DexClassProvider(DexFile dexFile) {
+    public DexClassProvider(final DexFile dexFile) {
         this.dexFile = dexFile;
 
         for (ClassDef classDef: dexFile.getClasses()) {
@@ -50,7 +50,7 @@ public class DexClassProvider implements ClassProvider {
         }
     }
 
-    @Nullable @Override public ClassDef getClassDef(String type) {
+    @Nullable @Override public ClassDef getClassDef(final String type) {
         return classMap.get(type);
     }
 }

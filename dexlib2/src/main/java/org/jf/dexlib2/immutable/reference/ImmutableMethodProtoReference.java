@@ -45,19 +45,19 @@ public class ImmutableMethodProtoReference extends BaseMethodProtoReference impl
     @Nonnull protected final ImmutableList<String> parameters;
     @Nonnull protected final String returnType;
 
-    public ImmutableMethodProtoReference(@Nullable ImmutableList<String> parameters,
-                                         @Nonnull String returnType) {
+    public ImmutableMethodProtoReference(final @Nullable ImmutableList<String> parameters,
+                                         final @Nonnull String returnType) {
         this.parameters = ImmutableUtils.nullToEmptyList(parameters);
         this.returnType = returnType;
     }
 
-    public ImmutableMethodProtoReference(@Nullable Iterable<? extends CharSequence> parameters,
-                                         @Nonnull String returnType) {
+    public ImmutableMethodProtoReference(final @Nullable Iterable<? extends CharSequence> parameters,
+                                         final @Nonnull String returnType) {
         this.parameters = CharSequenceConverter.immutableStringList(parameters);
         this.returnType = returnType;
     }
 
-    @Nonnull public static ImmutableMethodProtoReference of(@Nonnull MethodProtoReference methodProtoReference) {
+    @Nonnull public static ImmutableMethodProtoReference of(final @Nonnull MethodProtoReference methodProtoReference) {
         if (methodProtoReference instanceof ImmutableMethodProtoReference) {
             return (ImmutableMethodProtoReference) methodProtoReference;
         }

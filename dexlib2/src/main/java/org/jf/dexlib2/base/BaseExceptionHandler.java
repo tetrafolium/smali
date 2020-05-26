@@ -58,22 +58,22 @@ public abstract class BaseExceptionHandler implements ExceptionHandler {
     @Override
     public int hashCode() {
         String exceptionType = getExceptionType();
-        int hashCode = exceptionType==null?0:exceptionType.hashCode();
-        return hashCode*31 + getHandlerCodeAddress();
+        int hashCode = exceptionType == null ? 0 : exceptionType.hashCode();
+        return hashCode * 31 + getHandlerCodeAddress();
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof ExceptionHandler) {
-            ExceptionHandler other = (ExceptionHandler)o;
-            return Objects.equal(getExceptionType(), other.getExceptionType()) &&
-                   (getHandlerCodeAddress() == other.getHandlerCodeAddress());
+            ExceptionHandler other = (ExceptionHandler) o;
+            return Objects.equal(getExceptionType(), other.getExceptionType())
+                   && (getHandlerCodeAddress() == other.getHandlerCodeAddress());
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull ExceptionHandler o) {
+    public int compareTo(final @Nonnull ExceptionHandler o) {
         int res;
         String exceptionType = getExceptionType();
         if (exceptionType == null) {
@@ -94,7 +94,7 @@ public abstract class BaseExceptionHandler implements ExceptionHandler {
 
 
     public static final Comparator<ExceptionHandler> BY_EXCEPTION = new Comparator<ExceptionHandler>() {
-        @Override public int compare(ExceptionHandler o1, ExceptionHandler o2) {
+        @Override public int compare(final ExceptionHandler o1, final ExceptionHandler o2) {
             String exceptionType1 = o1.getExceptionType();
             if (exceptionType1 == null) {
                 if (o2.getExceptionType() != null) {

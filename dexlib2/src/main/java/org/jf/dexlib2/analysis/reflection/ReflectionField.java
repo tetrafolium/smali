@@ -46,7 +46,7 @@ import java.util.Set;
 public class ReflectionField extends BaseFieldReference implements Field {
     private final java.lang.reflect.Field field;
 
-    public ReflectionField(java.lang.reflect.Field field) {
+    public ReflectionField(final java.lang.reflect.Field field) {
         this.field = field;
     }
 

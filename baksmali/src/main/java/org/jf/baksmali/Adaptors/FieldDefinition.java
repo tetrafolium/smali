@@ -43,15 +43,15 @@ import java.util.Collection;
 import java.util.Set;
 
 public class FieldDefinition {
-    public static void writeTo(BaksmaliOptions options, IndentingWriter writer, Field field,
-                               boolean setInStaticConstructor) throws IOException {
+    public static void writeTo(final BaksmaliOptions options, final IndentingWriter writer, final Field field,
+                               final boolean setInStaticConstructor) throws IOException {
         EncodedValue initialValue = field.getInitialValue();
         int accessFlags = field.getAccessFlags();
 
-        if (setInStaticConstructor &&
-                AccessFlags.STATIC.isSet(accessFlags) &&
-                AccessFlags.FINAL.isSet(accessFlags) &&
-                initialValue != null) {
+        if (setInStaticConstructor
+                && AccessFlags.STATIC.isSet(accessFlags)
+                && AccessFlags.FINAL.isSet(accessFlags)
+                && initialValue != null) {
             if (!EncodedValueUtils.isDefaultValue(initialValue)) {
                 writer.write("# The value of this static final field might be set in the static constructor\n");
             } else {
@@ -95,7 +95,7 @@ public class FieldDefinition {
     }
 
     private static void writeAccessFlagsAndRestrictions(
-            IndentingWriter writer, int accessFlags, Set<HiddenApiRestriction> hiddenApiRestrictions)
+            final IndentingWriter writer, final int accessFlags, final Set<HiddenApiRestriction> hiddenApiRestrictions)
             throws IOException {
         for (AccessFlags accessFlag: AccessFlags.getAccessFlagsForField(accessFlags)) {
             writer.write(accessFlag.toString());

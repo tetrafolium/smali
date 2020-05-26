@@ -43,18 +43,18 @@ public class AnnotationSetRefList {
     public static final int LIST_OFFSET = 4;
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "annotation_set_ref_list";
             }
 
             @Override
-            protected void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            protected void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 int size = dexFile.getBuffer().readSmallUint(out.getCursor());
                 out.annotate(4, "size = %d", size);
 
-                for (int i=0; i<size; i++) {
+                for (int i = 0; i < size; i++) {
                     int annotationSetOffset = dexFile.getBuffer().readSmallUint(out.getCursor());
                     out.annotate(4, "annotation_set_item[0x%x]", annotationSetOffset);
                 }
@@ -67,7 +67,7 @@ public class AnnotationSetRefList {
     }
 
     @Nonnull
-    public static String getReferenceAnnotation(@Nonnull DexBackedDexFile dexFile, int annotationSetRefListOffset) {
+    public static String getReferenceAnnotation(final @Nonnull DexBackedDexFile dexFile, final int annotationSetRefListOffset) {
         if (annotationSetRefListOffset == 0) {
             return "annotation_set_ref_list[NO_OFFSET]";
         }

@@ -59,16 +59,16 @@ public class BuilderClassDef extends BaseTypeReference implements ClassDef {
     int classDefIndex = DexWriter.NO_INDEX;
     int annotationDirectoryOffset = DexWriter.NO_OFFSET;
 
-    BuilderClassDef(@Nonnull BuilderTypeReference type,
-                    int accessFlags,
-                    @Nullable BuilderTypeReference superclass,
-                    @Nonnull BuilderTypeList interfaces,
-                    @Nullable BuilderStringReference sourceFile,
-                    @Nonnull BuilderAnnotationSet annotations,
-                    @Nullable SortedSet<BuilderField> staticFields,
-                    @Nullable SortedSet<BuilderField> instanceFields,
-                    @Nullable Iterable<? extends BuilderMethod> methods,
-                    @Nullable BuilderArrayEncodedValue staticInitializers) {
+    BuilderClassDef(final @Nonnull BuilderTypeReference type,
+                    final int accessFlags,
+                    final @Nullable BuilderTypeReference superclass,
+                    final @Nonnull BuilderTypeList interfaces,
+                    final @Nullable BuilderStringReference sourceFile,
+                    final @Nonnull BuilderAnnotationSet annotations,
+                    final @Nullable SortedSet<BuilderField> staticFields,
+                    final @Nullable SortedSet<BuilderField> instanceFields,
+                    final @Nullable Iterable<? extends BuilderMethod> methods,
+                    final @Nullable BuilderArrayEncodedValue staticInitializers) {
         if (methods == null) {
             methods = ImmutableList.of();
         }
@@ -92,15 +92,24 @@ public class BuilderClassDef extends BaseTypeReference implements ClassDef {
         this.staticInitializers = staticInitializers;
     }
 
-    @Nonnull @Override public String getType() { return type.getType(); }
-    @Override public int getAccessFlags() { return accessFlags; }
-    @Nullable @Override public String getSuperclass() { return superclass==null?null:superclass.getType(); }
-    @Nullable @Override public String getSourceFile() { return sourceFile==null?null:sourceFile.getString(); }
-    @Nonnull @Override public BuilderAnnotationSet getAnnotations() { return annotations; }
-    @Nonnull @Override public SortedSet<BuilderField> getStaticFields() { return staticFields; }
-    @Nonnull @Override public SortedSet<BuilderField> getInstanceFields() { return instanceFields; }
-    @Nonnull @Override public SortedSet<BuilderMethod> getDirectMethods() { return directMethods; }
-    @Nonnull @Override public SortedSet<BuilderMethod> getVirtualMethods() { return virtualMethods; }
+    @Nonnull @Override public String getType() {
+        return type.getType(); }
+    @Override public int getAccessFlags() {
+        return accessFlags; }
+    @Nullable @Override public String getSuperclass() {
+        return superclass == null ? null : superclass.getType(); }
+    @Nullable @Override public String getSourceFile() {
+        return sourceFile == null ? null : sourceFile.getString(); }
+    @Nonnull @Override public BuilderAnnotationSet getAnnotations() {
+        return annotations; }
+    @Nonnull @Override public SortedSet<BuilderField> getStaticFields() {
+        return staticFields; }
+    @Nonnull @Override public SortedSet<BuilderField> getInstanceFields() {
+        return instanceFields; }
+    @Nonnull @Override public SortedSet<BuilderMethod> getDirectMethods() {
+        return directMethods; }
+    @Nonnull @Override public SortedSet<BuilderMethod> getVirtualMethods() {
+        return virtualMethods; }
 
     @Nonnull @Override
     public List<String> getInterfaces() {

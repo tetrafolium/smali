@@ -45,21 +45,21 @@ public abstract class BaseMethodProtoReference extends BaseReference implements 
     @Override
     public int hashCode() {
         int hashCode = getReturnType().hashCode();
-        return hashCode*31 + getParameterTypes().hashCode();
+        return hashCode * 31 + getParameterTypes().hashCode();
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof MethodProtoReference) {
-            MethodProtoReference other = (MethodProtoReference)o;
-            return getReturnType().equals(other.getReturnType()) &&
-                    CharSequenceUtils.listEquals(getParameterTypes(), other.getParameterTypes());
+            MethodProtoReference other = (MethodProtoReference) o;
+            return getReturnType().equals(other.getReturnType())
+                    && CharSequenceUtils.listEquals(getParameterTypes(), other.getParameterTypes());
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull MethodProtoReference o) {
+    public int compareTo(final @Nonnull MethodProtoReference o) {
         int res = getReturnType().compareTo(o.getReturnType());
         if (res != 0) return res;
         return CollectionUtils.compareAsIterable(Ordering.usingToString(), getParameterTypes(), o.getParameterTypes());

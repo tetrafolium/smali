@@ -41,84 +41,84 @@ import java.io.Writer;
 import java.util.Set;
 
 public final class EncodedValueUtils {
-    public static boolean isDefaultValue(EncodedValue encodedValue) {
+    public static boolean isDefaultValue(final EncodedValue encodedValue) {
         switch (encodedValue.getValueType()) {
             case ValueType.BOOLEAN:
-                return !((BooleanEncodedValue)encodedValue).getValue();
+                return !((BooleanEncodedValue) encodedValue).getValue();
             case ValueType.BYTE:
-                return ((ByteEncodedValue)encodedValue).getValue() == 0;
+                return ((ByteEncodedValue) encodedValue).getValue() == 0;
             case ValueType.CHAR:
-                return ((CharEncodedValue)encodedValue).getValue() == 0;
+                return ((CharEncodedValue) encodedValue).getValue() == 0;
             case ValueType.DOUBLE:
-                return ((DoubleEncodedValue)encodedValue).getValue() == 0;
+                return ((DoubleEncodedValue) encodedValue).getValue() == 0;
             case ValueType.FLOAT:
-                return ((FloatEncodedValue)encodedValue).getValue() == 0;
+                return ((FloatEncodedValue) encodedValue).getValue() == 0;
             case ValueType.INT:
-                return ((IntEncodedValue)encodedValue).getValue() == 0;
+                return ((IntEncodedValue) encodedValue).getValue() == 0;
             case ValueType.LONG:
-                return ((LongEncodedValue)encodedValue).getValue() == 0;
+                return ((LongEncodedValue) encodedValue).getValue() == 0;
             case ValueType.NULL:
                 return true;
             case ValueType.SHORT:
-                return ((ShortEncodedValue)encodedValue).getValue() == 0;
+                return ((ShortEncodedValue) encodedValue).getValue() == 0;
         }
         return false;
     }
 
-    public static void writeEncodedValue(Writer writer, EncodedValue encodedValue) throws IOException {
+    public static void writeEncodedValue(final Writer writer, final EncodedValue encodedValue) throws IOException {
         switch (encodedValue.getValueType()) {
             case ValueType.BOOLEAN:
                 writer.write(Boolean.toString(((BooleanEncodedValue) encodedValue).getValue()));
                 break;
             case ValueType.BYTE:
-                writer.write(Byte.toString(((ByteEncodedValue)encodedValue).getValue()));
+                writer.write(Byte.toString(((ByteEncodedValue) encodedValue).getValue()));
                 break;
             case ValueType.CHAR:
-                writer.write(Integer.toString(((CharEncodedValue)encodedValue).getValue()));
+                writer.write(Integer.toString(((CharEncodedValue) encodedValue).getValue()));
                 break;
             case ValueType.SHORT:
-                writer.write(Short.toString(((ShortEncodedValue)encodedValue).getValue()));
+                writer.write(Short.toString(((ShortEncodedValue) encodedValue).getValue()));
                 break;
             case ValueType.INT:
-                writer.write(Integer.toString(((IntEncodedValue)encodedValue).getValue()));
+                writer.write(Integer.toString(((IntEncodedValue) encodedValue).getValue()));
                 break;
             case ValueType.LONG:
-                writer.write(Long.toString(((LongEncodedValue)encodedValue).getValue()));
+                writer.write(Long.toString(((LongEncodedValue) encodedValue).getValue()));
                 break;
             case ValueType.FLOAT:
-                writer.write(Float.toString(((FloatEncodedValue)encodedValue).getValue()));
+                writer.write(Float.toString(((FloatEncodedValue) encodedValue).getValue()));
                 break;
             case ValueType.DOUBLE:
-                writer.write(Double.toString(((DoubleEncodedValue)encodedValue).getValue()));
+                writer.write(Double.toString(((DoubleEncodedValue) encodedValue).getValue()));
                 break;
             case ValueType.ANNOTATION:
-                writeAnnotation(writer, (AnnotationEncodedValue)encodedValue);
+                writeAnnotation(writer, (AnnotationEncodedValue) encodedValue);
                 break;
             case ValueType.ARRAY:
-                writeArray(writer, (ArrayEncodedValue)encodedValue);
+                writeArray(writer, (ArrayEncodedValue) encodedValue);
                 break;
             case ValueType.STRING:
                 writer.write('"');
-                StringUtils.writeEscapedString(writer, ((StringEncodedValue)encodedValue).getValue());
+                StringUtils.writeEscapedString(writer, ((StringEncodedValue) encodedValue).getValue());
                 writer.write('"');
                 break;
             case ValueType.FIELD:
-                ReferenceUtil.writeFieldDescriptor(writer, ((FieldEncodedValue)encodedValue).getValue());
+                ReferenceUtil.writeFieldDescriptor(writer, ((FieldEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.ENUM:
-                ReferenceUtil.writeFieldDescriptor(writer, ((EnumEncodedValue)encodedValue).getValue());
+                ReferenceUtil.writeFieldDescriptor(writer, ((EnumEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.METHOD:
-                ReferenceUtil.writeMethodDescriptor(writer, ((MethodEncodedValue)encodedValue).getValue());
+                ReferenceUtil.writeMethodDescriptor(writer, ((MethodEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.TYPE:
-                writer.write(((TypeEncodedValue)encodedValue).getValue());
+                writer.write(((TypeEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.METHOD_TYPE:
-                ReferenceUtil.writeMethodProtoDescriptor(writer, ((MethodTypeEncodedValue)encodedValue).getValue());
+                ReferenceUtil.writeMethodProtoDescriptor(writer, ((MethodTypeEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.METHOD_HANDLE:
-                ReferenceUtil.writeMethodHandle(writer, ((MethodHandleEncodedValue)encodedValue).getValue());
+                ReferenceUtil.writeMethodHandle(writer, ((MethodHandleEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.NULL:
                 writer.write("null");
@@ -128,7 +128,7 @@ public final class EncodedValueUtils {
         }
     }
 
-    private static void writeAnnotation(Writer writer, AnnotationEncodedValue annotation) throws IOException {
+    private static void writeAnnotation(final Writer writer, final AnnotationEncodedValue annotation) throws IOException {
         writer.write("Annotation[");
         writer.write(annotation.getType());
 
@@ -143,7 +143,7 @@ public final class EncodedValueUtils {
         writer.write(']');
     }
 
-    private static void writeArray(Writer writer, ArrayEncodedValue array) throws IOException {
+    private static void writeArray(final Writer writer, final ArrayEncodedValue array) throws IOException {
         writer.write("Array[");
 
         boolean first = true;
@@ -159,5 +159,5 @@ public final class EncodedValueUtils {
         writer.write(']');
     }
 
-    private EncodedValueUtils() {}
+    private EncodedValueUtils() { }
 }

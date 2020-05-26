@@ -53,12 +53,12 @@ public class BuilderMethod extends BaseMethodReference implements Method {
     int annotationSetRefListOffset = DexWriter.NO_OFFSET;
     int codeItemOffset = DexWriter.NO_OFFSET;
 
-    BuilderMethod(@Nonnull BuilderMethodReference methodReference,
-                  @Nonnull List<? extends BuilderMethodParameter> parameters,
-                  int accessFlags,
-                  @Nonnull BuilderAnnotationSet annotations,
-                  @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions,
-                  @Nullable MethodImplementation methodImplementation) {
+    BuilderMethod(final @Nonnull BuilderMethodReference methodReference,
+                  final @Nonnull List<? extends BuilderMethodParameter> parameters,
+                  final int accessFlags,
+                  final @Nonnull BuilderAnnotationSet annotations,
+                  final @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions,
+                  final @Nullable MethodImplementation methodImplementation) {
         this.methodReference = methodReference;
         this.parameters = parameters;
         this.accessFlags = accessFlags;
@@ -67,13 +67,22 @@ public class BuilderMethod extends BaseMethodReference implements Method {
         this.methodImplementation = methodImplementation;
     }
 
-    @Override @Nonnull public String getDefiningClass() { return methodReference.definingClass.getType(); }
-    @Override @Nonnull public String getName() { return methodReference.name.getString(); }
-    @Override @Nonnull public BuilderTypeList getParameterTypes() { return methodReference.proto.parameterTypes; }
-    @Nonnull @Override public String getReturnType() { return methodReference.proto.returnType.getType(); }
-    @Override @Nonnull public List<? extends BuilderMethodParameter> getParameters() { return parameters; }
-    @Override public int getAccessFlags() { return accessFlags; }
-    @Override @Nonnull public BuilderAnnotationSet getAnnotations() { return annotations; }
-    @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() { return hiddenApiRestrictions; }
-    @Override @Nullable public MethodImplementation getImplementation() { return methodImplementation; }
+    @Override @Nonnull public String getDefiningClass() {
+        return methodReference.definingClass.getType(); }
+    @Override @Nonnull public String getName() {
+        return methodReference.name.getString(); }
+    @Override @Nonnull public BuilderTypeList getParameterTypes() {
+        return methodReference.proto.parameterTypes; }
+    @Nonnull @Override public String getReturnType() {
+        return methodReference.proto.returnType.getType(); }
+    @Override @Nonnull public List<? extends BuilderMethodParameter> getParameters() {
+        return parameters; }
+    @Override public int getAccessFlags() {
+        return accessFlags; }
+    @Override @Nonnull public BuilderAnnotationSet getAnnotations() {
+        return annotations; }
+    @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
+        return hiddenApiRestrictions; }
+    @Override @Nullable public MethodImplementation getImplementation() {
+        return methodImplementation; }
 }

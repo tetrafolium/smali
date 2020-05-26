@@ -45,7 +45,7 @@ public final class Hex {
      * @param v value to format
      * @return non-null; formatted form
      */
-    public static String u8(long v) {
+    public static String u8(final long v) {
         char[] result = new char[16];
         for (int i = 0; i < 16; i++) {
             result[15 - i] = Character.forDigit((int) v & 0x0f, 16);
@@ -61,7 +61,7 @@ public final class Hex {
      * @param v value to format
      * @return non-null; formatted form
      */
-    public static String u4(int v) {
+    public static String u4(final int v) {
         char[] result = new char[8];
         for (int i = 0; i < 8; i++) {
             result[7 - i] = Character.forDigit(v & 0x0f, 16);
@@ -77,7 +77,7 @@ public final class Hex {
      * @param v value to format
      * @return non-null; formatted form
      */
-    public static String u3(int v) {
+    public static String u3(final int v) {
         char[] result = new char[6];
         for (int i = 0; i < 6; i++) {
             result[5 - i] = Character.forDigit(v & 0x0f, 16);
@@ -93,7 +93,7 @@ public final class Hex {
      * @param v value to format
      * @return non-null; formatted form
      */
-    public static String u2(int v) {
+    public static String u2(final int v) {
         char[] result = new char[4];
         for (int i = 0; i < 4; i++) {
             result[3 - i] = Character.forDigit(v & 0x0f, 16);
@@ -111,7 +111,7 @@ public final class Hex {
      * @param v value to format
      * @return non-null; formatted form
      */
-    public static String u2or4(int v) {
+    public static String u2or4(final int v) {
         if (v == (char) v) {
             return u2(v);
         } else {
@@ -125,7 +125,7 @@ public final class Hex {
      * @param v value to format
      * @return non-null; formatted form
      */
-    public static String u1(int v) {
+    public static String u1(final int v) {
         char[] result = new char[2];
         for (int i = 0; i < 2; i++) {
             result[1 - i] = Character.forDigit(v & 0x0f, 16);
@@ -141,7 +141,7 @@ public final class Hex {
      * @param v value to format
      * @return non-null; formatted form
      */
-    public static String uNibble(int v) {
+    public static String uNibble(final int v) {
         char[] result = new char[1];
 
         result[0] = Character.forDigit(v & 0x0f, 16);
@@ -154,7 +154,7 @@ public final class Hex {
      * @param v value to format
      * @return non-null; formatted form
      */
-    public static String s8(long v) {
+    public static String s8(final long v) {
         char[] result = new char[17];
 
         if (v < 0) {
@@ -178,7 +178,7 @@ public final class Hex {
      * @param v value to format
      * @return non-null; formatted form
      */
-    public static String s4(int v) {
+    public static String s4(final int v) {
         char[] result = new char[9];
 
         if (v < 0) {
@@ -202,7 +202,7 @@ public final class Hex {
      * @param v value to format
      * @return non-null; formatted form
      */
-    public static String s2(int v) {
+    public static String s2(final int v) {
         char[] result = new char[5];
 
         if (v < 0) {
@@ -226,7 +226,7 @@ public final class Hex {
      * @param v value to format
      * @return non-null; formatted form
      */
-    public static String s1(int v) {
+    public static String s1(final int v) {
         char[] result = new char[3];
 
         if (v < 0) {
@@ -258,15 +258,15 @@ public final class Hex {
      * header
      * @return non-null; a string of the dump
      */
-    public static String dump(byte[] arr, int offset, int length,
-                              int outOffset, int bpl, int addressLength) {
+    public static String dump(final byte[] arr, final int offset, final int length,
+                              final int outOffset, final int bpl, final int addressLength) {
         int end = offset + length;
 
         // twos-complement math trick: ((x < 0) || (y < 0)) <=> ((x|y) < 0)
         if (((offset | length | end) < 0) || (end > arr.length)) {
-            throw new IndexOutOfBoundsException("arr.length " +
-                                                arr.length + "; " +
-                                                offset + "..!" + end);
+            throw new IndexOutOfBoundsException("arr.length "
+                                                + arr.length + "; "
+                                                + offset + "..!" + end);
         }
 
         if (outOffset < 0) {

@@ -40,21 +40,21 @@ public abstract class BaseAnnotationElement implements AnnotationElement {
     @Override
     public int hashCode() {
         int hashCode = getName().hashCode();
-        return hashCode*31 + getValue().hashCode();
+        return hashCode * 31 + getValue().hashCode();
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (o != null && o instanceof AnnotationElement) {
-            AnnotationElement other = (AnnotationElement)o;
-            return getName().equals(other.getName()) &&
-                   getValue().equals(other.getValue());
+            AnnotationElement other = (AnnotationElement) o;
+            return getName().equals(other.getName())
+                   && getValue().equals(other.getValue());
         }
         return false;
     }
 
     @Override
-    public int compareTo(AnnotationElement o) {
+    public int compareTo(final AnnotationElement o) {
         int res = getName().compareTo(o.getName());
         if (res != 0) return res;
         return getValue().compareTo(o.getValue());
@@ -62,7 +62,7 @@ public abstract class BaseAnnotationElement implements AnnotationElement {
 
     public static final Comparator<AnnotationElement> BY_NAME = new Comparator<AnnotationElement>() {
         @Override
-        public int compare(@Nonnull AnnotationElement element1, @Nonnull AnnotationElement element2) {
+        public int compare(final @Nonnull AnnotationElement element1, final @Nonnull AnnotationElement element2) {
             return element1.getName().compareTo(element2.getName());
         }
     };

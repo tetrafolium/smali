@@ -39,16 +39,17 @@ import javax.annotation.Nonnull;
 public class ImmutableStringEncodedValue extends BaseStringEncodedValue implements ImmutableEncodedValue {
     @Nonnull protected final String value;
 
-    public ImmutableStringEncodedValue(@Nonnull String value) {
+    public ImmutableStringEncodedValue(final @Nonnull String value) {
         this.value = value;
     }
 
-    public static ImmutableStringEncodedValue of(@Nonnull StringEncodedValue stringEncodedValue) {
+    public static ImmutableStringEncodedValue of(final @Nonnull StringEncodedValue stringEncodedValue) {
         if (stringEncodedValue instanceof ImmutableStringEncodedValue) {
-            return (ImmutableStringEncodedValue)stringEncodedValue;
+            return (ImmutableStringEncodedValue) stringEncodedValue;
         }
         return new ImmutableStringEncodedValue(stringEncodedValue.getValue());
     }
 
-    @Nonnull @Override public String getValue() { return value; }
+    @Nonnull @Override public String getValue() {
+        return value; }
 }

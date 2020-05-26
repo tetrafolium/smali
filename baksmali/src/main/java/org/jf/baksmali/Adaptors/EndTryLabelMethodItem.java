@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
 public class EndTryLabelMethodItem extends LabelMethodItem {
     private int endTryAddress;
 
-    public EndTryLabelMethodItem(@Nonnull BaksmaliOptions options, int codeAddress, int endTryAddress) {
+    public EndTryLabelMethodItem(final @Nonnull BaksmaliOptions options, final int codeAddress, final int endTryAddress) {
         super(options, codeAddress, "try_end_");
         this.endTryAddress = endTryAddress;
     }

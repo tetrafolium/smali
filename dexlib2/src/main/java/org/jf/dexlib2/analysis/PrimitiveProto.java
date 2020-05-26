@@ -43,34 +43,40 @@ public class PrimitiveProto implements TypeProto {
     protected final ClassPath classPath;
     protected final String type;
 
-    public PrimitiveProto(@Nonnull ClassPath classPath, @Nonnull String type) {
+    public PrimitiveProto(final @Nonnull ClassPath classPath, final @Nonnull String type) {
         this.classPath = classPath;
         this.type = type;
     }
 
-    @Override public String toString() { return type; }
-    @Nonnull @Override public ClassPath getClassPath() { return classPath; }
-    @Nonnull @Override public String getType() { return type; }
-    @Override public boolean isInterface() { return false; }
-    @Override public boolean implementsInterface(@Nonnull String iface) { return false; }
-    @Nullable @Override public String getSuperclass() { return null; }
-    @Nonnull @Override public TypeProto getCommonSuperclass(@Nonnull TypeProto other) {
+    @Override public String toString() {
+        return type; }
+    @Nonnull @Override public ClassPath getClassPath() {
+        return classPath; }
+    @Nonnull @Override public String getType() {
+        return type; }
+    @Override public boolean isInterface() {
+        return false; }
+    @Override public boolean implementsInterface(final @Nonnull String iface) {
+        return false; }
+    @Nullable @Override public String getSuperclass() {
+        return null; }
+    @Nonnull @Override public TypeProto getCommonSuperclass(final @Nonnull TypeProto other) {
         throw new ExceptionWithContext("Cannot call getCommonSuperclass on PrimitiveProto");
     }
 
     @Override
     @Nullable
-    public FieldReference getFieldByOffset(int fieldOffset) {
+    public FieldReference getFieldByOffset(final int fieldOffset) {
         return null;
     }
 
     @Override
     @Nullable
-    public Method getMethodByVtableIndex(int vtableIndex) {
+    public Method getMethodByVtableIndex(final int vtableIndex) {
         return null;
     }
 
-    @Override public int findMethodIndexInVtable(@Nonnull MethodReference method) {
+    @Override public int findMethodIndexInVtable(final @Nonnull MethodReference method) {
         return -1;
     }
 }

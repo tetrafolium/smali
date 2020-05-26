@@ -52,8 +52,8 @@ public class NumberUtilsTest {
         Assert.assertTrue(NumberUtils.isLikelyFloat(Float.floatToRawIntBits(.1f)));
         Assert.assertTrue(NumberUtils.isLikelyFloat(Float.floatToRawIntBits(50000f)));
         Assert.assertTrue(NumberUtils.isLikelyFloat(Float.floatToRawIntBits(Float.MAX_VALUE)));
-        Assert.assertTrue(NumberUtils.isLikelyFloat(Float.floatToRawIntBits((float)Math.PI)));
-        Assert.assertTrue(NumberUtils.isLikelyFloat(Float.floatToRawIntBits((float)Math.E)));
+        Assert.assertTrue(NumberUtils.isLikelyFloat(Float.floatToRawIntBits((float) Math.PI)));
+        Assert.assertTrue(NumberUtils.isLikelyFloat(Float.floatToRawIntBits((float) Math.E)));
 
         Assert.assertTrue(NumberUtils.isLikelyFloat(2139095039));
 

@@ -107,7 +107,7 @@ public class PayloadAlignmentTest {
                         Opcode.MOVE,
                         Opcode.ARRAY_PAYLOAD});
 
-        Instruction31t referent = (Instruction31t)instructions.get(0);
+        Instruction31t referent = (Instruction31t) instructions.get(0);
         Assert.assertEquals(6, referent.getCodeOffset());
     }
 
@@ -135,14 +135,14 @@ public class PayloadAlignmentTest {
                     Opcode.NOP,
                     Opcode.ARRAY_PAYLOAD});
 
-        Instruction31t referent = (Instruction31t)instructions.get(0);
+        Instruction31t referent = (Instruction31t) instructions.get(0);
         Assert.assertEquals(8, referent.getCodeOffset());
     }
 
-    private static void checkInstructions(List<Instruction> instructions, Opcode[] expectedOpcodes) {
+    private static void checkInstructions(final List<Instruction> instructions, final Opcode[] expectedOpcodes) {
         Assert.assertEquals(expectedOpcodes.length, instructions.size());
 
-        for (int i=0; i<expectedOpcodes.length; i++) {
+        for (int i = 0; i < expectedOpcodes.length; i++) {
             Assert.assertEquals(instructions.get(i).getOpcode(), expectedOpcodes[i]);
         }
     }
@@ -185,16 +185,16 @@ public class PayloadAlignmentTest {
                         Opcode.NOP,
                         Opcode.PACKED_SWITCH});
 
-        OffsetInstruction gotoInstruction = (OffsetInstruction)instructions.get(0);
+        OffsetInstruction gotoInstruction = (OffsetInstruction) instructions.get(0);
         Assert.assertEquals(12, gotoInstruction.getCodeOffset());
 
-        PackedSwitchPayload payload = (PackedSwitchPayload)instructions.get(2);
+        PackedSwitchPayload payload = (PackedSwitchPayload) instructions.get(2);
         Assert.assertEquals(3, payload.getSwitchElements().size());
         Assert.assertEquals(-16, payload.getSwitchElements().get(0).getOffset());
         Assert.assertEquals(-2, payload.getSwitchElements().get(1).getOffset());
         Assert.assertEquals(-1, payload.getSwitchElements().get(2).getOffset());
 
-        OffsetInstruction referent = (OffsetInstruction)instructions.get(7);
+        OffsetInstruction referent = (OffsetInstruction) instructions.get(7);
         Assert.assertEquals(-14, referent.getCodeOffset());
     }
 
@@ -236,16 +236,16 @@ public class PayloadAlignmentTest {
                         Opcode.NOP,
                         Opcode.SPARSE_SWITCH});
 
-        OffsetInstruction gotoInstruction = (OffsetInstruction)instructions.get(0);
+        OffsetInstruction gotoInstruction = (OffsetInstruction) instructions.get(0);
         Assert.assertEquals(16, gotoInstruction.getCodeOffset());
 
-        SparseSwitchPayload payload = (SparseSwitchPayload)instructions.get(2);
+        SparseSwitchPayload payload = (SparseSwitchPayload) instructions.get(2);
         Assert.assertEquals(3, payload.getSwitchElements().size());
         Assert.assertEquals(-20, payload.getSwitchElements().get(0).getOffset());
         Assert.assertEquals(-2, payload.getSwitchElements().get(1).getOffset());
         Assert.assertEquals(-1, payload.getSwitchElements().get(2).getOffset());
 
-        OffsetInstruction referent = (OffsetInstruction)instructions.get(7);
+        OffsetInstruction referent = (OffsetInstruction) instructions.get(7);
         Assert.assertEquals(-18, referent.getCodeOffset());
     }
 }

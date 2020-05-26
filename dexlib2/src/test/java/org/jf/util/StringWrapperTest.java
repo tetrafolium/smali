@@ -126,11 +126,11 @@ public class StringWrapperTest {
                 StringWrapper.wrapString("\n\nabcdefa\n\n", 1, new String[5]));
     }
 
-    public static void validateResult(String[] expected, String[] actual) {
+    public static void validateResult(final String[] expected, final String[] actual) {
         Assert.assertTrue(actual.length >= expected.length);
 
         int i;
-        for (i=0; i<actual.length; i++) {
+        for (i = 0; i < actual.length; i++) {
             if (actual[i] == null) {
                 Assert.assertTrue(i == expected.length);
                 return;
@@ -140,12 +140,12 @@ public class StringWrapperTest {
         }
     }
 
-    public static void validateResult2(String[] expected, String textToWrap, int maxWidth) {
+    public static void validateResult2(final String[] expected, final String textToWrap, final int maxWidth) {
         List<String> result = Lists.newArrayList(StringWrapper.wrapStringOnBreaks(textToWrap, maxWidth));
 
         Assert.assertEquals(expected.length, result.size());
         int i;
-        for (i=0; i<result.size(); i++) {
+        for (i = 0; i < result.size(); i++) {
             Assert.assertTrue(i < expected.length);
             Assert.assertEquals(expected[i], result.get(i));
         }

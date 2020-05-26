@@ -49,7 +49,7 @@ public class DexBackedOdexFile extends DexBackedDexFile {
 
     private final byte[] odexBuf;
 
-    public DexBackedOdexFile(@Nonnull Opcodes opcodes, @Nonnull byte[] odexBuf, byte[] dexBuf) {
+    public DexBackedOdexFile(final @Nonnull Opcodes opcodes, final @Nonnull byte[] odexBuf, final byte[] dexBuf) {
         super(opcodes, dexBuf);
 
         this.odexBuf = odexBuf;
@@ -68,12 +68,12 @@ public class DexBackedOdexFile extends DexBackedDexFile {
 
         return new VariableSizeList<String>(
                 this.getDataBuffer(), dependencyOffset + DEPENDENCY_START_OFFSET, dependencyCount) {
-            @Override protected String readNextItem(@Nonnull DexReader reader, int index) {
+            @Override protected String readNextItem(final @Nonnull DexReader reader, final int index) {
                 int length = reader.readInt();
                 int offset = reader.getOffset();
                 reader.moveRelative(length + 20);
                 try {
-                    return new String(fromStartBuffer.buf, offset, length-1, "US-ASCII");
+                    return new String(fromStartBuffer.buf, offset, length - 1, "US-ASCII");
                 } catch (UnsupportedEncodingException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -81,7 +81,7 @@ public class DexBackedOdexFile extends DexBackedDexFile {
         };
     }
 
-    @Nonnull public static DexBackedOdexFile fromInputStream(@Nonnull Opcodes opcodes, @Nonnull InputStream is)
+    @Nonnull public static DexBackedOdexFile fromInputStream(final @Nonnull Opcodes opcodes, final @Nonnull InputStream is)
             throws IOException {
         DexUtil.verifyOdexHeader(is);
 
@@ -106,15 +106,15 @@ public class DexBackedOdexFile extends DexBackedDexFile {
         public NotAnOdexFile() {
         }
 
-        public NotAnOdexFile(Throwable cause) {
+        public NotAnOdexFile(final Throwable cause) {
             super(cause);
         }
 
-        public NotAnOdexFile(String message) {
+        public NotAnOdexFile(final String message) {
             super(message);
         }
 
-        public NotAnOdexFile(String message, Throwable cause) {
+        public NotAnOdexFile(final String message, final Throwable cause) {
             super(message, cause);
         }
     }

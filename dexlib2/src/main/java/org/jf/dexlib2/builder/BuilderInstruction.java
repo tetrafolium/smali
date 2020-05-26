@@ -44,7 +44,7 @@ public abstract class BuilderInstruction implements Instruction {
 
     @Nullable MethodLocation location;
 
-    protected BuilderInstruction(@Nonnull Opcode opcode) {
+    protected BuilderInstruction(final @Nonnull Opcode opcode) {
         Preconditions.checkFormat(opcode, getFormat());
         this.opcode = opcode;
     }
@@ -62,8 +62,8 @@ public abstract class BuilderInstruction implements Instruction {
     @Nonnull
     public MethodLocation getLocation() {
         if (location == null) {
-            throw new IllegalStateException("Cannot get the location of an instruction that hasn't been added to a " +
-                    "method.");
+            throw new IllegalStateException("Cannot get the location of an instruction that hasn't been added to a "
+                    + "method.");
         }
         return location;
     }

@@ -46,46 +46,48 @@ public class ImmutableAnnotationElement extends BaseAnnotationElement {
     @Nonnull protected final String name;
     @Nonnull protected final ImmutableEncodedValue value;
 
-    public ImmutableAnnotationElement(@Nonnull String name,
-                                      @Nonnull EncodedValue value) {
+    public ImmutableAnnotationElement(final @Nonnull String name,
+                                      final @Nonnull EncodedValue value) {
         this.name = name;
         this.value = ImmutableEncodedValueFactory.of(value);
     }
 
-    public ImmutableAnnotationElement(@Nonnull String name,
-                                      @Nonnull ImmutableEncodedValue value) {
+    public ImmutableAnnotationElement(final @Nonnull String name,
+                                      final @Nonnull ImmutableEncodedValue value) {
         this.name = name;
         this.value = value;
     }
 
-    public static ImmutableAnnotationElement of(AnnotationElement annotationElement) {
+    public static ImmutableAnnotationElement of(final AnnotationElement annotationElement) {
         if (annotationElement instanceof ImmutableAnnotationElement) {
-            return (ImmutableAnnotationElement)annotationElement;
+            return (ImmutableAnnotationElement) annotationElement;
         }
         return new ImmutableAnnotationElement(
                 annotationElement.getName(),
                 annotationElement.getValue());
     }
 
-    @Nonnull @Override public String getName() { return name; }
-    @Nonnull @Override public EncodedValue getValue() { return value; }
+    @Nonnull @Override public String getName() {
+        return name; }
+    @Nonnull @Override public EncodedValue getValue() {
+        return value; }
 
     @Nonnull
     public static ImmutableSet<ImmutableAnnotationElement> immutableSetOf(
-            @Nullable Iterable<? extends AnnotationElement> list) {
+            final @Nullable Iterable<? extends AnnotationElement> list) {
         return CONVERTER.toSet(list);
     }
 
     private static final ImmutableConverter<ImmutableAnnotationElement, AnnotationElement> CONVERTER =
             new ImmutableConverter<ImmutableAnnotationElement, AnnotationElement>() {
                 @Override
-                protected boolean isImmutable(@Nonnull AnnotationElement item) {
+                protected boolean isImmutable(final @Nonnull AnnotationElement item) {
                     return item instanceof ImmutableAnnotationElement;
                 }
 
                 @Nonnull
                 @Override
-                protected ImmutableAnnotationElement makeImmutable(@Nonnull AnnotationElement item) {
+                protected ImmutableAnnotationElement makeImmutable(final @Nonnull AnnotationElement item) {
                     return ImmutableAnnotationElement.of(item);
                 }
             };

@@ -41,8 +41,8 @@ import org.jf.dexlib2.util.TypeUtils;
 import javax.annotation.Nonnull;
 
 public class AnalyzedMethodUtil {
-    public static boolean canAccess(@Nonnull TypeProto type, @Nonnull Method virtualMethod, boolean checkPackagePrivate,
-                                    boolean checkProtected, boolean checkClass) {
+    public static boolean canAccess(final @Nonnull TypeProto type, final @Nonnull Method virtualMethod, final boolean checkPackagePrivate,
+                                    final boolean checkProtected, final boolean checkClass) {
         if (checkPackagePrivate && MethodUtil.isPackagePrivate(virtualMethod)) {
             String otherPackage = TypeUtils.getPackage(virtualMethod.getDefiningClass());
             String thisPackage = TypeUtils.getPackage(type.getType());

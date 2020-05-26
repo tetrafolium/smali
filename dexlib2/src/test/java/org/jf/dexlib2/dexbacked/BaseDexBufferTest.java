@@ -48,25 +48,25 @@ public class BaseDexBufferTest {
         dexBuf = new DexBuffer(new byte[] {0x00, 0x00, 0x00, 0x00});
         Assert.assertEquals(0, dexBuf.readSmallUint(0));
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff, (byte)0xff, 0x7f});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff, 0x7f});
         Assert.assertEquals(0x7fffffff, dexBuf.readSmallUint(0));
     }
 
-    @Test(expected=ExceptionWithContext.class)
+    @Test(expected = ExceptionWithContext.class)
     public void testReadSmallUintTooLarge1() {
-        DexBuffer dexBuf = new DexBuffer(new byte[] {0x00, 0x00, 0x00, (byte)0x80});
+        DexBuffer dexBuf = new DexBuffer(new byte[] {0x00, 0x00, 0x00, (byte) 0x80});
         dexBuf.readSmallUint(0);
     }
 
-    @Test(expected=ExceptionWithContext.class)
+    @Test(expected = ExceptionWithContext.class)
     public void testReadSmallUintTooLarge2() {
-        DexBuffer dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff, (byte)0xff, (byte)0x80});
+        DexBuffer dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0x80});
         dexBuf.readSmallUint(0);
     }
 
-    @Test(expected=ExceptionWithContext.class)
+    @Test(expected = ExceptionWithContext.class)
     public void testReadSmallUintTooLarge3() {
-        DexBuffer dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff});
+        DexBuffer dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff});
         dexBuf.readSmallUint(0);
     }
 
@@ -78,28 +78,28 @@ public class BaseDexBufferTest {
         dexBuf = new DexBuffer(new byte[] {0x00, 0x00, 0x00, 0x00});
         Assert.assertEquals(0, dexBuf.readSmallUint(0));
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff, (byte)0xff, 0x7f});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff, 0x7f});
         Assert.assertEquals(0x7fffffff, dexBuf.readSmallUint(0));
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff});
         Assert.assertEquals(-1, dexBuf.readOptionalUint(0));
     }
 
-    @Test(expected=ExceptionWithContext.class)
+    @Test(expected = ExceptionWithContext.class)
     public void testReadOptionalUintTooLarge1() {
-        DexBuffer dexBuf = new DexBuffer(new byte[] {0x00, 0x00, 0x00, (byte)0x80});
+        DexBuffer dexBuf = new DexBuffer(new byte[] {0x00, 0x00, 0x00, (byte) 0x80});
         dexBuf.readSmallUint(0);
     }
 
-    @Test(expected=ExceptionWithContext.class)
+    @Test(expected = ExceptionWithContext.class)
     public void testReadOptionalUintTooLarge2() {
-        DexBuffer dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff, (byte)0xff, (byte)0x80});
+        DexBuffer dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0x80});
         dexBuf.readSmallUint(0);
     }
 
-    @Test(expected=ExceptionWithContext.class)
+    @Test(expected = ExceptionWithContext.class)
     public void testReadOptionalUintTooLarge3() {
-        DexBuffer dexBuf = new DexBuffer(new byte[] {(byte)0xfe, (byte)0xff, (byte)0xff, (byte)0xff});
+        DexBuffer dexBuf = new DexBuffer(new byte[] {(byte) 0xfe, (byte) 0xff, (byte) 0xff, (byte) 0xff});
         dexBuf.readSmallUint(0);
     }
 
@@ -111,13 +111,13 @@ public class BaseDexBufferTest {
         dexBuf = new DexBuffer(new byte[] {0x00, 0x00});
         Assert.assertEquals(dexBuf.readUshort(0), 0);
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff});
         Assert.assertEquals(dexBuf.readUshort(0), 0xffff);
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0x00, (byte)0x80});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0x00, (byte) 0x80});
         Assert.assertEquals(dexBuf.readUshort(0), 0x8000);
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0x7f});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0x7f});
         Assert.assertEquals(dexBuf.readUshort(0), 0x7fff);
     }
 
@@ -126,8 +126,8 @@ public class BaseDexBufferTest {
         byte[] buf = new byte[1];
         DexBuffer dexBuf = new DexBuffer(buf);
 
-        for (int i=0; i<=0xff; i++) {
-            buf[0] = (byte)i;
+        for (int i = 0; i <= 0xff; i++) {
+            buf[0] = (byte) i;
             Assert.assertEquals(i, dexBuf.readUbyte(0));
         }
     }
@@ -140,19 +140,19 @@ public class BaseDexBufferTest {
         dexBuf = new DexBuffer(new byte[] {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00});
         Assert.assertEquals(0, dexBuf.readLong(0));
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,
-                (byte)0xff, (byte)0xff, (byte)0xff, 0x7f});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
+                (byte) 0xff, (byte) 0xff, (byte) 0xff, 0x7f});
         Assert.assertEquals(Long.MAX_VALUE, dexBuf.readLong(0));
 
-        dexBuf = new DexBuffer(new byte[] {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, (byte)0x80});
+        dexBuf = new DexBuffer(new byte[] {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, (byte) 0x80});
         Assert.assertEquals(Long.MIN_VALUE, dexBuf.readLong(0));
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,
-                (byte)0xff, (byte)0xff, (byte)0xff, (byte)0x80});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
+                (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0x80});
         Assert.assertEquals(0x80ffffffffffffffL, dexBuf.readLong(0));
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,
-                (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
+                (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff});
         Assert.assertEquals(-1, dexBuf.readLong(0));
 
     }
@@ -165,16 +165,16 @@ public class BaseDexBufferTest {
         dexBuf = new DexBuffer(new byte[] {0x00, 0x00, 0x00, 0x00});
         Assert.assertEquals(0, dexBuf.readInt(0));
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff, (byte)0xff, 0x7f});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff, 0x7f});
         Assert.assertEquals(Integer.MAX_VALUE, dexBuf.readInt(0));
 
-        dexBuf = new DexBuffer(new byte[] {0x00, 0x00, 0x00, (byte)0x80});
+        dexBuf = new DexBuffer(new byte[] {0x00, 0x00, 0x00, (byte) 0x80});
         Assert.assertEquals(Integer.MIN_VALUE, dexBuf.readInt(0));
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff, (byte)0xff, (byte)0x80});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0x80});
         Assert.assertEquals(0x80ffffff, dexBuf.readInt(0));
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff});
         Assert.assertEquals(-1, dexBuf.readInt(0));
     }
 
@@ -186,16 +186,16 @@ public class BaseDexBufferTest {
         dexBuf = new DexBuffer(new byte[] {0x00, 0x00});
         Assert.assertEquals(dexBuf.readShort(0), 0);
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0xff});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0xff});
         Assert.assertEquals(dexBuf.readShort(0), -1);
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0x00, (byte)0x80});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0x00, (byte) 0x80});
         Assert.assertEquals(dexBuf.readShort(0), Short.MIN_VALUE);
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0x7f});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0x7f});
         Assert.assertEquals(dexBuf.readShort(0), 0x7fff);
 
-        dexBuf = new DexBuffer(new byte[] {(byte)0xff, (byte)0x80});
+        dexBuf = new DexBuffer(new byte[] {(byte) 0xff, (byte) 0x80});
         Assert.assertEquals(dexBuf.readShort(0), 0xffff80ff);
     }
 
@@ -204,9 +204,9 @@ public class BaseDexBufferTest {
         byte[] buf = new byte[1];
         DexBuffer dexBuf = new DexBuffer(buf);
 
-        for (int i=0; i<=0xff; i++) {
-            buf[0] = (byte)i;
-            Assert.assertEquals((byte)i, dexBuf.readByte(0));
+        for (int i = 0; i <= 0xff; i++) {
+            buf[0] = (byte) i;
+            Assert.assertEquals((byte) i, dexBuf.readByte(0));
         }
     }
 
@@ -217,7 +217,7 @@ public class BaseDexBufferTest {
         byte[] buf = new byte[4];
         DexBuffer dexBuf = new DexBuffer(buf);
 
-        for (int i=0; i<10000; i++) {
+        for (int i = 0; i < 10000; i++) {
             int val = r.nextInt();
             byteBuf.putInt(0, val);
             byteBuf.position(0);
@@ -238,9 +238,9 @@ public class BaseDexBufferTest {
             Assert.assertEquals((val >> 8) & 0xFFFF, dexBuf.readUshort(1));
             Assert.assertEquals((val >> 16) & 0xFFFF, dexBuf.readUshort(2));
 
-            Assert.assertEquals((short)val, dexBuf.readShort(0));
-            Assert.assertEquals((short)(val >> 8), dexBuf.readShort(1));
-            Assert.assertEquals((short)(val >> 16), dexBuf.readShort(2));
+            Assert.assertEquals((short) val, dexBuf.readShort(0));
+            Assert.assertEquals((short) (val >> 8), dexBuf.readShort(1));
+            Assert.assertEquals((short) (val >> 16), dexBuf.readShort(2));
         }
     }
 
@@ -251,7 +251,7 @@ public class BaseDexBufferTest {
         byte[] buf = new byte[8];
         DexBuffer dexBuf = new DexBuffer(buf);
 
-        for (int i=0; i<10000; i++) {
+        for (int i = 0; i < 10000; i++) {
             int val = r.nextInt();
             byteBuf.putLong(0, val);
             byteBuf.position(0);

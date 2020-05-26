@@ -41,11 +41,11 @@ import java.util.List;
 public class EncodedArrayPool extends BaseOffsetPool<ArrayEncodedValue>
         implements EncodedArraySection<ArrayEncodedValue, EncodedValue> {
 
-    public EncodedArrayPool(@Nonnull DexPool dexPool) {
+    public EncodedArrayPool(final @Nonnull DexPool dexPool) {
         super(dexPool);
     }
 
-    public void intern(@Nonnull ArrayEncodedValue arrayEncodedValue) {
+    public void intern(final @Nonnull ArrayEncodedValue arrayEncodedValue) {
         Integer prev = internedItems.put(arrayEncodedValue, 0);
         if (prev == null) {
             for (EncodedValue value: arrayEncodedValue.getValue()) {
@@ -55,7 +55,7 @@ public class EncodedArrayPool extends BaseOffsetPool<ArrayEncodedValue>
     }
 
     @Override
-    public List<? extends EncodedValue> getEncodedValueList(ArrayEncodedValue arrayEncodedValue) {
+    public List<? extends EncodedValue> getEncodedValueList(final ArrayEncodedValue arrayEncodedValue) {
         return arrayEncodedValue.getValue();
     }
 }

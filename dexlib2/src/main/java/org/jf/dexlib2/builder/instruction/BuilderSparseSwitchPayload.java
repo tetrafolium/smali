@@ -49,13 +49,13 @@ public class BuilderSparseSwitchPayload extends BuilderSwitchPayload implements 
 
     @Nonnull protected final List<BuilderSwitchElement> switchElements;
 
-    public BuilderSparseSwitchPayload(@Nullable List<? extends SwitchLabelElement> switchElements) {
+    public BuilderSparseSwitchPayload(final @Nullable List<? extends SwitchLabelElement> switchElements) {
         super(OPCODE);
         if (switchElements == null) {
             this.switchElements = ImmutableList.of();
         } else {
             this.switchElements = Lists.transform(switchElements, new Function<SwitchLabelElement, BuilderSwitchElement>() {
-                @Nullable @Override public BuilderSwitchElement apply(@Nullable SwitchLabelElement element) {
+                @Nullable @Override public BuilderSwitchElement apply(final @Nullable SwitchLabelElement element) {
                     assert element != null;
                     return new BuilderSwitchElement(BuilderSparseSwitchPayload.this, element.key, element.target);
                 }
@@ -63,8 +63,11 @@ public class BuilderSparseSwitchPayload extends BuilderSwitchPayload implements 
         }
     }
 
-    @Nonnull @Override public List<BuilderSwitchElement> getSwitchElements() { return switchElements; }
+    @Nonnull @Override public List<BuilderSwitchElement> getSwitchElements() {
+        return switchElements; }
 
-    @Override public int getCodeUnits() { return 2 + switchElements.size() * 4; }
-    @Override public Format getFormat() { return OPCODE.format; }
+    @Override public int getCodeUnits() {
+        return 2 + switchElements.size() * 4; }
+    @Override public Format getFormat() {
+        return OPCODE.format; }
 }

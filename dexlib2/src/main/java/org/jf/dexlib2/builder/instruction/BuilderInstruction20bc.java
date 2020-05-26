@@ -47,17 +47,21 @@ public class BuilderInstruction20bc extends BuilderInstruction implements Instru
     protected final int verificationError;
     @Nonnull protected final Reference reference;
 
-    public BuilderInstruction20bc(@Nonnull Opcode opcode,
-                                    int verificationError,
-                                    @Nonnull Reference reference) {
+    public BuilderInstruction20bc(final @Nonnull Opcode opcode,
+                                    final int verificationError,
+                                    final @Nonnull Reference reference) {
         super(opcode);
         this.verificationError = Preconditions.checkVerificationError(verificationError);
         this.reference = reference;
     }
 
-    @Override public int getVerificationError() { return verificationError; }
-    @Nonnull @Override public Reference getReference() { return reference; }
-    @Override public int getReferenceType() { return ReferenceType.getReferenceType(reference); }
+    @Override public int getVerificationError() {
+        return verificationError; }
+    @Nonnull @Override public Reference getReference() {
+        return reference; }
+    @Override public int getReferenceType() {
+        return ReferenceType.getReferenceType(reference); }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

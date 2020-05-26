@@ -39,7 +39,7 @@ public class LabelMethodItem extends MethodItem {
     private final String labelPrefix;
     private int labelSequence;
 
-    public LabelMethodItem(@Nonnull BaksmaliOptions options, int codeAddress, @Nonnull String labelPrefix) {
+    public LabelMethodItem(final @Nonnull BaksmaliOptions options, final int codeAddress, final @Nonnull String labelPrefix) {
         super(codeAddress);
         this.options = options;
         this.labelPrefix = labelPrefix;
@@ -49,12 +49,12 @@ public class LabelMethodItem extends MethodItem {
         return 0;
     }
 
-    public int compareTo(MethodItem methodItem) {
+    public int compareTo(final MethodItem methodItem) {
         int result = super.compareTo(methodItem);
 
         if (result == 0) {
             if (methodItem instanceof LabelMethodItem) {
-                result = labelPrefix.compareTo(((LabelMethodItem)methodItem).labelPrefix);
+                result = labelPrefix.compareTo(((LabelMethodItem) methodItem).labelPrefix);
             }
         }
         return result;
@@ -65,15 +65,15 @@ public class LabelMethodItem extends MethodItem {
         return getCodeAddress();
     }
 
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (!(o instanceof LabelMethodItem)) {
             return false;
         }
-        return this.compareTo((MethodItem)o) == 0;
+        return this.compareTo((MethodItem) o) == 0;
     }
 
 
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         writer.write(':');
         writer.write(labelPrefix);
         if (options.sequentialLabels) {
@@ -96,7 +96,7 @@ public class LabelMethodItem extends MethodItem {
         return labelSequence;
     }
 
-    public void setLabelSequence(int labelSequence) {
+    public void setLabelSequence(final int labelSequence) {
         this.labelSequence = labelSequence;
     }
 }

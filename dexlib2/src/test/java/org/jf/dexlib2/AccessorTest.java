@@ -114,7 +114,7 @@ public class AccessorTest {
                 Opcode opcode = instruction.getOpcode();
                 if (opcode == Opcode.INVOKE_STATIC || opcode == Opcode.INVOKE_STATIC_RANGE) {
                     MethodReference accessorMethod =
-                            (MethodReference)((ReferenceInstruction) instruction).getReference();
+                            (MethodReference) ((ReferenceInstruction) instruction).getReference();
 
                     SyntheticAccessorResolver.AccessedMember accessedMember = sar.getAccessedMember(accessorMethod);
 
@@ -125,7 +125,7 @@ public class AccessorTest {
                     Assert.assertEquals(operationType, accessedMember.accessedMemberType);
 
                     Assert.assertEquals(String.format("%s_val", type),
-                            ((FieldReference)accessedMember.accessedMember).getName());
+                            ((FieldReference) accessedMember.accessedMember).getName());
                 }
             }
         }

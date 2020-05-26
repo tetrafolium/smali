@@ -39,7 +39,7 @@ public class PathUtil {
     private PathUtil() {
     }
 
-    public static File getRelativeFile(File baseFile, File fileToRelativize) throws IOException {
+    public static File getRelativeFile(final File baseFile, final File fileToRelativize) throws IOException {
         if (baseFile.isFile()) {
             baseFile = baseFile.getParentFile();
         }
@@ -47,7 +47,7 @@ public class PathUtil {
         return new File(getRelativeFileInternal(baseFile.getCanonicalFile(), fileToRelativize.getCanonicalFile()));
     }
 
-    static String getRelativeFileInternal(File canonicalBaseFile, File canonicalFileToRelativize) {
+    static String getRelativeFileInternal(final File canonicalBaseFile, final File canonicalFileToRelativize) {
         List<String> basePath = getPathComponents(canonicalBaseFile);
         List<String> pathToRelativize = getPathComponents(canonicalFileToRelativize);
 
@@ -60,14 +60,14 @@ public class PathUtil {
         int commonDirs;
         StringBuilder sb = new StringBuilder();
 
-        for (commonDirs=1; commonDirs<basePath.size() && commonDirs<pathToRelativize.size(); commonDirs++) {
+        for (commonDirs = 1; commonDirs < basePath.size() && commonDirs < pathToRelativize.size(); commonDirs++) {
             if (!basePath.get(commonDirs).equals(pathToRelativize.get(commonDirs))) {
                 break;
             }
         }
 
         boolean first = true;
-        for (int i=commonDirs; i<basePath.size(); i++) {
+        for (int i = commonDirs; i < basePath.size(); i++) {
             if (!first) {
                 sb.append(File.separatorChar);
             } else {
@@ -78,7 +78,7 @@ public class PathUtil {
         }
 
         first = true;
-        for (int i=commonDirs; i<pathToRelativize.size(); i++) {
+        for (int i = commonDirs; i < pathToRelativize.size(); i++) {
             if (first) {
                 if (sb.length() != 0) {
                     sb.append(File.separatorChar);
@@ -98,7 +98,7 @@ public class PathUtil {
         return sb.toString();
     }
 
-    private static List<String> getPathComponents(File file) {
+    private static List<String> getPathComponents(final File file) {
         ArrayList<String> path = new ArrayList<String>();
 
         while (file != null) {

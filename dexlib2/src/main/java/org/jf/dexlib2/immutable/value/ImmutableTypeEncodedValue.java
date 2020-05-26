@@ -39,16 +39,17 @@ import javax.annotation.Nonnull;
 public class ImmutableTypeEncodedValue extends BaseTypeEncodedValue implements ImmutableEncodedValue {
     @Nonnull protected final String value;
 
-    public ImmutableTypeEncodedValue(@Nonnull String value) {
+    public ImmutableTypeEncodedValue(final @Nonnull String value) {
         this.value = value;
     }
 
-    public static ImmutableTypeEncodedValue of(@Nonnull TypeEncodedValue typeEncodedValue) {
+    public static ImmutableTypeEncodedValue of(final @Nonnull TypeEncodedValue typeEncodedValue) {
         if (typeEncodedValue instanceof ImmutableTypeEncodedValue) {
-            return (ImmutableTypeEncodedValue)typeEncodedValue;
+            return (ImmutableTypeEncodedValue) typeEncodedValue;
         }
         return new ImmutableTypeEncodedValue(typeEncodedValue.getValue());
     }
 
-    @Nonnull @Override public String getValue() { return value; }
+    @Nonnull @Override public String getValue() {
+        return value; }
 }

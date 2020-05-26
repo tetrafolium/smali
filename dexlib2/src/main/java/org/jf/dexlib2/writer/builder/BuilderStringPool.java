@@ -44,28 +44,28 @@ import java.util.concurrent.ConcurrentMap;
 class BuilderStringPool implements StringSection<BuilderStringReference, BuilderStringReference> {
     @Nonnull private final ConcurrentMap<String, BuilderStringReference> internedItems = Maps.newConcurrentMap();
 
-    @Nonnull BuilderStringReference internString(@Nonnull String string) {
+    @Nonnull BuilderStringReference internString(final @Nonnull String string) {
         BuilderStringReference ret = internedItems.get(string);
         if (ret != null) {
             return ret;
         }
         BuilderStringReference stringReference = new BuilderStringReference(string);
         ret = internedItems.putIfAbsent(string, stringReference);
-        return ret==null?stringReference:ret;
+        return ret == null ? stringReference : ret;
     }
 
-    @Nullable BuilderStringReference internNullableString(@Nullable String string) {
+    @Nullable BuilderStringReference internNullableString(final @Nullable String string) {
         if (string == null) {
             return null;
         }
         return internString(string);
     }
 
-    @Override public int getNullableItemIndex(@Nullable BuilderStringReference key) {
-        return key==null?DexWriter.NO_INDEX:key.index;
+    @Override public int getNullableItemIndex(final @Nullable BuilderStringReference key) {
+        return key == null ? DexWriter.NO_INDEX : key.index;
     }
 
-    @Override public int getItemIndex(@Nonnull BuilderStringReference key) {
+    @Override public int getItemIndex(final @Nonnull BuilderStringReference key) {
         return key.index;
     }
 
@@ -75,11 +75,11 @@ class BuilderStringPool implements StringSection<BuilderStringReference, Builder
 
     @Nonnull @Override public Collection<? extends Entry<? extends BuilderStringReference, Integer>> getItems() {
         return new BuilderMapEntryCollection<BuilderStringReference>(internedItems.values()) {
-            @Override protected int getValue(@Nonnull BuilderStringReference key) {
+            @Override protected int getValue(final @Nonnull BuilderStringReference key) {
                 return key.index;
             }
 
-            @Override protected int setValue(@Nonnull BuilderStringReference key, int value) {
+            @Override protected int setValue(final @Nonnull BuilderStringReference key, final int value) {
                 int prev = key.index;
                 key.index = value;
                 return prev;

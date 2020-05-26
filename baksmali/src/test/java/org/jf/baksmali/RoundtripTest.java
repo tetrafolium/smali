@@ -50,7 +50,7 @@ import java.io.IOException;
 public abstract class RoundtripTest {
     protected final String testDir;
 
-    protected RoundtripTest(@Nonnull String testDir) {
+    protected RoundtripTest(final @Nonnull String testDir) {
         this.testDir = testDir;
     }
 
@@ -59,20 +59,20 @@ public abstract class RoundtripTest {
     }
 
     @Nonnull
-    protected String getInputFilename(@Nonnull String testName) {
+    protected String getInputFilename(final @Nonnull String testName) {
         return String.format("%s%s%sInput.smali", testDir, File.separatorChar, testName);
     }
 
     @Nonnull
-    protected String getOutputFilename(@Nonnull String testName) {
+    protected String getOutputFilename(final @Nonnull String testName) {
         return String.format("%s%s%sOutput.smali", testDir, File.separatorChar, testName);
     }
 
-    protected void runTest(@Nonnull String testName) {
+    protected void runTest(final @Nonnull String testName) {
         runTest(testName, new BaksmaliOptions());
     }
 
-    protected void runTest(@Nonnull String testName, @Nonnull BaksmaliOptions options) {
+    protected void runTest(final @Nonnull String testName, final @Nonnull BaksmaliOptions options) {
         try {
             // Load file from resources as a stream
             String inputFilename = getInputFilename(testName);

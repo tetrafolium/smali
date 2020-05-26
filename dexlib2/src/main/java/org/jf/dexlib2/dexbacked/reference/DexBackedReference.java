@@ -39,7 +39,7 @@ import org.jf.util.ExceptionWithContext;
 import javax.annotation.Nonnull;
 
 public abstract class DexBackedReference {
-    public static Reference makeReference(@Nonnull DexBackedDexFile dexFile, int referenceType, int referenceIndex) {
+    public static Reference makeReference(final @Nonnull DexBackedDexFile dexFile, final int referenceType, final int referenceIndex) {
         switch (referenceType) {
             case ReferenceType.STRING:
                 return new DexBackedStringReference(dexFile, referenceIndex);

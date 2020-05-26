@@ -52,7 +52,7 @@ import java.util.SortedSet;
 public class StaticInitializerUtil {
 
     @Nullable public static ArrayEncodedValue getStaticInitializers(
-            @Nonnull SortedSet<? extends Field> sortedStaticFields) {
+            final @Nonnull SortedSet<? extends Field> sortedStaticFields) {
         final int lastIndex = CollectionUtils.lastIndexOf(sortedStaticFields, HAS_INITIALIZER);
         if (lastIndex > -1) {
             return new BaseArrayEncodedValue() {
@@ -62,12 +62,12 @@ public class StaticInitializerUtil {
                     return new AbstractForwardSequentialList<EncodedValue>() {
                         @Nonnull @Override public Iterator<EncodedValue> iterator() {
                             return FluentIterable.from(sortedStaticFields)
-                                    .limit(lastIndex+1)
+                                    .limit(lastIndex + 1)
                                     .transform(GET_INITIAL_VALUE).iterator();
                         }
 
                         @Override public int size() {
-                            return lastIndex+1;
+                            return lastIndex + 1;
                         }
                     };
                 }
@@ -78,7 +78,7 @@ public class StaticInitializerUtil {
 
     private static final Predicate<Field> HAS_INITIALIZER = new Predicate<Field>() {
         @Override
-        public boolean apply(Field input) {
+        public boolean apply(final Field input) {
             EncodedValue encodedValue = input.getInitialValue();
             return encodedValue != null && !EncodedValueUtils.isDefaultValue(encodedValue);
         }
@@ -86,7 +86,7 @@ public class StaticInitializerUtil {
 
     private static final Function<Field, EncodedValue> GET_INITIAL_VALUE = new Function<Field, EncodedValue>() {
         @Override
-        public EncodedValue apply(Field input) {
+        public EncodedValue apply(final Field input) {
             EncodedValue initialValue = input.getInitialValue();
             if (initialValue == null) {
                 return ImmutableEncodedValueFactory.defaultValueForType(input.getType());

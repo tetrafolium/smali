@@ -41,21 +41,21 @@ import java.util.List;
 public class InstructionOffsetMap {
     @Nonnull private final int[] instructionCodeOffsets;
 
-    public InstructionOffsetMap(@Nonnull List<? extends Instruction> instructions) {
+    public InstructionOffsetMap(final @Nonnull List<? extends Instruction> instructions) {
         this.instructionCodeOffsets = new int[instructions.size()];
 
         int codeOffset = 0;
-        for (int i=0; i<instructions.size(); i++) {
+        for (int i = 0; i < instructions.size(); i++) {
             instructionCodeOffsets[i] = codeOffset;
             codeOffset += instructions.get(i).getCodeUnits();
         }
     }
 
-    public int getInstructionIndexAtCodeOffset(int codeOffset) {
+    public int getInstructionIndexAtCodeOffset(final int codeOffset) {
         return getInstructionIndexAtCodeOffset(codeOffset, true);
     }
 
-    public int getInstructionIndexAtCodeOffset(int codeOffset, boolean exact) {
+    public int getInstructionIndexAtCodeOffset(final int codeOffset, final boolean exact) {
         int index = Arrays.binarySearch(instructionCodeOffsets, codeOffset);
         if (index < 0) {
             if (exact) {
@@ -70,7 +70,7 @@ public class InstructionOffsetMap {
         return index;
     }
 
-    public int getInstructionCodeOffset(int index) {
+    public int getInstructionCodeOffset(final int index) {
         if (index < 0 || index >= instructionCodeOffsets.length) {
             throw new InvalidInstructionIndex(index);
         }
@@ -80,7 +80,7 @@ public class InstructionOffsetMap {
     public static class InvalidInstructionOffset extends ExceptionWithContext {
         private final int instructionOffset;
 
-        public InvalidInstructionOffset(int instructionOffset) {
+        public InvalidInstructionOffset(final int instructionOffset) {
             super("No instruction at offset %d", instructionOffset);
             this.instructionOffset = instructionOffset;
         }
@@ -93,7 +93,7 @@ public class InstructionOffsetMap {
     public static class InvalidInstructionIndex extends ExceptionWithContext {
         private final int instructionIndex;
 
-        public InvalidInstructionIndex(int instructionIndex) {
+        public InvalidInstructionIndex(final int instructionIndex) {
             super("Instruction index out of bounds: %d", instructionIndex);
             this.instructionIndex = instructionIndex;
         }

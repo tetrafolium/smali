@@ -44,7 +44,7 @@ import java.util.List;
         commandName = "methods",
         commandAliases = { "method", "m" })
 public class ListMethodsCommand extends ListReferencesCommand {
-    public ListMethodsCommand(@Nonnull List<JCommander> commandAncestors) {
+    public ListMethodsCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors, ReferenceType.METHOD);
     }
 }

@@ -41,9 +41,10 @@ import javax.annotation.Nonnull;
 public class BuilderInstruction10x extends BuilderInstruction implements Instruction10x {
     public static final Format FORMAT = Format.Format10x;
 
-    public BuilderInstruction10x(@Nonnull Opcode opcode) {
+    public BuilderInstruction10x(final @Nonnull Opcode opcode) {
         super(opcode);
     }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

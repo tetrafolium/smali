@@ -49,7 +49,7 @@ public class BuilderPackedSwitchPayload extends BuilderSwitchPayload implements 
     @Nonnull protected final List<BuilderSwitchElement> switchElements;
 
     public BuilderPackedSwitchPayload(final int startKey,
-                                      @Nullable List<? extends Label> switchElements) {
+                                      final @Nullable List<? extends Label> switchElements) {
         super(OPCODE);
         if (switchElements == null) {
             this.switchElements = ImmutableList.of();
@@ -62,8 +62,11 @@ public class BuilderPackedSwitchPayload extends BuilderSwitchPayload implements 
         }
     }
 
-    @Nonnull @Override public List<BuilderSwitchElement> getSwitchElements() { return switchElements; }
+    @Nonnull @Override public List<BuilderSwitchElement> getSwitchElements() {
+        return switchElements; }
 
-    @Override public int getCodeUnits() { return 4 + switchElements.size() * 2; }
-    @Override public Format getFormat() { return OPCODE.format; }
+    @Override public int getCodeUnits() {
+        return 4 + switchElements.size() * 2; }
+    @Override public Format getFormat() {
+        return OPCODE.format; }
 }

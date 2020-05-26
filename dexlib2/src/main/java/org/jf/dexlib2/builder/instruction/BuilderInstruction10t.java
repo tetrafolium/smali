@@ -42,10 +42,11 @@ import javax.annotation.Nonnull;
 public class BuilderInstruction10t extends BuilderOffsetInstruction implements Instruction10t {
     public static final Format FORMAT = Format.Format10t;
 
-    public BuilderInstruction10t(@Nonnull Opcode opcode,
-                                 @Nonnull Label target) {
+    public BuilderInstruction10t(final @Nonnull Opcode opcode,
+                                 final @Nonnull Label target) {
         super(opcode, target);
     }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

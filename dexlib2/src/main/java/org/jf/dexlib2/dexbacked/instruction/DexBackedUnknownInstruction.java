@@ -38,8 +38,8 @@ import org.jf.dexlib2.iface.instruction.formats.UnknownInstruction;
 import javax.annotation.Nonnull;
 
 public class DexBackedUnknownInstruction extends DexBackedInstruction implements UnknownInstruction {
-    public DexBackedUnknownInstruction(@Nonnull DexBackedDexFile dexFile,
-                                       int instructionStart) {
+    public DexBackedUnknownInstruction(final @Nonnull DexBackedDexFile dexFile,
+                                       final int instructionStart) {
         super(dexFile, Opcode.NOP, instructionStart);
     }
 

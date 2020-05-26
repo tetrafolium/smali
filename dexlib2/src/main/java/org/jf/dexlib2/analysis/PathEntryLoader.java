@@ -28,7 +28,7 @@ public class PathEntryLoader {
         return classProviders;
     }
 
-    public PathEntryLoader(Opcodes opcodes) {
+    public PathEntryLoader(final Opcodes opcodes) {
         this.opcodes = opcodes;
     }
 
@@ -37,7 +37,7 @@ public class PathEntryLoader {
         return classProviders;
     }
 
-    public void loadEntry(@Nonnull File entryFile, boolean loadOatDependencies)
+    public void loadEntry(final @Nonnull File entryFile, final boolean loadOatDependencies)
             throws IOException, NoDexException {
         if (loadedFiles.contains(entryFile)) {
             return;
@@ -76,7 +76,7 @@ public class PathEntryLoader {
         }
     }
 
-    private void loadOatDependencies(@Nonnull File directory, @Nonnull List<String> oatDependencies)
+    private void loadOatDependencies(final @Nonnull File directory, final @Nonnull List<String> oatDependencies)
             throws IOException, NoDexException, ClassPathResolver.NotFoundException {
         // We assume that all oat dependencies are located in the same directory as the oat file
         for (String oatDependency : oatDependencies) {
@@ -91,7 +91,7 @@ public class PathEntryLoader {
     }
 
     @Nonnull
-    private String getFilenameForOatDependency(String oatDependency) {
+    private String getFilenameForOatDependency(final String oatDependency) {
         int index = oatDependency.lastIndexOf('/');
 
         String dependencyLeaf = oatDependency.substring(index + 1);
@@ -102,7 +102,7 @@ public class PathEntryLoader {
     }
 
     static class NoDexException extends Exception {
-        public NoDexException(String message, Object... formatArgs) {
+        public NoDexException(final String message, final Object... formatArgs) {
             super(String.format(message, formatArgs));
         }
     }

@@ -52,9 +52,9 @@ public class ImmutableCallSiteReference extends BaseCallSiteReference implements
     @Nonnull protected final ImmutableMethodProtoReference methodProto;
     @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> extraArguments;
 
-    public ImmutableCallSiteReference(@Nonnull String name, @Nonnull MethodHandleReference methodHandle,
-                                      @Nonnull String methodName, @Nonnull MethodProtoReference methodProto,
-                                      @Nonnull Iterable<? extends EncodedValue> extraArguments) {
+    public ImmutableCallSiteReference(final @Nonnull String name, final @Nonnull MethodHandleReference methodHandle,
+                                      final @Nonnull String methodName, final @Nonnull MethodProtoReference methodProto,
+                                      final @Nonnull Iterable<? extends EncodedValue> extraArguments) {
         this.name = name;
         this.methodHandle = ImmutableMethodHandleReference.of(methodHandle);
         this.methodName = methodName;
@@ -62,9 +62,9 @@ public class ImmutableCallSiteReference extends BaseCallSiteReference implements
         this.extraArguments = ImmutableEncodedValueFactory.immutableListOf(extraArguments);
     }
 
-    public ImmutableCallSiteReference(@Nonnull String name, @Nonnull ImmutableMethodHandleReference methodHandle,
-                                      @Nonnull String methodName, @Nonnull ImmutableMethodProtoReference methodProto,
-                                      @Nullable ImmutableList<? extends ImmutableEncodedValue> extraArguments) {
+    public ImmutableCallSiteReference(final @Nonnull String name, final @Nonnull ImmutableMethodHandleReference methodHandle,
+                                      final @Nonnull String methodName, final @Nonnull ImmutableMethodProtoReference methodProto,
+                                      final @Nullable ImmutableList<? extends ImmutableEncodedValue> extraArguments) {
         this.name = name;
         this.methodHandle = methodHandle;
         this.methodName = methodName;
@@ -73,7 +73,7 @@ public class ImmutableCallSiteReference extends BaseCallSiteReference implements
     }
 
     @Nonnull
-    public static ImmutableCallSiteReference of(@Nonnull CallSiteReference callSiteReference) {
+    public static ImmutableCallSiteReference of(final @Nonnull CallSiteReference callSiteReference) {
         if (callSiteReference instanceof ImmutableCallSiteReference) {
             return (ImmutableCallSiteReference) callSiteReference;
         }
@@ -84,9 +84,14 @@ public class ImmutableCallSiteReference extends BaseCallSiteReference implements
                 ImmutableEncodedValueFactory.immutableListOf(callSiteReference.getExtraArguments()));
     }
 
-    @Nonnull @Override public String getName() { return name; }
-    @Nonnull @Override public MethodHandleReference getMethodHandle() { return methodHandle; }
-    @Nonnull @Override public String getMethodName() { return methodName; }
-    @Nonnull @Override public MethodProtoReference getMethodProto() { return methodProto; }
-    @Nonnull @Override public List<? extends EncodedValue> getExtraArguments() { return extraArguments; }
+    @Nonnull @Override public String getName() {
+        return name; }
+    @Nonnull @Override public MethodHandleReference getMethodHandle() {
+        return methodHandle; }
+    @Nonnull @Override public String getMethodName() {
+        return methodName; }
+    @Nonnull @Override public MethodProtoReference getMethodProto() {
+        return methodProto; }
+    @Nonnull @Override public List<? extends EncodedValue> getExtraArguments() {
+        return extraArguments; }
 }

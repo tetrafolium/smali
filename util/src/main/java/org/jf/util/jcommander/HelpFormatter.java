@@ -55,13 +55,13 @@ public class HelpFormatter {
     private int width = 80;
 
     @Nonnull
-    public HelpFormatter width(int width) {
+    public HelpFormatter width(final int width) {
         this.width = width;
         return this;
     }
 
     @Nonnull
-    private static ExtendedParameters getExtendedParameters(JCommander jc) {
+    private static ExtendedParameters getExtendedParameters(final JCommander jc) {
         ExtendedParameters anno = jc.getObjects().get(0).getClass().getAnnotation(ExtendedParameters.class);
         if (anno == null) {
             throw new IllegalStateException("All commands should have an ExtendedParameters annotation");
@@ -70,20 +70,20 @@ public class HelpFormatter {
     }
 
     @Nonnull
-    private static List<String> getCommandAliases(JCommander jc) {
+    private static List<String> getCommandAliases(final JCommander jc) {
         return Lists.newArrayList(getExtendedParameters(jc).commandAliases());
     }
 
-    private static boolean includeParametersInUsage(@Nonnull JCommander jc) {
+    private static boolean includeParametersInUsage(final @Nonnull JCommander jc) {
         return getExtendedParameters(jc).includeParametersInUsage();
     }
 
     @Nonnull
-    private static String getPostfixDescription(@Nonnull JCommander jc) {
+    private static String getPostfixDescription(final @Nonnull JCommander jc) {
         return getExtendedParameters(jc).postfixDescription();
     }
 
-    private int getParameterArity(ParameterDescription param) {
+    private int getParameterArity(final ParameterDescription param) {
         if (param.getParameter().arity() > 0) {
             return param.getParameter().arity();
         }
@@ -94,13 +94,13 @@ public class HelpFormatter {
         return 1;
     }
 
-    private List<ParameterDescription> getSortedParameters(JCommander jc) {
+    private List<ParameterDescription> getSortedParameters(final JCommander jc) {
         List<ParameterDescription> parameters = Lists.newArrayList(jc.getParameters());
 
         final Pattern pattern = Pattern.compile("^-*(.*)$");
 
         Collections.sort(parameters, new Comparator<ParameterDescription>() {
-            @Override public int compare(ParameterDescription o1, ParameterDescription o2) {
+            @Override public int compare(final ParameterDescription o1, final ParameterDescription o2) {
                 String s1;
                 Matcher matcher = pattern.matcher(o1.getParameter().names()[0]);
                 if (matcher.matches()) {
@@ -124,12 +124,12 @@ public class HelpFormatter {
     }
 
     @Nonnull
-    public String format(@Nonnull JCommander... jc) {
+    public String format(final @Nonnull JCommander... jc) {
         return format(Arrays.asList(jc));
     }
 
     @Nonnull
-    public String format(@Nonnull List<JCommander> commandHierarchy) {
+    public String format(final @Nonnull List<JCommander> commandHierarchy) {
         try {
             StringWriter stringWriter = new StringWriter();
             WrappedIndentingWriter writer = new WrappedIndentingWriter(stringWriter, width - 5, width);
@@ -217,13 +217,13 @@ public class HelpFormatter {
                         }
                         if (param.getDefault() != null) {
                             String defaultValue = null;
-                            if (param.getParameterized().getType() == Boolean.class ||
-                                    param.getParameterized().getType() == Boolean.TYPE) {
-                                if ((Boolean)param.getDefault()) {
+                            if (param.getParameterized().getType() == Boolean.class
+                                    || param.getParameterized().getType() == Boolean.TYPE) {
+                                if ((Boolean) param.getDefault()) {
                                     defaultValue = "True";
                                 }
                             } else if (List.class.isAssignableFrom(param.getParameterized().getType())) {
-                                if (!((List)param.getDefault()).isEmpty()) {
+                                if (!((List) param.getDefault()).isEmpty()) {
                                     defaultValue = param.getDefault().toString();
                                 }
                             } else {
@@ -267,7 +267,7 @@ public class HelpFormatter {
 
                 List<Entry<String, JCommander>> entryList = Lists.newArrayList(leafJc.getCommands().entrySet());
                 Collections.sort(entryList, new Comparator<Entry<String, JCommander>>() {
-                    @Override public int compare(Entry<String, JCommander> o1, Entry<String, JCommander> o2) {
+                    @Override public int compare(final Entry<String, JCommander> o1, final Entry<String, JCommander> o2) {
                         return o1.getKey().compareTo(o2.getKey());
                     }
                 });

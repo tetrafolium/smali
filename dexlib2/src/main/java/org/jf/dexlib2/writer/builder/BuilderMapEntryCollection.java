@@ -40,7 +40,7 @@ import java.util.Map;
 public abstract class BuilderMapEntryCollection<Key> extends AbstractCollection<Map.Entry<Key, Integer>> {
     @Nonnull private final Collection<Key> keys;
 
-    public BuilderMapEntryCollection(@Nonnull Collection<Key> keys) {
+    public BuilderMapEntryCollection(final @Nonnull Collection<Key> keys) {
         this.keys = keys;
     }
 
@@ -55,7 +55,7 @@ public abstract class BuilderMapEntryCollection<Key> extends AbstractCollection<
             return BuilderMapEntryCollection.this.getValue(key);
         }
 
-        @Override public Integer setValue(Integer value) {
+        @Override public Integer setValue(final Integer value) {
             return BuilderMapEntryCollection.this.setValue(key, value);
         }
     }

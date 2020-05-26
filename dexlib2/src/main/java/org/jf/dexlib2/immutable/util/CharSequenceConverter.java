@@ -42,20 +42,20 @@ public final class CharSequenceConverter {
     }
 
     @Nonnull
-    public static ImmutableList<String> immutableStringList(@Nullable Iterable<? extends CharSequence> iterable) {
+    public static ImmutableList<String> immutableStringList(final @Nullable Iterable<? extends CharSequence> iterable) {
         return CONVERTER.toList(iterable);
     }
 
     private static final ImmutableConverter<String, CharSequence> CONVERTER =
             new ImmutableConverter<String, CharSequence>() {
                 @Override
-                protected boolean isImmutable(@Nonnull CharSequence item) {
+                protected boolean isImmutable(final @Nonnull CharSequence item) {
                     return item instanceof String;
                 }
 
                 @Nonnull
                 @Override
-                protected String makeImmutable(@Nonnull CharSequence item) {
+                protected String makeImmutable(final @Nonnull CharSequence item) {
                     return item.toString();
                 }
             };

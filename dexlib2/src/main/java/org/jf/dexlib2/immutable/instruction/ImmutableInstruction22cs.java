@@ -45,19 +45,19 @@ public class ImmutableInstruction22cs extends ImmutableInstruction implements In
     protected final int registerB;
     protected final int fieldOffset;
 
-    public ImmutableInstruction22cs(@Nonnull Opcode opcode,
-                                   int registerA,
-                                   int registerB,
-                                   int fieldOffset) {
+    public ImmutableInstruction22cs(final @Nonnull Opcode opcode,
+                                   final int registerA,
+                                   final int registerB,
+                                   final int fieldOffset) {
         super(opcode);
         this.registerA = Preconditions.checkNibbleRegister(registerA);
         this.registerB = Preconditions.checkNibbleRegister(registerB);
         this.fieldOffset = Preconditions.checkFieldOffset(fieldOffset);
     }
 
-    public static ImmutableInstruction22cs of(Instruction22cs instruction) {
+    public static ImmutableInstruction22cs of(final Instruction22cs instruction) {
         if (instruction instanceof ImmutableInstruction22cs) {
-            return (ImmutableInstruction22cs)instruction;
+            return (ImmutableInstruction22cs) instruction;
         }
         return new ImmutableInstruction22cs(
                 instruction.getOpcode(),
@@ -66,9 +66,13 @@ public class ImmutableInstruction22cs extends ImmutableInstruction implements In
                 instruction.getFieldOffset());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
-    @Override public int getFieldOffset() { return fieldOffset; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getRegisterB() {
+        return registerB; }
+    @Override public int getFieldOffset() {
+        return fieldOffset; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

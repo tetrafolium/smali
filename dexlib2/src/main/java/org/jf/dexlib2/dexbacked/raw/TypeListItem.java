@@ -43,18 +43,18 @@ public class TypeListItem {
     public static final int LIST_OFFSET = 4;
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "type_list";
             }
 
             @Override
-            protected void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            protected void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 int size = dexFile.getBuffer().readSmallUint(out.getCursor());
                 out.annotate(4, "size: %d", size);
 
-                for (int i=0; i<size; i++) {
+                for (int i = 0; i < size; i++) {
                     int typeIndex = dexFile.getBuffer().readUshort(out.getCursor());
                     out.annotate(2, TypeIdItem.getReferenceAnnotation(dexFile, typeIndex));
                 }
@@ -67,7 +67,7 @@ public class TypeListItem {
     }
 
     @Nonnull
-    public static String getReferenceAnnotation(@Nonnull DexBackedDexFile dexFile, int typeListOffset) {
+    public static String getReferenceAnnotation(final @Nonnull DexBackedDexFile dexFile, final int typeListOffset) {
         if (typeListOffset == 0) {
             return "type_list_item[NO_OFFSET]";
         }
@@ -82,7 +82,7 @@ public class TypeListItem {
     }
 
     @Nonnull
-    public static String asString(@Nonnull DexBackedDexFile dexFile, int typeListOffset) {
+    public static String asString(final @Nonnull DexBackedDexFile dexFile, final int typeListOffset) {
         if (typeListOffset == 0) {
             return "";
         }
@@ -90,8 +90,8 @@ public class TypeListItem {
         StringBuilder sb = new StringBuilder();
 
         int size = dexFile.getDataBuffer().readSmallUint(typeListOffset);
-        for (int i=0; i<size; i++) {
-            int typeIndex = dexFile.getDataBuffer().readUshort(typeListOffset + 4 + i*2);
+        for (int i = 0; i < size; i++) {
+            int typeIndex = dexFile.getDataBuffer().readUshort(typeListOffset + 4 + i * 2);
             String type = dexFile.getTypeSection().get(typeIndex);
             sb.append(type);
         }

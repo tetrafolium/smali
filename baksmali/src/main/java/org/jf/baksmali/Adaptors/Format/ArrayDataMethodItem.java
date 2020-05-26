@@ -37,11 +37,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class ArrayDataMethodItem extends InstructionMethodItem<ArrayPayload> {
-    public ArrayDataMethodItem(MethodDefinition methodDef, int codeAddress, ArrayPayload instruction) {
+    public ArrayDataMethodItem(final MethodDefinition methodDef, final int codeAddress, final ArrayPayload instruction) {
         super(methodDef, codeAddress, instruction);
     }
 
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         int elementWidth = instruction.getElementWidth();
 
         writer.write(".array-data ");

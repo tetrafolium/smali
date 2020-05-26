@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 
 public class LiteralTools
 {
-    public static byte parseByte(String byteLiteral)
+    public static byte parseByte(final String byteLiteral)
             throws NumberFormatException {
         if (byteLiteral == null) {
             throw new NumberFormatException("string is null");
@@ -44,7 +44,7 @@ public class LiteralTools
 
         char[] byteChars;
         if (byteLiteral.toUpperCase().endsWith("T")) {
-            byteChars = byteLiteral.substring(0, byteLiteral.length()-1).toCharArray();
+            byteChars = byteLiteral.substring(0, byteLiteral.length() - 1).toCharArray();
         } else {
             byteChars = byteLiteral.toCharArray();
         }
@@ -72,21 +72,21 @@ public class LiteralTools
         byte result = 0;
         byte shiftedResult;
         int digit;
-        byte maxValue = (byte)(Byte.MAX_VALUE / (radix / 2));
+        byte maxValue = (byte) (Byte.MAX_VALUE / (radix / 2));
 
         while (position < byteChars.length) {
             digit = Character.digit(byteChars[position], radix);
             if (digit < 0) {
                 throw new NumberFormatException("The string contains invalid an digit - '" + byteChars[position] + "'");
             }
-            shiftedResult = (byte)(result * radix);
+            shiftedResult = (byte) (result * radix);
             if (result > maxValue) {
                 throw new NumberFormatException(byteLiteral + " cannot fit into a byte");
             }
             if (shiftedResult < 0 && shiftedResult >= -digit) {
                 throw new NumberFormatException(byteLiteral + " cannot fit into a byte");
             }
-            result = (byte)(shiftedResult + digit);
+            result = (byte) (shiftedResult + digit);
             position++;
         }
 
@@ -97,13 +97,13 @@ public class LiteralTools
             } else if (result < 0) {
                 throw new NumberFormatException(byteLiteral + " cannot fit into a byte");
             }
-            return (byte)(result * -1);
+            return (byte) (result * -1);
         } else {
             return result;
         }
     }
 
-    public static short parseShort(String shortLiteral)
+    public static short parseShort(final String shortLiteral)
             throws NumberFormatException {
         if (shortLiteral == null) {
             throw new NumberFormatException("string is null");
@@ -114,7 +114,7 @@ public class LiteralTools
 
         char[] shortChars;
         if (shortLiteral.toUpperCase().endsWith("S")) {
-            shortChars = shortLiteral.substring(0, shortLiteral.length()-1).toCharArray();
+            shortChars = shortLiteral.substring(0, shortLiteral.length() - 1).toCharArray();
         } else {
             shortChars = shortLiteral.toCharArray();
         }
@@ -142,21 +142,21 @@ public class LiteralTools
         short result = 0;
         short shiftedResult;
         int digit;
-        short maxValue = (short)(Short.MAX_VALUE / (radix / 2));
+        short maxValue = (short) (Short.MAX_VALUE / (radix / 2));
 
         while (position < shortChars.length) {
             digit = Character.digit(shortChars[position], radix);
             if (digit < 0) {
                 throw new NumberFormatException("The string contains invalid an digit - '" + shortChars[position] + "'");
             }
-            shiftedResult = (short)(result * radix);
+            shiftedResult = (short) (result * radix);
             if (result > maxValue) {
                 throw new NumberFormatException(shortLiteral + " cannot fit into a short");
             }
             if (shiftedResult < 0 && shiftedResult >= -digit) {
                 throw new NumberFormatException(shortLiteral + " cannot fit into a short");
             }
-            result = (short)(shiftedResult + digit);
+            result = (short) (shiftedResult + digit);
             position++;
         }
 
@@ -167,13 +167,13 @@ public class LiteralTools
             } else if (result < 0) {
                 throw new NumberFormatException(shortLiteral + " cannot fit into a short");
             }
-            return (short)(result * -1);
+            return (short) (result * -1);
         } else {
             return result;
         }
     }
 
-    public static int parseInt(String intLiteral)
+    public static int parseInt(final String intLiteral)
             throws NumberFormatException {
         if (intLiteral == null) {
             throw new NumberFormatException("string is null");
@@ -237,7 +237,7 @@ public class LiteralTools
         }
     }
 
-    public static long parseLong(String longLiteral)
+    public static long parseLong(final String longLiteral)
             throws NumberFormatException {
         if (longLiteral == null) {
             throw new NumberFormatException("string is null");
@@ -248,7 +248,7 @@ public class LiteralTools
 
         char[] longChars;
         if (longLiteral.toUpperCase().endsWith("L")) {
-            longChars = longLiteral.substring(0, longLiteral.length()-1).toCharArray();
+            longChars = longLiteral.substring(0, longLiteral.length() - 1).toCharArray();
         } else {
             longChars = longLiteral.toCharArray();
         }
@@ -308,7 +308,7 @@ public class LiteralTools
     }
 
     private static Pattern specialFloatRegex = Pattern.compile("((-)?infinityf)|(nanf)", Pattern.CASE_INSENSITIVE);
-    public static float parseFloat(String floatString) {
+    public static float parseFloat(final String floatString) {
         Matcher m = specialFloatRegex.matcher(floatString);
         if (m.matches()) {
             //got an infinity
@@ -326,7 +326,7 @@ public class LiteralTools
     }
 
     private static Pattern specialDoubleRegex = Pattern.compile("((-)?infinityd?)|(nand?)", Pattern.CASE_INSENSITIVE);
-    public static double parseDouble(String doubleString) {
+    public static double parseDouble(final String doubleString) {
         Matcher m = specialDoubleRegex.matcher(doubleString);
         if (m.matches()) {
             //got an infinity
@@ -343,73 +343,73 @@ public class LiteralTools
         return Double.parseDouble(doubleString);
     }
 
-    public static byte[] longToBytes(long value) {
+    public static byte[] longToBytes(final long value) {
         byte[] bytes = new byte[8];
 
-        for (int i=0; value != 0; i++) {
-            bytes[i] = (byte)value;
+        for (int i = 0; value != 0; i++) {
+            bytes[i] = (byte) value;
             value = value >>> 8;
         }
         return bytes;
     }
 
-    public static byte[] intToBytes(int value) {
+    public static byte[] intToBytes(final int value) {
         byte[] bytes = new byte[4];
 
-        for (int i=0; value != 0; i++) {
-            bytes[i] = (byte)value;
+        for (int i = 0; value != 0; i++) {
+            bytes[i] = (byte) value;
             value = value >>> 8;
         }
         return bytes;
     }
 
-    public static byte[] shortToBytes(short value) {
+    public static byte[] shortToBytes(final short value) {
         byte[] bytes = new byte[2];
 
-        bytes[0] = (byte)value;
-        bytes[1] = (byte)(value >>> 8);
+        bytes[0] = (byte) value;
+        bytes[1] = (byte) (value >>> 8);
         return bytes;
     }
 
-    public static byte[] floatToBytes(float value) {
+    public static byte[] floatToBytes(final float value) {
         return intToBytes(Float.floatToRawIntBits(value));
     }
 
-    public static byte[] doubleToBytes(double value) {
+    public static byte[] doubleToBytes(final double value) {
         return longToBytes(Double.doubleToRawLongBits(value));
     }
 
-    public static byte[] charToBytes(char value) {
-        return shortToBytes((short)value);
+    public static byte[] charToBytes(final char value) {
+        return shortToBytes((short) value);
     }
 
-    public static byte[] boolToBytes(boolean value) {
+    public static byte[] boolToBytes(final boolean value) {
         if (value) {
-            return new byte[] { 0x01 };
+            return new byte[] {0x01 };
         } else {
-            return new byte[] { 0x00 };
+            return new byte[] {0x00 };
         }
     }
 
-    public static void checkInt(long value) {
+    public static void checkInt(final long value) {
         if (value > 0xFFFFFFFF || value < -0x80000000) {
             throw new NumberFormatException(Long.toString(value) + " cannot fit into an int");
         }
     }
 
-    public static void checkShort(long value) {
+    public static void checkShort(final long value) {
         if (value > 0xFFFF | value < -0x8000) {
             throw new NumberFormatException(Long.toString(value) + " cannot fit into a short");
         }
     }
 
-    public static void checkByte(long value) {
+    public static void checkByte(final long value) {
         if (value > 0xFF | value < -0x80) {
             throw new NumberFormatException(Long.toString(value) + " cannot fit into a byte");
         }
     }
 
-    public static void checkNibble(long value) {
+    public static void checkNibble(final long value) {
         if (value > 0x0F | value < -0x08) {
             throw new NumberFormatException(Long.toString(value) + " cannot fit into a nibble");
         }

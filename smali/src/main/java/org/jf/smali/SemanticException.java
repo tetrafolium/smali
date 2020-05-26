@@ -38,33 +38,33 @@ public class SemanticException extends RecognitionException {
     private String errorMessage;
 
 
-    SemanticException(IntStream input, String errorMessage, Object... messageArguments) {
+    SemanticException(final IntStream input, final String errorMessage, final Object... messageArguments) {
         super(input);
         this.errorMessage = String.format(errorMessage, messageArguments);
     }
 
-    SemanticException(IntStream input, Exception ex) {
+    SemanticException(final IntStream input, final Exception ex) {
         super(input);
         this.errorMessage = ex.getMessage();
     }
 
-    SemanticException(IntStream input, CommonTree tree, String errorMessage, Object... messageArguments) {
+    SemanticException(final IntStream input, final CommonTree tree, final String errorMessage, final Object... messageArguments) {
         super();
         this.input = input;
         this.token = tree.getToken();
         this.index = tree.getTokenStartIndex();
         this.line = token.getLine();
-	    this.charPositionInLine = token.getCharPositionInLine();
+            this.charPositionInLine = token.getCharPositionInLine();
         this.errorMessage = String.format(errorMessage, messageArguments);
     }
 
-    SemanticException(IntStream input, Token token, String errorMessage, Object... messageArguments) {
+    SemanticException(final IntStream input, final Token token, final String errorMessage, final Object... messageArguments) {
         super();
         this.input = input;
         this.token = token;
-        this.index = ((CommonToken)token).getStartIndex();
+        this.index = ((CommonToken) token).getStartIndex();
         this.line = token.getLine();
-	    this.charPositionInLine = token.getCharPositionInLine();
+            this.charPositionInLine = token.getCharPositionInLine();
         this.errorMessage = String.format(errorMessage, messageArguments);
     }
 

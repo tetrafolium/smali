@@ -40,13 +40,13 @@ import org.jf.util.StringUtils;
 import java.io.IOException;
 
 public class ReferenceFormatter {
-    public static void writeStringReference(IndentingWriter writer, String item) throws IOException {
+    public static void writeStringReference(final IndentingWriter writer, final String item) throws IOException {
         writer.write('"');
         StringUtils.writeEscapedString(writer, item);
         writer.write('"');
     }
 
-    public static void writeCallSiteReference(IndentingWriter writer, CallSiteReference callSite) throws IOException {
+    public static void writeCallSiteReference(final IndentingWriter writer, final CallSiteReference callSite) throws IOException {
         writer.write(callSite.getName());
         writer.write('(');
         writer.write('"');
@@ -66,31 +66,31 @@ public class ReferenceFormatter {
         writeReference(writer, ReferenceType.METHOD, callSite.getMethodHandle().getMemberReference());
     }
 
-    public static void writeReference(IndentingWriter writer, int referenceType,
-                                      Reference reference) throws IOException {
+    public static void writeReference(final IndentingWriter writer, final int referenceType,
+                                      final Reference reference) throws IOException {
         switch (referenceType) {
             case ReferenceType.STRING:
-                writeStringReference(writer, ((StringReference)reference).getString());
+                writeStringReference(writer, ((StringReference) reference).getString());
                 return;
             case ReferenceType.TYPE:
-                writer.write(((TypeReference)reference).getType());
+                writer.write(((TypeReference) reference).getType());
                 return;
             case ReferenceType.METHOD:
-                ReferenceUtil.writeMethodDescriptor(writer, (MethodReference)reference);
+                ReferenceUtil.writeMethodDescriptor(writer, (MethodReference) reference);
                 return;
             case ReferenceType.FIELD:
-                ReferenceUtil.writeFieldDescriptor(writer, (FieldReference)reference);
+                ReferenceUtil.writeFieldDescriptor(writer, (FieldReference) reference);
                 return;
             case ReferenceType.METHOD_PROTO:
-                ReferenceUtil.writeMethodProtoDescriptor(writer, (MethodProtoReference)reference);
+                ReferenceUtil.writeMethodProtoDescriptor(writer, (MethodProtoReference) reference);
                 return;
             case ReferenceType.METHOD_HANDLE:
-                ReferenceUtil.writeMethodHandle(writer, (MethodHandleReference)reference);
+                ReferenceUtil.writeMethodHandle(writer, (MethodHandleReference) reference);
                 return;
             case ReferenceType.CALL_SITE:
                 // We can't use ReferenceUtil.writeCallSite here, because it doesn't write encoded values out in the
                 // exact format we need here.
-                writeCallSiteReference(writer, (CallSiteReference)reference);
+                writeCallSiteReference(writer, (CallSiteReference) reference);
                 return;
             default:
                 throw new IllegalStateException("Unknown reference type");

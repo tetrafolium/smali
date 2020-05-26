@@ -42,8 +42,8 @@ public class DexBackedStringReference extends BaseStringReference {
     @Nonnull public final DexBackedDexFile dexFile;
     public final int stringIndex;
 
-    public DexBackedStringReference(@Nonnull DexBackedDexFile dexBuf,
-                                    int stringIndex) {
+    public DexBackedStringReference(final @Nonnull DexBackedDexFile dexBuf,
+                                    final int stringIndex) {
         this.dexFile = dexBuf;
         this.stringIndex = stringIndex;
     }

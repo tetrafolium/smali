@@ -74,7 +74,7 @@ public class DexBackedDexFile implements DexFile {
     private final int mapOffset;
     private final int hiddenApiRestrictionsOffset;
 
-    protected DexBackedDexFile(@Nullable Opcodes opcodes, @Nonnull byte[] buf, int offset, boolean verifyMagic) {
+    protected DexBackedDexFile(final @Nullable Opcodes opcodes, final @Nonnull byte[] buf, final int offset, final boolean verifyMagic) {
         dexBuffer = new DexBuffer(buf, offset);
         dataBuffer = new DexBuffer(buf, offset + getBaseDataOffset());
 
@@ -108,7 +108,7 @@ public class DexBackedDexFile implements DexFile {
         }
     }
 
-    protected DexBackedDexFile(@Nullable Opcodes opcodes, @Nonnull DexBuffer dexBuffer, @Nonnull DexBuffer dataBuffer, int offset, boolean verifyMagic) {
+    protected DexBackedDexFile(final @Nullable Opcodes opcodes, final @Nonnull DexBuffer dexBuffer, final @Nonnull DexBuffer dataBuffer, final int offset, final boolean verifyMagic) {
         this.dexBuffer = dexBuffer;
         this.dataBuffer = dataBuffer;
 
@@ -152,7 +152,7 @@ public class DexBackedDexFile implements DexFile {
         return 0;
     }
 
-    protected int getVersion(byte[] buf, int offset, boolean verifyMagic) {
+    protected int getVersion(final byte[] buf, final int offset, final boolean verifyMagic) {
         if (verifyMagic) {
             return DexUtil.verifyDexHeader(buf, offset);
         } else {
@@ -160,7 +160,7 @@ public class DexBackedDexFile implements DexFile {
         }
     }
 
-    protected Opcodes getDefaultOpcodes(int version) {
+    protected Opcodes getDefaultOpcodes(final int version) {
         return Opcodes.forDexVersion(version);
     }
 
@@ -172,20 +172,20 @@ public class DexBackedDexFile implements DexFile {
         return dataBuffer;
     }
 
-    public DexBackedDexFile(@Nullable Opcodes opcodes, @Nonnull DexBuffer buf) {
+    public DexBackedDexFile(final @Nullable Opcodes opcodes, final @Nonnull DexBuffer buf) {
         this(opcodes, buf.buf, buf.baseOffset);
     }
 
-    public DexBackedDexFile(@Nullable Opcodes opcodes, @Nonnull byte[] buf, int offset) {
+    public DexBackedDexFile(final @Nullable Opcodes opcodes, final @Nonnull byte[] buf, final int offset) {
         this(opcodes, buf, offset, false);
     }
 
-    public DexBackedDexFile(@Nullable Opcodes opcodes, @Nonnull byte[] buf) {
+    public DexBackedDexFile(final @Nullable Opcodes opcodes, final @Nonnull byte[] buf) {
         this(opcodes, buf, 0, true);
     }
 
     @Nonnull
-    public static DexBackedDexFile fromInputStream(@Nullable Opcodes opcodes, @Nonnull InputStream is)
+    public static DexBackedDexFile fromInputStream(final @Nullable Opcodes opcodes, final @Nonnull InputStream is)
             throws IOException {
         DexUtil.verifyDexHeader(is);
 
@@ -206,7 +206,7 @@ public class DexBackedDexFile implements DexFile {
         return new FixedSizeSet<DexBackedClassDef>() {
             @Nonnull
             @Override
-            public DexBackedClassDef readItem(int index) {
+            public DexBackedClassDef readItem(final int index) {
                 return getClassSection().get(index);
             }
 
@@ -219,7 +219,7 @@ public class DexBackedDexFile implements DexFile {
 
     public List<DexBackedStringReference> getStringReferences() {
         return new AbstractList<DexBackedStringReference>() {
-            @Override public DexBackedStringReference get(int index) {
+            @Override public DexBackedStringReference get(final int index) {
                 if (index < 0 || index >= getStringSection().size()) {
                     throw new IndexOutOfBoundsException();
                 }
@@ -234,7 +234,7 @@ public class DexBackedDexFile implements DexFile {
 
     public List<DexBackedTypeReference> getTypeReferences() {
         return new AbstractList<DexBackedTypeReference>() {
-            @Override public DexBackedTypeReference get(int index) {
+            @Override public DexBackedTypeReference get(final int index) {
                 if (index < 0 || index >= getTypeSection().size()) {
                     throw new IndexOutOfBoundsException();
                 }
@@ -247,7 +247,7 @@ public class DexBackedDexFile implements DexFile {
         };
     }
 
-    public List<? extends Reference> getReferences(int referenceType) {
+    public List<? extends Reference> getReferences(final int referenceType) {
         switch (referenceType) {
             case ReferenceType.STRING:
                 return getStringReferences();
@@ -267,7 +267,7 @@ public class DexBackedDexFile implements DexFile {
 
         return new FixedSizeList<MapItem>() {
             @Override
-            public MapItem readItem(int index) {
+            public MapItem readItem(final int index) {
                 int mapItemOffset = mapOffset + 4 + index * MapItem.ITEM_SIZE;
                 return new MapItem(DexBackedDexFile.this, mapItemOffset);
             }
@@ -279,7 +279,7 @@ public class DexBackedDexFile implements DexFile {
     }
 
     @Nullable
-    public MapItem getMapItemForSection(int itemType) {
+    public MapItem getMapItemForSection(final int itemType) {
         for (MapItem mapItem: getMapItems()) {
             if (mapItem.getType() == itemType) {
                 return mapItem;
@@ -292,22 +292,22 @@ public class DexBackedDexFile implements DexFile {
         public NotADexFile() {
         }
 
-        public NotADexFile(Throwable cause) {
+        public NotADexFile(final Throwable cause) {
             super(cause);
         }
 
-        public NotADexFile(String message) {
+        public NotADexFile(final String message) {
             super(message);
         }
 
-        public NotADexFile(String message, Throwable cause) {
+        public NotADexFile(final String message, final Throwable cause) {
             super(message, cause);
         }
     }
 
     private OptionalIndexedSection<String> stringSection = new OptionalIndexedSection<String>() {
         @Override
-        public String get(int index) {
+        public String get(final int index) {
             int stringOffset = getOffset(index);
             int stringDataOffset = dexBuffer.readSmallUint(stringOffset);
             DexReader reader = dataBuffer.readerAt(stringDataOffset);
@@ -322,7 +322,7 @@ public class DexBackedDexFile implements DexFile {
 
         @Nullable
         @Override
-        public String getOptional(int index) {
+        public String getOptional(final int index) {
             if (index == -1) {
                 return null;
             }
@@ -330,12 +330,12 @@ public class DexBackedDexFile implements DexFile {
         }
 
         @Override
-        public int getOffset(int index) {
+        public int getOffset(final int index) {
             if (index < 0 || index >= size()) {
                 throw new IndexOutOfBoundsException(
                         String.format("Invalid string index %d, not in [0, %d)", index, size()));
             }
-            return stringStartOffset + index*StringIdItem.ITEM_SIZE;
+            return stringStartOffset + index * StringIdItem.ITEM_SIZE;
         }
     };
 
@@ -345,7 +345,7 @@ public class DexBackedDexFile implements DexFile {
 
     private OptionalIndexedSection<String> typeSection = new OptionalIndexedSection<String>() {
         @Override
-        public String get(int index) {
+        public String get(final int index) {
             int typeOffset = getOffset(index);
             int stringIndex = dexBuffer.readSmallUint(typeOffset);
             return getStringSection().get(stringIndex);
@@ -358,7 +358,7 @@ public class DexBackedDexFile implements DexFile {
 
         @Nullable
         @Override
-        public String getOptional(int index) {
+        public String getOptional(final int index) {
             if (index == -1) {
                 return null;
             }
@@ -366,7 +366,7 @@ public class DexBackedDexFile implements DexFile {
         }
 
         @Override
-        public int getOffset(int index) {
+        public int getOffset(final int index) {
             if (index < 0 || index >= size()) {
                 throw new IndexOutOfBoundsException(
                         String.format("Invalid type index %d, not in [0, %d)", index, size()));
@@ -381,7 +381,7 @@ public class DexBackedDexFile implements DexFile {
 
     private IndexedSection<DexBackedFieldReference> fieldSection = new IndexedSection<DexBackedFieldReference>() {
         @Override
-        public DexBackedFieldReference get(int index) {
+        public DexBackedFieldReference get(final int index) {
             return new DexBackedFieldReference(DexBackedDexFile.this, index);
         }
 
@@ -391,7 +391,7 @@ public class DexBackedDexFile implements DexFile {
         }
 
         @Override
-        public int getOffset(int index) {
+        public int getOffset(final int index) {
             if (index < 0 || index >= size()) {
                 throw new IndexOutOfBoundsException(
                         String.format("Invalid field index %d, not in [0, %d)", index, size()));
@@ -407,7 +407,7 @@ public class DexBackedDexFile implements DexFile {
 
     private IndexedSection<DexBackedMethodReference> methodSection = new IndexedSection<DexBackedMethodReference>() {
         @Override
-        public DexBackedMethodReference get(int index) {
+        public DexBackedMethodReference get(final int index) {
             return new DexBackedMethodReference(DexBackedDexFile.this, index);
         }
 
@@ -417,7 +417,7 @@ public class DexBackedDexFile implements DexFile {
         }
 
         @Override
-        public int getOffset(int index) {
+        public int getOffset(final int index) {
             if (index < 0 || index >= size()) {
                 throw new IndexOutOfBoundsException(
                         String.format("Invalid method index %d, not in [0, %d)", index, size()));
@@ -434,7 +434,7 @@ public class DexBackedDexFile implements DexFile {
     private IndexedSection<DexBackedMethodProtoReference> protoSection =
             new IndexedSection<DexBackedMethodProtoReference>() {
                 @Override
-                public DexBackedMethodProtoReference get(int index) {
+                public DexBackedMethodProtoReference get(final int index) {
                     return new DexBackedMethodProtoReference(DexBackedDexFile.this, index);
                 }
 
@@ -444,7 +444,7 @@ public class DexBackedDexFile implements DexFile {
                 }
 
                 @Override
-                public int getOffset(int index) {
+                public int getOffset(final int index) {
                     if (index < 0 || index >= size()) {
                         throw new IndexOutOfBoundsException(
                                 String.format("Invalid proto index %d, not in [0, %d)", index, size()));
@@ -460,7 +460,7 @@ public class DexBackedDexFile implements DexFile {
 
     private IndexedSection<DexBackedClassDef> classSection = new IndexedSection<DexBackedClassDef>() {
         @Override
-        public DexBackedClassDef get(int index) {
+        public DexBackedClassDef get(final int index) {
             return new DexBackedClassDef(DexBackedDexFile.this, getOffset(index),
                     readHiddenApiRestrictionsOffset(index));
         }
@@ -471,7 +471,7 @@ public class DexBackedDexFile implements DexFile {
         }
 
         @Override
-        public int getOffset(int index) {
+        public int getOffset(final int index) {
             if (index < 0 || index >= size()) {
                 throw new IndexOutOfBoundsException(
                         String.format("Invalid class index %d, not in [0, %d)", index, size()));
@@ -488,7 +488,7 @@ public class DexBackedDexFile implements DexFile {
     private IndexedSection<DexBackedCallSiteReference> callSiteSection =
             new IndexedSection<DexBackedCallSiteReference>() {
                 @Override
-                public DexBackedCallSiteReference get(int index) {
+                public DexBackedCallSiteReference get(final int index) {
                     return new DexBackedCallSiteReference(DexBackedDexFile.this, index);
                 }
 
@@ -502,7 +502,7 @@ public class DexBackedDexFile implements DexFile {
                 }
 
                 @Override
-                public int getOffset(int index) {
+                public int getOffset(final int index) {
                     MapItem mapItem = getMapItemForSection(ItemType.CALL_SITE_ID_ITEM);
                     if (index < 0 || index >= size()) {
                         throw new IndexOutOfBoundsException(
@@ -519,7 +519,7 @@ public class DexBackedDexFile implements DexFile {
     private IndexedSection<DexBackedMethodHandleReference> methodHandleSection =
             new IndexedSection<DexBackedMethodHandleReference>() {
                 @Override
-                public DexBackedMethodHandleReference get(int index) {
+                public DexBackedMethodHandleReference get(final int index) {
                     return new DexBackedMethodHandleReference(DexBackedDexFile.this, index);
                 }
 
@@ -533,7 +533,7 @@ public class DexBackedDexFile implements DexFile {
                 }
 
                 @Override
-                public int getOffset(int index) {
+                public int getOffset(final int index) {
                     MapItem mapItem = getMapItemForSection(ItemType.METHOD_HANDLE_ITEM);
                     if (index < 0 || index >= size()) {
                         throw new IndexOutOfBoundsException(
@@ -548,19 +548,19 @@ public class DexBackedDexFile implements DexFile {
     }
 
     protected DexBackedMethodImplementation createMethodImplementation(
-            @Nonnull DexBackedDexFile dexFile, @Nonnull DexBackedMethod method, int codeOffset) {
+            final @Nonnull DexBackedDexFile dexFile, final @Nonnull DexBackedMethod method, final int codeOffset) {
         return new DexBackedMethodImplementation(dexFile, method, codeOffset);
     }
 
-    private int readHiddenApiRestrictionsOffset(int classIndex) {
+    private int readHiddenApiRestrictionsOffset(final int classIndex) {
         if (hiddenApiRestrictionsOffset == NO_OFFSET) {
             return NO_OFFSET;
         }
 
         int offset = dexBuffer.readInt(
-                hiddenApiRestrictionsOffset +
-                        HiddenApiClassDataItem.OFFSETS_LIST_OFFSET +
-                        classIndex * HiddenApiClassDataItem.OFFSET_ITEM_SIZE);
+                hiddenApiRestrictionsOffset
+                        + HiddenApiClassDataItem.OFFSETS_LIST_OFFSET
+                        + classIndex * HiddenApiClassDataItem.OFFSET_ITEM_SIZE);
         if (offset == NO_OFFSET) {
             return NO_OFFSET;
         }

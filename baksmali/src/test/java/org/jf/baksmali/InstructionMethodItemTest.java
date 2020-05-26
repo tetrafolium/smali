@@ -150,7 +150,7 @@ public class InstructionMethodItemTest {
     private static class TestMethod extends BaseMethodReference implements Method {
         private final MethodImplementation methodImplementation;
 
-        public TestMethod(MethodImplementation methodImplementation) {
+        public TestMethod(final MethodImplementation methodImplementation) {
             this.methodImplementation = methodImplementation;
         }
 

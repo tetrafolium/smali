@@ -33,7 +33,7 @@ import org.jf.util.IndentingWriter;
 import java.io.IOException;
 
 public class BooleanRenderer {
-    public static void writeTo(IndentingWriter writer, boolean val) throws IOException {
+    public static void writeTo(final IndentingWriter writer, final boolean val) throws IOException {
         if (val) {
             writer.write("true");
         } else {

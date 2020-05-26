@@ -75,7 +75,7 @@ public enum HiddenApiRestriction {
     private final String name;
     private final boolean isDomainSpecificApiFlag;
 
-    HiddenApiRestriction(int value, String name, boolean isDomainSpecificApiFlag) {
+    HiddenApiRestriction(final int value, final String name, final boolean isDomainSpecificApiFlag) {
         this.value = value;
         this.name = name;
         this.isDomainSpecificApiFlag = isDomainSpecificApiFlag;
@@ -89,7 +89,7 @@ public enum HiddenApiRestriction {
         return value;
     }
 
-    public boolean isSet(int value) {
+    public boolean isSet(final int value) {
         if (isDomainSpecificApiFlag) {
             return (value & ~HIDDENAPI_FLAG_MASK) == this.value;
         } else {
@@ -101,7 +101,7 @@ public enum HiddenApiRestriction {
         return isDomainSpecificApiFlag;
     }
 
-    public static Set<HiddenApiRestriction> getAllFlags(int value) {
+    public static Set<HiddenApiRestriction> getAllFlags(final int value) {
         HiddenApiRestriction normalRestriction = hiddenApiFlags[value & HIDDENAPI_FLAG_MASK];
 
         int domainSpecificPart = (value & ~HIDDENAPI_FLAG_MASK);
@@ -111,7 +111,7 @@ public enum HiddenApiRestriction {
         return ImmutableSet.of(normalRestriction, domainSpecificApiFlags[(domainSpecificPart >> 3) - 1]);
     }
 
-    public static String formatHiddenRestrictions(int value) {
+    public static String formatHiddenRestrictions(final int value) {
         StringJoiner joiner = new StringJoiner("|");
         for (HiddenApiRestriction hiddenApiRestriction : getAllFlags(value)) {
             joiner.add(hiddenApiRestriction.toString());
@@ -119,7 +119,7 @@ public enum HiddenApiRestriction {
         return joiner.toString();
     }
 
-    public static int combineFlags(Iterable<HiddenApiRestriction> flags) {
+    public static int combineFlags(final Iterable<HiddenApiRestriction> flags) {
         boolean gotHiddenApiFlag = false;
         boolean gotDomainSpecificApiFlag = false;
 
@@ -146,7 +146,7 @@ public enum HiddenApiRestriction {
         return value;
     }
 
-    public static HiddenApiRestriction forName(String name) {
+    public static HiddenApiRestriction forName(final String name) {
         return hiddenApiRestrictionsByName.get(name);
     }
 }

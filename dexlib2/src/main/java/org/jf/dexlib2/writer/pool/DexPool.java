@@ -73,7 +73,7 @@ public class DexPool extends DexWriter<CharSequence, StringReference, CharSequen
             encodedArraySection,
     };
 
-    public DexPool(Opcodes opcodes) {
+    public DexPool(final Opcodes opcodes) {
         super(opcodes);
     }
 
@@ -81,7 +81,7 @@ public class DexPool extends DexWriter<CharSequence, StringReference, CharSequen
         return new DexPoolSectionProvider();
     }
 
-    public static void writeTo(@Nonnull DexDataStore dataStore, @Nonnull org.jf.dexlib2.iface.DexFile input)
+    public static void writeTo(final @Nonnull DexDataStore dataStore, final @Nonnull org.jf.dexlib2.iface.DexFile input)
             throws IOException {
         DexPool dexPool = new DexPool(input.getOpcodes());
         for (ClassDef classDef: input.getClasses()) {
@@ -90,7 +90,7 @@ public class DexPool extends DexWriter<CharSequence, StringReference, CharSequen
         dexPool.writeTo(dataStore);
     }
 
-    public static void writeTo(@Nonnull String path, @Nonnull org.jf.dexlib2.iface.DexFile input) throws IOException {
+    public static void writeTo(final @Nonnull String path, final @Nonnull org.jf.dexlib2.iface.DexFile input) throws IOException {
         DexPool dexPool = new DexPool(input.getOpcodes());
         for (ClassDef classDef: input.getClasses()) {
             dexPool.internClass(classDef);
@@ -102,7 +102,7 @@ public class DexPool extends DexWriter<CharSequence, StringReference, CharSequen
      * Interns a class into this DexPool
      * @param classDef The class to intern
      */
-    public void internClass(ClassDef classDef) {
+    public void internClass(final ClassDef classDef) {
         classSection.intern(classDef);
     }
 
@@ -128,58 +128,58 @@ public class DexPool extends DexWriter<CharSequence, StringReference, CharSequen
         }
     }
 
-    @Override protected void writeEncodedValue(@Nonnull InternalEncodedValueWriter writer,
-                                               @Nonnull EncodedValue encodedValue) throws IOException {
+    @Override protected void writeEncodedValue(final @Nonnull InternalEncodedValueWriter writer,
+                                               final @Nonnull EncodedValue encodedValue) throws IOException {
         switch (encodedValue.getValueType()) {
             case ValueType.ANNOTATION:
-                AnnotationEncodedValue annotationEncodedValue = (AnnotationEncodedValue)encodedValue;
+                AnnotationEncodedValue annotationEncodedValue = (AnnotationEncodedValue) encodedValue;
                 writer.writeAnnotation(annotationEncodedValue.getType(), annotationEncodedValue.getElements());
                 break;
             case ValueType.ARRAY:
-                ArrayEncodedValue arrayEncodedValue = (ArrayEncodedValue)encodedValue;
+                ArrayEncodedValue arrayEncodedValue = (ArrayEncodedValue) encodedValue;
                 writer.writeArray(arrayEncodedValue.getValue());
                 break;
             case ValueType.BOOLEAN:
-                writer.writeBoolean(((BooleanEncodedValue)encodedValue).getValue());
+                writer.writeBoolean(((BooleanEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.BYTE:
-                writer.writeByte(((ByteEncodedValue)encodedValue).getValue());
+                writer.writeByte(((ByteEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.CHAR:
-                writer.writeChar(((CharEncodedValue)encodedValue).getValue());
+                writer.writeChar(((CharEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.DOUBLE:
-                writer.writeDouble(((DoubleEncodedValue)encodedValue).getValue());
+                writer.writeDouble(((DoubleEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.ENUM:
-                writer.writeEnum(((EnumEncodedValue)encodedValue).getValue());
+                writer.writeEnum(((EnumEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.FIELD:
-                writer.writeField(((FieldEncodedValue)encodedValue).getValue());
+                writer.writeField(((FieldEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.FLOAT:
-                writer.writeFloat(((FloatEncodedValue)encodedValue).getValue());
+                writer.writeFloat(((FloatEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.INT:
-                writer.writeInt(((IntEncodedValue)encodedValue).getValue());
+                writer.writeInt(((IntEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.LONG:
-                writer.writeLong(((LongEncodedValue)encodedValue).getValue());
+                writer.writeLong(((LongEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.METHOD:
-                writer.writeMethod(((MethodEncodedValue)encodedValue).getValue());
+                writer.writeMethod(((MethodEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.NULL:
                 writer.writeNull();
                 break;
             case ValueType.SHORT:
-                writer.writeShort(((ShortEncodedValue)encodedValue).getValue());
+                writer.writeShort(((ShortEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.STRING:
-                writer.writeString(((StringEncodedValue)encodedValue).getValue());
+                writer.writeString(((StringEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.TYPE:
-                writer.writeType(((TypeEncodedValue)encodedValue).getValue());
+                writer.writeType(((TypeEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.METHOD_TYPE:
                 writer.writeMethodType(((MethodTypeEncodedValue) encodedValue).getValue());
@@ -192,10 +192,10 @@ public class DexPool extends DexWriter<CharSequence, StringReference, CharSequen
         }
     }
 
-    void internEncodedValue(@Nonnull EncodedValue encodedValue) {
+    void internEncodedValue(final @Nonnull EncodedValue encodedValue) {
         switch (encodedValue.getValueType()) {
             case ValueType.ANNOTATION:
-                AnnotationEncodedValue annotationEncodedValue = (AnnotationEncodedValue)encodedValue;
+                AnnotationEncodedValue annotationEncodedValue = (AnnotationEncodedValue) encodedValue;
                 typeSection.intern(annotationEncodedValue.getType());
                 for (AnnotationElement element: annotationEncodedValue.getElements()) {
                     stringSection.intern(element.getName());
@@ -203,30 +203,30 @@ public class DexPool extends DexWriter<CharSequence, StringReference, CharSequen
                 }
                 break;
             case ValueType.ARRAY:
-                for (EncodedValue element: ((ArrayEncodedValue)encodedValue).getValue()) {
+                for (EncodedValue element: ((ArrayEncodedValue) encodedValue).getValue()) {
                     internEncodedValue(element);
                 }
                 break;
             case ValueType.STRING:
-                stringSection.intern(((StringEncodedValue)encodedValue).getValue());
+                stringSection.intern(((StringEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.TYPE:
-                typeSection.intern(((TypeEncodedValue)encodedValue).getValue());
+                typeSection.intern(((TypeEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.ENUM:
-                fieldSection.intern(((EnumEncodedValue)encodedValue).getValue());
+                fieldSection.intern(((EnumEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.FIELD:
-                fieldSection.intern(((FieldEncodedValue)encodedValue).getValue());
+                fieldSection.intern(((FieldEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.METHOD:
-                methodSection.intern(((MethodEncodedValue)encodedValue).getValue());
+                methodSection.intern(((MethodEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.METHOD_HANDLE:
-                methodHandleSection.intern(((MethodHandleEncodedValue)encodedValue).getValue());
+                methodHandleSection.intern(((MethodHandleEncodedValue) encodedValue).getValue());
                 break;
             case ValueType.METHOD_TYPE:
-                protoSection.intern(((MethodTypeEncodedValue)encodedValue).getValue());
+                protoSection.intern(((MethodTypeEncodedValue) encodedValue).getValue());
                 break;
         }
     }

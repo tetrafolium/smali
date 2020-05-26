@@ -79,7 +79,7 @@ public class CustomMethodInlineTableTest {
         Instruction deodexedInstruction = methodAnalyzer.getInstructions().get(0);
         Assert.assertEquals(Opcode.INVOKE_VIRTUAL, deodexedInstruction.getOpcode());
 
-        MethodReference methodReference = (MethodReference)((Instruction35c)deodexedInstruction).getReference();
+        MethodReference methodReference = (MethodReference) ((Instruction35c) deodexedInstruction).getReference();
         Assert.assertEquals(method, methodReference);
     }
 
@@ -110,7 +110,7 @@ public class CustomMethodInlineTableTest {
         Instruction deodexedInstruction = methodAnalyzer.getInstructions().get(0);
         Assert.assertEquals(Opcode.INVOKE_STATIC, deodexedInstruction.getOpcode());
 
-        MethodReference methodReference = (MethodReference)((Instruction35c)deodexedInstruction).getReference();
+        MethodReference methodReference = (MethodReference) ((Instruction35c) deodexedInstruction).getReference();
         Assert.assertEquals(method, methodReference);
     }
 
@@ -141,7 +141,7 @@ public class CustomMethodInlineTableTest {
         Instruction deodexedInstruction = methodAnalyzer.getInstructions().get(0);
         Assert.assertEquals(Opcode.INVOKE_DIRECT, deodexedInstruction.getOpcode());
 
-        MethodReference methodReference = (MethodReference)((Instruction35c)deodexedInstruction).getReference();
+        MethodReference methodReference = (MethodReference) ((Instruction35c) deodexedInstruction).getReference();
         Assert.assertEquals(method, methodReference);
     }
 }

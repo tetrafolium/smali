@@ -46,17 +46,21 @@ public class BuilderInstruction21c extends BuilderInstruction implements Instruc
     protected final int registerA;
     @Nonnull protected final Reference reference;
 
-    public BuilderInstruction21c(@Nonnull Opcode opcode,
-                                 int registerA,
-                                 @Nonnull Reference reference) {
+    public BuilderInstruction21c(final @Nonnull Opcode opcode,
+                                 final int registerA,
+                                 final @Nonnull Reference reference) {
         super(opcode);
         this.registerA = Preconditions.checkByteRegister(registerA);
         this.reference = reference;
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Nonnull @Override public Reference getReference() { return reference; }
-    @Override public int getReferenceType() { return opcode.referenceType; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Nonnull @Override public Reference getReference() {
+        return reference; }
+    @Override public int getReferenceType() {
+        return opcode.referenceType; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

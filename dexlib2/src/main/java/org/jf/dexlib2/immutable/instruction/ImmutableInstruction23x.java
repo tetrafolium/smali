@@ -45,19 +45,19 @@ public class ImmutableInstruction23x extends ImmutableInstruction implements Ins
     protected final int registerB;
     protected final int registerC;
 
-    public ImmutableInstruction23x(@Nonnull Opcode opcode,
-                                   int registerA,
-                                   int registerB,
-                                   int registerC) {
+    public ImmutableInstruction23x(final @Nonnull Opcode opcode,
+                                   final int registerA,
+                                   final int registerB,
+                                   final int registerC) {
         super(opcode);
         this.registerA = Preconditions.checkByteRegister(registerA);
         this.registerB = Preconditions.checkByteRegister(registerB);
         this.registerC = Preconditions.checkByteRegister(registerC);
     }
 
-    public static ImmutableInstruction23x of(Instruction23x instruction) {
+    public static ImmutableInstruction23x of(final Instruction23x instruction) {
         if (instruction instanceof ImmutableInstruction23x) {
-            return (ImmutableInstruction23x)instruction;
+            return (ImmutableInstruction23x) instruction;
         }
         return new ImmutableInstruction23x(
                 instruction.getOpcode(),
@@ -66,9 +66,13 @@ public class ImmutableInstruction23x extends ImmutableInstruction implements Ins
                 instruction.getRegisterC());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
-    @Override public int getRegisterC() { return registerC; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getRegisterB() {
+        return registerB; }
+    @Override public int getRegisterC() {
+        return registerC; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

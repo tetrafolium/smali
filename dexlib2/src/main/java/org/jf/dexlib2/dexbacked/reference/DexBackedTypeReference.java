@@ -41,8 +41,8 @@ public class DexBackedTypeReference extends BaseTypeReference {
     @Nonnull public final DexBackedDexFile dexFile;
     public final int typeIndex;
 
-    public DexBackedTypeReference(@Nonnull DexBackedDexFile dexFile,
-                                  int typeIndex) {
+    public DexBackedTypeReference(final @Nonnull DexBackedDexFile dexFile,
+                                  final int typeIndex) {
         this.dexFile = dexFile;
         this.typeIndex = typeIndex;
     }

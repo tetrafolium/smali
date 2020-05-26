@@ -22,27 +22,27 @@ public class ImmutableInstruction45cc extends ImmutableInstruction implements In
     @Nonnull protected final ImmutableReference reference;
     @Nonnull protected final ImmutableReference reference2;
 
-    public ImmutableInstruction45cc(@Nonnull Opcode opcode,
-                                    int registerCount,
-                                    int registerC,
-                                    int registerD,
-                                    int registerE,
-                                    int registerF,
-                                    int registerG,
-                                    @Nonnull Reference reference,
-                                    @Nonnull Reference reference2) {
+    public ImmutableInstruction45cc(final @Nonnull Opcode opcode,
+                                    final int registerCount,
+                                    final int registerC,
+                                    final int registerD,
+                                    final int registerE,
+                                    final int registerF,
+                                    final int registerG,
+                                    final @Nonnull Reference reference,
+                                    final @Nonnull Reference reference2) {
         super(opcode);
         this.registerCount = Preconditions.check35cAnd45ccRegisterCount(registerCount);
-        this.registerC = (registerCount>0) ? Preconditions.checkNibbleRegister(registerC) : 0;
-        this.registerD = (registerCount>1) ? Preconditions.checkNibbleRegister(registerD) : 0;
-        this.registerE = (registerCount>2) ? Preconditions.checkNibbleRegister(registerE) : 0;
-        this.registerF = (registerCount>3) ? Preconditions.checkNibbleRegister(registerF) : 0;
-        this.registerG = (registerCount>4) ? Preconditions.checkNibbleRegister(registerG) : 0;
+        this.registerC = (registerCount > 0) ? Preconditions.checkNibbleRegister(registerC) : 0;
+        this.registerD = (registerCount > 1) ? Preconditions.checkNibbleRegister(registerD) : 0;
+        this.registerE = (registerCount > 2) ? Preconditions.checkNibbleRegister(registerE) : 0;
+        this.registerF = (registerCount > 3) ? Preconditions.checkNibbleRegister(registerF) : 0;
+        this.registerG = (registerCount > 4) ? Preconditions.checkNibbleRegister(registerG) : 0;
         this.reference = ImmutableReferenceFactory.of(reference);
         this.reference2 = ImmutableReferenceFactory.of(reference2);
     }
 
-    public static ImmutableInstruction45cc of(Instruction45cc instruction) {
+    public static ImmutableInstruction45cc of(final Instruction45cc instruction) {
         if (instruction instanceof ImmutableInstruction45cc) {
             return (ImmutableInstruction45cc) instruction;
         } else {
@@ -59,18 +59,29 @@ public class ImmutableInstruction45cc extends ImmutableInstruction implements In
         }
     }
 
-    @Override public int getRegisterCount() { return registerCount; }
-    @Override public int getRegisterC() { return registerC; }
-    @Override public int getRegisterD() { return registerD; }
-    @Override public int getRegisterE() { return registerE; }
-    @Override public int getRegisterF() { return registerF; }
-    @Override public int getRegisterG() { return registerG; }
+    @Override public int getRegisterCount() {
+        return registerCount; }
+    @Override public int getRegisterC() {
+        return registerC; }
+    @Override public int getRegisterD() {
+        return registerD; }
+    @Override public int getRegisterE() {
+        return registerE; }
+    @Override public int getRegisterF() {
+        return registerF; }
+    @Override public int getRegisterG() {
+        return registerG; }
 
-    @Override public ImmutableReference getReference() { return reference; }
-    @Override public int getReferenceType() { return opcode.referenceType; }
+    @Override public ImmutableReference getReference() {
+        return reference; }
+    @Override public int getReferenceType() {
+        return opcode.referenceType; }
 
-    @Override public ImmutableReference getReference2() { return reference2; }
-    @Override public int getReferenceType2() { return opcode.referenceType2; }
+    @Override public ImmutableReference getReference2() {
+        return reference2; }
+    @Override public int getReferenceType2() {
+        return opcode.referenceType2; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

@@ -46,8 +46,8 @@ public class DexBackedSparseSwitchPayload extends DexBackedInstruction implement
     private static final int ELEMENT_COUNT_OFFSET = 2;
     private static final int KEYS_OFFSET = 4;
 
-    public DexBackedSparseSwitchPayload(@Nonnull DexBackedDexFile dexFile,
-                                        int instructionStart) {
+    public DexBackedSparseSwitchPayload(final @Nonnull DexBackedDexFile dexFile,
+                                        final int instructionStart) {
         super(dexFile, Opcode.SPARSE_SWITCH_PAYLOAD, instructionStart);
 
         elementCount = dexFile.getDataBuffer().readUshort(instructionStart + ELEMENT_COUNT_OFFSET);
@@ -63,19 +63,21 @@ public class DexBackedSparseSwitchPayload extends DexBackedInstruction implement
                 return new SwitchElement() {
                     @Override
                     public int getKey() {
-                        return dexFile.getDataBuffer().readInt(instructionStart + KEYS_OFFSET + index*4);
+                        return dexFile.getDataBuffer().readInt(instructionStart + KEYS_OFFSET + index * 4);
                     }
 
                     @Override
                     public int getOffset() {
-                        return dexFile.getDataBuffer().readInt(instructionStart + KEYS_OFFSET + elementCount*4 + index*4);
+                        return dexFile.getDataBuffer().readInt(instructionStart + KEYS_OFFSET + elementCount * 4 + index * 4);
                     }
                 };
             }
 
-            @Override public int size() { return elementCount; }
+            @Override public int size() {
+                return elementCount; }
         };
     }
 
-    @Override public int getCodeUnits() { return 2 + elementCount*4; }
+    @Override public int getCodeUnits() {
+        return 2 + elementCount * 4; }
 }

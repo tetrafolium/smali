@@ -37,16 +37,17 @@ import org.jf.dexlib2.iface.value.CharEncodedValue;
 public class ImmutableCharEncodedValue extends BaseCharEncodedValue implements ImmutableEncodedValue {
     protected final char value;
 
-    public ImmutableCharEncodedValue(char value) {
+    public ImmutableCharEncodedValue(final char value) {
         this.value = value;
     }
 
-    public static ImmutableCharEncodedValue of(CharEncodedValue charEncodedValue) {
+    public static ImmutableCharEncodedValue of(final CharEncodedValue charEncodedValue) {
         if (charEncodedValue instanceof ImmutableCharEncodedValue) {
-            return (ImmutableCharEncodedValue)charEncodedValue;
+            return (ImmutableCharEncodedValue) charEncodedValue;
         }
         return new ImmutableCharEncodedValue(charEncodedValue.getValue());
     }
 
-    @Override public char getValue() { return value; }
+    @Override public char getValue() {
+        return value; }
 }

@@ -46,14 +46,14 @@ public class WrappedIndentingWriter extends FilterWriter {
     private int currentIndent = 0;
     private final StringBuilder line = new StringBuilder();
 
-    public WrappedIndentingWriter(Writer out, int maxIndent, int maxWidth) {
+    public WrappedIndentingWriter(final Writer out, final int maxIndent, final int maxWidth) {
         super(out);
         this.maxIndent = maxIndent;
         this.maxWidth = maxWidth;
     }
 
     private void writeIndent() throws IOException {
-        for (int i=0; i<getIndent(); i++) {
+        for (int i = 0; i < getIndent(); i++) {
             write(' ');
         }
     }
@@ -68,11 +68,11 @@ public class WrappedIndentingWriter extends FilterWriter {
         return currentIndent;
     }
 
-    public void indent(int indent) {
+    public void indent(final int indent) {
         currentIndent += indent;
     }
 
-    public void deindent(int indent) {
+    public void deindent(final int indent) {
         currentIndent -= indent;
     }
 
@@ -83,7 +83,7 @@ public class WrappedIndentingWriter extends FilterWriter {
 
         line.replace(0, line.length(), "");
         writeIndent();
-        for (int i=1; i<wrapped.size(); i++) {
+        for (int i = 1; i < wrapped.size(); i++) {
             if (i > 1) {
                 write('\n');
             }
@@ -91,29 +91,29 @@ public class WrappedIndentingWriter extends FilterWriter {
         }
     }
 
-    @Override public void write(int c) throws IOException {
+    @Override public void write(final int c) throws IOException {
         if (c == '\n') {
             out.write(line.toString());
             out.write(c);
             line.replace(0, line.length(), "");
             writeIndent();
         } else {
-            line.append((char)c);
+            line.append((char) c);
             if (line.length() > maxWidth) {
                 wrapLine();
             }
         }
     }
 
-    @Override public void write(char[] cbuf, int off, int len) throws IOException {
-        for (int i=0; i<len; i++) {
-            write(cbuf[i+off]);
+    @Override public void write(final char[] cbuf, final int off, final int len) throws IOException {
+        for (int i = 0; i < len; i++) {
+            write(cbuf[i + off]);
         }
     }
 
-    @Override public void write(String str, int off, int len) throws IOException {
-        for (int i=0; i<len; i++) {
-            write(str.charAt(i+off));
+    @Override public void write(final String str, final int off, final int len) throws IOException {
+        for (int i = 0; i < len; i++) {
+            write(str.charAt(i + off));
         }
     }
 

@@ -47,7 +47,7 @@ public abstract class ListReferencesCommand extends DexInputCommand {
             description = "Show usage information")
     private boolean help;
 
-    public ListReferencesCommand(@Nonnull List<JCommander> commandAncestors, int referenceType) {
+    public ListReferencesCommand(final @Nonnull List<JCommander> commandAncestors, final int referenceType) {
         super(commandAncestors);
         this.referenceType = referenceType;
     }

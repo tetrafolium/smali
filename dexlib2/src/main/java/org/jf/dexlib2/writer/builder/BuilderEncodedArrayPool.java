@@ -48,24 +48,24 @@ public class BuilderEncodedArrayPool extends BaseBuilderPool implements
     @Nonnull private final ConcurrentMap<ArrayEncodedValue, BuilderArrayEncodedValue> internedItems =
             Maps.newConcurrentMap();
 
-    public BuilderEncodedArrayPool(@Nonnull DexBuilder dexBuilder) {
+    public BuilderEncodedArrayPool(final @Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
     }
 
-    @Nonnull public BuilderArrayEncodedValue internArrayEncodedValue(@Nonnull ArrayEncodedValue arrayEncodedValue) {
+    @Nonnull public BuilderArrayEncodedValue internArrayEncodedValue(final @Nonnull ArrayEncodedValue arrayEncodedValue) {
         BuilderArrayEncodedValue builderArrayEncodedValue = internedItems.get(arrayEncodedValue);
         if (builderArrayEncodedValue != null) {
             return builderArrayEncodedValue;
         }
 
-        builderArrayEncodedValue = (BuilderArrayEncodedValue)dexBuilder.internEncodedValue(arrayEncodedValue);
+        builderArrayEncodedValue = (BuilderArrayEncodedValue) dexBuilder.internEncodedValue(arrayEncodedValue);
         BuilderArrayEncodedValue previous = internedItems.putIfAbsent(
                 builderArrayEncodedValue, builderArrayEncodedValue);
         return previous == null ? builderArrayEncodedValue : previous;
     }
 
     @Override
-    public int getItemOffset(@Nonnull BuilderArrayEncodedValue builderArrayEncodedValue) {
+    public int getItemOffset(final @Nonnull BuilderArrayEncodedValue builderArrayEncodedValue) {
         return builderArrayEncodedValue.offset;
     }
 
@@ -74,12 +74,12 @@ public class BuilderEncodedArrayPool extends BaseBuilderPool implements
     public Collection<? extends Map.Entry<? extends BuilderArrayEncodedValue, Integer>> getItems() {
         return new BuilderMapEntryCollection<BuilderArrayEncodedValue>(internedItems.values()) {
             @Override
-            protected int getValue(@Nonnull BuilderArrayEncodedValue builderArrayEncodedValue) {
+            protected int getValue(final @Nonnull BuilderArrayEncodedValue builderArrayEncodedValue) {
                 return builderArrayEncodedValue.offset;
             }
 
             @Override
-            protected int setValue(@Nonnull BuilderArrayEncodedValue key, int value) {
+            protected int setValue(final @Nonnull BuilderArrayEncodedValue key, final int value) {
                 int prev = key.offset;
                 key.offset = value;
                 return prev;
@@ -88,7 +88,7 @@ public class BuilderEncodedArrayPool extends BaseBuilderPool implements
     }
 
     @Override
-    public List<? extends BuilderEncodedValue> getEncodedValueList(BuilderArrayEncodedValue builderArrayEncodedValue) {
+    public List<? extends BuilderEncodedValue> getEncodedValueList(final BuilderArrayEncodedValue builderArrayEncodedValue) {
         return builderArrayEncodedValue.elements;
     }
 }

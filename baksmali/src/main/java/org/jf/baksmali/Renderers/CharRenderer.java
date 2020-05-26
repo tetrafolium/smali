@@ -34,7 +34,7 @@ import org.jf.util.StringUtils;
 import java.io.IOException;
 
 public class CharRenderer {
-    public static void writeTo(IndentingWriter writer, char val) throws IOException {
+    public static void writeTo(final IndentingWriter writer, final char val) throws IOException {
         writer.write('\'');
         StringUtils.writeEscapedChar(writer, val);
         writer.write('\'');

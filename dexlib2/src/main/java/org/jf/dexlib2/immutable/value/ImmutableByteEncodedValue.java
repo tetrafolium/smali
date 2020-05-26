@@ -37,16 +37,17 @@ import org.jf.dexlib2.iface.value.ByteEncodedValue;
 public class ImmutableByteEncodedValue extends BaseByteEncodedValue implements ImmutableEncodedValue {
     protected final byte value;
 
-    public ImmutableByteEncodedValue(byte value) {
+    public ImmutableByteEncodedValue(final byte value) {
         this.value = value;
     }
 
-    public static ImmutableByteEncodedValue of(ByteEncodedValue byteEncodedValue) {
+    public static ImmutableByteEncodedValue of(final ByteEncodedValue byteEncodedValue) {
         if (byteEncodedValue instanceof ImmutableByteEncodedValue) {
-            return (ImmutableByteEncodedValue)byteEncodedValue;
+            return (ImmutableByteEncodedValue) byteEncodedValue;
         }
         return new ImmutableByteEncodedValue(byteEncodedValue.getValue());
     }
 
-    @Override public byte getValue() { return value; }
+    @Override public byte getValue() {
+        return value; }
 }

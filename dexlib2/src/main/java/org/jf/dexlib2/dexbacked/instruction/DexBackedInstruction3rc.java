@@ -40,9 +40,9 @@ import org.jf.dexlib2.iface.reference.Reference;
 import javax.annotation.Nonnull;
 
 public class DexBackedInstruction3rc extends DexBackedInstruction implements Instruction3rc {
-    public DexBackedInstruction3rc(@Nonnull DexBackedDexFile dexFile,
-                                   @Nonnull Opcode opcode,
-                                   int instructionStart) {
+    public DexBackedInstruction3rc(final @Nonnull DexBackedDexFile dexFile,
+                                   final @Nonnull Opcode opcode,
+                                   final int instructionStart) {
         super(dexFile, opcode, instructionStart);
     }
 

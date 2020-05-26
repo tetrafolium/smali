@@ -60,7 +60,7 @@ public class MethodHandleType {
             .put(INVOKE_INTERFACE, "invoke-interface")
             .build();
 
-    @Nonnull public static String toString(int methodHandleType) {
+    @Nonnull public static String toString(final int methodHandleType) {
         String val = methodHandleTypeNames.get(methodHandleType);
         if (val == null) {
             throw new InvalidMethodHandleTypeException(methodHandleType);
@@ -68,7 +68,7 @@ public class MethodHandleType {
         return val;
     }
 
-    public static int getMethodHandleType(String methodHandleType) {
+    public static int getMethodHandleType(final String methodHandleType) {
         Integer ret = methodHandleTypeNames.inverse().get(methodHandleType);
         if (ret == null) {
             throw new ExceptionWithContext("Invalid method handle type: %s", methodHandleType);
@@ -79,12 +79,12 @@ public class MethodHandleType {
     public static class InvalidMethodHandleTypeException extends ExceptionWithContext {
         private final int methodHandleType;
 
-        public InvalidMethodHandleTypeException(int methodHandleType) {
+        public InvalidMethodHandleTypeException(final int methodHandleType) {
             super("Invalid method handle type: %d", methodHandleType);
             this.methodHandleType = methodHandleType;
         }
 
-        public InvalidMethodHandleTypeException(int methodHandleType, String message, Object... formatArgs) {
+        public InvalidMethodHandleTypeException(final int methodHandleType, final String message, final Object... formatArgs) {
             super(message, formatArgs);
             this.methodHandleType = methodHandleType;
         }

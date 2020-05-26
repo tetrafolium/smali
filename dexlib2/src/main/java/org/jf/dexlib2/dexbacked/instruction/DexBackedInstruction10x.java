@@ -38,9 +38,9 @@ import org.jf.dexlib2.iface.instruction.formats.Instruction10x;
 import javax.annotation.Nonnull;
 
 public class DexBackedInstruction10x extends DexBackedInstruction implements Instruction10x {
-    public DexBackedInstruction10x(@Nonnull DexBackedDexFile dexFile,
-                                   @Nonnull Opcode opcode,
-                                   int instructionStart) {
+    public DexBackedInstruction10x(final @Nonnull DexBackedDexFile dexFile,
+                                   final @Nonnull Opcode opcode,
+                                   final int instructionStart) {
         super(dexFile, opcode, instructionStart);
     }
 }

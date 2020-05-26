@@ -55,7 +55,7 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
     @Nonnull protected final MethodDefinition methodDef;
     @Nonnull protected final T instruction;
 
-    public InstructionMethodItem(@Nonnull MethodDefinition methodDef, int codeAddress, @Nonnull T instruction) {
+    public InstructionMethodItem(final @Nonnull MethodDefinition methodDef, final int codeAddress, final @Nonnull T instruction) {
         super(codeAddress);
         this.methodDef = methodDef;
         this.instruction = instruction;
@@ -66,7 +66,7 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
         return 100;
     }
 
-    private boolean isAllowedOdex(@Nonnull Opcode opcode) {
+    private boolean isAllowedOdex(final @Nonnull Opcode opcode) {
         BaksmaliOptions options = methodDef.classDef.options;
         if (options.allowOdex) {
             return true;
@@ -84,7 +84,7 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
     }
 
     @Override
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         Opcode opcode = instruction.getOpcode();
         String verificationErrorName = null;
         Writable referenceWritable = null;
@@ -93,7 +93,7 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
         boolean commentOutInstruction = false;
 
         if (instruction instanceof Instruction20bc) {
-            int verificationError = ((Instruction20bc)instruction).getVerificationError();
+            int verificationError = ((Instruction20bc) instruction).getVerificationError();
             verificationErrorName = VerificationError.getVerificationErrorName(verificationError);
             if (verificationErrorName == null) {
                 writer.write("#was invalid verification error type: ");
@@ -104,7 +104,7 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
         }
 
         if (instruction instanceof ReferenceInstruction) {
-            ReferenceInstruction referenceInstruction = (ReferenceInstruction)instruction;
+            ReferenceInstruction referenceInstruction = (ReferenceInstruction) instruction;
             final String classContext;
             if (methodDef.classDef.options.implicitReferences) {
                 classContext = methodDef.method.getDefiningClass();
@@ -120,14 +120,14 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
                 if (reference instanceof CallSiteReference) {
                     referenceWritable = new Writable() {
                         @Override
-                        public void writeTo(IndentingWriter indentingWriter) throws IOException {
-                            ReferenceFormatter.writeCallSiteReference(indentingWriter, (CallSiteReference)reference);
+                        public void writeTo(final IndentingWriter indentingWriter) throws IOException {
+                            ReferenceFormatter.writeCallSiteReference(indentingWriter, (CallSiteReference) reference);
                         }
                     };
                 } else {
                     referenceWritable = new Writable() {
                         @Override
-                        public void writeTo(IndentingWriter indentingWriter) throws IOException {
+                        public void writeTo(final IndentingWriter indentingWriter) throws IOException {
                             indentingWriter.write(ReferenceUtil.getReferenceString(reference, classContext));
                         }
                     };
@@ -170,21 +170,21 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
             switch (instruction.getOpcode()) {
                 case PACKED_SWITCH:
                     int baseAddress = methodDef.getPackedSwitchBaseAddress(
-                            this.codeAddress + ((Instruction31t)instruction).getCodeOffset());
+                            this.codeAddress + ((Instruction31t) instruction).getCodeOffset());
                     if (baseAddress == -1) {
                         validPayload = false;
                     }
                     break;
                 case SPARSE_SWITCH:
                     baseAddress = methodDef.getSparseSwitchBaseAddress(
-                            this.codeAddress + ((Instruction31t)instruction).getCodeOffset());
+                            this.codeAddress + ((Instruction31t) instruction).getCodeOffset());
                     if (baseAddress == -1) {
                         validPayload = false;
                     }
                     break;
                 case FILL_ARRAY_DATA:
                     try {
-                        methodDef.findPayloadOffset(this.codeAddress + ((Instruction31t)instruction).getCodeOffset(),
+                        methodDef.findPayloadOffset(this.codeAddress + ((Instruction31t) instruction).getCodeOffset(),
                                 Opcode.ARRAY_PAYLOAD);
                     } catch (InvalidSwitchPayload ex) {
                         validPayload = false;
@@ -220,7 +220,7 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
             case Format10x:
                 if (instruction instanceof UnknownInstruction) {
                     writer.write("#unknown opcode: 0x");
-                    writer.printUnsignedLongAsHex(((UnknownInstruction)instruction).getOriginalOpcode());
+                    writer.printUnsignedLongAsHex(((UnknownInstruction) instruction).getOriginalOpcode());
                     writer.write('\n');
                 }
                 writeOpcode(writer);
@@ -416,34 +416,34 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
         return true;
     }
 
-    protected void writeOpcode(IndentingWriter writer) throws IOException {
+    protected void writeOpcode(final IndentingWriter writer) throws IOException {
         writer.write(instruction.getOpcode().name);
     }
 
-    protected void writeTargetLabel(IndentingWriter writer) throws IOException {
+    protected void writeTargetLabel(final IndentingWriter writer) throws IOException {
         //this method is overridden by OffsetInstructionMethodItem, and should only be called for the formats that
         //have a target
         throw new RuntimeException();
     }
 
-    protected void writeRegister(IndentingWriter writer, int registerNumber) throws IOException {
+    protected void writeRegister(final IndentingWriter writer, final int registerNumber) throws IOException {
         methodDef.registerFormatter.writeTo(writer, registerNumber);
     }
 
-    protected void writeFirstRegister(IndentingWriter writer) throws IOException {
-        writeRegister(writer, ((OneRegisterInstruction)instruction).getRegisterA());
+    protected void writeFirstRegister(final IndentingWriter writer) throws IOException {
+        writeRegister(writer, ((OneRegisterInstruction) instruction).getRegisterA());
     }
 
-    protected void writeSecondRegister(IndentingWriter writer) throws IOException {
-        writeRegister(writer, ((TwoRegisterInstruction)instruction).getRegisterB());
+    protected void writeSecondRegister(final IndentingWriter writer) throws IOException {
+        writeRegister(writer, ((TwoRegisterInstruction) instruction).getRegisterB());
     }
 
-    protected void writeThirdRegister(IndentingWriter writer) throws IOException {
+    protected void writeThirdRegister(final IndentingWriter writer) throws IOException {
         writeRegister(writer, ((ThreeRegisterInstruction) instruction).getRegisterC());
     }
 
-    protected void writeInvokeRegisters(IndentingWriter writer) throws IOException {
-        FiveRegisterInstruction instruction = (FiveRegisterInstruction)this.instruction;
+    protected void writeInvokeRegisters(final IndentingWriter writer) throws IOException {
+        FiveRegisterInstruction instruction = (FiveRegisterInstruction) this.instruction;
         final int regCount = instruction.getRegisterCount();
 
         writer.write('{');
@@ -487,27 +487,27 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
         writer.write('}');
     }
 
-    protected void writeInvokeRangeRegisters(IndentingWriter writer) throws IOException {
-        RegisterRangeInstruction instruction = (RegisterRangeInstruction)this.instruction;
+    protected void writeInvokeRangeRegisters(final IndentingWriter writer) throws IOException {
+        RegisterRangeInstruction instruction = (RegisterRangeInstruction) this.instruction;
 
         int regCount = instruction.getRegisterCount();
         if (regCount == 0) {
             writer.write("{}");
         } else {
             int startRegister = instruction.getStartRegister();
-            methodDef.registerFormatter.writeRegisterRange(writer, startRegister, startRegister+regCount-1);
+            methodDef.registerFormatter.writeRegisterRange(writer, startRegister, startRegister + regCount - 1);
         }
     }
 
-    protected void writeLiteral(IndentingWriter writer) throws IOException {
-        LongRenderer.writeSignedIntOrLongTo(writer, ((WideLiteralInstruction)instruction).getWideLiteral());
+    protected void writeLiteral(final IndentingWriter writer) throws IOException {
+        LongRenderer.writeSignedIntOrLongTo(writer, ((WideLiteralInstruction) instruction).getWideLiteral());
     }
 
-    protected void writeCommentIfLikelyFloat(IndentingWriter writer) throws IOException {
-        writeCommentIfLikelyFloat(writer, ((NarrowLiteralInstruction)instruction).getNarrowLiteral());
+    protected void writeCommentIfLikelyFloat(final IndentingWriter writer) throws IOException {
+        writeCommentIfLikelyFloat(writer, ((NarrowLiteralInstruction) instruction).getNarrowLiteral());
     }
 
-    protected void writeCommentIfLikelyFloat(IndentingWriter writer, int val) throws IOException {
+    protected void writeCommentIfLikelyFloat(final IndentingWriter writer, final int val) throws IOException {
         if (NumberUtils.isLikelyFloat(val)) {
             writer.write("    # ");
             float fval = Float.intBitsToFloat(val);
@@ -519,9 +519,9 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
                 writer.write("Float.NaN");
             else if (fval == Float.MAX_VALUE)
                 writer.write("Float.MAX_VALUE");
-            else if (fval == (float)Math.PI)
+            else if (fval == (float) Math.PI)
                 writer.write("(float)Math.PI");
-            else if (fval == (float)Math.E)
+            else if (fval == (float) Math.E)
                 writer.write("(float)Math.E");
             else {
                 writer.write(Float.toString(fval));
@@ -530,11 +530,11 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
         }
     }
 
-    protected void writeCommentIfLikelyDouble(IndentingWriter writer) throws IOException {
-        writeCommentIfLikelyDouble(writer, ((WideLiteralInstruction)instruction).getWideLiteral());
+    protected void writeCommentIfLikelyDouble(final IndentingWriter writer) throws IOException {
+        writeCommentIfLikelyDouble(writer, ((WideLiteralInstruction) instruction).getWideLiteral());
     }
 
-    protected void writeCommentIfLikelyDouble(IndentingWriter writer, long val) throws IOException {
+    protected void writeCommentIfLikelyDouble(final IndentingWriter writer, final long val) throws IOException {
         if (NumberUtils.isLikelyDouble(val)) {
             writer.write("    # ");
             double dval = Double.longBitsToDouble(val);
@@ -555,12 +555,12 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
         }
     }
 
-    protected boolean writeCommentIfResourceId(IndentingWriter writer) throws IOException {
-        return writeCommentIfResourceId(writer, ((NarrowLiteralInstruction)instruction).getNarrowLiteral());
+    protected boolean writeCommentIfResourceId(final IndentingWriter writer) throws IOException {
+        return writeCommentIfResourceId(writer, ((NarrowLiteralInstruction) instruction).getNarrowLiteral());
     }
 
-    protected boolean writeCommentIfResourceId(IndentingWriter writer, int val) throws IOException {
-        Map<Integer,String> resourceIds = methodDef.classDef.options.resourceIds;
+    protected boolean writeCommentIfResourceId(final IndentingWriter writer, final int val) throws IOException {
+        Map<Integer, String> resourceIds = methodDef.classDef.options.resourceIds;
         String resource = resourceIds.get(Integer.valueOf(val));
         if (resource != null) {
             writer.write("    # ");
@@ -570,18 +570,18 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
         return false;
     }
 
-    protected void writeFieldOffset(IndentingWriter writer) throws IOException {
+    protected void writeFieldOffset(final IndentingWriter writer) throws IOException {
         writer.write("field@0x");
-        writer.printUnsignedLongAsHex(((FieldOffsetInstruction)instruction).getFieldOffset());
+        writer.printUnsignedLongAsHex(((FieldOffsetInstruction) instruction).getFieldOffset());
     }
 
-    protected void writeInlineIndex(IndentingWriter writer) throws IOException {
+    protected void writeInlineIndex(final IndentingWriter writer) throws IOException {
         writer.write("inline@");
-        writer.printSignedIntAsDec(((InlineIndexInstruction)instruction).getInlineIndex());
+        writer.printSignedIntAsDec(((InlineIndexInstruction) instruction).getInlineIndex());
     }
 
-    protected void writeVtableIndex(IndentingWriter writer) throws IOException {
+    protected void writeVtableIndex(final IndentingWriter writer) throws IOException {
         writer.write("vtable@");
-        writer.printSignedIntAsDec(((VtableIndexInstruction)instruction).getVtableIndex());
+        writer.printSignedIntAsDec(((VtableIndexInstruction) instruction).getVtableIndex());
     }
 }

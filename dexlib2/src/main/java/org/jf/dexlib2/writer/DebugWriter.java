@@ -45,23 +45,23 @@ public class DebugWriter<StringKey extends CharSequence, TypeKey extends CharSeq
     private int currentAddress;
     private int currentLine;
 
-    DebugWriter(@Nonnull StringSection<StringKey, ?> stringSection,
-                @Nonnull TypeSection<StringKey, TypeKey, ?> typeSection,
-                @Nonnull DexDataWriter writer) {
+    DebugWriter(final @Nonnull StringSection<StringKey, ?> stringSection,
+                final @Nonnull TypeSection<StringKey, TypeKey, ?> typeSection,
+                final @Nonnull DexDataWriter writer) {
         this.stringSection = stringSection;
         this.typeSection = typeSection;
         this.writer = writer;
     }
 
-    void reset(int startLine) {
+    void reset(final int startLine) {
         this.currentAddress = 0;
         this.currentLine = startLine;
     }
 
-    public void writeStartLocal(int codeAddress, int register,
-                                @Nullable StringKey name,
-                                @Nullable TypeKey type,
-                                @Nullable StringKey signature) throws IOException {
+    public void writeStartLocal(final int codeAddress, final int register,
+                                final @Nullable StringKey name,
+                                final @Nullable TypeKey type,
+                                final @Nullable StringKey signature) throws IOException {
         int nameIndex = stringSection.getNullableItemIndex(name);
         int typeIndex = typeSection.getNullableItemIndex(type);
         int signatureIndex = stringSection.getNullableItemIndex(signature);
@@ -81,29 +81,29 @@ public class DebugWriter<StringKey extends CharSequence, TypeKey extends CharSeq
         }
     }
 
-    public void writeEndLocal(int codeAddress, int register) throws IOException {
+    public void writeEndLocal(final int codeAddress, final int register) throws IOException {
         writeAdvancePC(codeAddress);
         writer.write(DebugItemType.END_LOCAL);
         writer.writeUleb128(register);
     }
 
-    public void writeRestartLocal(int codeAddress, int register) throws IOException {
+    public void writeRestartLocal(final int codeAddress, final int register) throws IOException {
         writeAdvancePC(codeAddress);
         writer.write(DebugItemType.RESTART_LOCAL);
         writer.writeUleb128(register);
     }
 
-    public void writePrologueEnd(int codeAddress) throws IOException {
+    public void writePrologueEnd(final int codeAddress) throws IOException {
         writeAdvancePC(codeAddress);
         writer.write(DebugItemType.PROLOGUE_END);
     }
 
-    public void writeEpilogueBegin(int codeAddress) throws IOException {
+    public void writeEpilogueBegin(final int codeAddress) throws IOException {
         writeAdvancePC(codeAddress);
         writer.write(DebugItemType.EPILOGUE_BEGIN);
     }
 
-    public void writeLineNumber(int codeAddress, int lineNumber) throws IOException {
+    public void writeLineNumber(final int codeAddress, final int lineNumber) throws IOException {
         int lineDelta = lineNumber - currentLine;
         int addressDelta = codeAddress - currentAddress;
 
@@ -124,13 +124,13 @@ public class DebugWriter<StringKey extends CharSequence, TypeKey extends CharSeq
         writeSpecialOpcode(lineDelta, addressDelta);
     }
 
-    public void writeSetSourceFile(int codeAddress, @Nullable StringKey sourceFile) throws IOException {
+    public void writeSetSourceFile(final int codeAddress, final @Nullable StringKey sourceFile) throws IOException {
         writeAdvancePC(codeAddress);
         writer.write(DebugItemType.SET_SOURCE_FILE);
         writer.writeUleb128(stringSection.getNullableItemIndex(sourceFile) + 1);
     }
 
-    private void writeAdvancePC(int address) throws IOException {
+    private void writeAdvancePC(final int address) throws IOException {
         int addressDelta = address - currentAddress;
 
         if (addressDelta > 0) {
@@ -142,7 +142,7 @@ public class DebugWriter<StringKey extends CharSequence, TypeKey extends CharSeq
         }*/
     }
 
-    private void writeAdvanceLine(int line) throws IOException {
+    private void writeAdvanceLine(final int line) throws IOException {
         int lineDelta = line - currentLine;
         if (lineDelta != 0) {
             writer.write(2);
@@ -155,8 +155,8 @@ public class DebugWriter<StringKey extends CharSequence, TypeKey extends CharSeq
     private static final int LINE_RANGE    = 15;
     private static final int FIRST_SPECIAL = 0x0a;
 
-    private void writeSpecialOpcode(int lineDelta, int addressDelta) throws IOException {
-        writer.write((byte)(FIRST_SPECIAL + (addressDelta * LINE_RANGE) + (lineDelta - LINE_BASE)));
+    private void writeSpecialOpcode(final int lineDelta, final int addressDelta) throws IOException {
+        writer.write((byte) (FIRST_SPECIAL + (addressDelta * LINE_RANGE) + (lineDelta - LINE_BASE)));
         currentLine += lineDelta;
         currentAddress += addressDelta;
     }

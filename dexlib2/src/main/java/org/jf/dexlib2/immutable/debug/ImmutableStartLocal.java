@@ -47,11 +47,11 @@ public class ImmutableStartLocal extends ImmutableDebugItem implements StartLoca
     @Nullable protected final String type;
     @Nullable protected final String signature;
 
-    public ImmutableStartLocal(int codeAddress,
-                               int register,
-                               @Nullable String name,
-                               @Nullable String type,
-                               @Nullable String signature) {
+    public ImmutableStartLocal(final int codeAddress,
+                               final int register,
+                               final @Nullable String name,
+                               final @Nullable String type,
+                               final @Nullable String signature) {
         super(codeAddress);
         this.register = register;
         this.name = name;
@@ -60,9 +60,9 @@ public class ImmutableStartLocal extends ImmutableDebugItem implements StartLoca
     }
 
     @Nonnull
-    public static ImmutableStartLocal of(@Nonnull StartLocal startLocal) {
+    public static ImmutableStartLocal of(final @Nonnull StartLocal startLocal) {
         if (startLocal instanceof  ImmutableStartLocal) {
-            return (ImmutableStartLocal)startLocal;
+            return (ImmutableStartLocal) startLocal;
         }
         return new ImmutableStartLocal(
                 startLocal.getCodeAddress(),
@@ -72,10 +72,11 @@ public class ImmutableStartLocal extends ImmutableDebugItem implements StartLoca
                 startLocal.getSignature());
     }
 
-    @Override public int getRegister() { return register; }
+    @Override public int getRegister() {
+        return register; }
 
     @Nullable @Override public StringReference getNameReference() {
-        return name==null?null:new BaseStringReference() {
+        return name == null ? null : new BaseStringReference() {
             @Nonnull @Override public String getString() {
                 return name;
             }
@@ -83,7 +84,7 @@ public class ImmutableStartLocal extends ImmutableDebugItem implements StartLoca
     }
 
     @Nullable @Override public TypeReference getTypeReference() {
-        return type==null?null:new BaseTypeReference() {
+        return type == null ? null : new BaseTypeReference() {
             @Nonnull @Override public String getType() {
                 return type;
             }
@@ -91,16 +92,20 @@ public class ImmutableStartLocal extends ImmutableDebugItem implements StartLoca
     }
 
     @Nullable @Override public StringReference getSignatureReference() {
-        return signature==null?null:new BaseStringReference() {
+        return signature == null ? null : new BaseStringReference() {
             @Nonnull @Override public String getString() {
                 return signature;
             }
         };
     }
 
-    @Nullable @Override public String getName() { return name; }
-    @Nullable @Override public String getType() { return type; }
-    @Nullable @Override public String getSignature() { return signature; }
+    @Nullable @Override public String getName() {
+        return name; }
+    @Nullable @Override public String getType() {
+        return type; }
+    @Nullable @Override public String getSignature() {
+        return signature; }
 
-    @Override public int getDebugItemType() { return DebugItemType.START_LOCAL; }
+    @Override public int getDebugItemType() {
+        return DebugItemType.START_LOCAL; }
 }

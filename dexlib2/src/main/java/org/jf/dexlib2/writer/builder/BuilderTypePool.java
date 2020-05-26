@@ -45,11 +45,11 @@ class BuilderTypePool extends BaseBuilderPool
         implements TypeSection<BuilderStringReference, BuilderTypeReference, BuilderTypeReference> {
     @Nonnull private final ConcurrentMap<String, BuilderTypeReference> internedItems = Maps.newConcurrentMap();
 
-    public BuilderTypePool(@Nonnull DexBuilder dexBuilder) {
+    public BuilderTypePool(final @Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
     }
 
-    @Nonnull public BuilderTypeReference internType(@Nonnull String type) {
+    @Nonnull public BuilderTypeReference internType(final @Nonnull String type) {
         BuilderTypeReference ret = internedItems.get(type);
         if (ret != null) {
             return ret;
@@ -57,35 +57,35 @@ class BuilderTypePool extends BaseBuilderPool
         BuilderStringReference stringRef = dexBuilder.stringSection.internString(type);
         BuilderTypeReference typeReference = new BuilderTypeReference(stringRef);
         ret = internedItems.putIfAbsent(type, typeReference);
-        return ret==null?typeReference:ret;
+        return ret == null ? typeReference : ret;
     }
 
-    @Nullable public BuilderTypeReference internNullableType(@Nullable String type) {
+    @Nullable public BuilderTypeReference internNullableType(final @Nullable String type) {
         if (type == null) {
             return null;
         }
         return internType(type);
     }
 
-    @Nonnull @Override public BuilderStringReference getString(@Nonnull BuilderTypeReference key) {
+    @Nonnull @Override public BuilderStringReference getString(final @Nonnull BuilderTypeReference key) {
         return key.stringReference;
     }
 
-    @Override public int getNullableItemIndex(@Nullable BuilderTypeReference key) {
-        return key==null?DexWriter.NO_INDEX:key.index;
+    @Override public int getNullableItemIndex(final @Nullable BuilderTypeReference key) {
+        return key == null ? DexWriter.NO_INDEX : key.index;
     }
 
-    @Override public int getItemIndex(@Nonnull BuilderTypeReference key) {
+    @Override public int getItemIndex(final @Nonnull BuilderTypeReference key) {
         return key.getIndex();
     }
 
     @Nonnull @Override public Collection<? extends Entry<? extends BuilderTypeReference, Integer>> getItems() {
         return new BuilderMapEntryCollection<BuilderTypeReference>(internedItems.values()) {
-            @Override protected int getValue(@Nonnull BuilderTypeReference key) {
+            @Override protected int getValue(final @Nonnull BuilderTypeReference key) {
                 return key.index;
             }
 
-            @Override protected int setValue(@Nonnull BuilderTypeReference key, int value) {
+            @Override protected int setValue(final @Nonnull BuilderTypeReference key, final int value) {
                 int prev = key.index;
                 key.index = value;
                 return prev;

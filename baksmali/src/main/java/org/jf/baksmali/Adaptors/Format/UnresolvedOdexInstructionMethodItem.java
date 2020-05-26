@@ -36,17 +36,17 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 
 public class UnresolvedOdexInstructionMethodItem extends InstructionMethodItem<UnresolvedOdexInstruction> {
-    public UnresolvedOdexInstructionMethodItem(@Nonnull MethodDefinition methodDef, int codeAddress,
-                                               @Nonnull UnresolvedOdexInstruction instruction) {
+    public UnresolvedOdexInstructionMethodItem(final @Nonnull MethodDefinition methodDef, final int codeAddress,
+                                               final @Nonnull UnresolvedOdexInstruction instruction) {
         super(methodDef, codeAddress, instruction);
     }
 
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         writeThrowTo(writer);
         return true;
     }
 
-    private void writeThrowTo(IndentingWriter writer) throws IOException {
+    private void writeThrowTo(final IndentingWriter writer) throws IOException {
         writer.write("#Replaced unresolvable odex instruction with a throw\n");
         writer.write("throw ");
         writeRegister(writer, instruction.objectRegisterNum);

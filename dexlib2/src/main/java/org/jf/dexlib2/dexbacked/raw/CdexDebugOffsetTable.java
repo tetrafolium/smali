@@ -67,7 +67,7 @@ import javax.annotation.Nonnull;
  */
 public class CdexDebugOffsetTable {
     @Nonnull
-    public static void annotate(@Nonnull DexAnnotator annotator, DexBuffer buffer) {
+    public static void annotate(final @Nonnull DexAnnotator annotator, final DexBuffer buffer) {
         DexReader reader = buffer.readerAt(annotator.getCursor());
 
         SectionAnnotator debugInfoAnnotator = annotator.getAnnotator(ItemType.DEBUG_INFO_ITEM);
@@ -75,19 +75,19 @@ public class CdexDebugOffsetTable {
         int methodCount = annotator.dexFile.getMethodSection().size();
 
         for (int methodIndex = 0; methodIndex < methodCount; methodIndex += 16) {
-            annotator.annotate(0, "Offset chuck for methods %d-%d", methodIndex, Math.min(methodIndex+16, methodCount));
+            annotator.annotate(0, "Offset chuck for methods %d-%d", methodIndex, Math.min(methodIndex + 16, methodCount));
             annotator.indent();
 
             int bitmask = reader.readUbyte() << 8;
             bitmask |= reader.readUbyte();
             StringBuilder sb = new StringBuilder();
-            for (int i=0; i<16; i++) {
+            for (int i = 0; i < 16; i++) {
                 sb.append((bitmask >> i) & 1);
             }
             annotator.annotate(2, "bitmask: 0b%s", sb.reverse());
 
             int debugOffset = ((CDexBackedDexFile) annotator.dexFile).getDebugInfoBase();
-            for (int i=0; i<16; i++) {
+            for (int i = 0; i < 16; i++) {
                 if ((bitmask & 1) != 0) {
                     int offsetDelta = reader.readBigUleb128();
 

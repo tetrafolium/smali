@@ -45,16 +45,19 @@ public class BuilderInstruction51l extends BuilderInstruction implements Instruc
     protected final int registerA;
     protected final long literal;
 
-    public BuilderInstruction51l(@Nonnull Opcode opcode,
-                                 int registerA,
-                                 long literal) {
+    public BuilderInstruction51l(final @Nonnull Opcode opcode,
+                                 final int registerA,
+                                 final long literal) {
         super(opcode);
         this.registerA = Preconditions.checkByteRegister(registerA);
         this.literal = literal;
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public long getWideLiteral() { return literal; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public long getWideLiteral() {
+        return literal; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

@@ -39,28 +39,28 @@ import java.io.IOException;
 public class ImplicitReferenceTest {
     @Test
     public void testImplicitMethodReferences() throws IOException, RecognitionException {
-        String source = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".method public static main([Ljava/lang/String;)V\n" +
-                "    .registers 1\n" +
-                "    invoke-static {p0}, LHelloWorld;->toString()V\n" +
-                "    invoke-static {p0}, LHelloWorld;->V()V\n" +
-                "    invoke-static {p0}, LHelloWorld;->I()V\n" +
-                "    return-void\n" +
-                ".end method";
+        String source = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".method public static main([Ljava/lang/String;)V\n"
+                + "    .registers 1\n"
+                + "    invoke-static {p0}, LHelloWorld;->toString()V\n"
+                + "    invoke-static {p0}, LHelloWorld;->V()V\n"
+                + "    invoke-static {p0}, LHelloWorld;->I()V\n"
+                + "    return-void\n"
+                + ".end method";
 
-        String expected = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                "# direct methods\n" +
-                ".method public static main([Ljava/lang/String;)V\n" +
-                ".registers 1\n" +
-                "invoke-static {p0}, toString()V\n" +
-                "invoke-static {p0}, V()V\n" +
-                "invoke-static {p0}, I()V\n" +
-                "return-void\n" +
-                ".end method\n";
+        String expected = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + "# direct methods\n"
+                + ".method public static main([Ljava/lang/String;)V\n"
+                + ".registers 1\n"
+                + "invoke-static {p0}, toString()V\n"
+                + "invoke-static {p0}, V()V\n"
+                + "invoke-static {p0}, I()V\n"
+                + "return-void\n"
+                + ".end method\n";
 
         BaksmaliOptions options = new BaksmaliOptions();
         options.implicitReferences = true;
@@ -70,28 +70,28 @@ public class ImplicitReferenceTest {
 
     @Test
     public void testExplicitMethodReferences() throws IOException, RecognitionException {
-        String source = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".method public static main([Ljava/lang/String;)V\n" +
-                "    .registers 1\n" +
-                "    invoke-static {p0}, LHelloWorld;->toString()V\n" +
-                "    invoke-static {p0}, LHelloWorld;->V()V\n" +
-                "    invoke-static {p0}, LHelloWorld;->I()V\n" +
-                "    return-void\n" +
-                ".end method";
+        String source = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".method public static main([Ljava/lang/String;)V\n"
+                + "    .registers 1\n"
+                + "    invoke-static {p0}, LHelloWorld;->toString()V\n"
+                + "    invoke-static {p0}, LHelloWorld;->V()V\n"
+                + "    invoke-static {p0}, LHelloWorld;->I()V\n"
+                + "    return-void\n"
+                + ".end method";
 
-        String expected = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                "# direct methods\n" +
-                ".method public static main([Ljava/lang/String;)V\n" +
-                "    .registers 1\n" +
-                "    invoke-static {p0}, LHelloWorld;->toString()V\n" +
-                "    invoke-static {p0}, LHelloWorld;->V()V\n" +
-                "    invoke-static {p0}, LHelloWorld;->I()V\n" +
-                "    return-void\n" +
-                ".end method\n";
+        String expected = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + "# direct methods\n"
+                + ".method public static main([Ljava/lang/String;)V\n"
+                + "    .registers 1\n"
+                + "    invoke-static {p0}, LHelloWorld;->toString()V\n"
+                + "    invoke-static {p0}, LHelloWorld;->V()V\n"
+                + "    invoke-static {p0}, LHelloWorld;->I()V\n"
+                + "    return-void\n"
+                + ".end method\n";
 
         BaksmaliOptions options = new BaksmaliOptions();
         options.implicitReferences = false;
@@ -101,22 +101,22 @@ public class ImplicitReferenceTest {
 
     @Test
     public void testImplicitMethodLiterals() throws IOException, RecognitionException {
-        String source = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".field public static field1:Ljava/lang/reflect/Method; = LHelloWorld;->toString()V\n" +
-                ".field public static field2:Ljava/lang/reflect/Method; = LHelloWorld;->V()V\n" +
-                ".field public static field3:Ljava/lang/reflect/Method; = LHelloWorld;->I()V\n" +
-                ".field public static field4:Ljava/lang/Class; = I";
+        String source = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".field public static field1:Ljava/lang/reflect/Method; = LHelloWorld;->toString()V\n"
+                + ".field public static field2:Ljava/lang/reflect/Method; = LHelloWorld;->V()V\n"
+                + ".field public static field3:Ljava/lang/reflect/Method; = LHelloWorld;->I()V\n"
+                + ".field public static field4:Ljava/lang/Class; = I";
 
-        String expected = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                "# static fields\n" +
-                ".field public static field1:Ljava/lang/reflect/Method; = toString()V\n" +
-                ".field public static field2:Ljava/lang/reflect/Method; = V()V\n" +
-                ".field public static field3:Ljava/lang/reflect/Method; = I()V\n" +
-                ".field public static field4:Ljava/lang/Class; = I\n";
+        String expected = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + "# static fields\n"
+                + ".field public static field1:Ljava/lang/reflect/Method; = toString()V\n"
+                + ".field public static field2:Ljava/lang/reflect/Method; = V()V\n"
+                + ".field public static field3:Ljava/lang/reflect/Method; = I()V\n"
+                + ".field public static field4:Ljava/lang/Class; = I\n";
 
         BaksmaliOptions options = new BaksmaliOptions();
         options.implicitReferences = true;
@@ -126,22 +126,22 @@ public class ImplicitReferenceTest {
 
     @Test
     public void testExplicitMethodLiterals() throws IOException, RecognitionException {
-        String source = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".field public static field1:Ljava/lang/reflect/Method; = LHelloWorld;->toString()V\n" +
-                ".field public static field2:Ljava/lang/reflect/Method; = LHelloWorld;->V()V\n" +
-                ".field public static field3:Ljava/lang/reflect/Method; = LHelloWorld;->I()V\n" +
-                ".field public static field4:Ljava/lang/Class; = I";
+        String source = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".field public static field1:Ljava/lang/reflect/Method; = LHelloWorld;->toString()V\n"
+                + ".field public static field2:Ljava/lang/reflect/Method; = LHelloWorld;->V()V\n"
+                + ".field public static field3:Ljava/lang/reflect/Method; = LHelloWorld;->I()V\n"
+                + ".field public static field4:Ljava/lang/Class; = I";
 
-        String expected = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                "# static fields\n" +
-                ".field public static field1:Ljava/lang/reflect/Method; = LHelloWorld;->toString()V\n" +
-                ".field public static field2:Ljava/lang/reflect/Method; = LHelloWorld;->V()V\n" +
-                ".field public static field3:Ljava/lang/reflect/Method; = LHelloWorld;->I()V\n" +
-                ".field public static field4:Ljava/lang/Class; = I\n";
+        String expected = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + "# static fields\n"
+                + ".field public static field1:Ljava/lang/reflect/Method; = LHelloWorld;->toString()V\n"
+                + ".field public static field2:Ljava/lang/reflect/Method; = LHelloWorld;->V()V\n"
+                + ".field public static field3:Ljava/lang/reflect/Method; = LHelloWorld;->I()V\n"
+                + ".field public static field4:Ljava/lang/Class; = I\n";
 
         BaksmaliOptions options = new BaksmaliOptions();
         options.implicitReferences = false;
@@ -151,28 +151,28 @@ public class ImplicitReferenceTest {
 
     @Test
     public void testImplicitFieldReferences() throws IOException, RecognitionException {
-        String source = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".method public static main([Ljava/lang/String;)V\n" +
-                "    .registers 1\n" +
-                "    sget v0, LHelloWorld;->someField:I\n" +
-                "    sget v0, LHelloWorld;->I:I\n" +
-                "    sget v0, LHelloWorld;->V:I\n" +
-                "    return-void\n" +
-                ".end method";
+        String source = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".method public static main([Ljava/lang/String;)V\n"
+                + "    .registers 1\n"
+                + "    sget v0, LHelloWorld;->someField:I\n"
+                + "    sget v0, LHelloWorld;->I:I\n"
+                + "    sget v0, LHelloWorld;->V:I\n"
+                + "    return-void\n"
+                + ".end method";
 
-        String expected = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                "# direct methods\n" +
-                ".method public static main([Ljava/lang/String;)V\n" +
-                "    .registers 1\n" +
-                "    sget p0, someField:I\n" +
-                "    sget p0, I:I\n" +
-                "    sget p0, V:I\n" +
-                "    return-void\n" +
-                ".end method\n";
+        String expected = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + "# direct methods\n"
+                + ".method public static main([Ljava/lang/String;)V\n"
+                + "    .registers 1\n"
+                + "    sget p0, someField:I\n"
+                + "    sget p0, I:I\n"
+                + "    sget p0, V:I\n"
+                + "    return-void\n"
+                + ".end method\n";
 
         BaksmaliOptions options = new BaksmaliOptions();
         options.implicitReferences = true;
@@ -182,28 +182,28 @@ public class ImplicitReferenceTest {
 
     @Test
     public void testExplicitFieldReferences() throws IOException, RecognitionException {
-        String source = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".method public static main([Ljava/lang/String;)V\n" +
-                "    .registers 1\n" +
-                "    sget v0, LHelloWorld;->someField:I\n" +
-                "    sget v0, LHelloWorld;->I:I\n" +
-                "    sget v0, LHelloWorld;->V:I\n" +
-                "    return-void\n" +
-                ".end method";
+        String source = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".method public static main([Ljava/lang/String;)V\n"
+                + "    .registers 1\n"
+                + "    sget v0, LHelloWorld;->someField:I\n"
+                + "    sget v0, LHelloWorld;->I:I\n"
+                + "    sget v0, LHelloWorld;->V:I\n"
+                + "    return-void\n"
+                + ".end method";
 
-        String expected = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                "# direct methods\n" +
-                ".method public static main([Ljava/lang/String;)V\n" +
-                "    .registers 1\n" +
-                "    sget p0, LHelloWorld;->someField:I\n" +
-                "    sget p0, LHelloWorld;->I:I\n" +
-                "    sget p0, LHelloWorld;->V:I\n" +
-                "    return-void\n" +
-                ".end method\n";
+        String expected = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + "# direct methods\n"
+                + ".method public static main([Ljava/lang/String;)V\n"
+                + "    .registers 1\n"
+                + "    sget p0, LHelloWorld;->someField:I\n"
+                + "    sget p0, LHelloWorld;->I:I\n"
+                + "    sget p0, LHelloWorld;->V:I\n"
+                + "    return-void\n"
+                + ".end method\n";
 
         BaksmaliOptions options = new BaksmaliOptions();
         options.implicitReferences = false;
@@ -213,20 +213,20 @@ public class ImplicitReferenceTest {
 
     @Test
     public void testImplicitFieldLiterals() throws IOException, RecognitionException {
-        String source = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".field public static field1:Ljava/lang/reflect/Field; = LHelloWorld;->someField:I\n" +
-                ".field public static field2:Ljava/lang/reflect/Field; = LHelloWorld;->V:I\n" +
-                ".field public static field3:Ljava/lang/reflect/Field; = LHelloWorld;->I:I";
+        String source = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".field public static field1:Ljava/lang/reflect/Field; = LHelloWorld;->someField:I\n"
+                + ".field public static field2:Ljava/lang/reflect/Field; = LHelloWorld;->V:I\n"
+                + ".field public static field3:Ljava/lang/reflect/Field; = LHelloWorld;->I:I";
 
-        String expected = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                "# static fields\n" +
-                ".field public static field1:Ljava/lang/reflect/Field; = someField:I\n" +
-                ".field public static field2:Ljava/lang/reflect/Field; = V:I\n" +
-                ".field public static field3:Ljava/lang/reflect/Field; = I:I\n";
+        String expected = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + "# static fields\n"
+                + ".field public static field1:Ljava/lang/reflect/Field; = someField:I\n"
+                + ".field public static field2:Ljava/lang/reflect/Field; = V:I\n"
+                + ".field public static field3:Ljava/lang/reflect/Field; = I:I\n";
 
         BaksmaliOptions options = new BaksmaliOptions();
         options.implicitReferences = true;
@@ -236,20 +236,20 @@ public class ImplicitReferenceTest {
 
     @Test
     public void testExplicitFieldLiterals() throws IOException, RecognitionException {
-        String source = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".field public static field1:Ljava/lang/reflect/Field; = LHelloWorld;->someField:I\n" +
-                ".field public static field2:Ljava/lang/reflect/Field; = LHelloWorld;->V:I\n" +
-                ".field public static field3:Ljava/lang/reflect/Field; = LHelloWorld;->I:I";
+        String source = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".field public static field1:Ljava/lang/reflect/Field; = LHelloWorld;->someField:I\n"
+                + ".field public static field2:Ljava/lang/reflect/Field; = LHelloWorld;->V:I\n"
+                + ".field public static field3:Ljava/lang/reflect/Field; = LHelloWorld;->I:I";
 
-        String expected = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                "# static fields\n" +
-                ".field public static field1:Ljava/lang/reflect/Field; = LHelloWorld;->someField:I\n" +
-                ".field public static field2:Ljava/lang/reflect/Field; = LHelloWorld;->V:I\n" +
-                ".field public static field3:Ljava/lang/reflect/Field; = LHelloWorld;->I:I\n";
+        String expected = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + "# static fields\n"
+                + ".field public static field1:Ljava/lang/reflect/Field; = LHelloWorld;->someField:I\n"
+                + ".field public static field2:Ljava/lang/reflect/Field; = LHelloWorld;->V:I\n"
+                + ".field public static field3:Ljava/lang/reflect/Field; = LHelloWorld;->I:I\n";
 
         BaksmaliOptions options = new BaksmaliOptions();
         options.implicitReferences = false;

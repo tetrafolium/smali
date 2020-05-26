@@ -47,21 +47,21 @@ public class BuilderTryBlock extends BaseTryBlock<BuilderExceptionHandler> {
     // covered instruction.
     @Nonnull public final Label end;
 
-    public BuilderTryBlock(@Nonnull Label start, @Nonnull Label end, @Nullable String exceptionType,
-                           @Nonnull Label handler) {
+    public BuilderTryBlock(final @Nonnull Label start, final @Nonnull Label end, final @Nullable String exceptionType,
+                           final @Nonnull Label handler) {
         this.start = start;
         this.end = end;
         this.exceptionHandler = BuilderExceptionHandler.newExceptionHandler(exceptionType, handler);
     }
 
-    public BuilderTryBlock(@Nonnull Label start, @Nonnull Label end, @Nullable TypeReference exceptionType,
-                           @Nonnull Label handler) {
+    public BuilderTryBlock(final @Nonnull Label start, final @Nonnull Label end, final @Nullable TypeReference exceptionType,
+                           final @Nonnull Label handler) {
         this.start = start;
         this.end = end;
         this.exceptionHandler = BuilderExceptionHandler.newExceptionHandler(exceptionType, handler);
     }
 
-    public BuilderTryBlock(@Nonnull Label start, @Nonnull Label end, @Nonnull Label handler) {
+    public BuilderTryBlock(final @Nonnull Label start, final @Nonnull Label end, final @Nonnull Label handler) {
         this.start = start;
         this.end = end;
         this.exceptionHandler = BuilderExceptionHandler.newExceptionHandler(handler);

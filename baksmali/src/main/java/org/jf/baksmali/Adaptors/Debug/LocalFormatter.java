@@ -52,8 +52,8 @@ public class LocalFormatter {
      *
      * One of name, type or signature must be non-null
      */
-    public static void writeLocal(@Nonnull IndentingWriter writer, @Nullable String name, @Nullable String type,
-                                  @Nullable String signature) throws IOException {
+    public static void writeLocal(final @Nonnull IndentingWriter writer, final @Nullable String name, final @Nullable String type,
+                                  final @Nullable String signature) throws IOException {
         if (name != null) {
             ReferenceFormatter.writeStringReference(writer, name);
         } else {

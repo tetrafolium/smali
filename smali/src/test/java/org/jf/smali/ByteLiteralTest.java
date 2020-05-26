@@ -29,7 +29,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.jf.smali;import org.jf.smali.LiteralTools;
+package org.jf.smali; import org.jf.smali.LiteralTools;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -54,17 +54,17 @@ public class ByteLiteralTest
         Assert.assertTrue(LiteralTools.parseByte("-0x1f") == -0x1f);
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FaileHexTest1() {
         LiteralTools.parseByte("-0x81");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailHexTest2() {
         LiteralTools.parseByte("-0xFF");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailHexTest3() {
         LiteralTools.parseByte("0x100");
     }
@@ -88,22 +88,22 @@ public class ByteLiteralTest
         Assert.assertTrue(LiteralTools.parseByte("-128") == Byte.MIN_VALUE);
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FaileDecTest1() {
         LiteralTools.parseByte("-129");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest2() {
         LiteralTools.parseByte("-255");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest3() {
         LiteralTools.parseByte("256");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest4() {
         LiteralTools.parseByte("260");
     }
@@ -126,17 +126,17 @@ public class ByteLiteralTest
         Assert.assertTrue(LiteralTools.parseByte("-0200") == Byte.MIN_VALUE);
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FaileOctTest1() {
         LiteralTools.parseByte("-0201");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailOctTest2() {
         LiteralTools.parseByte("-0377");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailOctTest3() {
         LiteralTools.parseByte("0400");
     }

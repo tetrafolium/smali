@@ -36,7 +36,7 @@ import javax.annotation.Nonnull;
 public class BaseBuilderPool {
     @Nonnull protected final DexBuilder dexBuilder;
 
-    public BaseBuilderPool(@Nonnull DexBuilder dexBuilder) {
+    public BaseBuilderPool(final @Nonnull DexBuilder dexBuilder) {
         this.dexBuilder = dexBuilder;
     }
 }

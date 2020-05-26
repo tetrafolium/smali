@@ -40,13 +40,13 @@ import java.io.IOException;
 public class LineNumberMethodItem extends DebugMethodItem {
     private final int lineNumber;
 
-    public LineNumberMethodItem(int codeAddress, int sortOrder, @Nonnull LineNumber lineNumber) {
+    public LineNumberMethodItem(final int codeAddress, final int sortOrder, final @Nonnull LineNumber lineNumber) {
         super(codeAddress, sortOrder);
         this.lineNumber = lineNumber.getLineNumber();
     }
 
     @Override
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         writer.write(".line ");
         writer.printUnsignedIntAsDec(lineNumber);
         return true;

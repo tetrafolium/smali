@@ -43,22 +43,22 @@ public abstract class BaseMethodHandleReference extends BaseReference implements
     @Override
     public int hashCode() {
         int hashCode =  getMethodHandleType();
-        hashCode = hashCode*31 + getMemberReference().hashCode();
+        hashCode = hashCode * 31 + getMemberReference().hashCode();
         return hashCode;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (o != null && o instanceof MethodHandleReference) {
             MethodHandleReference other = (MethodHandleReference) o;
-            return getMethodHandleType() == other.getMethodHandleType() &&
-                    getMemberReference().equals(other.getMemberReference());
+            return getMethodHandleType() == other.getMethodHandleType()
+                    && getMemberReference().equals(other.getMemberReference());
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull MethodHandleReference o) {
+    public int compareTo(final @Nonnull MethodHandleReference o) {
         int res = Ints.compare(getMethodHandleType(), o.getMethodHandleType());
         if (res != 0) return res;
 

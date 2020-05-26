@@ -45,11 +45,11 @@ public class PreInstructionRegisterInfoMethodItem extends MethodItem {
     @Nonnull private final RegisterFormatter registerFormatter;
     @Nonnull private final AnalyzedInstruction analyzedInstruction;
 
-    public PreInstructionRegisterInfoMethodItem(int registerInfo,
-                                                @Nonnull MethodAnalyzer methodAnalyzer,
-                                                @Nonnull RegisterFormatter registerFormatter,
-                                                @Nonnull AnalyzedInstruction analyzedInstruction,
-                                                int codeAddress) {
+    public PreInstructionRegisterInfoMethodItem(final int registerInfo,
+                                                final @Nonnull MethodAnalyzer methodAnalyzer,
+                                                final @Nonnull RegisterFormatter registerFormatter,
+                                                final @Nonnull AnalyzedInstruction analyzedInstruction,
+                                                final int codeAddress) {
         super(codeAddress);
         this.registerInfo = registerInfo;
         this.methodAnalyzer = methodAnalyzer;
@@ -63,7 +63,7 @@ public class PreInstructionRegisterInfoMethodItem extends MethodItem {
     }
 
     @Override
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         int registerCount = analyzedInstruction.getRegisterCount();
         BitSet registers = new BitSet(registerCount);
         BitSet mergeRegisters = null;
@@ -83,8 +83,8 @@ public class PreInstructionRegisterInfoMethodItem extends MethodItem {
                     }
                     mergeRegisters = new BitSet(registerCount);
                     addMergeRegs(mergeRegisters, registerCount);
-                } else if ((registerInfo & BaksmaliOptions.FULLMERGE) != 0 &&
-                        (analyzedInstruction.isBeginningInstruction())) {
+                } else if ((registerInfo & BaksmaliOptions.FULLMERGE) != 0
+                        && (analyzedInstruction.isBeginningInstruction())) {
                     addParamRegs(registers, registerCount);
                 }
             }
@@ -104,14 +104,14 @@ public class PreInstructionRegisterInfoMethodItem extends MethodItem {
         return writeRegisterInfo(writer, registers, mergeRegisters);
     }
 
-    private void addArgsRegs(BitSet registers) {
+    private void addArgsRegs(final BitSet registers) {
         if (analyzedInstruction.getInstruction() instanceof RegisterRangeInstruction) {
-            RegisterRangeInstruction instruction = (RegisterRangeInstruction)analyzedInstruction.getInstruction();
+            RegisterRangeInstruction instruction = (RegisterRangeInstruction) analyzedInstruction.getInstruction();
 
             registers.set(instruction.getStartRegister(),
                     instruction.getStartRegister() + instruction.getRegisterCount());
         } else if (analyzedInstruction.getInstruction() instanceof FiveRegisterInstruction) {
-            FiveRegisterInstruction instruction = (FiveRegisterInstruction)analyzedInstruction.getInstruction();
+            FiveRegisterInstruction instruction = (FiveRegisterInstruction) analyzedInstruction.getInstruction();
             int regCount = instruction.getRegisterCount();
             switch (regCount) {
                 case 5:
@@ -130,21 +130,21 @@ public class PreInstructionRegisterInfoMethodItem extends MethodItem {
                     registers.set(instruction.getRegisterC());
             }
         } else if (analyzedInstruction.getInstruction() instanceof ThreeRegisterInstruction) {
-            ThreeRegisterInstruction instruction = (ThreeRegisterInstruction)analyzedInstruction.getInstruction();
+            ThreeRegisterInstruction instruction = (ThreeRegisterInstruction) analyzedInstruction.getInstruction();
             registers.set(instruction.getRegisterA());
             registers.set(instruction.getRegisterB());
             registers.set(instruction.getRegisterC());
         } else if (analyzedInstruction.getInstruction() instanceof TwoRegisterInstruction) {
-            TwoRegisterInstruction instruction = (TwoRegisterInstruction)analyzedInstruction.getInstruction();
+            TwoRegisterInstruction instruction = (TwoRegisterInstruction) analyzedInstruction.getInstruction();
             registers.set(instruction.getRegisterA());
             registers.set(instruction.getRegisterB());
         } else if (analyzedInstruction.getInstruction() instanceof OneRegisterInstruction) {
-            OneRegisterInstruction instruction = (OneRegisterInstruction)analyzedInstruction.getInstruction();
+            OneRegisterInstruction instruction = (OneRegisterInstruction) analyzedInstruction.getInstruction();
             registers.set(instruction.getRegisterA());
         }
     }
 
-    private void addMergeRegs(BitSet registers, int registerCount) {
+    private void addMergeRegs(final BitSet registers, final int registerCount) {
         if (analyzedInstruction.getPredecessorCount() <= 1) {
             //in the common case of an instruction that only has a single predecessor which is the previous
             //instruction, the pre-instruction registers will always match the previous instruction's
@@ -152,26 +152,26 @@ public class PreInstructionRegisterInfoMethodItem extends MethodItem {
             return;
         }
 
-        for (int registerNum=0; registerNum<registerCount; registerNum++) {
+        for (int registerNum = 0; registerNum < registerCount; registerNum++) {
             RegisterType mergedRegisterType = analyzedInstruction.getPreInstructionRegisterType(registerNum);
 
             for (AnalyzedInstruction predecessor: analyzedInstruction.getPredecessors()) {
                 RegisterType predecessorRegisterType = analyzedInstruction.getPredecessorRegisterType(
                         predecessor, registerNum);
-                if (predecessorRegisterType.category != RegisterType.UNKNOWN &&
-                        !predecessorRegisterType.equals(mergedRegisterType)) {
+                if (predecessorRegisterType.category != RegisterType.UNKNOWN
+                        && !predecessorRegisterType.equals(mergedRegisterType)) {
                     registers.set(registerNum);
                 }
             }
         }
     }
 
-    private void addParamRegs(BitSet registers, int registerCount) {
+    private void addParamRegs(final BitSet registers, final int registerCount) {
         int parameterRegisterCount = methodAnalyzer.getParamRegisterCount();
-        registers.set(registerCount-parameterRegisterCount, registerCount);
+        registers.set(registerCount - parameterRegisterCount, registerCount);
     }
 
-    private void writeFullMerge(IndentingWriter writer, int registerNum) throws IOException {
+    private void writeFullMerge(final IndentingWriter writer, final int registerNum) throws IOException {
         registerFormatter.writeTo(writer, registerNum);
         writer.write('=');
         analyzedInstruction.getPreInstructionRegisterType(registerNum).writeTo(writer);
@@ -202,8 +202,8 @@ public class PreInstructionRegisterInfoMethodItem extends MethodItem {
         writer.write('}');
     }
 
-    private boolean writeRegisterInfo(IndentingWriter writer, BitSet registers,
-                                      BitSet fullMergeRegisters) throws IOException {
+    private boolean writeRegisterInfo(final IndentingWriter writer, final BitSet registers,
+                                      final BitSet fullMergeRegisters) throws IOException {
         boolean firstRegister = true;
         boolean previousWasFullMerge = false;
         int registerNum = registers.nextSetBit(0);
@@ -213,7 +213,7 @@ public class PreInstructionRegisterInfoMethodItem extends MethodItem {
 
         writer.write('#');
         for (; registerNum >= 0; registerNum = registers.nextSetBit(registerNum + 1)) {
-            boolean fullMerge = fullMergeRegisters!=null && fullMergeRegisters.get(registerNum);
+            boolean fullMerge = fullMergeRegisters != null && fullMergeRegisters.get(registerNum);
             if (fullMerge) {
                 if (!firstRegister) {
                     writer.write('\n');

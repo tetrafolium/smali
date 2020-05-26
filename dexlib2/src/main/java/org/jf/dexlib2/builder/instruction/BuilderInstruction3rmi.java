@@ -47,19 +47,23 @@ public class BuilderInstruction3rmi extends BuilderInstruction implements Instru
     protected final int registerCount;
     protected final int inlineIndex;
 
-    public BuilderInstruction3rmi(@Nonnull Opcode opcode,
-                                  int startRegister,
-                                  int registerCount,
-                                  int inlineIndex) {
+    public BuilderInstruction3rmi(final @Nonnull Opcode opcode,
+                                  final int startRegister,
+                                  final int registerCount,
+                                  final int inlineIndex) {
         super(opcode);
         this.startRegister = Preconditions.checkShortRegister(startRegister);
         this.registerCount = Preconditions.checkRegisterRangeCount(registerCount);
         this.inlineIndex = inlineIndex;
     }
 
-    @Override public int getStartRegister() { return startRegister; }
-    @Override public int getRegisterCount() { return registerCount; }
-    @Override public int getInlineIndex() { return inlineIndex; }
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public int getStartRegister() {
+        return startRegister; }
+    @Override public int getRegisterCount() {
+        return registerCount; }
+    @Override public int getInlineIndex() {
+        return inlineIndex; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }
 

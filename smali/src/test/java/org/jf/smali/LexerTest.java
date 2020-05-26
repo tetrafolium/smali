@@ -29,7 +29,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.jf.smali;import org.antlr.runtime.ANTLRInputStream;
+package org.jf.smali; import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
@@ -52,7 +52,7 @@ public class LexerTest {
     static {
         tokenTypesByName = new HashMap<String, Integer>();
 
-        for (int i=0; i<smaliParser.tokenNames.length; i++) {
+        for (int i = 0; i < smaliParser.tokenNames.length; i++) {
             tokenTypesByName.put(smaliParser.tokenNames[i], i);
         }
     }
@@ -132,19 +132,19 @@ public class LexerTest {
         runTest("RealSmaliFileTest", true);
     }
 
-    public void runTest(String test) {
+    public void runTest(final String test) {
         runTest(test, true, MOST_RECENT_API);
     }
 
-    public void runTest(String test, boolean discardHiddenTokens) {
+    public void runTest(final String test, final boolean discardHiddenTokens) {
         runTest(test, discardHiddenTokens, MOST_RECENT_API);
     }
 
-    public void runTest(String test, int apiLevel) {
+    public void runTest(final String test, final int apiLevel) {
         runTest(test, true, apiLevel);
     }
 
-    public void runTest(String test, boolean discardHiddenTokens, int apiLevel) {
+    public void runTest(final String test, final boolean discardHiddenTokens, final int apiLevel) {
         String smaliFile = String.format("LexerTest%s%s.smali", File.separatorChar, test);
         String tokensFile = String.format("LexerTest%s%s.tokens", File.separatorChar, test);
 
@@ -183,8 +183,8 @@ public class LexerTest {
 
         int expectedTokenIndex = 0;
         CommonToken token;
-        for (int i=0; i<tokens.size()-1; i++) {
-            token = (CommonToken)tokens.get(i);
+        for (int i = 0; i < tokens.size() - 1; i++) {
+            token = (CommonToken) tokens.get(i);
 
             if (discardHiddenTokens && token.getChannel() == smaliParser.HIDDEN) {
                 continue;
@@ -207,7 +207,7 @@ public class LexerTest {
 
             if (token.getType() != expectedTokenType) {
                 Assert.fail(String.format("Invalid token at index %d. Expecting %s, got %s(%s)",
-                        expectedTokenIndex-1, expectedToken.tokenName, getTokenName(token.getType()), token.getText()));
+                        expectedTokenIndex - 1, expectedToken.tokenName, getTokenName(token.getType()), token.getText()));
             }
 
             if (expectedToken.tokenText != null) {
@@ -227,7 +227,7 @@ public class LexerTest {
 
 
 
-    private static String getTokenName(int tokenType) {
+    private static String getTokenName(final int tokenType) {
         return smaliParser.tokenNames[tokenType];
     }
 }

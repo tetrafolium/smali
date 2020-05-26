@@ -42,7 +42,7 @@ public class RegisterFormatter {
     public final int registerCount;
     public final int parameterRegisterCount;
 
-    public RegisterFormatter(@Nonnull BaksmaliOptions options, int registerCount, int parameterRegisterCount) {
+    public RegisterFormatter(final @Nonnull BaksmaliOptions options, final int registerCount, final int parameterRegisterCount) {
         this.options = options;
         this.registerCount = registerCount;
         this.parameterRegisterCount = parameterRegisterCount;
@@ -57,7 +57,7 @@ public class RegisterFormatter {
      * @param startRegister the first register in the range
      * @param lastRegister the last register in the range
      */
-    public void writeRegisterRange(IndentingWriter writer, int startRegister, int lastRegister) throws IOException {
+    public void writeRegisterRange(final IndentingWriter writer, final int startRegister, final int lastRegister) throws IOException {
         if (options.parameterRegisters) {
             assert startRegister <= lastRegister;
 
@@ -85,7 +85,7 @@ public class RegisterFormatter {
      * @param writer the <code>IndentingWriter</code> to write to
      * @param register the register number
      */
-    public void writeTo(IndentingWriter writer, int register) throws IOException {
+    public void writeTo(final IndentingWriter writer, final int register) throws IOException {
         if (options.parameterRegisters) {
             if (register >= registerCount - parameterRegisterCount) {
                 writer.write('p');

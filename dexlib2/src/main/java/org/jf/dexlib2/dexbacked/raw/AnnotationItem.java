@@ -44,14 +44,14 @@ public class AnnotationItem {
     public static final int ANNOTATION_OFFSET = 1;
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "annotation_item";
             }
 
             @Override
-            protected void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            protected void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 int visibility = dexFile.getBuffer().readUbyte(out.getCursor());
                 out.annotate(1, "visibility = %d: %s", visibility, getAnnotationVisibility(visibility));
 
@@ -62,7 +62,7 @@ public class AnnotationItem {
         };
     }
 
-    private static String getAnnotationVisibility(int visibility) {
+    private static String getAnnotationVisibility(final int visibility) {
         switch (visibility) {
             case 0:
                 return "build";
@@ -75,7 +75,7 @@ public class AnnotationItem {
         }
     }
 
-    public static String getReferenceAnnotation(@Nonnull DexBackedDexFile dexFile, int annotationItemOffset) {
+    public static String getReferenceAnnotation(final @Nonnull DexBackedDexFile dexFile, final int annotationItemOffset) {
         try {
             DexReader reader = dexFile.getDataBuffer().readerAt(annotationItemOffset);
             reader.readUbyte();

@@ -51,9 +51,9 @@ public final class ValueType {
     public static final int NULL = 0x1e;
     public static final int BOOLEAN = 0x1f;
 
-    private ValueType() {}
+    private ValueType() { }
 
-    public static String getValueTypeName(int valueType) {
+    public static String getValueTypeName(final int valueType) {
         switch (valueType) {
             case BYTE:
                 return "byte";

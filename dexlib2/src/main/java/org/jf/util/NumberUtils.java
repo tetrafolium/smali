@@ -36,8 +36,8 @@ import java.text.DecimalFormat;
 public class NumberUtils {
     private static final int canonicalFloatNaN = Float.floatToRawIntBits(Float.NaN);
     private static final int maxFloat = Float.floatToRawIntBits(Float.MAX_VALUE);
-    private static final int piFloat = Float.floatToRawIntBits((float)Math.PI);
-    private static final int eFloat = Float.floatToRawIntBits((float)Math.E);
+    private static final int piFloat = Float.floatToRawIntBits((float) Math.PI);
+    private static final int eFloat = Float.floatToRawIntBits((float) Math.E);
 
     private static final long canonicalDoubleNaN = Double.doubleToRawLongBits(Double.NaN);
     private static final long maxDouble = Double.doubleToLongBits(Double.MAX_VALUE);
@@ -46,13 +46,13 @@ public class NumberUtils {
 
     private static final DecimalFormat format = new DecimalFormat("0.####################E0");
 
-    public static boolean isLikelyFloat(int value) {
+    public static boolean isLikelyFloat(final int value) {
         // Check for some common named float values
         // We don't check for Float.MIN_VALUE, which has an integer representation of 1
-        if (value == canonicalFloatNaN ||
-                value == maxFloat ||
-                value == piFloat ||
-                value == eFloat) {
+        if (value == canonicalFloatNaN
+                || value == maxFloat
+                || value == piFloat
+                || value == eFloat) {
             return true;
         }
 
@@ -97,13 +97,13 @@ public class NumberUtils {
         return asFloat.length() < asInt.length();
     }
 
-    public static boolean isLikelyDouble(long value) {
+    public static boolean isLikelyDouble(final long value) {
         // Check for some common named double values
         // We don't check for Double.MIN_VALUE, which has a long representation of 1
-        if (value == canonicalDoubleNaN ||
-                value == maxDouble ||
-                value == piDouble ||
-                value == eDouble) {
+        if (value == canonicalDoubleNaN
+                || value == maxDouble
+                || value == piDouble
+                || value == eDouble) {
             return true;
         }
 

@@ -44,24 +44,25 @@ public abstract class BaseLongEncodedValue implements LongEncodedValue {
     @Override
     public int hashCode() {
         long value = getValue();
-        int hashCode = (int)value;
-        return hashCode*31 + (int)(value>>>32);
+        int hashCode = (int) value;
+        return hashCode * 31 + (int) (value >>> 32);
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof LongEncodedValue) {
-            return getValue() == ((LongEncodedValue)o).getValue();
+            return getValue() == ((LongEncodedValue) o).getValue();
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull EncodedValue o) {
+    public int compareTo(final @Nonnull EncodedValue o) {
         int res = Ints.compare(getValueType(), o.getValueType());
         if (res != 0) return res;
-        return Longs.compare(getValue(), ((LongEncodedValue)o).getValue());
+        return Longs.compare(getValue(), ((LongEncodedValue) o).getValue());
     }
 
-    public int getValueType() { return ValueType.LONG; }
+    public int getValueType() {
+        return ValueType.LONG; }
 }

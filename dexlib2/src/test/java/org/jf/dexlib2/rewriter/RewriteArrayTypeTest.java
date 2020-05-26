@@ -60,9 +60,9 @@ public class RewriteArrayTypeTest {
 
 
         DexRewriter rewriter = new DexRewriter(new RewriterModule() {
-            @Nonnull @Override public Rewriter<String> getTypeRewriter(@Nonnull Rewriters rewriters) {
+            @Nonnull @Override public Rewriter<String> getTypeRewriter(final @Nonnull Rewriters rewriters) {
                 return new TypeRewriter() {
-                    @Nonnull @Override public String rewriteUnwrappedType(@Nonnull String value) {
+                    @Nonnull @Override public String rewriteUnwrappedType(final @Nonnull String value) {
                         if (value.equals("Lcls1;")) {
                             return "Lcls2;";
                         }

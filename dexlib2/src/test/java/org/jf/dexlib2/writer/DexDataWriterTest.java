@@ -59,24 +59,24 @@ public class DexDataWriterTest {
 
     // Note: we use int[] rather than byte[] so that we don't have to cast every value when manually constructing an
     // array.
-    private void expectData(int... bytes) throws IOException {
-        Assert.assertEquals(startPosition+bytes.length, writer.getPosition());
+    private void expectData(final int... bytes) throws IOException {
+        Assert.assertEquals(startPosition + bytes.length, writer.getPosition());
 
         writer.flush();
         byte[] writtenData = output.getBuffer();
 
-        for (int i=0; i<bytes.length; i++) {
-            Assert.assertEquals(String.format("Values not equal at index %d", i), (byte)bytes[i], writtenData[i]);
+        for (int i = 0; i < bytes.length; i++) {
+            Assert.assertEquals(String.format("Values not equal at index %d", i), (byte) bytes[i], writtenData[i]);
         }
     }
 
-    private void expectData(byte[] bytes) throws IOException {
-        Assert.assertEquals(startPosition+bytes.length, writer.getPosition());
+    private void expectData(final byte[] bytes) throws IOException {
+        Assert.assertEquals(startPosition + bytes.length, writer.getPosition());
 
         writer.flush();
         byte[] writtenData = output.getBuffer();
 
-        for (int i=0; i<bytes.length; i++) {
+        for (int i = 0; i < bytes.length; i++) {
             Assert.assertEquals(String.format("Values not equal at index %d", i), bytes[i], writtenData[i]);
         }
     }
@@ -84,11 +84,11 @@ public class DexDataWriterTest {
     @Test
     public void testWriteByte() throws IOException {
         byte[] arr = new byte[257];
-        for (int i=0; i<256; i++) {
-            arr[i] = (byte)i;
+        for (int i = 0; i < 256; i++) {
+            arr[i] = (byte) i;
             writer.write(i);
         }
-        arr[256] = (byte)0x80;
+        arr[256] = (byte) 0x80;
         writer.write(0x180);
 
         expectData(arr);
@@ -145,12 +145,12 @@ public class DexDataWriterTest {
                    0x00, 0x80);
     }
 
-    @Test(expected=ExceptionWithContext.class)
+    @Test(expected = ExceptionWithContext.class)
     public void testWriteShortOutOfBounds() throws IOException {
         writer.writeShort(0x8000);
     }
 
-    @Test(expected=ExceptionWithContext.class)
+    @Test(expected = ExceptionWithContext.class)
     public void testWriteShortOutOfBounds2() throws IOException {
         writer.writeShort(-0x8001);
     }
@@ -168,12 +168,12 @@ public class DexDataWriterTest {
                    0xFF, 0xFF);
     }
 
-    @Test(expected=ExceptionWithContext.class)
+    @Test(expected = ExceptionWithContext.class)
     public void testWriteUshortOutOfBounds() throws IOException {
         writer.writeUshort(-1);
     }
 
-    @Test(expected=ExceptionWithContext.class)
+    @Test(expected = ExceptionWithContext.class)
     public void testWriteUshortOutOfBounds2() throws IOException {
         writer.writeUshort(0x10000);
     }
@@ -188,12 +188,12 @@ public class DexDataWriterTest {
         expectData(0x00, 0x01, 0x12, 0xFF);
     }
 
-    @Test(expected=ExceptionWithContext.class)
+    @Test(expected = ExceptionWithContext.class)
     public void testWriteUbyteOutOfBounds() throws IOException {
         writer.writeUbyte(-1);
     }
 
-    @Test(expected=ExceptionWithContext.class)
+    @Test(expected = ExceptionWithContext.class)
     public void testWriteUbyteOutOfBounds2() throws IOException {
         writer.writeUbyte(256);
     }
@@ -205,12 +205,12 @@ public class DexDataWriterTest {
         expectData(0x22);
     }
 
-    private void testWriteEncodedIntHelper(int integerValue, int... encodedValue) throws IOException {
+    private void testWriteEncodedIntHelper(final int integerValue, final int... encodedValue) throws IOException {
         setup();
         writer.writeEncodedInt(ValueType.INT, integerValue);
 
-        int[] arr = new int[encodedValue.length+1];
-        arr[0] = ValueType.INT | ((encodedValue.length-1) << 5);
+        int[] arr = new int[encodedValue.length + 1];
+        arr[0] = ValueType.INT | ((encodedValue.length - 1) << 5);
         System.arraycopy(encodedValue, 0, arr, 1, encodedValue.length);
         expectData(arr);
     }
@@ -239,12 +239,12 @@ public class DexDataWriterTest {
         testWriteEncodedIntHelper(0x80000001, 0x01, 0x00, 0x00, 0x80);
     }
 
-    private void testWriteEncodedUintHelper(int integerValue, int... encodedValue) throws IOException {
+    private void testWriteEncodedUintHelper(final int integerValue, final int... encodedValue) throws IOException {
         setup();
         writer.writeEncodedUint(ValueType.METHOD, integerValue);
 
-        int[] arr = new int[encodedValue.length+1];
-        arr[0] = ValueType.METHOD | ((encodedValue.length-1) << 5);
+        int[] arr = new int[encodedValue.length + 1];
+        arr[0] = ValueType.METHOD | ((encodedValue.length - 1) << 5);
         System.arraycopy(encodedValue, 0, arr, 1, encodedValue.length);
         expectData(arr);
     }
@@ -277,12 +277,12 @@ public class DexDataWriterTest {
         testWriteEncodedUintHelper(0xffffffff, 0xff, 0xff, 0xff, 0xff);
     }
 
-    private void testWriteEncodedLongHelper(long longValue, int... encodedValue) throws IOException {
+    private void testWriteEncodedLongHelper(final long longValue, final int... encodedValue) throws IOException {
         setup();
         writer.writeEncodedLong(ValueType.LONG, longValue);
 
-        int[] arr = new int[encodedValue.length+1];
-        arr[0] = ValueType.LONG | ((encodedValue.length-1) << 5);
+        int[] arr = new int[encodedValue.length + 1];
+        arr[0] = ValueType.LONG | ((encodedValue.length - 1) << 5);
         System.arraycopy(encodedValue, 0, arr, 1, encodedValue.length);
         expectData(arr);
     }
@@ -344,12 +344,12 @@ public class DexDataWriterTest {
         testWriteEncodedLongHelper(0x123456789ABCDEF0L, 0xF0, 0xDE, 0xBC, 0x9A, 0x78, 0x56, 0x34, 0x12);
     }
 
-    private void testWriteRightZeroExtendedIntHelper(int intValue, int... encodedValue) throws IOException {
+    private void testWriteRightZeroExtendedIntHelper(final int intValue, final int... encodedValue) throws IOException {
         setup();
         writer.writeRightZeroExtendedInt(ValueType.FLOAT, intValue);
 
-        int[] arr = new int[encodedValue.length+1];
-        arr[0] = ValueType.FLOAT | ((encodedValue.length-1) << 5);
+        int[] arr = new int[encodedValue.length + 1];
+        arr[0] = ValueType.FLOAT | ((encodedValue.length - 1) << 5);
         System.arraycopy(encodedValue, 0, arr, 1, encodedValue.length);
         expectData(arr);
     }
@@ -389,12 +389,12 @@ public class DexDataWriterTest {
         testWriteRightZeroExtendedIntHelper(0xff101010, 0x10, 0x10, 0x10, 0xff);
     }
 
-    private void testWriteRightZeroExtendedLongHelper(long longValue, int... encodedValue) throws IOException {
+    private void testWriteRightZeroExtendedLongHelper(final long longValue, final int... encodedValue) throws IOException {
         setup();
         writer.writeRightZeroExtendedLong(ValueType.DOUBLE, longValue);
 
-        int[] arr = new int[encodedValue.length+1];
-        arr[0] = ValueType.DOUBLE | ((encodedValue.length-1) << 5);
+        int[] arr = new int[encodedValue.length + 1];
+        arr[0] = ValueType.DOUBLE | ((encodedValue.length - 1) << 5);
         System.arraycopy(encodedValue, 0, arr, 1, encodedValue.length);
         expectData(arr);
     }
@@ -468,7 +468,7 @@ public class DexDataWriterTest {
         testWriteRightZeroExtendedLongHelper(-1, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff);
     }
 
-    private void testWriteStringHelper(String stringValue, int... encodedValue) throws IOException {
+    private void testWriteStringHelper(final String stringValue, final int... encodedValue) throws IOException {
         setup();
 
         writer.writeString(stringValue);

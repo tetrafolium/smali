@@ -68,30 +68,30 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
             CallSiteKey extends CallSiteReference>
             InstructionWriter<StringRef, TypeRef, FieldRefKey, MethodRefKey, ProtoRefKey, MethodHandleKey, CallSiteKey>
             makeInstructionWriter(
-                @Nonnull Opcodes opcodes,
-                @Nonnull DexDataWriter writer,
-                @Nonnull StringSection<?, StringRef> stringSection,
-                @Nonnull TypeSection<?, ?, TypeRef> typeSection,
-                @Nonnull FieldSection<?, ?, FieldRefKey, ?> fieldSection,
-                @Nonnull MethodSection<?, ?, ?, MethodRefKey, ?> methodSection,
-                @Nonnull ProtoSection<?, ?, ProtoRefKey, ?> protoSection,
-                @Nonnull MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection,
-                @Nonnull CallSiteSection<CallSiteKey, ?> callSiteSection) {
+                final @Nonnull Opcodes opcodes,
+                final @Nonnull DexDataWriter writer,
+                final @Nonnull StringSection<?, StringRef> stringSection,
+                final @Nonnull TypeSection<?, ?, TypeRef> typeSection,
+                final @Nonnull FieldSection<?, ?, FieldRefKey, ?> fieldSection,
+                final @Nonnull MethodSection<?, ?, ?, MethodRefKey, ?> methodSection,
+                final @Nonnull ProtoSection<?, ?, ProtoRefKey, ?> protoSection,
+                final @Nonnull MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection,
+                final @Nonnull CallSiteSection<CallSiteKey, ?> callSiteSection) {
         return new InstructionWriter<
-                StringRef, TypeRef, FieldRefKey, MethodRefKey, ProtoRefKey, MethodHandleKey,CallSiteKey>(
+                StringRef, TypeRef, FieldRefKey, MethodRefKey, ProtoRefKey, MethodHandleKey, CallSiteKey>(
                         opcodes, writer, stringSection, typeSection, fieldSection, methodSection, protoSection,
                         methodHandleSection, callSiteSection);
     }
 
-    InstructionWriter(@Nonnull Opcodes opcodes,
-                      @Nonnull DexDataWriter writer,
-                      @Nonnull StringSection<?, StringRef> stringSection,
-                      @Nonnull TypeSection<?, ?, TypeRef> typeSection,
-                      @Nonnull FieldSection<?, ?, FieldRefKey, ?> fieldSection,
-                      @Nonnull MethodSection<?, ?, ?, MethodRefKey, ?> methodSection,
-                      @Nonnull ProtoSection<?, ?, ProtoRefKey, ?> protoSection,
-                      @Nonnull MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection,
-                      @Nonnull CallSiteSection<CallSiteKey, ?> callSiteSection) {
+    InstructionWriter(final @Nonnull Opcodes opcodes,
+                      final @Nonnull DexDataWriter writer,
+                      final @Nonnull StringSection<?, StringRef> stringSection,
+                      final @Nonnull TypeSection<?, ?, TypeRef> typeSection,
+                      final @Nonnull FieldSection<?, ?, FieldRefKey, ?> fieldSection,
+                      final @Nonnull MethodSection<?, ?, ?, MethodRefKey, ?> methodSection,
+                      final @Nonnull ProtoSection<?, ?, ProtoRefKey, ?> protoSection,
+                      final @Nonnull MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection,
+                      final @Nonnull CallSiteSection<CallSiteKey, ?> callSiteSection) {
         this.opcodes = opcodes;
         this.writer = writer;
         this.stringSection = stringSection;
@@ -103,7 +103,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         this.callSiteSection = callSiteSection;
     }
 
-    private short getOpcodeValue(Opcode opcode) {
+    private short getOpcodeValue(final Opcode opcode) {
         Short value = opcodes.getOpcodeValue(opcode);
         if (value == null) {
             throw new ExceptionWithContext("Instruction %s is invalid for api %d", opcode.name, opcodes.api);
@@ -111,7 +111,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         return value;
     }
 
-    public void write(@Nonnull Instruction10t instruction) {
+    public void write(final @Nonnull Instruction10t instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getCodeOffset());
@@ -120,7 +120,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction10x instruction) {
+    public void write(final @Nonnull Instruction10x instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(0);
@@ -129,7 +129,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction11n instruction) {
+    public void write(final @Nonnull Instruction11n instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(packNibbles(instruction.getRegisterA(), instruction.getNarrowLiteral()));
@@ -138,7 +138,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction11x instruction) {
+    public void write(final @Nonnull Instruction11x instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -147,7 +147,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction12x instruction) {
+    public void write(final @Nonnull Instruction12x instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(packNibbles(instruction.getRegisterA(), instruction.getRegisterB()));
@@ -156,7 +156,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction20bc instruction) {
+    public void write(final @Nonnull Instruction20bc instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getVerificationError());
@@ -166,7 +166,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction20t instruction) {
+    public void write(final @Nonnull Instruction20t instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(0);
@@ -176,7 +176,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction21c instruction) {
+    public void write(final @Nonnull Instruction21c instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -186,7 +186,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction21ih instruction) {
+    public void write(final @Nonnull Instruction21ih instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -196,7 +196,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction21lh instruction) {
+    public void write(final @Nonnull Instruction21lh instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -206,7 +206,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction21s instruction) {
+    public void write(final @Nonnull Instruction21s instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -216,7 +216,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction21t instruction) {
+    public void write(final @Nonnull Instruction21t instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -226,7 +226,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction22b instruction) {
+    public void write(final @Nonnull Instruction22b instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -237,7 +237,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction22c instruction) {
+    public void write(final @Nonnull Instruction22c instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(packNibbles(instruction.getRegisterA(), instruction.getRegisterB()));
@@ -247,7 +247,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction22cs instruction) {
+    public void write(final @Nonnull Instruction22cs instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(packNibbles(instruction.getRegisterA(), instruction.getRegisterB()));
@@ -257,7 +257,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction22s instruction) {
+    public void write(final @Nonnull Instruction22s instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(packNibbles(instruction.getRegisterA(), instruction.getRegisterB()));
@@ -267,7 +267,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction22t instruction) {
+    public void write(final @Nonnull Instruction22t instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(packNibbles(instruction.getRegisterA(), instruction.getRegisterB()));
@@ -277,7 +277,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction22x instruction) {
+    public void write(final @Nonnull Instruction22x instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -287,7 +287,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction23x instruction) {
+    public void write(final @Nonnull Instruction23x instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -298,7 +298,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction30t instruction) {
+    public void write(final @Nonnull Instruction30t instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(0);
@@ -308,7 +308,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction31c instruction) {
+    public void write(final @Nonnull Instruction31c instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -318,7 +318,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction31i instruction) {
+    public void write(final @Nonnull Instruction31i instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -328,7 +328,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction31t instruction) {
+    public void write(final @Nonnull Instruction31t instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -338,7 +338,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction32x instruction) {
+    public void write(final @Nonnull Instruction32x instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(0);
@@ -349,7 +349,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction35c instruction) {
+    public void write(final @Nonnull Instruction35c instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(packNibbles(instruction.getRegisterG(), instruction.getRegisterCount()));
@@ -361,7 +361,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction35mi instruction) {
+    public void write(final @Nonnull Instruction35mi instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(packNibbles(instruction.getRegisterG(), instruction.getRegisterCount()));
@@ -373,7 +373,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction35ms instruction) {
+    public void write(final @Nonnull Instruction35ms instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(packNibbles(instruction.getRegisterG(), instruction.getRegisterCount()));
@@ -385,7 +385,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction3rc instruction) {
+    public void write(final @Nonnull Instruction3rc instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterCount());
@@ -396,7 +396,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction3rmi instruction) {
+    public void write(final @Nonnull Instruction3rmi instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterCount());
@@ -408,7 +408,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
     }
 
 
-    public void write(@Nonnull Instruction3rms instruction) {
+    public void write(final @Nonnull Instruction3rms instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterCount());
@@ -419,7 +419,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction45cc instruction) {
+    public void write(final @Nonnull Instruction45cc instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(packNibbles(instruction.getRegisterG(), instruction.getRegisterCount()));
@@ -432,7 +432,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction4rcc instruction) {
+    public void write(final @Nonnull Instruction4rcc instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterCount());
@@ -444,7 +444,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull Instruction51l instruction) {
+    public void write(final @Nonnull Instruction51l instruction) {
         try {
             writer.write(getOpcodeValue(instruction.getOpcode()));
             writer.write(instruction.getRegisterA());
@@ -454,7 +454,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull ArrayPayload instruction) {
+    public void write(final @Nonnull ArrayPayload instruction) {
         try {
             writer.writeUshort(getOpcodeValue(instruction.getOpcode()));
             writer.writeUshort(instruction.getElementWidth());
@@ -490,7 +490,7 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    public void write(@Nonnull SparseSwitchPayload instruction) {
+    public void write(final @Nonnull SparseSwitchPayload instruction) {
         try {
             writer.writeUbyte(0);
             writer.writeUbyte(getOpcodeValue(instruction.getOpcode()) >> 8);
@@ -509,12 +509,12 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
     }
 
     private final Comparator<SwitchElement> switchElementComparator = new Comparator<SwitchElement>() {
-        @Override public int compare(SwitchElement element1, SwitchElement element2) {
+        @Override public int compare(final SwitchElement element1, final SwitchElement element2) {
             return Ints.compare(element1.getKey(), element2.getKey());
         }
     };
 
-    public void write(@Nonnull PackedSwitchPayload instruction) {
+    public void write(final @Nonnull PackedSwitchPayload instruction) {
         try {
             writer.writeUbyte(0);
             writer.writeUbyte(getOpcodeValue(instruction.getOpcode()) >> 8);
@@ -533,21 +533,21 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         }
     }
 
-    private static int packNibbles(int a, int b) {
+    private static int packNibbles(final int a, final int b) {
         return (b << 4) | a;
     }
 
-    private int getReferenceIndex(ReferenceInstruction referenceInstruction) {
+    private int getReferenceIndex(final ReferenceInstruction referenceInstruction) {
         return getReferenceIndex(referenceInstruction.getReferenceType(),
                 referenceInstruction.getReference());
     }
 
-    private int getReference2Index(DualReferenceInstruction referenceInstruction) {
+    private int getReference2Index(final DualReferenceInstruction referenceInstruction) {
         return getReferenceIndex(referenceInstruction.getReferenceType2(),
                 referenceInstruction.getReference2());
     }
 
-    private int getReferenceIndex(int referenceType, Reference reference) {
+    private int getReferenceIndex(final int referenceType, final Reference reference) {
         switch (referenceType) {
             case ReferenceType.FIELD:
                 return fieldSection.getItemIndex((FieldRefKey) reference);

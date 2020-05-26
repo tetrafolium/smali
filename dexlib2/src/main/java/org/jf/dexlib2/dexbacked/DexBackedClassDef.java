@@ -75,9 +75,9 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
 
     @Nullable private AnnotationsDirectory annotationsDirectory;
 
-    public DexBackedClassDef(@Nonnull DexBackedDexFile dexFile,
-                             int classDefOffset,
-                             int hiddenApiRestrictionsOffset) {
+    public DexBackedClassDef(final @Nonnull DexBackedDexFile dexFile,
+                             final int classDefOffset,
+                             final int hiddenApiRestrictionsOffset) {
         this.dexFile = dexFile;
         this.classDefOffset = classDefOffset;
 
@@ -140,12 +140,13 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             return new AbstractList<String>() {
                 @Override
                 @Nonnull
-                public String get(int index) {
+                public String get(final int index) {
                     return dexFile.getTypeSection().get(
-                            dexFile.getDataBuffer().readUshort(interfacesOffset + 4 + (2*index)));
+                            dexFile.getDataBuffer().readUshort(interfacesOffset + 4 + (2 * index)));
                 }
 
-                @Override public int size() { return size; }
+                @Override public int size() {
+                    return size; }
             };
         }
         return ImmutableList.of();
@@ -174,8 +175,8 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             final int fieldsStartOffset = reader.getOffset();
 
 
-            Iterator<Integer> hiddenApiRestrictionIterator = hiddenApiRestrictionsReader == null ?
-                    null : hiddenApiRestrictionsReader.getRestrictionsForStaticFields();
+            Iterator<Integer> hiddenApiRestrictionIterator = hiddenApiRestrictionsReader == null
+                    ? null : hiddenApiRestrictionsReader.getRestrictionsForStaticFields();
 
             return new Iterable<DexBackedField>() {
                 @Nonnull
@@ -194,7 +195,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
 
                         @Nullable
                         @Override
-                        protected DexBackedField readNextItem(@Nonnull DexReader reader) {
+                        protected DexBackedField readNextItem(final @Nonnull DexReader reader) {
                             while (true) {
                                 if (++count > staticFieldCount) {
                                     instanceFieldsOffset = reader.getOffset();
@@ -245,8 +246,8 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             final AnnotationsDirectory annotationsDirectory = getAnnotationsDirectory();
             final int fieldsStartOffset = reader.getOffset();
 
-            Iterator<Integer> hiddenApiRestrictionIterator = hiddenApiRestrictionsReader == null ?
-                    null : hiddenApiRestrictionsReader.getRestrictionsForInstanceFields();
+            Iterator<Integer> hiddenApiRestrictionIterator = hiddenApiRestrictionsReader == null
+                    ? null : hiddenApiRestrictionsReader.getRestrictionsForInstanceFields();
 
             return new Iterable<DexBackedField>() {
                 @Nonnull
@@ -263,7 +264,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
 
                         @Nullable
                         @Override
-                        protected DexBackedField readNextItem(@Nonnull DexReader reader) {
+                        protected DexBackedField readNextItem(final @Nonnull DexReader reader) {
                             while (true) {
                                 if (++count > instanceFieldCount) {
                                     directMethodsOffset = reader.getOffset();
@@ -321,8 +322,8 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             final AnnotationsDirectory annotationsDirectory = getAnnotationsDirectory();
             final int methodsStartOffset = reader.getOffset();
 
-            Iterator<Integer> hiddenApiRestrictionIterator = hiddenApiRestrictionsReader == null ?
-                    null : hiddenApiRestrictionsReader.getRestrictionsForDirectMethods();
+            Iterator<Integer> hiddenApiRestrictionIterator = hiddenApiRestrictionsReader == null
+                    ? null : hiddenApiRestrictionsReader.getRestrictionsForDirectMethods();
 
             return new Iterable<DexBackedMethod>() {
                 @Nonnull
@@ -341,7 +342,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
 
                         @Nullable
                         @Override
-                        protected DexBackedMethod readNextItem(@Nonnull DexReader reader) {
+                        protected DexBackedMethod readNextItem(final @Nonnull DexReader reader) {
                             while (true) {
                                 if (++count > directMethodCount) {
                                     virtualMethodsOffset = reader.getOffset();
@@ -388,8 +389,8 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             final AnnotationsDirectory annotationsDirectory = getAnnotationsDirectory();
             final int methodsStartOffset = reader.getOffset();
 
-            Iterator<Integer> hiddenApiRestrictionIterator = hiddenApiRestrictionsReader == null ?
-                    null : hiddenApiRestrictionsReader.getRestrictionsForVirtualMethods();
+            Iterator<Integer> hiddenApiRestrictionIterator = hiddenApiRestrictionsReader == null
+                    ? null : hiddenApiRestrictionsReader.getRestrictionsForVirtualMethods();
 
             return new Iterable<DexBackedMethod>() {
                 final AnnotationsDirectory.AnnotationIterator methodAnnotationIterator =
@@ -408,7 +409,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
 
                         @Nullable
                         @Override
-                        protected DexBackedMethod readNextItem(@Nonnull DexReader reader) {
+                        protected DexBackedMethod readNextItem(final @Nonnull DexReader reader) {
                             while (true) {
                                 if (++count > virtualMethodCount) {
                                     return endOfData();
@@ -562,7 +563,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
         private int directMethodsStartOffset;
         private int virtualMethodsStartOffset;
 
-        public HiddenApiRestrictionsReader(int startOffset) {
+        public HiddenApiRestrictionsReader(final int startOffset) {
             this.startOffset = startOffset;
         }
 
@@ -570,7 +571,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             return new VariableSizeListIterator<Integer>(
                     dexFile.getDataBuffer(), startOffset, staticFieldCount) {
                 @Override protected Integer readNextItem(
-                        @Nonnull DexReader<? extends DexBuffer> reader, int index) {
+                        final @Nonnull DexReader<? extends DexBuffer> reader, final int index) {
                     return reader.readSmallUleb128();
                 }
 
@@ -598,7 +599,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             return new VariableSizeListIterator<Integer>(
                     dexFile.getDataBuffer(), getInstanceFieldsStartOffset(), instanceFieldCount) {
                 @Override protected Integer readNextItem(
-                        @Nonnull DexReader<? extends DexBuffer> reader, int index) {
+                        final @Nonnull DexReader<? extends DexBuffer> reader, final int index) {
                     return reader.readSmallUleb128();
                 }
 
@@ -626,7 +627,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             return new VariableSizeListIterator<Integer>(
                     dexFile.getDataBuffer(), getDirectMethodsStartOffset(), directMethodCount) {
                 @Override protected Integer readNextItem(
-                        @Nonnull DexReader<? extends DexBuffer> reader, int index) {
+                        final @Nonnull DexReader<? extends DexBuffer> reader, final int index) {
                     return reader.readSmallUleb128();
                 }
 
@@ -654,7 +655,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             return new VariableSizeListIterator<Integer>(
                     dexFile.getDataBuffer(), getVirtualMethodsStartOffset(), virtualMethodCount) {
                 @Override protected Integer readNextItem(
-                        @Nonnull DexReader<? extends DexBuffer> reader, int index) {
+                        final @Nonnull DexReader<? extends DexBuffer> reader, final int index) {
                     return reader.readSmallUleb128();
                 }
             };

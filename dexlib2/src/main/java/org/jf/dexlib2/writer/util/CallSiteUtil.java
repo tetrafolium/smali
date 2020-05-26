@@ -46,7 +46,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class CallSiteUtil {
-    public static ArrayEncodedValue getEncodedCallSite(CallSiteReference callSiteReference) {
+    public static ArrayEncodedValue getEncodedCallSite(final CallSiteReference callSiteReference) {
         return new BaseArrayEncodedValue() {
             @Nonnull
             @Override

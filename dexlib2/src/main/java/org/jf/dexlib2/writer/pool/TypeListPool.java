@@ -45,11 +45,11 @@ public class TypeListPool extends BaseNullableOffsetPool<Key<? extends Collectio
         implements TypeListSection<CharSequence, Key<? extends Collection<? extends CharSequence>>> {
 
 
-    public TypeListPool(@Nonnull DexPool dexPool) {
+    public TypeListPool(final @Nonnull DexPool dexPool) {
         super(dexPool);
     }
 
-    public void intern(@Nonnull Collection<? extends CharSequence> types) {
+    public void intern(final @Nonnull Collection<? extends CharSequence> types) {
         if (types.size() > 0) {
             Key<? extends Collection<? extends CharSequence>> key = new Key<Collection<? extends CharSequence>>(types);
             Integer prev = internedItems.put(key, 0);
@@ -62,14 +62,14 @@ public class TypeListPool extends BaseNullableOffsetPool<Key<? extends Collectio
     }
 
     @Nonnull @Override
-    public Collection<? extends CharSequence> getTypes(Key<? extends Collection<? extends CharSequence>> typesKey) {
+    public Collection<? extends CharSequence> getTypes(final Key<? extends Collection<? extends CharSequence>> typesKey) {
         if (typesKey == null) {
             return ImmutableList.of();
         }
         return typesKey.types;
     }
 
-    @Override public int getNullableItemOffset(@Nullable Key<? extends Collection<? extends CharSequence>> key) {
+    @Override public int getNullableItemOffset(final @Nullable Key<? extends Collection<? extends CharSequence>> key) {
         if (key == null || key.types.size() == 0) {
             return DexWriter.NO_OFFSET;
         } else {
@@ -81,7 +81,7 @@ public class TypeListPool extends BaseNullableOffsetPool<Key<? extends Collectio
             implements Comparable<Key<? extends Collection<? extends CharSequence>>> {
         @Nonnull TypeCollection types;
 
-        public Key(@Nonnull TypeCollection types) {
+        public Key(final @Nonnull TypeCollection types) {
             this.types = types;
         }
 
@@ -89,16 +89,16 @@ public class TypeListPool extends BaseNullableOffsetPool<Key<? extends Collectio
         public int hashCode() {
             int hashCode = 1;
             for (CharSequence type: types) {
-                hashCode = hashCode*31 + type.toString().hashCode();
+                hashCode = hashCode * 31 + type.toString().hashCode();
             }
             return hashCode;
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (o instanceof Key) {
                 Key<? extends Collection<? extends CharSequence>> other =
-                        (Key<? extends Collection<? extends CharSequence>>)o;
+                        (Key<? extends Collection<? extends CharSequence>>) o;
                 if (types.size() != other.types.size()) {
                     return false;
                 }
@@ -123,7 +123,7 @@ public class TypeListPool extends BaseNullableOffsetPool<Key<? extends Collectio
         }
 
         @Override
-        public int compareTo(Key<? extends Collection<? extends CharSequence>> o) {
+        public int compareTo(final Key<? extends Collection<? extends CharSequence>> o) {
             Iterator<? extends CharSequence> other = o.types.iterator();
             for (CharSequence type: types) {
                 if (!other.hasNext()) {

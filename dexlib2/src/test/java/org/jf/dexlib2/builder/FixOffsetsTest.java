@@ -57,7 +57,7 @@ public class FixOffsetsTest {
 
         builder.addLineNumber(1);
 
-        for (int i=0; i<250; i++) {
+        for (int i = 0; i < 250; i++) {
             builder.addInstruction(new BuilderInstruction10x(Opcode.NOP));
         }
 
@@ -65,7 +65,7 @@ public class FixOffsetsTest {
 
         builder.addLineNumber(2);
 
-        for (int i=0; i<250; i++) {
+        for (int i = 0; i < 250; i++) {
             builder.addInstruction(new BuilderInstruction10x(Opcode.NOP));
         }
 
@@ -78,7 +78,7 @@ public class FixOffsetsTest {
         builder.addLineNumber(4);
         builder.addLabel("handler");
 
-        for (int i=0; i<500; i++) {
+        for (int i = 0; i < 500; i++) {
             builder.addInstruction(new BuilderInstruction10x(Opcode.NOP));
         }
 
@@ -102,10 +102,10 @@ public class FixOffsetsTest {
         Assert.assertEquals(1003, instructions.size());
 
         Assert.assertEquals(Opcode.GOTO_16, instructions.get(0).getOpcode());
-        Assert.assertEquals(1004, ((OffsetInstruction)instructions.get(0)).getCodeOffset());
+        Assert.assertEquals(1004, ((OffsetInstruction) instructions.get(0)).getCodeOffset());
 
         Assert.assertEquals(Opcode.GOTO_16, instructions.get(501).getOpcode());
-        Assert.assertEquals(502, ((OffsetInstruction)instructions.get(501)).getCodeOffset());
+        Assert.assertEquals(502, ((OffsetInstruction) instructions.get(501)).getCodeOffset());
 
         List<? extends TryBlock<? extends ExceptionHandler>> exceptionHandlers = impl.getTryBlocks();
 
@@ -122,19 +122,19 @@ public class FixOffsetsTest {
 
         Assert.assertEquals(5, debugItems.size());
 
-        Assert.assertEquals(1, ((LineNumber)debugItems.get(0)).getLineNumber());
+        Assert.assertEquals(1, ((LineNumber) debugItems.get(0)).getLineNumber());
         Assert.assertEquals(2, debugItems.get(0).getCodeAddress());
 
-        Assert.assertEquals(2, ((LineNumber)debugItems.get(1)).getLineNumber());
+        Assert.assertEquals(2, ((LineNumber) debugItems.get(1)).getLineNumber());
         Assert.assertEquals(252, debugItems.get(1).getCodeAddress());
 
-        Assert.assertEquals(3, ((LineNumber)debugItems.get(2)).getLineNumber());
+        Assert.assertEquals(3, ((LineNumber) debugItems.get(2)).getLineNumber());
         Assert.assertEquals(502, debugItems.get(2).getCodeAddress());
 
-        Assert.assertEquals(4, ((LineNumber)debugItems.get(3)).getLineNumber());
+        Assert.assertEquals(4, ((LineNumber) debugItems.get(3)).getLineNumber());
         Assert.assertEquals(504, debugItems.get(3).getCodeAddress());
 
-        Assert.assertEquals(5, ((LineNumber)debugItems.get(4)).getLineNumber());
+        Assert.assertEquals(5, ((LineNumber) debugItems.get(4)).getLineNumber());
         Assert.assertEquals(1004, debugItems.get(4).getCodeAddress());
     }
 }

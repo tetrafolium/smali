@@ -74,12 +74,12 @@ public class AbstractForwardSequentialListTest {
         };
     }
 
-    private void testForwardIterationImpl(ListIterator<Integer> iter) {
+    private void testForwardIterationImpl(final ListIterator<Integer> iter) {
         Assert.assertFalse(iter.hasPrevious());
 
-        for (int i=0; i<100; i++) {
+        for (int i = 0; i < 100; i++) {
             Assert.assertEquals(i, iter.nextIndex());
-            Assert.assertEquals(i-1, iter.previousIndex());
+            Assert.assertEquals(i - 1, iter.previousIndex());
 
             Assert.assertTrue(iter.hasNext());
 
@@ -97,11 +97,11 @@ public class AbstractForwardSequentialListTest {
         testForwardIterationImpl(list.listIterator());
     }
 
-    private void testReverseIterationImpl(ListIterator<Integer> iter) {
+    private void testReverseIterationImpl(final ListIterator<Integer> iter) {
         Assert.assertFalse(iter.hasNext());
 
-        for (int i=99; i>=0; i--) {
-            Assert.assertEquals(i+1, iter.nextIndex());
+        for (int i = 99; i >= 0; i--) {
+            Assert.assertEquals(i + 1, iter.nextIndex());
             Assert.assertEquals(i, iter.previousIndex());
 
             Assert.assertTrue(iter.hasPrevious());
@@ -124,7 +124,7 @@ public class AbstractForwardSequentialListTest {
     public void testAlternatingIteration() {
         ListIterator<Integer> iter = list.listIterator(50);
 
-        for (int i=0; i<10; i++) {
+        for (int i = 0; i < 10; i++) {
             Assert.assertTrue(iter.hasNext());
             Assert.assertTrue(iter.hasPrevious());
             Assert.assertEquals(50, iter.nextIndex());
@@ -145,7 +145,7 @@ public class AbstractForwardSequentialListTest {
     public void testAlternatingIteration2() {
         ListIterator<Integer> iter = list.listIterator(0);
 
-        for (int i=0; i<10; i++) {
+        for (int i = 0; i < 10; i++) {
             testForwardIterationImpl(iter);
             testReverseIterationImpl(iter);
         }
@@ -172,7 +172,7 @@ public class AbstractForwardSequentialListTest {
         // the last call to next()
 
         ListIterator<Integer> iter = list.listIterator(0);
-        for (int i=0; i<100; i++) {
+        for (int i = 0; i < 100; i++) {
             iter.next();
         }
         try {
@@ -195,7 +195,7 @@ public class AbstractForwardSequentialListTest {
         // the last call to previous()
 
         ListIterator<Integer> iter = list.listIterator(100);
-        for (int i=0; i<100; i++) {
+        for (int i = 0; i < 100; i++) {
             iter.previous();
         }
         try {

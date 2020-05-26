@@ -58,13 +58,13 @@ public class ImmutableField extends BaseFieldReference implements Field {
     @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
     @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
 
-    public ImmutableField(@Nonnull String definingClass,
-                          @Nonnull String name,
-                          @Nonnull String type,
-                          int accessFlags,
-                          @Nullable EncodedValue initialValue,
-                          @Nullable Collection<? extends Annotation> annotations,
-                          @Nullable Set<HiddenApiRestriction> hiddenApiRestrictions) {
+    public ImmutableField(final @Nonnull String definingClass,
+                          final @Nonnull String name,
+                          final @Nonnull String type,
+                          final int accessFlags,
+                          final @Nullable EncodedValue initialValue,
+                          final @Nullable Collection<? extends Annotation> annotations,
+                          final @Nullable Set<HiddenApiRestriction> hiddenApiRestrictions) {
         this.definingClass = definingClass;
         this.name = name;
         this.type = type;
@@ -75,13 +75,13 @@ public class ImmutableField extends BaseFieldReference implements Field {
                 hiddenApiRestrictions == null ? ImmutableSet.of() : ImmutableSet.copyOf(hiddenApiRestrictions);
     }
 
-    public ImmutableField(@Nonnull String definingClass,
-                          @Nonnull String name,
-                          @Nonnull String type,
-                          int accessFlags,
-                          @Nullable ImmutableEncodedValue initialValue,
-                          @Nullable ImmutableSet<? extends ImmutableAnnotation> annotations,
-                          @Nullable ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions) {
+    public ImmutableField(final @Nonnull String definingClass,
+                          final @Nonnull String name,
+                          final @Nonnull String type,
+                          final int accessFlags,
+                          final @Nullable ImmutableEncodedValue initialValue,
+                          final @Nullable ImmutableSet<? extends ImmutableAnnotation> annotations,
+                          final @Nullable ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions) {
         this.definingClass = definingClass;
         this.name = name;
         this.type = type;
@@ -91,9 +91,9 @@ public class ImmutableField extends BaseFieldReference implements Field {
         this.hiddenApiRestrictions = ImmutableUtils.nullToEmptySet(hiddenApiRestrictions);
     }
 
-    public static ImmutableField of(Field field) {
+    public static ImmutableField of(final Field field) {
         if (field instanceof  ImmutableField) {
-            return (ImmutableField)field;
+            return (ImmutableField) field;
         }
         return new ImmutableField(
                 field.getDefiningClass(),
@@ -105,29 +105,36 @@ public class ImmutableField extends BaseFieldReference implements Field {
                 field.getHiddenApiRestrictions());
     }
 
-    @Nonnull @Override public String getDefiningClass() { return definingClass; }
-    @Nonnull @Override public String getName() { return name; }
-    @Nonnull @Override public String getType() { return type; }
-    @Override public int getAccessFlags() { return accessFlags; }
-    @Override public EncodedValue getInitialValue() { return initialValue;}
-    @Nonnull @Override public ImmutableSet<? extends ImmutableAnnotation> getAnnotations() { return annotations; }
-    @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() { return hiddenApiRestrictions; }
+    @Nonnull @Override public String getDefiningClass() {
+        return definingClass; }
+    @Nonnull @Override public String getName() {
+        return name; }
+    @Nonnull @Override public String getType() {
+        return type; }
+    @Override public int getAccessFlags() {
+        return accessFlags; }
+    @Override public EncodedValue getInitialValue() {
+        return initialValue; }
+    @Nonnull @Override public ImmutableSet<? extends ImmutableAnnotation> getAnnotations() {
+        return annotations; }
+    @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
+        return hiddenApiRestrictions; }
 
     @Nonnull
-    public static ImmutableSortedSet<ImmutableField> immutableSetOf(@Nullable Iterable<? extends Field> list) {
+    public static ImmutableSortedSet<ImmutableField> immutableSetOf(final @Nullable Iterable<? extends Field> list) {
         return CONVERTER.toSortedSet(Ordering.natural(), list);
     }
 
     private static final ImmutableConverter<ImmutableField, Field> CONVERTER =
             new ImmutableConverter<ImmutableField, Field>() {
                 @Override
-                protected boolean isImmutable(@Nonnull Field item) {
+                protected boolean isImmutable(final @Nonnull Field item) {
                     return item instanceof ImmutableField;
                 }
 
                 @Nonnull
                 @Override
-                protected ImmutableField makeImmutable(@Nonnull Field item) {
+                protected ImmutableField makeImmutable(final @Nonnull Field item) {
                     return ImmutableField.of(item);
                 }
             };

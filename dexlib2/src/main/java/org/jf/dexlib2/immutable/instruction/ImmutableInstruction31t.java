@@ -44,17 +44,17 @@ public class ImmutableInstruction31t extends ImmutableInstruction implements Ins
     protected final int registerA;
     protected final int codeOffset;
 
-    public ImmutableInstruction31t(@Nonnull Opcode opcode,
-                                   int registerA,
-                                   int codeOffset) {
+    public ImmutableInstruction31t(final @Nonnull Opcode opcode,
+                                   final int registerA,
+                                   final int codeOffset) {
         super(opcode);
         this.registerA = Preconditions.checkByteRegister(registerA);
         this.codeOffset = codeOffset;
     }
 
-    public static ImmutableInstruction31t of(Instruction31t instruction) {
+    public static ImmutableInstruction31t of(final Instruction31t instruction) {
         if (instruction instanceof ImmutableInstruction31t) {
-            return (ImmutableInstruction31t)instruction;
+            return (ImmutableInstruction31t) instruction;
         }
         return new ImmutableInstruction31t(
                 instruction.getOpcode(),
@@ -62,9 +62,12 @@ public class ImmutableInstruction31t extends ImmutableInstruction implements Ins
                 instruction.getCodeOffset());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getCodeOffset() { return codeOffset; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getCodeOffset() {
+        return codeOffset; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }
 

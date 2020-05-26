@@ -33,8 +33,8 @@ import org.jf.util.IndentingWriter;
 import java.io.IOException;
 
 public class LongRenderer {
-    public static void writeTo(IndentingWriter writer, long val) throws IOException {
-        if (val<0) {
+    public static void writeTo(final IndentingWriter writer, final long val) throws IOException {
+        if (val < 0) {
             writer.write("-0x");
             writer.printUnsignedLongAsHex(-val);
             writer.write('L');
@@ -45,8 +45,8 @@ public class LongRenderer {
         }
     }
 
-    public static void writeSignedIntOrLongTo(IndentingWriter writer, long val) throws IOException {
-        if (val<0) {
+    public static void writeSignedIntOrLongTo(final IndentingWriter writer, final long val) throws IOException {
+        if (val < 0) {
             writer.write("-0x");
             writer.printUnsignedLongAsHex(-val);
             if (val < Integer.MIN_VALUE) {

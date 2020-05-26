@@ -83,12 +83,12 @@ public class DexAnnotator extends AnnotatedBytes {
                 ItemType.HIDDENAPI_CLASS_DATA_ITEM
         };
 
-        for (int i=0; i<sectionOrder.length; i++) {
+        for (int i = 0; i < sectionOrder.length; i++) {
             sectionAnnotationOrder.put(sectionOrder[i], i);
         }
     }
 
-    public DexAnnotator(@Nonnull DexBackedDexFile dexFile, int width) {
+    public DexAnnotator(final @Nonnull DexBackedDexFile dexFile, final int width) {
         super(width);
 
         this.dexFile = dexFile;
@@ -164,11 +164,11 @@ public class DexAnnotator extends AnnotatedBytes {
         }
     }
 
-    public void writeAnnotations(Writer out) throws IOException {
+    public void writeAnnotations(final Writer out) throws IOException {
         List<MapItem> mapItems = dexFile.getMapItems();
         // sort the map items based on the order defined by sectionAnnotationOrder
         Ordering<MapItem> ordering = Ordering.from(new Comparator<MapItem>() {
-            @Override public int compare(MapItem o1, MapItem o2) {
+            @Override public int compare(final MapItem o1, final MapItem o2) {
                 return Ints.compare(sectionAnnotationOrder.get(o1.getType()), sectionAnnotationOrder.get(o2.getType()));
             }
         });
@@ -198,7 +198,7 @@ public class DexAnnotator extends AnnotatedBytes {
     }
 
     @Nullable
-    public SectionAnnotator getAnnotator(int itemType) {
+    public SectionAnnotator getAnnotator(final int itemType) {
         return annotators.get(itemType);
     }
 }

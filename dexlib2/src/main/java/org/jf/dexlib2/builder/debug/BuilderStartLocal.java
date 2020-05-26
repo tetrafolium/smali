@@ -45,33 +45,38 @@ public class BuilderStartLocal extends BuilderDebugItem implements StartLocal {
     @Nullable private final TypeReference type;
     @Nullable private final StringReference signature;
 
-    public BuilderStartLocal(int register,
-                             @Nullable StringReference name,
-                             @Nullable TypeReference type,
-                             @Nullable StringReference signature) {
+    public BuilderStartLocal(final int register,
+                             final @Nullable StringReference name,
+                             final @Nullable TypeReference type,
+                             final @Nullable StringReference signature) {
         this.register = register;
         this.name = name;
         this.type = type;
         this.signature = signature;
     }
 
-    @Override public int getRegister() { return register; }
+    @Override public int getRegister() {
+        return register; }
 
-    @Nullable @Override public StringReference getNameReference() { return name; }
-    @Nullable @Override public TypeReference getTypeReference() { return type; }
-    @Nullable @Override public StringReference getSignatureReference() { return signature; }
+    @Nullable @Override public StringReference getNameReference() {
+        return name; }
+    @Nullable @Override public TypeReference getTypeReference() {
+        return type; }
+    @Nullable @Override public StringReference getSignatureReference() {
+        return signature; }
 
     @Nullable @Override public String getName() {
-        return name==null?null:name.getString();
+        return name == null ? null : name.getString();
     }
 
     @Nullable @Override public String getType() {
-        return type==null?null:type.getType();
+        return type == null ? null : type.getType();
     }
 
     @Nullable @Override public String getSignature() {
-        return signature==null?null:signature.getString();
+        return signature == null ? null : signature.getString();
     }
 
-    @Override public int getDebugItemType() { return DebugItemType.START_LOCAL; }
+    @Override public int getDebugItemType() {
+        return DebugItemType.START_LOCAL; }
 }

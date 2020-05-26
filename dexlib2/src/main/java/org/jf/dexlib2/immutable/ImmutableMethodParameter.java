@@ -48,25 +48,25 @@ public class ImmutableMethodParameter extends BaseMethodParameter {
     @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
     @Nullable protected final String name;
 
-    public ImmutableMethodParameter(@Nonnull String type,
-                                    @Nullable Set<? extends Annotation> annotations,
-                                    @Nullable String name) {
+    public ImmutableMethodParameter(final @Nonnull String type,
+                                    final @Nullable Set<? extends Annotation> annotations,
+                                    final @Nullable String name) {
         this.type = type;
         this.annotations = ImmutableAnnotation.immutableSetOf(annotations);
         this.name = name;
     }
 
-    public ImmutableMethodParameter(@Nonnull String type,
-                                    @Nullable ImmutableSet<? extends ImmutableAnnotation> annotations,
-                                    @Nullable String name) {
+    public ImmutableMethodParameter(final @Nonnull String type,
+                                    final @Nullable ImmutableSet<? extends ImmutableAnnotation> annotations,
+                                    final @Nullable String name) {
         this.type = type;
         this.annotations = ImmutableUtils.nullToEmptySet(annotations);
         this.name = name;
     }
 
-    public static ImmutableMethodParameter of(MethodParameter methodParameter) {
+    public static ImmutableMethodParameter of(final MethodParameter methodParameter) {
         if (methodParameter instanceof ImmutableMethodParameter) {
-            return (ImmutableMethodParameter)methodParameter;
+            return (ImmutableMethodParameter) methodParameter;
         }
         return new ImmutableMethodParameter(
                 methodParameter.getType(),
@@ -74,29 +74,33 @@ public class ImmutableMethodParameter extends BaseMethodParameter {
                 methodParameter.getName());
     }
 
-    @Nonnull @Override public String getType() { return type; }
-    @Nonnull @Override public Set<? extends Annotation> getAnnotations() { return annotations; }
-    @Nullable @Override public String getName() { return name; }
+    @Nonnull @Override public String getType() {
+        return type; }
+    @Nonnull @Override public Set<? extends Annotation> getAnnotations() {
+        return annotations; }
+    @Nullable @Override public String getName() {
+        return name; }
 
     //TODO: iterate over the annotations to get the signature
-    @Nullable @Override public String getSignature() { return null; }
+    @Nullable @Override public String getSignature() {
+        return null; }
 
     @Nonnull
     public static ImmutableList<ImmutableMethodParameter> immutableListOf(
-            @Nullable Iterable<? extends MethodParameter> list) {
+            final @Nullable Iterable<? extends MethodParameter> list) {
         return CONVERTER.toList(list);
     }
 
     private static final ImmutableConverter<ImmutableMethodParameter, MethodParameter> CONVERTER =
             new ImmutableConverter<ImmutableMethodParameter, MethodParameter>() {
                 @Override
-                protected boolean isImmutable(@Nonnull MethodParameter item) {
+                protected boolean isImmutable(final @Nonnull MethodParameter item) {
                     return item instanceof ImmutableMethodParameter;
                 }
 
                 @Nonnull
                 @Override
-                protected ImmutableMethodParameter makeImmutable(@Nonnull MethodParameter item) {
+                protected ImmutableMethodParameter makeImmutable(final @Nonnull MethodParameter item) {
                     return ImmutableMethodParameter.of(item);
                 }
             };

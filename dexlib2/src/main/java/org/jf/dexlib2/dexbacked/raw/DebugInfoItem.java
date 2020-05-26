@@ -42,14 +42,14 @@ import javax.annotation.Nullable;
 public class DebugInfoItem {
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "debug_info_item";
             }
 
             @Override
-            public void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            public void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 DexReader reader = dexFile.getBuffer().readerAt(out.getCursor());
 
                 int lineStart = reader.readBigUleb128();
@@ -61,7 +61,7 @@ public class DebugInfoItem {
                 if (parametersSize > 0) {
                     out.annotate(0, "parameters:");
                     out.indent();
-                    for (int i=0; i<parametersSize; i++) {
+                    for (int i = 0; i < parametersSize; i++) {
                         int paramaterIndex = reader.readSmallUleb128() - 1;
                         out.annotateTo(reader.getOffset(), "%s",
                                 StringIdItem.getOptionalReferenceAnnotation(dexFile, paramaterIndex, true));

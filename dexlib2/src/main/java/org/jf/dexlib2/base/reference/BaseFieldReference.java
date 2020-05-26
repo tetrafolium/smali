@@ -41,24 +41,24 @@ public abstract class BaseFieldReference extends BaseReference implements FieldR
     @Override
     public int hashCode() {
         int hashCode = getDefiningClass().hashCode();
-        hashCode = hashCode*31 + getName().hashCode();
-        return hashCode*31 + getType().hashCode();
+        hashCode = hashCode * 31 + getName().hashCode();
+        return hashCode * 31 + getType().hashCode();
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof FieldReference) {
-            FieldReference other = (FieldReference)o;
-            return getDefiningClass().equals(other.getDefiningClass()) &&
-                   getName().equals(other.getName()) &&
-                   getType().equals(other.getType());
+            FieldReference other = (FieldReference) o;
+            return getDefiningClass().equals(other.getDefiningClass())
+                   && getName().equals(other.getName())
+                   && getType().equals(other.getType());
 
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull FieldReference o) {
+    public int compareTo(final @Nonnull FieldReference o) {
         int res = getDefiningClass().compareTo(o.getDefiningClass());
         if (res != 0) return res;
         res = getName().compareTo(o.getName());

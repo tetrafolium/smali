@@ -34,7 +34,7 @@ package org.jf.dexlib2;
 public class VersionMap {
     public static final int NO_VERSION = -1;
 
-    public static int mapDexVersionToApi(int dexVersion) {
+    public static int mapDexVersionToApi(final int dexVersion) {
         switch (dexVersion) {
             case 35:
                 return 23;
@@ -49,7 +49,7 @@ public class VersionMap {
         }
     }
 
-    public static int mapApiToDexVersion(int api) {
+    public static int mapApiToDexVersion(final int api) {
         if (api <= 23) {
             return 35;
         }
@@ -62,7 +62,7 @@ public class VersionMap {
         return 39;
     }
 
-    public static int mapArtVersionToApi(int artVersion) {
+    public static int mapArtVersionToApi(final int artVersion) {
         if (artVersion >= 170) {
             return 29;
         }
@@ -90,7 +90,7 @@ public class VersionMap {
         return 19;
     }
 
-    public static int mapApiToArtVersion(int api) {
+    public static int mapApiToArtVersion(final int api) {
         if (api < 19) {
             return NO_VERSION;
         }

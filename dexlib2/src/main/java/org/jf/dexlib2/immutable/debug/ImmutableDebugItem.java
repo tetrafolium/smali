@@ -43,52 +43,53 @@ import javax.annotation.Nullable;
 public abstract class ImmutableDebugItem implements DebugItem {
     protected final int codeAddress;
 
-    public ImmutableDebugItem(int codeAddress) {
+    public ImmutableDebugItem(final int codeAddress) {
         this.codeAddress = codeAddress;
     }
 
     @Nonnull
-    public static ImmutableDebugItem of(DebugItem debugItem) {
+    public static ImmutableDebugItem of(final DebugItem debugItem) {
         if (debugItem instanceof ImmutableDebugItem) {
-            return (ImmutableDebugItem)debugItem;
+            return (ImmutableDebugItem) debugItem;
         }
         switch (debugItem.getDebugItemType()) {
             case DebugItemType.START_LOCAL:
-                return ImmutableStartLocal.of((StartLocal)debugItem);
+                return ImmutableStartLocal.of((StartLocal) debugItem);
             case DebugItemType.END_LOCAL:
-                return ImmutableEndLocal.of((EndLocal)debugItem);
+                return ImmutableEndLocal.of((EndLocal) debugItem);
             case DebugItemType.RESTART_LOCAL:
-                return ImmutableRestartLocal.of((RestartLocal)debugItem);
+                return ImmutableRestartLocal.of((RestartLocal) debugItem);
             case DebugItemType.PROLOGUE_END:
-                return ImmutablePrologueEnd.of((PrologueEnd)debugItem);
+                return ImmutablePrologueEnd.of((PrologueEnd) debugItem);
             case DebugItemType.EPILOGUE_BEGIN:
-                return ImmutableEpilogueBegin.of((EpilogueBegin)debugItem);
+                return ImmutableEpilogueBegin.of((EpilogueBegin) debugItem);
             case DebugItemType.SET_SOURCE_FILE:
-                return ImmutableSetSourceFile.of((SetSourceFile)debugItem);
+                return ImmutableSetSourceFile.of((SetSourceFile) debugItem);
             case DebugItemType.LINE_NUMBER:
-                return ImmutableLineNumber.of((LineNumber)debugItem);
+                return ImmutableLineNumber.of((LineNumber) debugItem);
             default:
                 throw new ExceptionWithContext("Invalid debug item type: %d", debugItem.getDebugItemType());
         }
     }
 
-    @Override public int getCodeAddress() { return codeAddress; }
+    @Override public int getCodeAddress() {
+        return codeAddress; }
 
     @Nonnull
-    public static ImmutableList<ImmutableDebugItem> immutableListOf(@Nullable Iterable<? extends DebugItem> list) {
+    public static ImmutableList<ImmutableDebugItem> immutableListOf(final @Nullable Iterable<? extends DebugItem> list) {
         return CONVERTER.toList(list);
     }
 
     private static final ImmutableConverter<ImmutableDebugItem, DebugItem> CONVERTER =
             new ImmutableConverter<ImmutableDebugItem, DebugItem>() {
                 @Override
-                protected boolean isImmutable(@Nonnull DebugItem item) {
+                protected boolean isImmutable(final @Nonnull DebugItem item) {
                     return item instanceof ImmutableDebugItem;
                 }
 
                 @Nonnull
                 @Override
-                protected ImmutableDebugItem makeImmutable(@Nonnull DebugItem item) {
+                protected ImmutableDebugItem makeImmutable(final @Nonnull DebugItem item) {
                     return ImmutableDebugItem.of(item);
                 }
             };

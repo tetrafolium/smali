@@ -50,8 +50,8 @@ public abstract class BuilderEncodedValues {
         @Nonnull final BuilderTypeReference typeReference;
         @Nonnull final Set<? extends BuilderAnnotationElement> elements;
 
-        BuilderAnnotationEncodedValue(@Nonnull BuilderTypeReference typeReference,
-                                      @Nonnull Set<? extends BuilderAnnotationElement> elements) {
+        BuilderAnnotationEncodedValue(final @Nonnull BuilderTypeReference typeReference,
+                                      final @Nonnull Set<? extends BuilderAnnotationElement> elements) {
             this.typeReference = typeReference;
             this.elements = elements;
         }
@@ -69,7 +69,7 @@ public abstract class BuilderEncodedValues {
         @Nonnull final List<? extends BuilderEncodedValue> elements;
         int offset = DexWriter.NO_OFFSET;
 
-        BuilderArrayEncodedValue(@Nonnull List<? extends BuilderEncodedValue> elements) {
+        BuilderArrayEncodedValue(final @Nonnull List<? extends BuilderEncodedValue> elements) {
             this.elements = elements;
         }
 
@@ -79,16 +79,16 @@ public abstract class BuilderEncodedValues {
     }
 
     @Nonnull
-    public static BuilderEncodedValue defaultValueForType(String type) {
+    public static BuilderEncodedValue defaultValueForType(final String type) {
         switch (type.charAt(0)) {
             case 'Z':
                 return BuilderBooleanEncodedValue.FALSE_VALUE;
             case 'B':
-                return new BuilderByteEncodedValue((byte)0);
+                return new BuilderByteEncodedValue((byte) 0);
             case 'S':
-                return new BuilderShortEncodedValue((short)0);
+                return new BuilderShortEncodedValue((short) 0);
             case 'C':
-                return new BuilderCharEncodedValue((char)0);
+                return new BuilderCharEncodedValue((char) 0);
             case 'I':
                 return new BuilderIntEncodedValue(0);
             case 'J':
@@ -112,7 +112,7 @@ public abstract class BuilderEncodedValues {
 
         private final boolean value;
 
-        private BuilderBooleanEncodedValue(boolean value) {
+        private BuilderBooleanEncodedValue(final boolean value) {
             this.value = value;
         }
 
@@ -123,21 +123,21 @@ public abstract class BuilderEncodedValues {
 
     public static class BuilderByteEncodedValue extends ImmutableByteEncodedValue
             implements BuilderEncodedValue {
-        public BuilderByteEncodedValue(byte value) {
+        public BuilderByteEncodedValue(final byte value) {
             super(value);
         }
     }
 
     public static class BuilderCharEncodedValue extends ImmutableCharEncodedValue
             implements BuilderEncodedValue {
-        public BuilderCharEncodedValue(char value) {
+        public BuilderCharEncodedValue(final char value) {
             super(value);
         }
     }
 
     public static class BuilderDoubleEncodedValue extends ImmutableDoubleEncodedValue
             implements BuilderEncodedValue {
-        public BuilderDoubleEncodedValue(double value) {
+        public BuilderDoubleEncodedValue(final double value) {
             super(value);
         }
     }
@@ -146,7 +146,7 @@ public abstract class BuilderEncodedValues {
             implements BuilderEncodedValue {
         @Nonnull final BuilderFieldReference enumReference;
 
-        BuilderEnumEncodedValue(@Nonnull BuilderFieldReference enumReference) {
+        BuilderEnumEncodedValue(final @Nonnull BuilderFieldReference enumReference) {
             this.enumReference = enumReference;
         }
 
@@ -159,7 +159,7 @@ public abstract class BuilderEncodedValues {
             implements BuilderEncodedValue {
         @Nonnull final BuilderFieldReference fieldReference;
 
-        BuilderFieldEncodedValue(@Nonnull BuilderFieldReference fieldReference) {
+        BuilderFieldEncodedValue(final @Nonnull BuilderFieldReference fieldReference) {
             this.fieldReference = fieldReference;
         }
 
@@ -170,21 +170,21 @@ public abstract class BuilderEncodedValues {
 
     public static class BuilderFloatEncodedValue extends ImmutableFloatEncodedValue
             implements BuilderEncodedValue {
-        public BuilderFloatEncodedValue(float value) {
+        public BuilderFloatEncodedValue(final float value) {
             super(value);
         }
     }
 
     public static class BuilderIntEncodedValue extends ImmutableIntEncodedValue
             implements BuilderEncodedValue {
-        public BuilderIntEncodedValue(int value) {
+        public BuilderIntEncodedValue(final int value) {
             super(value);
         }
     }
 
     public static class BuilderLongEncodedValue extends ImmutableLongEncodedValue
             implements BuilderEncodedValue {
-        public BuilderLongEncodedValue(long value) {
+        public BuilderLongEncodedValue(final long value) {
             super(value);
         }
     }
@@ -193,7 +193,7 @@ public abstract class BuilderEncodedValues {
             implements BuilderEncodedValue {
         @Nonnull final BuilderMethodReference methodReference;
 
-        BuilderMethodEncodedValue(@Nonnull BuilderMethodReference methodReference) {
+        BuilderMethodEncodedValue(final @Nonnull BuilderMethodReference methodReference) {
             this.methodReference = methodReference;
         }
 
@@ -206,12 +206,12 @@ public abstract class BuilderEncodedValues {
             implements BuilderEncodedValue {
         public static final BuilderNullEncodedValue INSTANCE = new BuilderNullEncodedValue();
 
-        private BuilderNullEncodedValue() {}
+        private BuilderNullEncodedValue() { }
     }
 
     public static class BuilderShortEncodedValue extends ImmutableShortEncodedValue
             implements BuilderEncodedValue {
-        public BuilderShortEncodedValue(short value) {
+        public BuilderShortEncodedValue(final short value) {
             super(value);
         }
     }
@@ -220,7 +220,7 @@ public abstract class BuilderEncodedValues {
             implements BuilderEncodedValue {
         @Nonnull final BuilderStringReference stringReference;
 
-        BuilderStringEncodedValue(@Nonnull BuilderStringReference stringReference) {
+        BuilderStringEncodedValue(final @Nonnull BuilderStringReference stringReference) {
             this.stringReference = stringReference;
         }
 
@@ -233,7 +233,7 @@ public abstract class BuilderEncodedValues {
             implements BuilderEncodedValue {
         @Nonnull final BuilderTypeReference typeReference;
 
-        BuilderTypeEncodedValue(@Nonnull BuilderTypeReference typeReference) {
+        BuilderTypeEncodedValue(final @Nonnull BuilderTypeReference typeReference) {
             this.typeReference = typeReference;
         }
 
@@ -246,21 +246,23 @@ public abstract class BuilderEncodedValues {
             implements BuilderEncodedValue {
         @Nonnull final BuilderMethodProtoReference methodProtoReference;
 
-        public BuilderMethodTypeEncodedValue(@Nonnull BuilderMethodProtoReference methodProtoReference) {
+        public BuilderMethodTypeEncodedValue(final @Nonnull BuilderMethodProtoReference methodProtoReference) {
             this.methodProtoReference = methodProtoReference;
         }
 
-        @Nonnull @Override public BuilderMethodProtoReference getValue() { return methodProtoReference; }
+        @Nonnull @Override public BuilderMethodProtoReference getValue() {
+            return methodProtoReference; }
     }
 
     public static class BuilderMethodHandleEncodedValue extends BaseMethodHandleEncodedValue
             implements BuilderEncodedValue {
         @Nonnull final BuilderMethodHandleReference methodHandleReference;
 
-        public BuilderMethodHandleEncodedValue(@Nonnull BuilderMethodHandleReference methodHandleReference) {
+        public BuilderMethodHandleEncodedValue(final @Nonnull BuilderMethodHandleReference methodHandleReference) {
             this.methodHandleReference = methodHandleReference;
         }
 
-        @Nonnull @Override public BuilderMethodHandleReference getValue() { return methodHandleReference; }
+        @Nonnull @Override public BuilderMethodHandleReference getValue() {
+            return methodHandleReference; }
     }
 }

@@ -37,7 +37,7 @@ public class SwitchLabelElement {
     public final int key;
     @Nonnull public final Label target;
 
-    public SwitchLabelElement(int key, @Nonnull Label target) {
+    public SwitchLabelElement(final int key, final @Nonnull Label target) {
         this.key = key;
         this.target = target;
     }

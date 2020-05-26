@@ -45,7 +45,7 @@ public class ExceptionWithContext
      * @param str non-null; context to add
      * @return non-null; an appropriate instance
      */
-    public static ExceptionWithContext withContext(Throwable ex, String str, Object... formatArgs) {
+    public static ExceptionWithContext withContext(final Throwable ex, final String str, final Object... formatArgs) {
         ExceptionWithContext ewc;
 
         if (ex instanceof ExceptionWithContext) {
@@ -63,7 +63,7 @@ public class ExceptionWithContext
      *
      * @param message human-oriented message
      */
-    public ExceptionWithContext(String message, Object... formatArgs) {
+    public ExceptionWithContext(final String message, final Object... formatArgs) {
         this(null, message, formatArgs);
     }
 
@@ -72,7 +72,7 @@ public class ExceptionWithContext
      *
      * @param cause null-ok; exception that caused this one
      */
-    public ExceptionWithContext(Throwable cause) {
+    public ExceptionWithContext(final Throwable cause) {
         this(cause, null);
     }
 
@@ -82,9 +82,9 @@ public class ExceptionWithContext
      * @param message human-oriented message
      * @param cause null-ok; exception that caused this one
      */
-    public ExceptionWithContext(Throwable cause, String message, Object... formatArgs) {
-        super((message != null) ? formatMessage(message, formatArgs) :
-              (cause != null) ? cause.getMessage() : null,
+    public ExceptionWithContext(final Throwable cause, final String message, final Object... formatArgs) {
+        super((message != null) ? formatMessage(message, formatArgs)
+              : (cause != null) ? cause.getMessage() : null,
               cause);
 
         if (cause instanceof ExceptionWithContext) {
@@ -96,7 +96,7 @@ public class ExceptionWithContext
         }
     }
 
-    private static String formatMessage(String message, Object... formatArgs) {
+    private static String formatMessage(final String message, final Object... formatArgs) {
         if (message == null) {
             return null;
         }
@@ -105,14 +105,14 @@ public class ExceptionWithContext
 
     /** {@inheritDoc} */
     @Override
-    public void printStackTrace(PrintStream out) {
+    public void printStackTrace(final PrintStream out) {
         super.printStackTrace(out);
         out.println(context);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void printStackTrace(PrintWriter out) {
+    public void printStackTrace(final PrintWriter out) {
         super.printStackTrace(out);
         out.println(context);
     }
@@ -122,7 +122,7 @@ public class ExceptionWithContext
      *
      * @param str non-null; new context
      */
-    public void addContext(String str) {
+    public void addContext(final String str) {
         if (str == null) {
             throw new NullPointerException("str == null");
         }
@@ -147,7 +147,7 @@ public class ExceptionWithContext
      *
      * @param out non-null; where to print to
      */
-    public void printContext(PrintStream out) {
+    public void printContext(final PrintStream out) {
         out.println(getMessage());
         out.print(context);
     }
@@ -157,7 +157,7 @@ public class ExceptionWithContext
      *
      * @param out non-null; where to print to
      */
-    public void printContext(PrintWriter out) {
+    public void printContext(final PrintWriter out) {
         out.println(getMessage());
         out.print(context);
     }

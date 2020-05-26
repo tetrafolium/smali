@@ -46,14 +46,14 @@ public class FieldIdItem {
     public static final int NAME_OFFSET = 4;
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "field_id_item";
             }
 
             @Override
-            protected void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            protected void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 int classIndex = dexFile.getBuffer().readUshort(out.getCursor());
                 out.annotate(2, "class_idx = %s", TypeIdItem.getReferenceAnnotation(dexFile, classIndex));
 
@@ -67,7 +67,7 @@ public class FieldIdItem {
     }
 
     @Nonnull
-    public static String asString(@Nonnull DexBackedDexFile dexFile, int fieldIndex) {
+    public static String asString(final @Nonnull DexBackedDexFile dexFile, final int fieldIndex) {
         int fieldOffset = dexFile.getFieldSection().getOffset(fieldIndex);
         int classIndex = dexFile.getBuffer().readUshort(fieldOffset + CLASS_OFFSET);
         String classType = dexFile.getTypeSection().get(classIndex);
@@ -82,7 +82,7 @@ public class FieldIdItem {
     }
 
     @Nonnull
-    public static String getReferenceAnnotation(@Nonnull DexBackedDexFile dexFile, int fieldIndex) {
+    public static String getReferenceAnnotation(final @Nonnull DexBackedDexFile dexFile, final int fieldIndex) {
         try {
             String fieldString = asString(dexFile, fieldIndex);
             return String.format("field_id_item[%d]: %s", fieldIndex, fieldString);
@@ -92,7 +92,7 @@ public class FieldIdItem {
         return String.format("field_id_item[%d]", fieldIndex);
     }
 
-    public static String[] getFields(@Nonnull DexBackedDexFile dexFile) {
+    public static String[] getFields(final @Nonnull DexBackedDexFile dexFile) {
         MapItem mapItem = dexFile.getMapItemForSection(ItemType.FIELD_ID_ITEM);
         if (mapItem == null) {
             return new String[0];
@@ -100,7 +100,7 @@ public class FieldIdItem {
 
         int fieldCount = mapItem.getItemCount();
         String[] ret = new String[fieldCount];
-        for (int i=0; i<fieldCount; i++) {
+        for (int i = 0; i < fieldCount; i++) {
             ret[i] = asString(dexFile, i);
         }
         return ret;

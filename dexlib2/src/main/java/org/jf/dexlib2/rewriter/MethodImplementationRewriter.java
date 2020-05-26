@@ -43,18 +43,18 @@ import java.util.List;
 public class MethodImplementationRewriter implements Rewriter<MethodImplementation> {
     @Nonnull protected final Rewriters rewriters;
 
-    public MethodImplementationRewriter(@Nonnull Rewriters rewriters) {
+    public MethodImplementationRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public MethodImplementation rewrite(@Nonnull MethodImplementation methodImplementation) {
+    @Nonnull @Override public MethodImplementation rewrite(final @Nonnull MethodImplementation methodImplementation) {
         return new RewrittenMethodImplementation(methodImplementation);
     }
 
     protected class RewrittenMethodImplementation implements MethodImplementation {
         @Nonnull protected MethodImplementation methodImplementation;
 
-        public RewrittenMethodImplementation(@Nonnull MethodImplementation methodImplementation) {
+        public RewrittenMethodImplementation(final @Nonnull MethodImplementation methodImplementation) {
             this.methodImplementation = methodImplementation;
         }
 

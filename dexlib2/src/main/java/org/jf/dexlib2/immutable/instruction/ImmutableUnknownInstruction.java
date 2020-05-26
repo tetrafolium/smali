@@ -40,18 +40,20 @@ public class ImmutableUnknownInstruction extends ImmutableInstruction implements
 
     protected final int originalOpcode;
 
-    public ImmutableUnknownInstruction(int originalOpcode) {
+    public ImmutableUnknownInstruction(final int originalOpcode) {
         super(Opcode.NOP);
         this.originalOpcode = originalOpcode;
     }
 
-    public static ImmutableUnknownInstruction of(UnknownInstruction instruction) {
+    public static ImmutableUnknownInstruction of(final UnknownInstruction instruction) {
         if (instruction instanceof ImmutableUnknownInstruction) {
-            return (ImmutableUnknownInstruction)instruction;
+            return (ImmutableUnknownInstruction) instruction;
         }
         return new ImmutableUnknownInstruction(instruction.getOriginalOpcode());
     }
 
-    @Override public Format getFormat() { return FORMAT; }
-    @Override public int getOriginalOpcode() { return originalOpcode; }
+    @Override public Format getFormat() {
+        return FORMAT; }
+    @Override public int getOriginalOpcode() {
+        return originalOpcode; }
 }

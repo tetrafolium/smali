@@ -44,13 +44,13 @@ public class HiddenApiRestrictionsTest {
 
     @Test
     public void testNoHiddenApiRestrictions() throws IOException, RecognitionException {
-        String source = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".method public static main([Ljava/lang/String;)V\n" +
-                "    .registers 1\n" +
-                "    return-void\n" +
-                ".end method";
+        String source = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".method public static main([Ljava/lang/String;)V\n"
+                + "    .registers 1\n"
+                + "    return-void\n"
+                + ".end method";
 
         DexBackedClassDef classDef = SmaliTestUtils.compileSmali(source, 29);
 
@@ -59,13 +59,13 @@ public class HiddenApiRestrictionsTest {
 
     @Test
     public void testWithHiddenApiRestrictions() throws IOException, RecognitionException {
-        String source = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".method public whitelist static main([Ljava/lang/String;)V\n" +
-                "    .registers 1\n" +
-                "    return-void\n" +
-                ".end method";
+        String source = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".method public whitelist static main([Ljava/lang/String;)V\n"
+                + "    .registers 1\n"
+                + "    return-void\n"
+                + ".end method";
 
         DexBackedClassDef classDef = SmaliTestUtils.compileSmali(source, 29);
 
@@ -74,13 +74,13 @@ public class HiddenApiRestrictionsTest {
 
     @Test
     public void testWithHiddenApiRestrictionsWithLowerApi() throws IOException, RecognitionException {
-        String source = "" +
-                ".class public LHelloWorld;\n" +
-                ".super Ljava/lang/Object;\n" +
-                ".method public whitelist static main([Ljava/lang/String;)V\n" +
-                "    .registers 1\n" +
-                "    return-void\n" +
-                ".end method";
+        String source = ""
+                + ".class public LHelloWorld;\n"
+                + ".super Ljava/lang/Object;\n"
+                + ".method public whitelist static main([Ljava/lang/String;)V\n"
+                + "    .registers 1\n"
+                + "    return-void\n"
+                + ".end method";
 
         try {
             SmaliTestUtils.compileSmali(source, 28);

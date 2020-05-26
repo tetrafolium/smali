@@ -29,7 +29,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.jf.smali;import org.jf.smali.LiteralTools;
+package org.jf.smali; import org.jf.smali.LiteralTools;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -52,17 +52,17 @@ public class LongLiteralTest
         Assert.assertTrue(LiteralTools.parseLong("-0x1fffffffffffffffL") == -0x1fffffffffffffffL);
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FaileHexTest1() {
         LiteralTools.parseLong("-0x8000000000000001");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailHexTest2() {
         LiteralTools.parseLong("-0xFFFFFFFFFFFFFFFF");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailHexTest3() {
         LiteralTools.parseLong("0x10000000000000000");
     }
@@ -83,22 +83,22 @@ public class LongLiteralTest
         Assert.assertTrue(LiteralTools.parseLong("-9223372036854775808") == Long.MIN_VALUE);
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FaileDecTest1() {
         LiteralTools.parseLong("-9223372036854775809");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest2() {
         LiteralTools.parseLong("-18446744073709551616");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest3() {
         LiteralTools.parseLong("18446744073709551617");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest4() {
         LiteralTools.parseLong("18446744073709551700");
     }
@@ -119,17 +119,17 @@ public class LongLiteralTest
         Assert.assertTrue(LiteralTools.parseLong("-01000000000000000000000") == Long.MIN_VALUE);
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FaileOctTest1() {
         LiteralTools.parseLong("-01000000000000000000001");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailOctTest2() {
         LiteralTools.parseLong("-01777777777777777777777");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailOctTest3() {
         LiteralTools.parseLong("02000000000000000000000");
     }

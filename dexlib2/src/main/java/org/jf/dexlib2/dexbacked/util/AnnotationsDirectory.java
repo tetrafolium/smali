@@ -42,11 +42,16 @@ import java.util.Set;
 
 public abstract class AnnotationsDirectory {
     public static final AnnotationsDirectory EMPTY = new AnnotationsDirectory() {
-        @Override public int getFieldAnnotationCount() { return 0; }
-        @Nonnull @Override public Set<? extends DexBackedAnnotation> getClassAnnotations() { return ImmutableSet.of(); }
-        @Nonnull @Override public AnnotationIterator getFieldAnnotationIterator() { return AnnotationIterator.EMPTY; }
-        @Nonnull @Override public AnnotationIterator getMethodAnnotationIterator() { return AnnotationIterator.EMPTY; }
-        @Nonnull @Override public AnnotationIterator getParameterAnnotationIterator() {return AnnotationIterator.EMPTY;}
+        @Override public int getFieldAnnotationCount() {
+            return 0; }
+        @Nonnull @Override public Set<? extends DexBackedAnnotation> getClassAnnotations() {
+            return ImmutableSet.of(); }
+        @Nonnull @Override public AnnotationIterator getFieldAnnotationIterator() {
+            return AnnotationIterator.EMPTY; }
+        @Nonnull @Override public AnnotationIterator getMethodAnnotationIterator() {
+            return AnnotationIterator.EMPTY; }
+        @Nonnull @Override public AnnotationIterator getParameterAnnotationIterator() {
+            return AnnotationIterator.EMPTY; }
     };
 
     public abstract int getFieldAnnotationCount();
@@ -56,8 +61,8 @@ public abstract class AnnotationsDirectory {
     @Nonnull public abstract AnnotationIterator getParameterAnnotationIterator();
 
     @Nonnull
-    public static AnnotationsDirectory newOrEmpty(@Nonnull DexBackedDexFile dexFile,
-                                                  int directoryAnnotationsOffset) {
+    public static AnnotationsDirectory newOrEmpty(final @Nonnull DexBackedDexFile dexFile,
+                                                  final int directoryAnnotationsOffset) {
         if (directoryAnnotationsOffset == 0) {
             return EMPTY;
         }
@@ -73,8 +78,9 @@ public abstract class AnnotationsDirectory {
      */
     public interface AnnotationIterator {
         public static final AnnotationIterator EMPTY = new AnnotationIterator() {
-            @Override public int seekTo(int key) { return 0; }
-            @Override public void reset() {}
+            @Override public int seekTo(final int key) {
+                return 0; }
+            @Override public void reset() { }
         };
 
         /**
@@ -103,12 +109,13 @@ public abstract class AnnotationsDirectory {
             return new FixedSizeSet<DexBackedAnnotation>() {
                 @Nonnull
                 @Override
-                public DexBackedAnnotation readItem(int index) {
-                    int annotationOffset = dexFile.getDataBuffer().readSmallUint(annotationSetOffset + 4 + (4*index));
+                public DexBackedAnnotation readItem(final int index) {
+                    int annotationOffset = dexFile.getDataBuffer().readSmallUint(annotationSetOffset + 4 + (4 * index));
                     return new DexBackedAnnotation(dexFile, annotationOffset);
                 }
 
-                @Override public int size() { return size; }
+                @Override public int size() {
+                    return size; }
             };
         }
 
@@ -124,13 +131,14 @@ public abstract class AnnotationsDirectory {
             return new FixedSizeList<Set<? extends DexBackedAnnotation>>() {
                 @Nonnull
                 @Override
-                public Set<? extends DexBackedAnnotation> readItem(int index) {
+                public Set<? extends DexBackedAnnotation> readItem(final int index) {
                     int annotationSetOffset = dexFile.getDataBuffer().readSmallUint(
                             annotationSetListOffset + 4 + index * 4);
                     return getAnnotations(dexFile, annotationSetOffset);
                 }
 
-                @Override public int size() { return size; }
+                @Override public int size() {
+                    return size; }
             };
         }
         return ImmutableList.of();
@@ -150,8 +158,8 @@ public abstract class AnnotationsDirectory {
         /** The size of a method_annotation structure */
         private static final int METHOD_ANNOTATION_SIZE = 8;
 
-        public AnnotationsDirectoryImpl(@Nonnull DexBackedDexFile dexFile,
-                                        int directoryOffset) {
+        public AnnotationsDirectoryImpl(final @Nonnull DexBackedDexFile dexFile,
+                                        final int directoryOffset) {
             this.dexFile = dexFile;
             this.directoryOffset = directoryOffset;
         }
@@ -189,8 +197,8 @@ public abstract class AnnotationsDirectory {
                 return AnnotationIterator.EMPTY;
             }
             int fieldCount = getFieldAnnotationCount();
-            int methodAnnotationsOffset = directoryOffset + ANNOTATIONS_START_OFFSET +
-                    fieldCount * FIELD_ANNOTATION_SIZE;
+            int methodAnnotationsOffset = directoryOffset + ANNOTATIONS_START_OFFSET
+                    + fieldCount * FIELD_ANNOTATION_SIZE;
             return new AnnotationIteratorImpl(methodAnnotationsOffset, methodCount);
         }
 
@@ -202,9 +210,9 @@ public abstract class AnnotationsDirectory {
             }
             int fieldCount = getFieldAnnotationCount();
             int methodCount = getMethodAnnotationCount();
-            int parameterAnnotationsOffset = directoryOffset + ANNOTATIONS_START_OFFSET +
-                    fieldCount * FIELD_ANNOTATION_SIZE +
-                    methodCount * METHOD_ANNOTATION_SIZE;
+            int parameterAnnotationsOffset = directoryOffset + ANNOTATIONS_START_OFFSET
+                    + fieldCount * FIELD_ANNOTATION_SIZE
+                    + methodCount * METHOD_ANNOTATION_SIZE;
             return new AnnotationIteratorImpl(parameterAnnotationsOffset, parameterAnnotationCount);
         }
 
@@ -214,21 +222,21 @@ public abstract class AnnotationsDirectory {
             private int currentIndex;
             private int currentItemIndex;
 
-            public AnnotationIteratorImpl(int startOffset, int size) {
+            public AnnotationIteratorImpl(final int startOffset, final int size) {
                 this.startOffset = startOffset;
                 this.size = size;
                 this.currentItemIndex = dexFile.getDataBuffer().readSmallUint(startOffset);
                 this.currentIndex = 0;
             }
 
-            public int seekTo(int itemIndex) {
-                while (currentItemIndex < itemIndex && (currentIndex+1) < size) {
+            public int seekTo(final int itemIndex) {
+                while (currentItemIndex < itemIndex && (currentIndex + 1) < size) {
                     currentIndex++;
-                    currentItemIndex = dexFile.getDataBuffer().readSmallUint(startOffset + (currentIndex*8));
+                    currentItemIndex = dexFile.getDataBuffer().readSmallUint(startOffset + (currentIndex * 8));
                 }
 
                 if (currentItemIndex == itemIndex) {
-                    return dexFile.getDataBuffer().readSmallUint(startOffset + (currentIndex*8)+4);
+                    return dexFile.getDataBuffer().readSmallUint(startOffset + (currentIndex * 8) + 4);
                 }
                 return 0;
             }

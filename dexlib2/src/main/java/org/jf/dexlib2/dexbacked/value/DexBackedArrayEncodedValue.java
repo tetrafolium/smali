@@ -46,20 +46,20 @@ public class DexBackedArrayEncodedValue extends BaseArrayEncodedValue implements
     private final int elementCount;
     private final int encodedArrayOffset;
 
-    public DexBackedArrayEncodedValue(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader reader) {
+    public DexBackedArrayEncodedValue(final @Nonnull DexBackedDexFile dexFile, final @Nonnull DexReader reader) {
         this.dexFile = dexFile;
         this.elementCount = reader.readSmallUleb128();
         this.encodedArrayOffset = reader.getOffset();
         skipElementsFrom(reader, elementCount);
     }
 
-    public static void skipFrom(@Nonnull DexReader reader) {
+    public static void skipFrom(final @Nonnull DexReader reader) {
         int elementCount = reader.readSmallUleb128();
         skipElementsFrom(reader, elementCount);
     }
 
-    private static void skipElementsFrom(@Nonnull DexReader reader, int elementCount) {
-        for (int i=0; i<elementCount; i++) {
+    private static void skipElementsFrom(final @Nonnull DexReader reader, final int elementCount) {
+        for (int i = 0; i < elementCount; i++) {
             DexBackedEncodedValue.skipFrom(reader);
         }
     }
@@ -70,7 +70,7 @@ public class DexBackedArrayEncodedValue extends BaseArrayEncodedValue implements
         return new VariableSizeList<EncodedValue>(dexFile.getDataBuffer(), encodedArrayOffset, elementCount) {
             @Nonnull
             @Override
-            protected EncodedValue readNextItem(@Nonnull DexReader dexReader, int index) {
+            protected EncodedValue readNextItem(final @Nonnull DexReader dexReader, final int index) {
                 return DexBackedEncodedValue.readFrom(dexFile, dexReader);
             }
         };

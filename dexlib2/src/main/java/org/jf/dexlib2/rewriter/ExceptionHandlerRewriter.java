@@ -40,18 +40,18 @@ import javax.annotation.Nullable;
 public class ExceptionHandlerRewriter implements Rewriter<ExceptionHandler> {
     @Nonnull protected final Rewriters rewriters;
 
-    public ExceptionHandlerRewriter(@Nonnull Rewriters rewriters) {
+    public ExceptionHandlerRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public ExceptionHandler rewrite(@Nonnull ExceptionHandler value) {
+    @Nonnull @Override public ExceptionHandler rewrite(final @Nonnull ExceptionHandler value) {
         return new RewrittenExceptionHandler(value);
     }
 
     protected class RewrittenExceptionHandler extends BaseExceptionHandler {
         @Nonnull protected ExceptionHandler exceptionHandler;
 
-        public RewrittenExceptionHandler(@Nonnull ExceptionHandler exceptionHandler) {
+        public RewrittenExceptionHandler(final @Nonnull ExceptionHandler exceptionHandler) {
             this.exceptionHandler = exceptionHandler;
         }
 

@@ -32,7 +32,7 @@ import org.jf.util.IndentingWriter;
 
 //a "spacer" between instructions
 public class BlankMethodItem extends MethodItem {
-    public BlankMethodItem(int codeAddress) {
+    public BlankMethodItem(final int codeAddress) {
         super(codeAddress);
     }
 
@@ -40,7 +40,7 @@ public class BlankMethodItem extends MethodItem {
         return Integer.MAX_VALUE;
     }
 
-    public boolean writeTo(IndentingWriter writer) {
+    public boolean writeTo(final IndentingWriter writer) {
         //we didn't technically print something, but returning true indicates that a newline should be printed
         //after this method item, which is the intended functionality
         return true;

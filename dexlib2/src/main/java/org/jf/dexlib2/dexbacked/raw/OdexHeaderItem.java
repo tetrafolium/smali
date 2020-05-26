@@ -36,8 +36,8 @@ import org.jf.dexlib2.dexbacked.DexBuffer;
 public class OdexHeaderItem {
     public static final int ITEM_SIZE = 40;
 
-    private static final byte[] MAGIC_VALUE = new byte[] { 0x64, 0x65, 0x79, 0x0A, 0x00, 0x00, 0x00, 0x00 };
-    private static final int[] SUPPORTED_ODEX_VERSIONS = new int[] { 35, 36 };
+    private static final byte[] MAGIC_VALUE = new byte[] {0x64, 0x65, 0x79, 0x0A, 0x00, 0x00, 0x00, 0x00 };
+    private static final int[] SUPPORTED_ODEX_VERSIONS = new int[] {35, 36 };
 
     public static final int MAGIC_OFFSET = 0;
     public static final int MAGIC_LENGTH = 8;
@@ -56,19 +56,19 @@ public class OdexHeaderItem {
      * @param offset The offset within the buffer to the beginning of the odex header
      * @return True if the magic value is valid
      */
-    public static boolean verifyMagic(byte[] buf, int offset) {
+    public static boolean verifyMagic(final byte[] buf, final int offset) {
         if (buf.length - offset < 8) {
             return false;
         }
 
-        for (int i=0; i<4; i++) {
+        for (int i = 0; i < 4; i++) {
             if (buf[offset + i] != MAGIC_VALUE[i]) {
                 return false;
             }
         }
-        for (int i=4; i<7; i++) {
-            if (buf[offset + i] < '0' ||
-                    buf[offset + i] > '9') {
+        for (int i = 4; i < 7; i++) {
+            if (buf[offset + i] < '0'
+                    || buf[offset + i] > '9') {
                 return false;
             }
         }
@@ -86,7 +86,7 @@ public class OdexHeaderItem {
      * @param offset The offset within the buffer to the beginning of the odex header
      * @return The odex version if the header is valid or -1 if the header is invalid
      */
-    public static int getVersion(byte[] buf, int offset) {
+    public static int getVersion(final byte[] buf, final int offset) {
         if (!verifyMagic(buf, offset)) {
             return -1;
         }
@@ -94,7 +94,7 @@ public class OdexHeaderItem {
         return getVersionUnchecked(buf, offset);
     }
 
-    private static int getVersionUnchecked(byte[] buf, int offset) {
+    private static int getVersionUnchecked(final byte[] buf, final int offset) {
         int version = (buf[offset + 4] - '0') * 100;
         version += (buf[offset + 5] - '0') * 10;
         version += buf[offset + 6] - '0';
@@ -102,8 +102,8 @@ public class OdexHeaderItem {
         return version;
     }
 
-    public static boolean isSupportedOdexVersion(int version) {
-        for (int i=0; i<SUPPORTED_ODEX_VERSIONS.length; i++) {
+    public static boolean isSupportedOdexVersion(final int version) {
+        for (int i = 0; i < SUPPORTED_ODEX_VERSIONS.length; i++) {
             if (SUPPORTED_ODEX_VERSIONS[i] == version) {
                 return true;
             }
@@ -111,12 +111,12 @@ public class OdexHeaderItem {
         return false;
     }
 
-    public static int getDexOffset(byte[] buf) {
+    public static int getDexOffset(final byte[] buf) {
         DexBuffer bdb = new DexBuffer(buf);
         return bdb.readSmallUint(DEX_OFFSET);
     }
 
-    public static int getDependenciesOffset(byte[] buf) {
+    public static int getDependenciesOffset(final byte[] buf) {
         DexBuffer bdb = new DexBuffer(buf);
         return bdb.readSmallUint(DEPENDENCIES_OFFSET);
     }

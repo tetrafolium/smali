@@ -40,24 +40,24 @@ public class RandomAccessFileOutputStream extends OutputStream {
     private int filePosition;
     @Nonnull private final RandomAccessFile raf;
 
-    public RandomAccessFileOutputStream(@Nonnull RandomAccessFile raf, int startFilePosition) {
+    public RandomAccessFileOutputStream(final @Nonnull RandomAccessFile raf, final int startFilePosition) {
         this.filePosition = startFilePosition;
         this.raf = raf;
     }
 
-    @Override public void write(int b) throws IOException {
+    @Override public void write(final int b) throws IOException {
         raf.seek(filePosition);
         filePosition++;
         raf.write(b);
     }
 
-    @Override public void write(byte[] b) throws IOException {
+    @Override public void write(final byte[] b) throws IOException {
         raf.seek(filePosition);
         filePosition += b.length;
         raf.write(b);
     }
 
-    @Override public void write(byte[] b, int off, int len) throws IOException {
+    @Override public void write(final byte[] b, final int off, final int len) throws IOException {
         raf.seek(filePosition);
         filePosition += len;
         raf.write(b, off, len);

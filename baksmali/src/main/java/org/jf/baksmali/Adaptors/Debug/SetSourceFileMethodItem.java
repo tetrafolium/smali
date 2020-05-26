@@ -42,13 +42,13 @@ import java.io.IOException;
 public class SetSourceFileMethodItem extends DebugMethodItem {
     @Nullable private final String sourceFile;
 
-    public SetSourceFileMethodItem(int codeAddress, int sortOrder, @Nonnull SetSourceFile setSourceFile) {
+    public SetSourceFileMethodItem(final int codeAddress, final int sortOrder, final @Nonnull SetSourceFile setSourceFile) {
         super(codeAddress, sortOrder);
         this.sourceFile = setSourceFile.getSourceFile();
     }
 
     @Override
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         writer.write(".source");
 
         if (sourceFile != null) {

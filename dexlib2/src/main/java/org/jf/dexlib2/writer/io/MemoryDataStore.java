@@ -14,7 +14,7 @@ public class MemoryDataStore implements DexDataStore {
         this(0);
     }
 
-    public MemoryDataStore(int initialCapacity) {
+    public MemoryDataStore(final int initialCapacity) {
         buf = new byte[initialCapacity];
     }
 
@@ -34,18 +34,18 @@ public class MemoryDataStore implements DexDataStore {
         if (offset < 0) throw new IllegalArgumentException();
         return new OutputStream() {
             private int position = offset;
-            @Override public void write(int b) throws IOException {
+            @Override public void write(final int b) throws IOException {
                 growBufferIfNeeded(position + 1);
-                buf[position++] = (byte)b;
+                buf[position++] = (byte) b;
             }
 
-            @Override public void write(byte[] b) throws IOException {
+            @Override public void write(final byte[] b) throws IOException {
                 growBufferIfNeeded(position + b.length);
                 System.arraycopy(b, 0, buf, position, b.length);
                 position += b.length;
             }
 
-            @Override public void write(byte[] b, int off, int len) throws IOException {
+            @Override public void write(final byte[] b, final int off, final int len) throws IOException {
                 growBufferIfNeeded(position + len);
                 System.arraycopy(b, off, buf, position, len);
                 position += len;
@@ -53,7 +53,7 @@ public class MemoryDataStore implements DexDataStore {
         };
     }
 
-    private void growBufferIfNeeded(int minSize) {
+    private void growBufferIfNeeded(final int minSize) {
         if (minSize > size) {
             if (minSize > buf.length) {
                 int newSize = getNewBufferSize(buf.length, minSize);
@@ -64,7 +64,7 @@ public class MemoryDataStore implements DexDataStore {
         }
     }
 
-    protected int getNewBufferSize(int currentSize, int newMinSize) {
+    protected int getNewBufferSize(final int currentSize, final int newMinSize) {
         final int MIN_GROWTH_STEP = 256 * 1024;
         return Math.max(newMinSize + (newMinSize >> 2), currentSize + MIN_GROWTH_STEP);
     }
@@ -82,7 +82,7 @@ public class MemoryDataStore implements DexDataStore {
                 return buf[position++];
             }
 
-            @Override public int read(byte[] b) throws IOException {
+            @Override public int read(final byte[] b) throws IOException {
                 int readLength = Math.min(b.length, size - position);
                 if (readLength <= 0) {
                     if (position >= size) {
@@ -95,7 +95,7 @@ public class MemoryDataStore implements DexDataStore {
                 return readLength;
             }
 
-            @Override public int read(byte[] b, int off, int len) throws IOException {
+            @Override public int read(final byte[] b, final int off, final int len) throws IOException {
                 int readLength = Math.min(len, size - position);
                 if (readLength <= 0) {
                     if (position >= size) {
@@ -108,8 +108,8 @@ public class MemoryDataStore implements DexDataStore {
                 return readLength;
             }
 
-            @Override public long skip(long n) throws IOException {
-                int skipLength = (int)Math.max(0, Math.min(n, size - position));
+            @Override public long skip(final long n) throws IOException {
+                int skipLength = (int) Math.max(0, Math.min(n, size - position));
                 position += skipLength;
                 return skipLength;
             }
@@ -118,7 +118,7 @@ public class MemoryDataStore implements DexDataStore {
                 return Math.max(0, size - position);
             }
 
-            @Override public void mark(int i) {
+            @Override public void mark(final int i) {
                 mark = position;
             }
 

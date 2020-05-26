@@ -120,7 +120,7 @@ public class CallSiteTest {
         verifyDexFile(DexFileFactory.loadDexFile(tempFile, Opcodes.forArtVersion(111)));
     }
 
-    private void verifyDexFile(DexFile dexFile) {
+    private void verifyDexFile(final DexFile dexFile) {
         Assert.assertEquals(1, dexFile.getClasses().size());
         ClassDef cls = Lists.newArrayList(dexFile.getClasses()).get(0);
         Assert.assertEquals("Lcls1;", cls.getType());

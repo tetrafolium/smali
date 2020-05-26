@@ -41,18 +41,18 @@ import java.util.Set;
 public class DexFileRewriter implements Rewriter<DexFile> {
     @Nonnull protected final Rewriters rewriters;
 
-    public DexFileRewriter(@Nonnull Rewriters rewriters) {
+    public DexFileRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public DexFile rewrite(@Nonnull DexFile value) {
+    @Nonnull @Override public DexFile rewrite(final @Nonnull DexFile value) {
         return new RewrittenDexFile(value);
     }
 
     protected class RewrittenDexFile implements DexFile {
         @Nonnull protected final DexFile dexFile;
 
-        public RewrittenDexFile(@Nonnull DexFile dexFile) {
+        public RewrittenDexFile(final @Nonnull DexFile dexFile) {
             this.dexFile = dexFile;
         }
 

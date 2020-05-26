@@ -40,16 +40,17 @@ import javax.annotation.Nonnull;
 public class ImmutableInstruction10x extends ImmutableInstruction implements Instruction10x {
     public static final Format FORMAT = Format.Format10x;
 
-    public ImmutableInstruction10x(@Nonnull Opcode opcode) {
+    public ImmutableInstruction10x(final @Nonnull Opcode opcode) {
         super(opcode);
     }
 
-    public static ImmutableInstruction10x of(Instruction10x instruction) {
+    public static ImmutableInstruction10x of(final Instruction10x instruction) {
         if (instruction instanceof ImmutableInstruction10x) {
-            return (ImmutableInstruction10x)instruction;
+            return (ImmutableInstruction10x) instruction;
         }
         return new ImmutableInstruction10x(instruction.getOpcode());
     }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

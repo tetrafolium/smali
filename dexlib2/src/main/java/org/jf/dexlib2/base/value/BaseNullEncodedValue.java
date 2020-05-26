@@ -46,14 +46,15 @@ public abstract class BaseNullEncodedValue implements NullEncodedValue {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         return o instanceof NullEncodedValue;
     }
 
     @Override
-    public int compareTo(@Nonnull EncodedValue o) {
+    public int compareTo(final @Nonnull EncodedValue o) {
         return Ints.compare(getValueType(), o.getValueType());
     }
 
-    public int getValueType() { return ValueType.NULL; }
+    public int getValueType() {
+        return ValueType.NULL; }
 }

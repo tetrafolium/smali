@@ -63,13 +63,13 @@ public class DexBackedField extends BaseFieldReference implements Field {
 
     private int fieldIdItemOffset;
 
-    public DexBackedField(@Nonnull DexBackedDexFile dexFile,
-                          @Nonnull DexReader reader,
-                          @Nonnull DexBackedClassDef classDef,
-                          int previousFieldIndex,
-                          @Nonnull EncodedArrayItemIterator staticInitialValueIterator,
-                          @Nonnull AnnotationsDirectory.AnnotationIterator annotationIterator,
-                          int hiddenApiRestrictions) {
+    public DexBackedField(final @Nonnull DexBackedDexFile dexFile,
+                          final @Nonnull DexReader reader,
+                          final @Nonnull DexBackedClassDef classDef,
+                          final int previousFieldIndex,
+                          final @Nonnull EncodedArrayItemIterator staticInitialValueIterator,
+                          final @Nonnull AnnotationsDirectory.AnnotationIterator annotationIterator,
+                          final int hiddenApiRestrictions) {
         this.dexFile = dexFile;
         this.classDef = classDef;
 
@@ -86,12 +86,12 @@ public class DexBackedField extends BaseFieldReference implements Field {
         this.hiddenApiRestrictions = hiddenApiRestrictions;
     }
 
-    public DexBackedField(@Nonnull DexBackedDexFile dexFile,
-                          @Nonnull DexReader reader,
-                          @Nonnull DexBackedClassDef classDef,
-                          int previousFieldIndex,
-                          @Nonnull AnnotationsDirectory.AnnotationIterator annotationIterator,
-                          int hiddenApiRestrictions) {
+    public DexBackedField(final @Nonnull DexBackedDexFile dexFile,
+                          final @Nonnull DexReader reader,
+                          final @Nonnull DexBackedClassDef classDef,
+                          final int previousFieldIndex,
+                          final @Nonnull AnnotationsDirectory.AnnotationIterator annotationIterator,
+                          final int hiddenApiRestrictions) {
         this.dexFile = dexFile;
         this.classDef = classDef;
 
@@ -122,9 +122,12 @@ public class DexBackedField extends BaseFieldReference implements Field {
                 dexFile.getBuffer().readUshort(getFieldIdItemOffset() + FieldIdItem.TYPE_OFFSET));
     }
 
-    @Nonnull @Override public String getDefiningClass() { return classDef.getType(); }
-    @Override public int getAccessFlags() { return accessFlags; }
-    @Nullable @Override public EncodedValue getInitialValue() { return initialValue; }
+    @Nonnull @Override public String getDefiningClass() {
+        return classDef.getType(); }
+    @Override public int getAccessFlags() {
+        return accessFlags; }
+    @Nullable @Override public EncodedValue getInitialValue() {
+        return initialValue; }
 
     @Nonnull
     @Override
@@ -148,8 +151,8 @@ public class DexBackedField extends BaseFieldReference implements Field {
      * @param reader The reader to skip
      * @param count The number of encoded_field structures to skip over
      */
-    public static void skipFields(@Nonnull DexReader reader, int count) {
-        for (int i=0; i<count; i++) {
+    public static void skipFields(final @Nonnull DexReader reader, final int count) {
+        for (int i = 0; i < count; i++) {
             reader.skipUleb128();
             reader.skipUleb128();
         }

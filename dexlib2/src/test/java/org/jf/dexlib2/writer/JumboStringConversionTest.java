@@ -65,7 +65,7 @@ public class JumboStringConversionTest {
         DexBuilder dexBuilder = new DexBuilder(Opcodes.getDefault());
 
         MethodImplementationBuilder methodBuilder = new MethodImplementationBuilder(1);
-        for (int i=0; i<66000; i++) {
+        for (int i = 0; i < 66000; i++) {
             methodBuilder.addInstruction(new BuilderInstruction21c(Opcode.CONST_STRING, 0,
                     dexBuilder.internStringReference(String.format("%08d", i))));
         }
@@ -107,15 +107,15 @@ public class JumboStringConversionTest {
         List<? extends Instruction> instructions = Lists.newArrayList(impl.getInstructions());
         Assert.assertEquals(66001, instructions.size());
 
-        for (int i=0; i<65536; i++) {
+        for (int i = 0; i < 65536; i++) {
             Assert.assertEquals(Opcode.CONST_STRING, instructions.get(i).getOpcode());
             Assert.assertEquals(String.format("%08d", i),
-                    ((StringReference)((ReferenceInstruction)instructions.get(i)).getReference()).getString());
+                    ((StringReference) ((ReferenceInstruction) instructions.get(i)).getReference()).getString());
         }
-        for (int i=65536; i<66000; i++) {
+        for (int i = 65536; i < 66000; i++) {
             Assert.assertEquals(Opcode.CONST_STRING_JUMBO, instructions.get(i).getOpcode());
             Assert.assertEquals(String.format("%08d", i),
-                    ((StringReference)((ReferenceInstruction)instructions.get(i)).getReference()).getString());
+                    ((StringReference) ((ReferenceInstruction) instructions.get(i)).getReference()).getString());
         }
         Assert.assertEquals(Opcode.RETURN_VOID, instructions.get(66000).getOpcode());
     }
@@ -126,7 +126,7 @@ public class JumboStringConversionTest {
         DexBuilder dexBuilder = new DexBuilder(Opcodes.getDefault());
 
         final List<Instruction> instructions = Lists.newArrayList();
-        for (int i=0; i<66000; i++) {
+        for (int i = 0; i < 66000; i++) {
             final StringReference ref = dexBuilder.internStringReference(String.format("%08d", i));
 
             instructions.add(new Instruction21c() {
@@ -138,7 +138,8 @@ public class JumboStringConversionTest {
                     return ref;
                 }
 
-                @Override public int getReferenceType() { return ReferenceType.STRING; }
+                @Override public int getReferenceType() {
+                    return ReferenceType.STRING; }
 
                 @Override public Opcode getOpcode() {
                     return Opcode.CONST_STRING;
@@ -205,15 +206,15 @@ public class JumboStringConversionTest {
         List<? extends Instruction> actualInstructions = Lists.newArrayList(impl.getInstructions());
         Assert.assertEquals(66001, actualInstructions.size());
 
-        for (int i=0; i<65536; i++) {
+        for (int i = 0; i < 65536; i++) {
             Assert.assertEquals(Opcode.CONST_STRING, actualInstructions.get(i).getOpcode());
             Assert.assertEquals(String.format("%08d", i),
-                    ((StringReference)((ReferenceInstruction)actualInstructions.get(i)).getReference()).getString());
+                    ((StringReference) ((ReferenceInstruction) actualInstructions.get(i)).getReference()).getString());
         }
-        for (int i=65536; i<66000; i++) {
+        for (int i = 65536; i < 66000; i++) {
             Assert.assertEquals(Opcode.CONST_STRING_JUMBO, actualInstructions.get(i).getOpcode());
             Assert.assertEquals(String.format("%08d", i),
-                    ((StringReference)((ReferenceInstruction)actualInstructions.get(i)).getReference()).getString());
+                    ((StringReference) ((ReferenceInstruction) actualInstructions.get(i)).getReference()).getString());
         }
         Assert.assertEquals(Opcode.RETURN_VOID, actualInstructions.get(66000).getOpcode());
     }

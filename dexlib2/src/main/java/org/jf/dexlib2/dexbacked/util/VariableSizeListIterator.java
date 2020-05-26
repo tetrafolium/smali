@@ -45,7 +45,7 @@ public abstract class VariableSizeListIterator<T> implements ListIterator<T> {
 
     private int index;
 
-    protected VariableSizeListIterator(@Nonnull DexBuffer buffer, int offset, int size) {
+    protected VariableSizeListIterator(final @Nonnull DexBuffer buffer, final int offset, final int size) {
         this.reader = buffer.readerAt(offset);
         this.startOffset = offset;
         this.size = size;
@@ -84,7 +84,7 @@ public abstract class VariableSizeListIterator<T> implements ListIterator<T> {
 
     @Override
     public T previous() {
-        int targetIndex = index-1;
+        int targetIndex = index - 1;
         reader.setOffset(startOffset);
         index = 0;
         while (index < targetIndex) {
@@ -103,7 +103,10 @@ public abstract class VariableSizeListIterator<T> implements ListIterator<T> {
         return index - 1;
     }
 
-    @Override public void remove() { throw new UnsupportedOperationException(); }
-    @Override public void set(T t) { throw new UnsupportedOperationException(); }
-    @Override public void add(T t) { throw new UnsupportedOperationException(); }
+    @Override public void remove() {
+        throw new UnsupportedOperationException(); }
+    @Override public void set(final T t) {
+        throw new UnsupportedOperationException(); }
+    @Override public void add(final T t) {
+        throw new UnsupportedOperationException(); }
 }

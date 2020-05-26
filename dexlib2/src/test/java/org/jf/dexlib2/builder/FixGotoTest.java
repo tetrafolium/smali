@@ -21,7 +21,7 @@ public class FixGotoTest {
         Label gotoTarget = builder.getLabel("gotoTarget");
         builder.addInstruction(new BuilderInstruction10t(Opcode.GOTO, gotoTarget));
 
-        for (int i=0; i<500; i++) {
+        for (int i = 0; i < 500; i++) {
             builder.addInstruction(new BuilderInstruction10x(Opcode.NOP));
         }
 
@@ -34,7 +34,7 @@ public class FixGotoTest {
         Assert.assertEquals(502, instructions.size());
 
         Assert.assertEquals(Opcode.GOTO_16, instructions.get(0).getOpcode());
-        Assert.assertEquals(502, ((OffsetInstruction)instructions.get(0)).getCodeOffset());
+        Assert.assertEquals(502, ((OffsetInstruction) instructions.get(0)).getCodeOffset());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class FixGotoTest {
         Label gotoTarget = builder.getLabel("gotoTarget");
         builder.addInstruction(new BuilderInstruction10t(Opcode.GOTO, gotoTarget));
 
-        for (int i=0; i<70000; i++) {
+        for (int i = 0; i < 70000; i++) {
             builder.addInstruction(new BuilderInstruction10x(Opcode.NOP));
         }
 
@@ -57,7 +57,7 @@ public class FixGotoTest {
         Assert.assertEquals(70002, instructions.size());
 
         Assert.assertEquals(Opcode.GOTO_32, instructions.get(0).getOpcode());
-        Assert.assertEquals(70003, ((OffsetInstruction)instructions.get(0)).getCodeOffset());
+        Assert.assertEquals(70003, ((OffsetInstruction) instructions.get(0)).getCodeOffset());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class FixGotoTest {
         Label gotoTarget = builder.getLabel("gotoTarget");
         builder.addInstruction(new BuilderInstruction20t(Opcode.GOTO_16, gotoTarget));
 
-        for (int i=0; i<70000; i++) {
+        for (int i = 0; i < 70000; i++) {
             builder.addInstruction(new BuilderInstruction10x(Opcode.NOP));
         }
 
@@ -80,7 +80,7 @@ public class FixGotoTest {
         Assert.assertEquals(70002, instructions.size());
 
         Assert.assertEquals(Opcode.GOTO_32, instructions.get(0).getOpcode());
-        Assert.assertEquals(70003, ((OffsetInstruction)instructions.get(0)).getCodeOffset());
+        Assert.assertEquals(70003, ((OffsetInstruction) instructions.get(0)).getCodeOffset());
     }
 
     @Test
@@ -90,20 +90,20 @@ public class FixGotoTest {
         Label goto16Target = builder.getLabel("goto16Target");
         builder.addInstruction(new BuilderInstruction20t(Opcode.GOTO_16, goto16Target));
 
-        for (int i=0; i<1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             builder.addInstruction(new BuilderInstruction10x(Opcode.NOP));
         }
 
         Label gotoTarget = builder.getLabel("gotoTarget");
         builder.addInstruction(new BuilderInstruction10t(Opcode.GOTO, gotoTarget));
 
-        for (int i=0; i<499; i++) {
+        for (int i = 0; i < 499; i++) {
             builder.addInstruction(new BuilderInstruction10x(Opcode.NOP));
         }
 
         builder.addLabel("gotoTarget");
 
-        for (int i=0; i<31265; i++) {
+        for (int i = 0; i < 31265; i++) {
             builder.addInstruction(new BuilderInstruction10x(Opcode.NOP));
         }
 
@@ -116,7 +116,7 @@ public class FixGotoTest {
         Assert.assertEquals(32767, instructions.size());
 
         Assert.assertEquals(Opcode.GOTO_32, instructions.get(0).getOpcode());
-        Assert.assertEquals(32769, ((OffsetInstruction)instructions.get(0)).getCodeOffset());
+        Assert.assertEquals(32769, ((OffsetInstruction) instructions.get(0)).getCodeOffset());
 
     }
 }

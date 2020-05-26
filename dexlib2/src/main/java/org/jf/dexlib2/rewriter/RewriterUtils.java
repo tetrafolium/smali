@@ -40,8 +40,8 @@ import java.util.*;
 
 public class RewriterUtils {
     @Nullable
-    public static <T> T rewriteNullable(@Nonnull Rewriter<T> rewriter, @Nullable T value) {
-        return value==null?null:rewriter.rewrite(value);
+    public static <T> T rewriteNullable(final @Nonnull Rewriter<T> rewriter, final @Nullable T value) {
+        return value == null ? null : rewriter.rewrite(value);
     }
 
     public static <T> Set<T> rewriteSet(@Nonnull final Rewriter<T> rewriter,
@@ -73,7 +73,7 @@ public class RewriterUtils {
     public static <T> List<T> rewriteList(@Nonnull final Rewriter<T> rewriter,
                                         @Nonnull final List<? extends T> list) {
         return new AbstractList<T>() {
-            @Override public T get(int i) {
+            @Override public T get(final int i) {
                 return rewriteNullable(rewriter, list.get(i));
             }
 

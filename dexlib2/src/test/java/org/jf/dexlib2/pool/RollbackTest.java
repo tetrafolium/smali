@@ -98,7 +98,7 @@ public class RollbackTest {
 
         List<MapItem> mapItems1 = dexFile1.getMapItems();
         List<MapItem> mapItems2 = dexFile2.getMapItems();
-        for (int i=0; i<mapItems1.size(); i++) {
+        for (int i = 0; i < mapItems1.size(); i++) {
             Assert.assertEquals(mapItems1.get(i).getType(), mapItems2.get(i).getType());
             Assert.assertEquals(mapItems1.get(i).getItemCount(), mapItems2.get(i).getItemCount());
         }

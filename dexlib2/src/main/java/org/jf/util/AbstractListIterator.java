@@ -70,12 +70,12 @@ public abstract class AbstractListIterator<T> implements ListIterator<T> {
     }
 
     @Override
-    public void set(T t) {
+    public void set(final T t) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void add(T t) {
+    public void add(final T t) {
         throw new UnsupportedOperationException();
     }
 }

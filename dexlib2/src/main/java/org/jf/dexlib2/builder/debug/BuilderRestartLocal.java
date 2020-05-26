@@ -40,14 +40,19 @@ import javax.annotation.Nullable;
 public class BuilderRestartLocal extends BuilderDebugItem implements RestartLocal {
     private final int register;
 
-    public BuilderRestartLocal(int register) {
+    public BuilderRestartLocal(final int register) {
         this.register = register;
     }
 
-    @Override public int getRegister() { return register; }
-    @Nullable @Override public String getName() { return null; }
-    @Nullable @Override public String getType() { return null; }
-    @Nullable @Override public String getSignature() { return null; }
+    @Override public int getRegister() {
+        return register; }
+    @Nullable @Override public String getName() {
+        return null; }
+    @Nullable @Override public String getType() {
+        return null; }
+    @Nullable @Override public String getSignature() {
+        return null; }
 
-    @Override public int getDebugItemType() { return DebugItemType.RESTART_LOCAL; }
+    @Override public int getDebugItemType() {
+        return DebugItemType.RESTART_LOCAL; }
 }

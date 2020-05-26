@@ -58,7 +58,7 @@ public class TryListBuilder<EH extends ExceptionHandler>
     }
 
     public static <EH extends ExceptionHandler> List<TryBlock<EH>> massageTryBlocks(
-            List<? extends TryBlock<? extends EH>> tryBlocks) {
+            final List<? extends TryBlock<? extends EH>> tryBlocks) {
         TryListBuilder<EH> tlb = new TryListBuilder<EH>();
 
         for (TryBlock<? extends EH> tryBlock: tryBlocks) {
@@ -76,22 +76,22 @@ public class TryListBuilder<EH extends ExceptionHandler>
         @Nonnull public final MutableTryBlock<EH> start;
         @Nonnull public final MutableTryBlock<EH> end;
 
-        public TryBounds(@Nonnull MutableTryBlock<EH> start, @Nonnull MutableTryBlock<EH> end) {
+        public TryBounds(final @Nonnull MutableTryBlock<EH> start, final @Nonnull MutableTryBlock<EH> end) {
             this.start = start;
             this.end = end;
         }
     }
 
     public static class InvalidTryException extends ExceptionWithContext {
-        public InvalidTryException(Throwable cause) {
+        public InvalidTryException(final Throwable cause) {
             super(cause);
         }
 
-        public InvalidTryException(Throwable cause, String message, Object... formatArgs) {
+        public InvalidTryException(final Throwable cause, final String message, final Object... formatArgs) {
             super(cause, message, formatArgs);
         }
 
-        public InvalidTryException(String message, Object... formatArgs) {
+        public InvalidTryException(final String message, final Object... formatArgs) {
             super(message, formatArgs);
         }
     }
@@ -104,13 +104,13 @@ public class TryListBuilder<EH extends ExceptionHandler>
         public int endCodeAddress;
         @Nonnull public List<EH> exceptionHandlers = Lists.newArrayList();
 
-        public MutableTryBlock(int startCodeAddress, int endCodeAddress) {
+        public MutableTryBlock(final int startCodeAddress, final int endCodeAddress) {
             this.startCodeAddress = startCodeAddress;
             this.endCodeAddress = endCodeAddress;
         }
 
-        public MutableTryBlock(int startCodeAddress, int endCodeAddress,
-                               @Nonnull List<EH> exceptionHandlers) {
+        public MutableTryBlock(final int startCodeAddress, final int endCodeAddress,
+                               final @Nonnull List<EH> exceptionHandlers) {
             this.startCodeAddress = startCodeAddress;
             this.endCodeAddress = endCodeAddress;
             this.exceptionHandlers = Lists.newArrayList(exceptionHandlers);
@@ -129,7 +129,7 @@ public class TryListBuilder<EH extends ExceptionHandler>
         }
 
         @Nonnull
-        public MutableTryBlock<EH> split(int splitAddress) {
+        public MutableTryBlock<EH> split(final int splitAddress) {
             MutableTryBlock<EH> newTryBlock = new MutableTryBlock<EH>(splitAddress, endCodeAddress, exceptionHandlers);
             endCodeAddress = splitAddress;
             append(newTryBlock);
@@ -147,21 +147,21 @@ public class TryListBuilder<EH extends ExceptionHandler>
             next.delete();
         }
 
-        public void append(@Nonnull MutableTryBlock<EH> tryBlock) {
+        public void append(final @Nonnull MutableTryBlock<EH> tryBlock) {
             next.prev = tryBlock;
             tryBlock.next = next;
             tryBlock.prev = this;
             next = tryBlock;
         }
 
-        public void prepend(@Nonnull MutableTryBlock<EH> tryBlock) {
+        public void prepend(final @Nonnull MutableTryBlock<EH> tryBlock) {
             prev.next = tryBlock;
             tryBlock.prev = prev;
             tryBlock.next = this;
             prev = tryBlock;
         }
 
-        public void addHandler(@Nonnull EH handler) {
+        public void addHandler(final @Nonnull EH handler) {
             for (ExceptionHandler existingHandler: exceptionHandlers) {
                 String existingType = existingHandler.getExceptionType();
                 String newType = handler.getExceptionType();
@@ -186,7 +186,7 @@ public class TryListBuilder<EH extends ExceptionHandler>
         }
     }
 
-    private TryBounds<EH> getBoundingRanges(int startAddress, int endAddress) {
+    private TryBounds<EH> getBoundingRanges(final int startAddress, final int endAddress) {
         MutableTryBlock<EH> startBlock = null;
 
         MutableTryBlock<EH> tryBlock = listStart.next;
@@ -208,7 +208,7 @@ public class TryListBuilder<EH extends ExceptionHandler>
                 at the start address of the range being added*/
                 startBlock = tryBlock.split(startAddress);
                 break;
-            }else if (startAddress < currentStartAddress) {
+            } else if (startAddress < currentStartAddress) {
                 if (endAddress <= currentStartAddress) {
                     //      |-----|
                     //^--^
@@ -284,7 +284,7 @@ public class TryListBuilder<EH extends ExceptionHandler>
         return new TryBounds<EH>(startBlock, endBlock);
     }
 
-    public void addHandler(int startAddress, int endAddress, EH handler) {
+    public void addHandler(final int startAddress, final int endAddress, final EH handler) {
         TryBounds<EH> bounds = getBoundingRanges(startAddress, endAddress);
 
         MutableTryBlock<EH> startBlock = bounds.start;
@@ -335,8 +335,8 @@ public class TryListBuilder<EH extends ExceptionHandler>
                 }
 
                 while (ret.next != listEnd) {
-                    if (ret.endCodeAddress == ret.next.startCodeAddress &&
-                            ret.getExceptionHandlers().equals(ret.next.getExceptionHandlers())) {
+                    if (ret.endCodeAddress == ret.next.startCodeAddress
+                            && ret.getExceptionHandlers().equals(ret.next.getExceptionHandlers())) {
                         ret.mergeNext();
                     } else {
                         break;

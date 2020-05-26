@@ -43,15 +43,15 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentMap;
 
 class BuilderMethodPool extends BaseBuilderPool implements MethodSection<BuilderStringReference, BuilderTypeReference,
-        BuilderMethodProtoReference, BuilderMethodReference, BuilderMethod>{
+        BuilderMethodProtoReference, BuilderMethodReference, BuilderMethod> {
     @Nonnull private final ConcurrentMap<MethodReference, BuilderMethodReference> internedItems =
             Maps.newConcurrentMap();
 
-    public BuilderMethodPool(@Nonnull DexBuilder dexBuilder) {
+    public BuilderMethodPool(final @Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
     }
 
-    @Nonnull public BuilderMethodReference internMethod(@Nonnull MethodReference methodReference) {
+    @Nonnull public BuilderMethodReference internMethod(final @Nonnull MethodReference methodReference) {
         BuilderMethodReference ret = internedItems.get(methodReference);
         if (ret != null) {
             return ret;
@@ -62,52 +62,52 @@ class BuilderMethodPool extends BaseBuilderPool implements MethodSection<Builder
                 dexBuilder.stringSection.internString(methodReference.getName()),
                 dexBuilder.protoSection.internMethodProto(methodReference));
         ret = internedItems.putIfAbsent(dexPoolMethodReference, dexPoolMethodReference);
-        return ret==null?dexPoolMethodReference:ret;
+        return ret == null ? dexPoolMethodReference : ret;
     }
 
-    @Nonnull public BuilderMethodReference internMethod(@Nonnull String definingClass, @Nonnull String name,
-                                                        @Nonnull List<? extends CharSequence> parameters,
-                                                        @Nonnull String returnType) {
+    @Nonnull public BuilderMethodReference internMethod(final @Nonnull String definingClass, final @Nonnull String name,
+                                                        final @Nonnull List<? extends CharSequence> parameters,
+                                                        final @Nonnull String returnType) {
         return internMethod(new MethodKey(definingClass, name, parameters, returnType));
     }
 
-    @Nonnull @Override public BuilderMethodReference getMethodReference(@Nonnull BuilderMethod builderMethod) {
+    @Nonnull @Override public BuilderMethodReference getMethodReference(final @Nonnull BuilderMethod builderMethod) {
         return builderMethod.methodReference;
     }
 
     @Nonnull @Override
-    public BuilderTypeReference getDefiningClass(@Nonnull BuilderMethodReference key) {
+    public BuilderTypeReference getDefiningClass(final @Nonnull BuilderMethodReference key) {
         return key.definingClass; 
     }
 
     @Nonnull @Override
-    public BuilderMethodProtoReference getPrototype(@Nonnull BuilderMethodReference key) {
+    public BuilderMethodProtoReference getPrototype(final @Nonnull BuilderMethodReference key) {
         return key.proto;
     }
 
-    @Nonnull @Override public BuilderMethodProtoReference getPrototype(@Nonnull BuilderMethod builderMethod) {
+    @Nonnull @Override public BuilderMethodProtoReference getPrototype(final @Nonnull BuilderMethod builderMethod) {
         return builderMethod.methodReference.proto;
     }
 
-    @Nonnull @Override public BuilderStringReference getName(@Nonnull BuilderMethodReference key) {
+    @Nonnull @Override public BuilderStringReference getName(final @Nonnull BuilderMethodReference key) {
         return key.name;
     }
 
-    @Override public int getMethodIndex(@Nonnull BuilderMethod builderMethod) {
+    @Override public int getMethodIndex(final @Nonnull BuilderMethod builderMethod) {
         return builderMethod.methodReference.index;
     }
 
-    @Override public int getItemIndex(@Nonnull BuilderMethodReference key) {
+    @Override public int getItemIndex(final @Nonnull BuilderMethodReference key) {
         return key.index;
     }
 
     @Nonnull @Override public Collection<? extends Entry<? extends BuilderMethodReference, Integer>> getItems() {
         return new BuilderMapEntryCollection<BuilderMethodReference>(internedItems.values()) {
-            @Override protected int getValue(@Nonnull BuilderMethodReference key) {
+            @Override protected int getValue(final @Nonnull BuilderMethodReference key) {
                 return key.index;
             }
 
-            @Override protected int setValue(@Nonnull BuilderMethodReference key, int value) {
+            @Override protected int setValue(final @Nonnull BuilderMethodReference key, final int value) {
                 int prev = key.index;
                 key.index = value;
                 return prev;
@@ -125,8 +125,8 @@ class BuilderMethodPool extends BaseBuilderPool implements MethodSection<Builder
         @Nonnull private final List<? extends CharSequence> parameterTypes;
         @Nonnull private final String returnType;
 
-        public MethodKey(@Nonnull String definingClass, @Nonnull String name,
-                         @Nonnull List<? extends CharSequence> parameterTypes, @Nonnull String returnType) {
+        public MethodKey(final @Nonnull String definingClass, final @Nonnull String name,
+                         final @Nonnull List<? extends CharSequence> parameterTypes, final @Nonnull String returnType) {
             this.definingClass = definingClass;
             this.name = name;
             this.parameterTypes = parameterTypes;

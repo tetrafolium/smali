@@ -40,10 +40,12 @@ import javax.annotation.Nullable;
 public class DexBackedCatchAllExceptionHandler extends DexBackedExceptionHandler {
     private final int handlerCodeAddress;
 
-    public DexBackedCatchAllExceptionHandler(@Nonnull DexReader reader) {
+    public DexBackedCatchAllExceptionHandler(final @Nonnull DexReader reader) {
         this.handlerCodeAddress = reader.readSmallUleb128();
     }
 
-    @Nullable @Override public String getExceptionType() { return null; }
-    @Override public int getHandlerCodeAddress() { return handlerCodeAddress; }
+    @Nullable @Override public String getExceptionType() {
+        return null; }
+    @Override public int getHandlerCodeAddress() {
+        return handlerCodeAddress; }
 }

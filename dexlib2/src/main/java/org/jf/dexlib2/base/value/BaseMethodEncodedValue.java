@@ -46,19 +46,20 @@ public abstract class BaseMethodEncodedValue implements MethodEncodedValue {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof MethodEncodedValue) {
-            return getValue().equals(((MethodEncodedValue)o).getValue());
+            return getValue().equals(((MethodEncodedValue) o).getValue());
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull EncodedValue o) {
+    public int compareTo(final @Nonnull EncodedValue o) {
         int res = Ints.compare(getValueType(), o.getValueType());
         if (res != 0) return res;
-        return getValue().compareTo(((MethodEncodedValue)o).getValue());
+        return getValue().compareTo(((MethodEncodedValue) o).getValue());
     }
 
-    public int getValueType() { return ValueType.METHOD; }
+    public int getValueType() {
+        return ValueType.METHOD; }
 }

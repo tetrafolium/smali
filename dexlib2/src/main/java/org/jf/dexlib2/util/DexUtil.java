@@ -56,7 +56,7 @@ public class DexUtil {
      * @throws InvalidFile If the header appears to be a dex file, but is not valid for some reason
      * @throws UnsupportedFile If the dex header is valid, but uses unsupported functionality
      */
-    public static int verifyDexHeader(@Nonnull InputStream inputStream) throws IOException {
+    public static int verifyDexHeader(final @Nonnull InputStream inputStream) throws IOException {
         if (!inputStream.markSupported()) {
             throw new IllegalArgumentException("InputStream must support mark");
         }
@@ -83,11 +83,11 @@ public class DexUtil {
      * @throws InvalidFile If the header appears to be a dex file, but is not valid for some reason
      * @throws UnsupportedFile If the dex header is valid, but uses unsupported functionality
      */
-    public static int verifyDexHeader(@Nonnull byte[] buf, int offset) {
+    public static int verifyDexHeader(final @Nonnull byte[] buf, final int offset) {
         int dexVersion = HeaderItem.getVersion(buf, offset);
         if (dexVersion == -1) {
             StringBuilder sb = new StringBuilder("Not a valid dex magic value:");
-            for (int i=0; i<8; i++) {
+            for (int i = 0; i < 8; i++) {
                 sb.append(String.format(" %02x", buf[i]));
             }
             throw new NotADexFile(sb.toString());
@@ -119,11 +119,11 @@ public class DexUtil {
      * @throws InvalidFile If the header appears to be a cdex file, but is not valid for some reason
      * @throws UnsupportedFile If the cdex header is valid, but uses unsupported functionality
      */
-    public static int verifyCdexHeader(@Nonnull byte[] buf, int offset) {
+    public static int verifyCdexHeader(final @Nonnull byte[] buf, final int offset) {
         int cdexVersion = CdexHeaderItem.getVersion(buf, offset);
         if (cdexVersion == -1) {
             StringBuilder sb = new StringBuilder("Not a valid cdex magic value:");
-            for (int i=0; i<8; i++) {
+            for (int i = 0; i < 8; i++) {
                 sb.append(String.format(" %02x", buf[offset + i]));
             }
             throw new NotADexFile(sb.toString());
@@ -154,7 +154,7 @@ public class DexUtil {
      * @throws NotAnOdexFile If the file is not an odex file
      * @throws UnsupportedFile If the odex header is valid, but is an unsupported version
      */
-    public static void verifyOdexHeader(@Nonnull InputStream inputStream) throws IOException {
+    public static void verifyOdexHeader(final @Nonnull InputStream inputStream) throws IOException {
         if (!inputStream.markSupported()) {
             throw new IllegalArgumentException("InputStream must support mark");
         }
@@ -179,11 +179,11 @@ public class DexUtil {
      * @throws NotAnOdexFile If the file is not an odex file
      * @throws UnsupportedFile If the odex header is valid, but uses unsupported functionality
      */
-    public static void verifyOdexHeader(@Nonnull byte[] buf, int offset) {
+    public static void verifyOdexHeader(final @Nonnull byte[] buf, final int offset) {
         int odexVersion = OdexHeaderItem.getVersion(buf, offset);
         if (odexVersion == -1) {
             StringBuilder sb = new StringBuilder("Not a valid odex magic value:");
-            for (int i=0; i<8; i++) {
+            for (int i = 0; i < 8; i++) {
                 sb.append(String.format(" %02x", buf[i]));
             }
             throw new NotAnOdexFile(sb.toString());
@@ -198,15 +198,15 @@ public class DexUtil {
         public InvalidFile() {
         }
 
-        public InvalidFile(String message) {
+        public InvalidFile(final String message) {
             super(message);
         }
 
-        public InvalidFile(String message, Throwable cause) {
+        public InvalidFile(final String message, final Throwable cause) {
             super(message, cause);
         }
 
-        public InvalidFile(Throwable cause) {
+        public InvalidFile(final Throwable cause) {
             super(cause);
         }
     }
@@ -215,15 +215,15 @@ public class DexUtil {
         public UnsupportedFile() {
         }
 
-        public UnsupportedFile(String message) {
+        public UnsupportedFile(final String message) {
             super(message);
         }
 
-        public UnsupportedFile(String message, Throwable cause) {
+        public UnsupportedFile(final String message, final Throwable cause) {
             super(message, cause);
         }
 
-        public UnsupportedFile(Throwable cause) {
+        public UnsupportedFile(final Throwable cause) {
             super(cause);
         }
     }

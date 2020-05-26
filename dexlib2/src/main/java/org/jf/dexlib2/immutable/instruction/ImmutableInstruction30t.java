@@ -42,22 +42,24 @@ public class ImmutableInstruction30t extends ImmutableInstruction implements Ins
 
     protected final int codeOffset;
 
-    public ImmutableInstruction30t(@Nonnull Opcode opcode,
-                                   int codeOffset) {
+    public ImmutableInstruction30t(final @Nonnull Opcode opcode,
+                                   final int codeOffset) {
         super(opcode);
         this.codeOffset = codeOffset;
     }
 
-    public static ImmutableInstruction30t of(Instruction30t instruction) {
+    public static ImmutableInstruction30t of(final Instruction30t instruction) {
         if (instruction instanceof ImmutableInstruction30t) {
-            return (ImmutableInstruction30t)instruction;
+            return (ImmutableInstruction30t) instruction;
         }
         return new ImmutableInstruction30t(
                 instruction.getOpcode(),
                 instruction.getCodeOffset());
     }
 
-    @Override public int getCodeOffset() { return codeOffset; }
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public int getCodeOffset() {
+        return codeOffset; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }
 

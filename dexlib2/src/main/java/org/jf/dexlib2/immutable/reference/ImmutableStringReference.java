@@ -39,17 +39,18 @@ import javax.annotation.Nonnull;
 public class ImmutableStringReference extends BaseStringReference implements ImmutableReference {
     @Nonnull protected final String str;
 
-    public ImmutableStringReference(String str) {
+    public ImmutableStringReference(final String str) {
         this.str = str;
     }
 
     @Nonnull
-    public static ImmutableStringReference of(@Nonnull StringReference stringReference) {
+    public static ImmutableStringReference of(final @Nonnull StringReference stringReference) {
         if (stringReference instanceof ImmutableStringReference) {
-            return (ImmutableStringReference)stringReference;
+            return (ImmutableStringReference) stringReference;
         }
         return new ImmutableStringReference(stringReference.getString());
     }
 
-    @Nonnull @Override public String getString() { return str; }
+    @Nonnull @Override public String getString() {
+        return str; }
 }

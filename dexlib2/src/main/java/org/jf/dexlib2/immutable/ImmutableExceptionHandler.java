@@ -43,40 +43,42 @@ public class ImmutableExceptionHandler extends BaseExceptionHandler implements E
     @Nullable protected final String exceptionType;
     protected final int handlerCodeAddress;
 
-    public ImmutableExceptionHandler(@Nullable String exceptionType,
-                                     int handlerCodeAddress) {
+    public ImmutableExceptionHandler(final @Nullable String exceptionType,
+                                     final int handlerCodeAddress) {
         this.exceptionType = exceptionType;
         this.handlerCodeAddress = handlerCodeAddress;
     }
 
-    public static ImmutableExceptionHandler of(ExceptionHandler exceptionHandler) {
+    public static ImmutableExceptionHandler of(final ExceptionHandler exceptionHandler) {
         if (exceptionHandler instanceof ImmutableExceptionHandler) {
-            return (ImmutableExceptionHandler)exceptionHandler;
+            return (ImmutableExceptionHandler) exceptionHandler;
         }
         return new ImmutableExceptionHandler(
                 exceptionHandler.getExceptionType(),
                 exceptionHandler.getHandlerCodeAddress());
     }
 
-    @Nullable @Override public String getExceptionType() { return exceptionType; }
-    @Override public int getHandlerCodeAddress() { return handlerCodeAddress; }
+    @Nullable @Override public String getExceptionType() {
+        return exceptionType; }
+    @Override public int getHandlerCodeAddress() {
+        return handlerCodeAddress; }
 
     @Nonnull
     public static ImmutableList<ImmutableExceptionHandler> immutableListOf(
-            @Nullable Iterable<? extends ExceptionHandler> list) {
+            final @Nullable Iterable<? extends ExceptionHandler> list) {
         return CONVERTER.toList(list);
     }
 
     private static final ImmutableConverter<ImmutableExceptionHandler, ExceptionHandler> CONVERTER =
             new ImmutableConverter<ImmutableExceptionHandler, ExceptionHandler>() {
                 @Override
-                protected boolean isImmutable(@Nonnull ExceptionHandler item) {
+                protected boolean isImmutable(final @Nonnull ExceptionHandler item) {
                     return item instanceof ImmutableExceptionHandler;
                 }
 
                 @Nonnull
                 @Override
-                protected ImmutableExceptionHandler makeImmutable(@Nonnull ExceptionHandler item) {
+                protected ImmutableExceptionHandler makeImmutable(final @Nonnull ExceptionHandler item) {
                     return ImmutableExceptionHandler.of(item);
                 }
             };

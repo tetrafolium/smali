@@ -41,18 +41,18 @@ public class ImmutableFieldReference extends BaseFieldReference implements Immut
     @Nonnull protected final String name;
     @Nonnull protected final String type;
 
-    public ImmutableFieldReference(@Nonnull String definingClass,
-                                   @Nonnull String name,
-                                   @Nonnull String type) {
+    public ImmutableFieldReference(final @Nonnull String definingClass,
+                                   final @Nonnull String name,
+                                   final @Nonnull String type) {
         this.definingClass = definingClass;
         this.name = name;
         this.type = type;
     }
 
     @Nonnull
-    public static ImmutableFieldReference of(@Nonnull FieldReference fieldReference) {
+    public static ImmutableFieldReference of(final @Nonnull FieldReference fieldReference) {
         if (fieldReference instanceof ImmutableFieldReference) {
-            return (ImmutableFieldReference)fieldReference;
+            return (ImmutableFieldReference) fieldReference;
         }
         return new ImmutableFieldReference(
                 fieldReference.getDefiningClass(),
@@ -60,7 +60,10 @@ public class ImmutableFieldReference extends BaseFieldReference implements Immut
                 fieldReference.getType());
     }
 
-    @Nonnull public String getDefiningClass() { return definingClass; }
-    @Nonnull public String getName() { return name; }
-    @Nonnull public String getType() { return type; }
+    @Nonnull public String getDefiningClass() {
+        return definingClass; }
+    @Nonnull public String getName() {
+        return name; }
+    @Nonnull public String getType() {
+        return type; }
 }

@@ -46,178 +46,178 @@ public class ImmutableInstructionFactory implements InstructionFactory<Reference
     private ImmutableInstructionFactory() {
     }
 
-    public ImmutableInstruction10t makeInstruction10t(@Nonnull Opcode opcode,
-                                                      int codeOffset) {
+    public ImmutableInstruction10t makeInstruction10t(final @Nonnull Opcode opcode,
+                                                      final int codeOffset) {
         return new ImmutableInstruction10t(opcode, codeOffset);
     }
 
-    public ImmutableInstruction10x makeInstruction10x(@Nonnull Opcode opcode) {
+    public ImmutableInstruction10x makeInstruction10x(final @Nonnull Opcode opcode) {
         return new ImmutableInstruction10x(opcode);
     }
 
-    public ImmutableInstruction11n makeInstruction11n(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int literal) {
+    public ImmutableInstruction11n makeInstruction11n(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int literal) {
         return new ImmutableInstruction11n(opcode, registerA, literal);
     }
 
-    public ImmutableInstruction11x makeInstruction11x(@Nonnull Opcode opcode,
-                                                      int registerA) {
+    public ImmutableInstruction11x makeInstruction11x(final @Nonnull Opcode opcode,
+                                                      final int registerA) {
         return new ImmutableInstruction11x(opcode, registerA);
     }
 
-    public ImmutableInstruction12x makeInstruction12x(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int registerB) {
+    public ImmutableInstruction12x makeInstruction12x(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int registerB) {
         return new ImmutableInstruction12x(opcode, registerA, registerB);
     }
 
-    public ImmutableInstruction20bc makeInstruction20bc(@Nonnull Opcode opcode,
-                                                        int verificationError,
-                                                        @Nonnull Reference reference) {
+    public ImmutableInstruction20bc makeInstruction20bc(final @Nonnull Opcode opcode,
+                                                        final int verificationError,
+                                                        final @Nonnull Reference reference) {
         return new ImmutableInstruction20bc(opcode, verificationError, reference);
     }
 
-    public ImmutableInstruction20t makeInstruction20t(@Nonnull Opcode opcode,
-                                                      int codeOffset) {
+    public ImmutableInstruction20t makeInstruction20t(final @Nonnull Opcode opcode,
+                                                      final int codeOffset) {
         return new ImmutableInstruction20t(opcode, codeOffset);
     }
 
-    public ImmutableInstruction21c makeInstruction21c(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      @Nonnull Reference reference) {
+    public ImmutableInstruction21c makeInstruction21c(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final @Nonnull Reference reference) {
         return new ImmutableInstruction21c(opcode, registerA, reference);
     }
 
-    public ImmutableInstruction21ih makeInstruction21ih(@Nonnull Opcode opcode,
-                                                        int registerA,
-                                                        int literal) {
+    public ImmutableInstruction21ih makeInstruction21ih(final @Nonnull Opcode opcode,
+                                                        final int registerA,
+                                                        final int literal) {
         return new ImmutableInstruction21ih(opcode, registerA, literal);
     }
 
-    public ImmutableInstruction21lh makeInstruction21lh(@Nonnull Opcode opcode,
-                                                        int registerA,
-                                                        long literal) {
+    public ImmutableInstruction21lh makeInstruction21lh(final @Nonnull Opcode opcode,
+                                                        final int registerA,
+                                                        final long literal) {
         return new ImmutableInstruction21lh(opcode, registerA, literal);
     }
 
-    public ImmutableInstruction21s makeInstruction21s(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int literal) {
+    public ImmutableInstruction21s makeInstruction21s(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int literal) {
         return new ImmutableInstruction21s(opcode, registerA, literal);
     }
 
-    public ImmutableInstruction21t makeInstruction21t(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int codeOffset) {
+    public ImmutableInstruction21t makeInstruction21t(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int codeOffset) {
         return new ImmutableInstruction21t(opcode, registerA, codeOffset);
     }
 
-    public ImmutableInstruction22b makeInstruction22b(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int registerB,
-                                                      int literal) {
+    public ImmutableInstruction22b makeInstruction22b(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int registerB,
+                                                      final int literal) {
         return new ImmutableInstruction22b(opcode, registerA, registerB, literal);
     }
 
-    public ImmutableInstruction22c makeInstruction22c(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int registerB,
-                                                      @Nonnull Reference reference) {
+    public ImmutableInstruction22c makeInstruction22c(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int registerB,
+                                                      final @Nonnull Reference reference) {
         return new ImmutableInstruction22c(opcode, registerA, registerB, reference);
     }
 
-    public ImmutableInstruction22s makeInstruction22s(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int registerB,
-                                                      int literal) {
+    public ImmutableInstruction22s makeInstruction22s(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int registerB,
+                                                      final int literal) {
         return new ImmutableInstruction22s(opcode, registerA, registerB, literal);
     }
 
-    public ImmutableInstruction22t makeInstruction22t(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int registerB,
-                                                      int codeOffset) {
+    public ImmutableInstruction22t makeInstruction22t(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int registerB,
+                                                      final int codeOffset) {
         return new ImmutableInstruction22t(opcode, registerA, registerB, codeOffset);
     }
 
-    public ImmutableInstruction22x makeInstruction22x(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int registerB) {
+    public ImmutableInstruction22x makeInstruction22x(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int registerB) {
         return new ImmutableInstruction22x(opcode, registerA, registerB);
     }
 
-    public ImmutableInstruction23x makeInstruction23x(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int registerB,
-                                                      int registerC) {
+    public ImmutableInstruction23x makeInstruction23x(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int registerB,
+                                                      final int registerC) {
         return new ImmutableInstruction23x(opcode, registerA, registerB, registerC);
     }
 
-    public ImmutableInstruction30t makeInstruction30t(@Nonnull Opcode opcode,
-                                                      int codeOffset) {
+    public ImmutableInstruction30t makeInstruction30t(final @Nonnull Opcode opcode,
+                                                      final int codeOffset) {
         return new ImmutableInstruction30t(opcode, codeOffset);
     }
 
-    public ImmutableInstruction31c makeInstruction31c(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      @Nonnull Reference reference) {
+    public ImmutableInstruction31c makeInstruction31c(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final @Nonnull Reference reference) {
         return new ImmutableInstruction31c(opcode, registerA, reference);
     }
 
-    public ImmutableInstruction31i makeInstruction31i(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int literal) {
+    public ImmutableInstruction31i makeInstruction31i(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int literal) {
         return new ImmutableInstruction31i(opcode, registerA, literal);
     }
 
-    public ImmutableInstruction31t makeInstruction31t(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int codeOffset) {
+    public ImmutableInstruction31t makeInstruction31t(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int codeOffset) {
         return new ImmutableInstruction31t(opcode, registerA, codeOffset);
     }
 
-    public ImmutableInstruction32x makeInstruction32x(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      int registerB) {
+    public ImmutableInstruction32x makeInstruction32x(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final int registerB) {
         return new ImmutableInstruction32x(opcode, registerA, registerB);
     }
 
-    public ImmutableInstruction35c makeInstruction35c(@Nonnull Opcode opcode,
-                                                      int registerCount,
-                                                      int registerC,
-                                                      int registerD,
-                                                      int registerE,
-                                                      int registerF,
-                                                      int registerG,
-                                                      @Nonnull Reference reference) {
+    public ImmutableInstruction35c makeInstruction35c(final @Nonnull Opcode opcode,
+                                                      final int registerCount,
+                                                      final int registerC,
+                                                      final int registerD,
+                                                      final int registerE,
+                                                      final int registerF,
+                                                      final int registerG,
+                                                      final @Nonnull Reference reference) {
         return new ImmutableInstruction35c(opcode, registerCount, registerC, registerD, registerE, registerF, registerG,
                 reference);
     }
 
-    public ImmutableInstruction3rc makeInstruction3rc(@Nonnull Opcode opcode,
-                                                      int startRegister,
-                                                      int registerCount,
-                                                      @Nonnull Reference reference) {
+    public ImmutableInstruction3rc makeInstruction3rc(final @Nonnull Opcode opcode,
+                                                      final int startRegister,
+                                                      final int registerCount,
+                                                      final @Nonnull Reference reference) {
         return new ImmutableInstruction3rc(opcode, startRegister, registerCount, reference);
     }
 
-    public ImmutableInstruction51l makeInstruction51l(@Nonnull Opcode opcode,
-                                                      int registerA,
-                                                      long literal) {
+    public ImmutableInstruction51l makeInstruction51l(final @Nonnull Opcode opcode,
+                                                      final int registerA,
+                                                      final long literal) {
         return new ImmutableInstruction51l(opcode, registerA, literal);
     }
 
-    public ImmutableSparseSwitchPayload makeSparseSwitchPayload(@Nullable List<? extends SwitchElement> switchElements) {
+    public ImmutableSparseSwitchPayload makeSparseSwitchPayload(final @Nullable List<? extends SwitchElement> switchElements) {
         return new ImmutableSparseSwitchPayload(switchElements);
     }
 
-    public ImmutablePackedSwitchPayload makePackedSwitchPayload(@Nullable List<? extends SwitchElement> switchElements) {
+    public ImmutablePackedSwitchPayload makePackedSwitchPayload(final @Nullable List<? extends SwitchElement> switchElements) {
         return new ImmutablePackedSwitchPayload(switchElements);
     }
 
-    public ImmutableArrayPayload makeArrayPayload(int elementWidth,
-                                                @Nullable List<Number> arrayElements) {
+    public ImmutableArrayPayload makeArrayPayload(final int elementWidth,
+                                                final @Nullable List<Number> arrayElements) {
         return new ImmutableArrayPayload(elementWidth, arrayElements);
     }
 }

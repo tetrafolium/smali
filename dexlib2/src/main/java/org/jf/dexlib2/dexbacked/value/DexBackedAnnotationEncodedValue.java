@@ -47,7 +47,7 @@ public class DexBackedAnnotationEncodedValue extends BaseAnnotationEncodedValue 
     private final int elementCount;
     private final int elementsOffset;
 
-    public DexBackedAnnotationEncodedValue(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader reader) {
+    public DexBackedAnnotationEncodedValue(final @Nonnull DexBackedDexFile dexFile, final @Nonnull DexReader reader) {
         this.dexFile = dexFile;
         this.type = dexFile.getTypeSection().get(reader.readSmallUleb128());
         this.elementCount = reader.readSmallUleb128();
@@ -55,20 +55,21 @@ public class DexBackedAnnotationEncodedValue extends BaseAnnotationEncodedValue 
         skipElements(reader, elementCount);
     }
 
-    public static void skipFrom(@Nonnull DexReader reader) {
+    public static void skipFrom(final @Nonnull DexReader reader) {
         reader.skipUleb128(); // type
         int elementCount = reader.readSmallUleb128();
         skipElements(reader, elementCount);
     }
 
-    private static void skipElements(@Nonnull DexReader reader, int elementCount) {
-        for (int i=0; i<elementCount; i++) {
+    private static void skipElements(final @Nonnull DexReader reader, final int elementCount) {
+        for (int i = 0; i < elementCount; i++) {
             reader.skipUleb128();
             DexBackedEncodedValue.skipFrom(reader);
         }
     }
 
-    @Nonnull @Override public String getType() { return type; }
+    @Nonnull @Override public String getType() {
+        return type; }
 
     @Nonnull
     @Override
@@ -76,7 +77,7 @@ public class DexBackedAnnotationEncodedValue extends BaseAnnotationEncodedValue 
         return new VariableSizeSet<DexBackedAnnotationElement>(dexFile.getDataBuffer(), elementsOffset, elementCount) {
             @Nonnull
             @Override
-            protected DexBackedAnnotationElement readNextItem(@Nonnull DexReader dexReader, int index) {
+            protected DexBackedAnnotationElement readNextItem(final @Nonnull DexReader dexReader, final int index) {
                 return new DexBackedAnnotationElement(dexFile, dexReader);
             }
         };

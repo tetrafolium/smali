@@ -43,8 +43,8 @@ public class ImmutableRestartLocal extends ImmutableDebugItem implements Restart
     @Nullable protected final String type;
     @Nullable protected final String signature;
 
-    public ImmutableRestartLocal(int codeAddress,
-                                 int register) {
+    public ImmutableRestartLocal(final int codeAddress,
+                                 final int register) {
         super(codeAddress);
         this.register = register;
         this.name = null;
@@ -52,11 +52,11 @@ public class ImmutableRestartLocal extends ImmutableDebugItem implements Restart
         this.signature = null;
     }
 
-    public ImmutableRestartLocal(int codeAddress,
-                                 int register,
-                                 @Nullable String name,
-                                 @Nullable String type,
-                                 @Nullable String signature) {
+    public ImmutableRestartLocal(final int codeAddress,
+                                 final int register,
+                                 final @Nullable String name,
+                                 final @Nullable String type,
+                                 final @Nullable String signature) {
         super(codeAddress);
         this.register = register;
         this.name = name;
@@ -65,9 +65,9 @@ public class ImmutableRestartLocal extends ImmutableDebugItem implements Restart
     }
 
     @Nonnull
-    public static ImmutableRestartLocal of(@Nonnull RestartLocal restartLocal) {
+    public static ImmutableRestartLocal of(final @Nonnull RestartLocal restartLocal) {
         if (restartLocal instanceof  ImmutableRestartLocal) {
-            return (ImmutableRestartLocal)restartLocal;
+            return (ImmutableRestartLocal) restartLocal;
         }
         return new ImmutableRestartLocal(
                 restartLocal.getCodeAddress(),
@@ -77,10 +77,15 @@ public class ImmutableRestartLocal extends ImmutableDebugItem implements Restart
                 restartLocal.getSignature());
     }
 
-    @Override public int getRegister() { return register; }
-    @Nullable @Override public String getName() { return name; }
-    @Nullable @Override public String getType() { return type; }
-    @Nullable @Override public String getSignature() { return signature; }
+    @Override public int getRegister() {
+        return register; }
+    @Nullable @Override public String getName() {
+        return name; }
+    @Nullable @Override public String getType() {
+        return type; }
+    @Nullable @Override public String getSignature() {
+        return signature; }
 
-    @Override public int getDebugItemType() { return DebugItemType.RESTART_LOCAL; }
+    @Override public int getDebugItemType() {
+        return DebugItemType.RESTART_LOCAL; }
 }

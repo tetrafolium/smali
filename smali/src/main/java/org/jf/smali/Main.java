@@ -72,7 +72,7 @@ public class Main extends Command {
         super(Lists.<JCommander>newArrayList());
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         Main main = new Main();
 
         JCommander jc = new JCommander(main);
@@ -96,7 +96,7 @@ public class Main extends Command {
             return;
         }
 
-        Command command = (Command)jc.getCommands().get(jc.getParsedCommand()).getObjects().get(0);
+        Command command = (Command) jc.getCommands().get(jc.getParsedCommand()).getObjects().get(0);
         command.run();
     }
 

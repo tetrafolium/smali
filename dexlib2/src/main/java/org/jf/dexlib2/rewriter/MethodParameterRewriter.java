@@ -42,18 +42,18 @@ import java.util.Set;
 public class MethodParameterRewriter implements Rewriter<MethodParameter> {
     @Nonnull protected final Rewriters rewriters;
 
-    public MethodParameterRewriter(@Nonnull Rewriters rewriters) {
+    public MethodParameterRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public MethodParameter rewrite(@Nonnull MethodParameter methodParameter) {
+    @Nonnull @Override public MethodParameter rewrite(final @Nonnull MethodParameter methodParameter) {
         return new RewrittenMethodParameter(methodParameter);
     }
 
     protected class RewrittenMethodParameter extends BaseMethodParameter {
         @Nonnull protected MethodParameter methodParameter;
 
-        public RewrittenMethodParameter(@Nonnull MethodParameter methodParameter) {
+        public RewrittenMethodParameter(final @Nonnull MethodParameter methodParameter) {
             this.methodParameter = methodParameter;
         }
 

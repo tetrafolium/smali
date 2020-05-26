@@ -47,25 +47,25 @@ public class ImmutableAnnotation extends BaseAnnotation {
     @Nonnull protected final String type;
     @Nonnull protected final ImmutableSet<? extends ImmutableAnnotationElement> elements;
 
-    public ImmutableAnnotation(int visibility,
-                               @Nonnull String type,
-                               @Nullable Collection<? extends AnnotationElement> elements) {
+    public ImmutableAnnotation(final int visibility,
+                               final @Nonnull String type,
+                               final @Nullable Collection<? extends AnnotationElement> elements) {
         this.visibility = visibility;
         this.type = type;
         this.elements = ImmutableAnnotationElement.immutableSetOf(elements);
     }
 
-    public ImmutableAnnotation(int visibility,
-                               @Nonnull String type,
-                               @Nullable ImmutableSet<? extends ImmutableAnnotationElement> elements) {
+    public ImmutableAnnotation(final int visibility,
+                               final @Nonnull String type,
+                               final @Nullable ImmutableSet<? extends ImmutableAnnotationElement> elements) {
         this.visibility = visibility;
         this.type = type;
         this.elements = ImmutableUtils.nullToEmptySet(elements);
     }
 
-    public static ImmutableAnnotation of(Annotation annotation) {
+    public static ImmutableAnnotation of(final Annotation annotation) {
         if (annotation instanceof  ImmutableAnnotation) {
-            return (ImmutableAnnotation)annotation;
+            return (ImmutableAnnotation) annotation;
         }
         return new ImmutableAnnotation(
                 annotation.getVisibility(),
@@ -73,25 +73,28 @@ public class ImmutableAnnotation extends BaseAnnotation {
                 annotation.getElements());
     }
 
-    @Override public int getVisibility() { return visibility; }
-    @Nonnull @Override public String getType() { return type; }
-    @Nonnull @Override public ImmutableSet<? extends ImmutableAnnotationElement> getElements() { return elements; }
+    @Override public int getVisibility() {
+        return visibility; }
+    @Nonnull @Override public String getType() {
+        return type; }
+    @Nonnull @Override public ImmutableSet<? extends ImmutableAnnotationElement> getElements() {
+        return elements; }
 
     @Nonnull
-    public static ImmutableSet<ImmutableAnnotation> immutableSetOf(@Nullable Iterable<? extends Annotation> list) {
+    public static ImmutableSet<ImmutableAnnotation> immutableSetOf(final @Nullable Iterable<? extends Annotation> list) {
         return CONVERTER.toSet(list);
     }
 
     private static final ImmutableConverter<ImmutableAnnotation, Annotation> CONVERTER =
             new ImmutableConverter<ImmutableAnnotation, Annotation>() {
                 @Override
-                protected boolean isImmutable(@Nonnull Annotation item) {
+                protected boolean isImmutable(final @Nonnull Annotation item) {
                     return item instanceof ImmutableAnnotation;
                 }
 
                 @Nonnull
                 @Override
-                protected ImmutableAnnotation makeImmutable(@Nonnull Annotation item) {
+                protected ImmutableAnnotation makeImmutable(final @Nonnull Annotation item) {
                     return ImmutableAnnotation.of(item);
                 }
             };

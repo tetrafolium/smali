@@ -42,18 +42,18 @@ import java.io.File;
  */
 public abstract class IdenticalRoundtripTest extends RoundtripTest {
 
-    public IdenticalRoundtripTest(@Nonnull String testDir) {
+    public IdenticalRoundtripTest(final @Nonnull String testDir) {
         super(testDir);
     }
 
     public IdenticalRoundtripTest() {
     }
 
-    @Nonnull @Override protected String getInputFilename(@Nonnull String testName) {
+    @Nonnull @Override protected String getInputFilename(final @Nonnull String testName) {
         return String.format("%s%s%s.smali", testDir, File.separatorChar, testName);
     }
 
-    @Nonnull @Override protected String getOutputFilename(@Nonnull String testName) {
+    @Nonnull @Override protected String getOutputFilename(final @Nonnull String testName) {
         return getInputFilename(testName);
     }
 }

@@ -44,17 +44,17 @@ public class ImmutableInstruction21ih extends ImmutableInstruction implements In
     protected final int registerA;
     protected final int literal;
 
-    public ImmutableInstruction21ih(@Nonnull Opcode opcode,
-                                    int registerA,
-                                    int literal) {
+    public ImmutableInstruction21ih(final @Nonnull Opcode opcode,
+                                    final int registerA,
+                                    final int literal) {
         super(opcode);
         this.registerA = Preconditions.checkByteRegister(registerA);
         this.literal = Preconditions.checkIntegerHatLiteral(literal);
     }
 
-    public static ImmutableInstruction21ih of(Instruction21ih instruction) {
+    public static ImmutableInstruction21ih of(final Instruction21ih instruction) {
         if (instruction instanceof ImmutableInstruction21ih) {
-            return (ImmutableInstruction21ih)instruction;
+            return (ImmutableInstruction21ih) instruction;
         }
         return new ImmutableInstruction21ih(
                 instruction.getOpcode(),
@@ -62,10 +62,15 @@ public class ImmutableInstruction21ih extends ImmutableInstruction implements In
                 instruction.getNarrowLiteral());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getNarrowLiteral() { return literal; }
-    @Override public long getWideLiteral() { return literal; }
-    @Override public short getHatLiteral() { return (short)(literal >>> 16); }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getNarrowLiteral() {
+        return literal; }
+    @Override public long getWideLiteral() {
+        return literal; }
+    @Override public short getHatLiteral() {
+        return (short) (literal >>> 16); }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

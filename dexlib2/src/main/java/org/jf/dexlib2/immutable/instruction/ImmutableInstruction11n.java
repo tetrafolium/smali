@@ -44,17 +44,17 @@ public class ImmutableInstruction11n extends ImmutableInstruction implements Ins
     protected final int registerA;
     protected final int literal;
 
-    public ImmutableInstruction11n(@Nonnull Opcode opcode,
-                                   int registerA,
-                                   int literal) {
+    public ImmutableInstruction11n(final @Nonnull Opcode opcode,
+                                   final int registerA,
+                                   final int literal) {
         super(opcode);
         this.registerA = Preconditions.checkNibbleRegister(registerA);
         this.literal = Preconditions.checkNibbleLiteral(literal);
     }
     
-    public static ImmutableInstruction11n of(Instruction11n instruction) {
+    public static ImmutableInstruction11n of(final Instruction11n instruction) {
         if (instruction instanceof ImmutableInstruction11n) {
-            return (ImmutableInstruction11n)instruction;
+            return (ImmutableInstruction11n) instruction;
         }
         return new ImmutableInstruction11n(
                 instruction.getOpcode(),
@@ -62,9 +62,13 @@ public class ImmutableInstruction11n extends ImmutableInstruction implements Ins
                 instruction.getNarrowLiteral());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getNarrowLiteral() { return literal; }
-    @Override public long getWideLiteral() { return literal; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getNarrowLiteral() {
+        return literal; }
+    @Override public long getWideLiteral() {
+        return literal; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

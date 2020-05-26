@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
 public abstract class BuilderExceptionHandler extends BaseExceptionHandler {
     @Nonnull protected final Label handler;
 
-    private BuilderExceptionHandler(@Nonnull Label handler) {
+    private BuilderExceptionHandler(final @Nonnull Label handler) {
         this.handler = handler;
     }
 
@@ -50,7 +50,7 @@ public abstract class BuilderExceptionHandler extends BaseExceptionHandler {
     }
 
     static BuilderExceptionHandler newExceptionHandler(@Nullable final TypeReference exceptionType,
-                                                @Nonnull Label handler) {
+                                                final @Nonnull Label handler) {
         if (exceptionType == null) {
             return newExceptionHandler(handler);
         }
@@ -69,7 +69,7 @@ public abstract class BuilderExceptionHandler extends BaseExceptionHandler {
         };
     }
 
-    static BuilderExceptionHandler newExceptionHandler(@Nonnull Label handler) {
+    static BuilderExceptionHandler newExceptionHandler(final @Nonnull Label handler) {
         return new BuilderExceptionHandler(handler) {
             @Nullable @Override public String getExceptionType() {
                 return null;
@@ -82,7 +82,7 @@ public abstract class BuilderExceptionHandler extends BaseExceptionHandler {
     }
 
     static BuilderExceptionHandler newExceptionHandler(@Nullable final String exceptionType,
-                                                @Nonnull Label handler) {
+                                                final @Nonnull Label handler) {
         if (exceptionType == null) {
             return newExceptionHandler(handler);
         }

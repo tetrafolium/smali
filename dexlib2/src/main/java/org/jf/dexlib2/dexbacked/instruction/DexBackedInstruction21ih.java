@@ -38,14 +38,18 @@ import org.jf.dexlib2.iface.instruction.formats.Instruction21ih;
 import javax.annotation.Nonnull;
 
 public class DexBackedInstruction21ih extends DexBackedInstruction implements Instruction21ih {
-    public DexBackedInstruction21ih(@Nonnull DexBackedDexFile dexFile,
-                                    @Nonnull Opcode opcode,
-                                    int instructionStart) {
+    public DexBackedInstruction21ih(final @Nonnull DexBackedDexFile dexFile,
+                                    final @Nonnull Opcode opcode,
+                                    final int instructionStart) {
         super(dexFile, opcode, instructionStart);
     }
 
-    @Override public int getRegisterA() { return dexFile.getDataBuffer().readUbyte(instructionStart + 1); }
-    @Override public int getNarrowLiteral() { return getHatLiteral() << 16; }
-    @Override public long getWideLiteral() { return getNarrowLiteral(); }
-    @Override public short getHatLiteral() { return (short)dexFile.getDataBuffer().readShort(instructionStart + 2); }
+    @Override public int getRegisterA() {
+        return dexFile.getDataBuffer().readUbyte(instructionStart + 1); }
+    @Override public int getNarrowLiteral() {
+        return getHatLiteral() << 16; }
+    @Override public long getWideLiteral() {
+        return getNarrowLiteral(); }
+    @Override public short getHatLiteral() {
+        return (short) dexFile.getDataBuffer().readShort(instructionStart + 2); }
 }

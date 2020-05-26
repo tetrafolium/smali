@@ -44,7 +44,7 @@ import java.util.List;
         commandName = "types",
         commandAliases = { "type", "t" })
 public class ListTypesCommand extends ListReferencesCommand {
-    public ListTypesCommand(@Nonnull List<JCommander> commandAncestors) {
+    public ListTypesCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors, ReferenceType.TYPE);
     }
 }

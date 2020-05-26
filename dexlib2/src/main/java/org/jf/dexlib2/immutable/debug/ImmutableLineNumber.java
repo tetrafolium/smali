@@ -39,23 +39,25 @@ import javax.annotation.Nonnull;
 public class ImmutableLineNumber extends ImmutableDebugItem implements LineNumber {
     protected final int lineNumber;
 
-    public ImmutableLineNumber(int codeAddress,
-                               int lineNumber) {
+    public ImmutableLineNumber(final int codeAddress,
+                               final int lineNumber) {
         super(codeAddress);
         this.lineNumber = lineNumber;
     }
 
     @Nonnull
-    public static ImmutableLineNumber of(@Nonnull LineNumber lineNumber) {
+    public static ImmutableLineNumber of(final @Nonnull LineNumber lineNumber) {
         if (lineNumber instanceof ImmutableLineNumber) {
-            return (ImmutableLineNumber)lineNumber;
+            return (ImmutableLineNumber) lineNumber;
         }
         return new ImmutableLineNumber(
                 lineNumber.getCodeAddress(),
                 lineNumber.getLineNumber());
     }
 
-    @Override public int getLineNumber() { return lineNumber; }
+    @Override public int getLineNumber() {
+        return lineNumber; }
 
-    @Override public int getDebugItemType() { return DebugItemType.LINE_NUMBER; }
+    @Override public int getDebugItemType() {
+        return DebugItemType.LINE_NUMBER; }
 }

@@ -42,26 +42,27 @@ import javax.annotation.Nullable;
 public class ImmutableSetSourceFile extends ImmutableDebugItem implements SetSourceFile {
     @Nullable protected final String sourceFile;
 
-    public ImmutableSetSourceFile(int codeAddress,
-                                  @Nullable String sourceFile) {
+    public ImmutableSetSourceFile(final int codeAddress,
+                                  final @Nullable String sourceFile) {
         super(codeAddress);
         this.sourceFile = sourceFile;
     }
 
     @Nonnull
-    public static ImmutableSetSourceFile of (@Nonnull SetSourceFile setSourceFile) {
+    public static ImmutableSetSourceFile of(final @Nonnull SetSourceFile setSourceFile) {
         if (setSourceFile instanceof ImmutableSetSourceFile) {
-            return (ImmutableSetSourceFile)setSourceFile;
+            return (ImmutableSetSourceFile) setSourceFile;
         }
         return new ImmutableSetSourceFile(
                 setSourceFile.getCodeAddress(),
                 setSourceFile.getSourceFile());
     }
 
-    @Nullable @Override public String getSourceFile() { return sourceFile; }
+    @Nullable @Override public String getSourceFile() {
+        return sourceFile; }
 
     @Nullable @Override public StringReference getSourceFileReference() {
-        return sourceFile==null?null:new BaseStringReference() {
+        return sourceFile == null ? null : new BaseStringReference() {
             @Nonnull @Override public String getString() {
                 return sourceFile;
             }
@@ -69,5 +70,6 @@ public class ImmutableSetSourceFile extends ImmutableDebugItem implements SetSou
     }
 
 
-    @Override public int getDebugItemType() { return DebugItemType.SET_SOURCE_FILE; }
+    @Override public int getDebugItemType() {
+        return DebugItemType.SET_SOURCE_FILE; }
 }

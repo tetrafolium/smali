@@ -41,7 +41,7 @@ public interface LexerErrorInterface {
         public ANTLRLexerWithErrorInterface() {
         }
 
-        public ANTLRLexerWithErrorInterface(CharStream input, RecognizerSharedState state) {
+        public ANTLRLexerWithErrorInterface(final CharStream input, final RecognizerSharedState state) {
             super(input, state);
         }
     }

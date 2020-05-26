@@ -44,7 +44,7 @@ import java.util.List;
         commandName = "fields",
         commandAliases = { "field", "f" })
 public class ListFieldsCommand extends ListReferencesCommand {
-    public ListFieldsCommand(@Nonnull List<JCommander> commandAncestors) {
+    public ListFieldsCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors, ReferenceType.FIELD);
     }
 }

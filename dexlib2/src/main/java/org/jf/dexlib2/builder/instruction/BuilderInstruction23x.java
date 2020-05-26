@@ -46,19 +46,23 @@ public class BuilderInstruction23x extends BuilderInstruction implements Instruc
     protected final int registerB;
     protected final int registerC;
 
-    public BuilderInstruction23x(@Nonnull Opcode opcode,
-                                 int registerA,
-                                 int registerB,
-                                 int registerC) {
+    public BuilderInstruction23x(final @Nonnull Opcode opcode,
+                                 final int registerA,
+                                 final int registerB,
+                                 final int registerC) {
         super(opcode);
         this.registerA = Preconditions.checkByteRegister(registerA);
         this.registerB = Preconditions.checkByteRegister(registerB);
         this.registerC = Preconditions.checkByteRegister(registerC);
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
-    @Override public int getRegisterC() { return registerC; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getRegisterB() {
+        return registerB; }
+    @Override public int getRegisterC() {
+        return registerC; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

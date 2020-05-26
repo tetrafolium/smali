@@ -48,7 +48,7 @@ public class MethodLocation {
     private final LocatedItems<Label> labels;
     private final LocatedItems<BuilderDebugItem> debugItems;
 
-    MethodLocation(@Nullable BuilderInstruction instruction, int codeAddress, int index) {
+    MethodLocation(final @Nullable BuilderInstruction instruction, final int codeAddress, final int index) {
         this.debugItems = new LocatedDebugItems();
         this.labels = new LocatedLabels();
         this.instruction = instruction;
@@ -69,7 +69,7 @@ public class MethodLocation {
         return index;
     }
 
-    void mergeInto(@Nonnull MethodLocation nextLocation) {
+    void mergeInto(final @Nonnull MethodLocation nextLocation) {
         labels.mergeItemsIntoNext(nextLocation, nextLocation.labels);
         debugItems.mergeItemsIntoNext(nextLocation, nextLocation.debugItems);
     }
@@ -91,20 +91,20 @@ public class MethodLocation {
         return debugItems.getModifiableItems(MethodLocation.this);
     }
 
-    public void addLineNumber(int lineNumber) {
+    public void addLineNumber(final int lineNumber) {
         getDebugItems().add(new BuilderLineNumber(lineNumber));
     }
 
-    public void addStartLocal(int registerNumber, @Nullable StringReference name, @Nullable TypeReference type,
-                              @Nullable StringReference signature) {
+    public void addStartLocal(final int registerNumber, final @Nullable StringReference name, final @Nullable TypeReference type,
+                              final @Nullable StringReference signature) {
         getDebugItems().add(new BuilderStartLocal(registerNumber, name, type, signature));
     }
 
-    public void addEndLocal(int registerNumber) {
+    public void addEndLocal(final int registerNumber) {
         getDebugItems().add(new BuilderEndLocal(registerNumber));
     }
 
-    public void addRestartLocal(int registerNumber) {
+    public void addRestartLocal(final int registerNumber) {
         getDebugItems().add(new BuilderRestartLocal(registerNumber));
     }
 
@@ -116,7 +116,7 @@ public class MethodLocation {
         getDebugItems().add(new BuilderEpilogueBegin());
     }
 
-    public void addSetSourceFile(@Nullable StringReference sourceFile) {
+    public void addSetSourceFile(final @Nullable StringReference sourceFile) {
         getDebugItems().add(new BuilderSetSourceFile(sourceFile));
     }
 }

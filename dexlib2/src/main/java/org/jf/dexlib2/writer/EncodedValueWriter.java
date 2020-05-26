@@ -55,14 +55,14 @@ public abstract class EncodedValueWriter<StringKey, TypeKey, FieldRefKey extends
     @Nonnull private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
 
     public EncodedValueWriter(
-            @Nonnull DexDataWriter writer,
-            @Nonnull StringSection<StringKey, ?> stringSection,
-            @Nonnull TypeSection<?, TypeKey, ?> typeSection,
-            @Nonnull FieldSection<?, ?, FieldRefKey, ?> fieldSection,
-            @Nonnull MethodSection<?, ?, ?, MethodRefKey, ?> methodSection,
-            ProtoSection<?, ?, ProtoRefKey, ?> protoSection,
-            MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection,
-            @Nonnull AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection) {
+            final @Nonnull DexDataWriter writer,
+            final @Nonnull StringSection<StringKey, ?> stringSection,
+            final @Nonnull TypeSection<?, TypeKey, ?> typeSection,
+            final @Nonnull FieldSection<?, ?, FieldRefKey, ?> fieldSection,
+            final @Nonnull MethodSection<?, ?, ?, MethodRefKey, ?> methodSection,
+            final ProtoSection<?, ?, ProtoRefKey, ?> protoSection,
+            final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection,
+            final @Nonnull AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection) {
         this.writer = writer;
         this.stringSection = stringSection;
         this.typeSection = typeSection;
@@ -75,8 +75,8 @@ public abstract class EncodedValueWriter<StringKey, TypeKey, FieldRefKey extends
 
     protected abstract void writeEncodedValue(@Nonnull EncodedValue encodedValue) throws IOException;
 
-    public void writeAnnotation(TypeKey annotationType,
-                                Collection<? extends AnnotationElement> elements) throws IOException {
+    public void writeAnnotation(final TypeKey annotationType,
+                                final Collection<? extends AnnotationElement> elements) throws IOException {
         writer.writeEncodedValueHeader(ValueType.ANNOTATION, 0);
         writer.writeUleb128(typeSection.getItemIndex(annotationType));
         writer.writeUleb128(elements.size());
@@ -90,7 +90,7 @@ public abstract class EncodedValueWriter<StringKey, TypeKey, FieldRefKey extends
         }
     }
 
-    public void writeArray(Collection<? extends EncodedValue> elements) throws IOException {
+    public void writeArray(final Collection<? extends EncodedValue> elements) throws IOException {
         writer.writeEncodedValueHeader(ValueType.ARRAY, 0);
         writer.writeUleb128(elements.size());
         for (EncodedValue element: elements) {
@@ -98,43 +98,43 @@ public abstract class EncodedValueWriter<StringKey, TypeKey, FieldRefKey extends
         }
     }
 
-    public void writeBoolean(boolean value) throws IOException {
+    public void writeBoolean(final boolean value) throws IOException {
         writer.writeEncodedValueHeader(ValueType.BOOLEAN, value ? 1 : 0);
     }
 
-    public void writeByte(byte value) throws IOException {
+    public void writeByte(final byte value) throws IOException {
         writer.writeEncodedInt(ValueType.BYTE, value);
     }
 
-    public void writeChar(char value) throws IOException {
+    public void writeChar(final char value) throws IOException {
         writer.writeEncodedUint(ValueType.CHAR, value);
     }
 
-    public void writeDouble(double value) throws IOException {
+    public void writeDouble(final double value) throws IOException {
         writer.writeEncodedDouble(ValueType.DOUBLE, value);
     }
 
-    public void writeEnum(@Nonnull FieldRefKey value) throws IOException {
+    public void writeEnum(final @Nonnull FieldRefKey value) throws IOException {
         writer.writeEncodedUint(ValueType.ENUM, fieldSection.getItemIndex(value));
     }
     
-    public void writeField(@Nonnull FieldRefKey value) throws IOException {
+    public void writeField(final @Nonnull FieldRefKey value) throws IOException {
         writer.writeEncodedUint(ValueType.FIELD, fieldSection.getItemIndex(value));
     }
 
-    public void writeFloat(float value) throws IOException {
+    public void writeFloat(final float value) throws IOException {
         writer.writeEncodedFloat(ValueType.FLOAT, value);
     }
 
-    public void writeInt(int value) throws IOException {
+    public void writeInt(final int value) throws IOException {
         writer.writeEncodedInt(ValueType.INT, value);
     }
 
-    public void writeLong(long value) throws IOException {
+    public void writeLong(final long value) throws IOException {
         writer.writeEncodedLong(ValueType.LONG, value);
     }
 
-    public void writeMethod(@Nonnull MethodRefKey value) throws IOException {
+    public void writeMethod(final @Nonnull MethodRefKey value) throws IOException {
         writer.writeEncodedUint(ValueType.METHOD, methodSection.getItemIndex(value));
     }
 
@@ -142,23 +142,23 @@ public abstract class EncodedValueWriter<StringKey, TypeKey, FieldRefKey extends
         writer.write(ValueType.NULL);
     }
 
-    public void writeShort(int value) throws IOException {
+    public void writeShort(final int value) throws IOException {
         writer.writeEncodedInt(ValueType.SHORT, value);
     }
 
-    public void writeString(@Nonnull StringKey value) throws IOException {
+    public void writeString(final @Nonnull StringKey value) throws IOException {
         writer.writeEncodedUint(ValueType.STRING, stringSection.getItemIndex(value));
     }
 
-    public void writeType(@Nonnull TypeKey value) throws IOException {
+    public void writeType(final @Nonnull TypeKey value) throws IOException {
         writer.writeEncodedUint(ValueType.TYPE, typeSection.getItemIndex(value));
     }
 
-    public void writeMethodType(@Nonnull ProtoRefKey value) throws IOException {
+    public void writeMethodType(final @Nonnull ProtoRefKey value) throws IOException {
         writer.writeEncodedUint(ValueType.METHOD_TYPE, protoSection.getItemIndex(value));
     }
 
-    public void writeMethodHandle(@Nonnull MethodHandleKey value) throws IOException {
+    public void writeMethodHandle(final @Nonnull MethodHandleKey value) throws IOException {
         writer.writeEncodedUint(ValueType.METHOD_HANDLE, methodHandleSection.getItemIndex(value));
     }
 }

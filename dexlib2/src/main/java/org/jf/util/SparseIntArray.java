@@ -49,7 +49,7 @@ public class SparseIntArray {
      * require any additional memory allocation to store the specified
      * number of mappings.
      */
-    public SparseIntArray(int initialCapacity) {
+    public SparseIntArray(final int initialCapacity) {
         mKeys = new int[initialCapacity];
         mValues = new int[initialCapacity];
         mSize = 0;
@@ -59,7 +59,7 @@ public class SparseIntArray {
      * Gets the int mapped from the specified key, or <code>0</code>
      * if no such mapping has been made.
      */
-    public int get(int key) {
+    public int get(final int key) {
         return get(key, 0);
     }
 
@@ -67,7 +67,7 @@ public class SparseIntArray {
      * Gets the int mapped from the specified key, or the specified value
      * if no such mapping has been made.
      */
-    public int get(int key, int valueIfKeyNotFound) {
+    public int get(final int key, final int valueIfKeyNotFound) {
         int i = binarySearch(mKeys, 0, mSize, key);
 
         if (i < 0) {
@@ -81,7 +81,7 @@ public class SparseIntArray {
      * Gets the int mapped from the specified key, or if not present, the
      * closest key that is less than the specified key.
      */
-    public int getClosestSmaller(int key) {
+    public int getClosestSmaller(final int key) {
         int i = binarySearch(mKeys, 0, mSize, key);
 
         if (i < 0) {
@@ -98,7 +98,7 @@ public class SparseIntArray {
     /**
      * Removes the mapping from the specified key, if there was any.
      */
-    public void delete(int key) {
+    public void delete(final int key) {
         int i = binarySearch(mKeys, 0, mSize, key);
 
         if (i >= 0) {
@@ -109,7 +109,7 @@ public class SparseIntArray {
     /**
      * Removes the mapping at the given index.
      */
-    public void removeAt(int index) {
+    public void removeAt(final int index) {
         System.arraycopy(mKeys, index + 1, mKeys, index, mSize - (index + 1));
         System.arraycopy(mValues, index + 1, mValues, index, mSize - (index + 1));
         mSize--;
@@ -120,7 +120,7 @@ public class SparseIntArray {
      * replacing the previous mapping from the specified key if there
      * was one.
      */
-    public void put(int key, int value) {
+    public void put(final int key, final int value) {
         int i = binarySearch(mKeys, 0, mSize, key);
 
         if (i >= 0) {
@@ -167,7 +167,7 @@ public class SparseIntArray {
      * the key from the <code>index</code>th key-value mapping that this
      * SparseIntArray stores.
      */
-    public int keyAt(int index) {
+    public int keyAt(final int index) {
         return mKeys[index];
     }
 
@@ -176,7 +176,7 @@ public class SparseIntArray {
      * the value from the <code>index</code>th key-value mapping that this
      * SparseIntArray stores.
      */
-    public int valueAt(int index) {
+    public int valueAt(final int index) {
         return mValues[index];
     }
 
@@ -185,7 +185,7 @@ public class SparseIntArray {
      * specified key, or a negative number if the specified
      * key is not mapped.
      */
-    public int indexOfKey(int key) {
+    public int indexOfKey(final int key) {
         return binarySearch(mKeys, 0, mSize, key);
     }
 
@@ -197,7 +197,7 @@ public class SparseIntArray {
      * and that multiple keys can map to the same value and this will
      * find only one of them.
      */
-    public int indexOfValue(int value) {
+    public int indexOfValue(final int value) {
         for (int i = 0; i < mSize; i++)
             if (mValues[i] == value)
                 return i;
@@ -216,7 +216,7 @@ public class SparseIntArray {
      * Puts a key/value pair into the array, optimizing for the case where
      * the key is greater than all existing keys in the array.
      */
-    public void append(int key, int value) {
+    public void append(final int key, final int value) {
         if (mSize != 0 && key <= mKeys[mSize - 1]) {
             put(key, value);
             return;
@@ -242,7 +242,7 @@ public class SparseIntArray {
         mSize = pos + 1;
     }
 
-    private static int binarySearch(int[] a, int start, int len, int key) {
+    private static int binarySearch(final int[] a, final int start, final int len, final int key) {
         int high = start + len, low = start - 1, guess;
 
         while (high - low > 1) {

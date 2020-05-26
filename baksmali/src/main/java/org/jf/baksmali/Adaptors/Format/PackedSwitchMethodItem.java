@@ -47,7 +47,7 @@ public class PackedSwitchMethodItem extends InstructionMethodItem<PackedSwitchPa
     // Whether this sparse switch instruction should be commented out because it is never referenced
     private boolean commentedOut;
 
-    public PackedSwitchMethodItem(MethodDefinition methodDef, int codeAddress, PackedSwitchPayload instruction) {
+    public PackedSwitchMethodItem(final MethodDefinition methodDef, final int codeAddress, final PackedSwitchPayload instruction) {
         super(methodDef, codeAddress, instruction);
 
         int baseCodeAddress = methodDef.getPackedSwitchBaseAddress(codeAddress);
@@ -81,7 +81,7 @@ public class PackedSwitchMethodItem extends InstructionMethodItem<PackedSwitchPa
     }
 
     @Override
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         if (commentedOut) {
             writer = new CommentingIndentingWriter(writer);
         }
@@ -107,20 +107,20 @@ public class PackedSwitchMethodItem extends InstructionMethodItem<PackedSwitchPa
 
     private static class PackedSwitchLabelTarget extends PackedSwitchTarget {
         private final LabelMethodItem target;
-        public PackedSwitchLabelTarget(LabelMethodItem target) {
+        public PackedSwitchLabelTarget(final LabelMethodItem target) {
             this.target = target;
         }
-        public void writeTargetTo(IndentingWriter writer) throws IOException {
+        public void writeTargetTo(final IndentingWriter writer) throws IOException {
             target.writeTo(writer);
         }
     }
 
     private static class PackedSwitchOffsetTarget extends PackedSwitchTarget {
         private final int target;
-        public PackedSwitchOffsetTarget(int target) {
+        public PackedSwitchOffsetTarget(final int target) {
             this.target = target;
         }
-        public void writeTargetTo(IndentingWriter writer) throws IOException {
+        public void writeTargetTo(final IndentingWriter writer) throws IOException {
             if (target >= 0) {
                 writer.write('+');
             }

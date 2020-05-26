@@ -65,8 +65,8 @@ public class DisassembleCommand extends DexInputCommand {
     protected AnalysisArguments analysisArguments = new AnalysisArguments();
 
     @Parameter(names = {"--debug-info", "--di"}, arity = 1,
-            description = "Whether to include debug information in the output (.local, .param, .line, etc.). True " +
-                    "by default, use --debug-info=false to disable.")
+            description = "Whether to include debug information in the output (.local, .param, .line, etc.). True "
+                    + "by default, use --debug-info=false to disable.")
     @ExtendedParameter(argumentNames = "boolean")
     private boolean debugInfo = true;
 
@@ -75,11 +75,11 @@ public class DisassembleCommand extends DexInputCommand {
     private boolean codeOffsets = false;
 
     @Parameter(names = {"--resolve-resources", "--rr"}, arity = 2,
-            description = "This will attempt to find any resource id references within the bytecode and add a " +
-                    "comment with the name of the resource being referenced. The parameter accepts 2 values:" +
-                    "an arbitrary resource prefix and the path to a public.xml file. For example: " +
-                    "--resolve-resources android.R framework/res/values/public.xml. This option can be specified " +
-                    "multiple times to provide resources from multiple packages.")
+            description = "This will attempt to find any resource id references within the bytecode and add a "
+                    + "comment with the name of the resource being referenced. The parameter accepts 2 values:"
+                    + "an arbitrary resource prefix and the path to a public.xml file. For example: "
+                    + "--resolve-resources android.R framework/res/values/public.xml. This option can be specified "
+                    + "multiple times to provide resources from multiple packages.")
     @ExtendedParameter(argumentNames = {"resource prefix", "public.xml file"})
     private List<String> resourceIdFiles = Lists.newArrayList();
 
@@ -90,19 +90,19 @@ public class DisassembleCommand extends DexInputCommand {
     private int jobs = Runtime.getRuntime().availableProcessors();
 
     @Parameter(names = {"-l", "--use-locals"},
-            description = "When disassembling, output the .locals directive with the number of non-parameter " +
-                    "registers instead of the .registers directive with the total number of registers.")
+            description = "When disassembling, output the .locals directive with the number of non-parameter "
+                    + "registers instead of the .registers directive with the total number of registers.")
     private boolean localsDirective = false;
 
     @Parameter(names = {"--accessor-comments", "--ac"}, arity = 1,
-            description = "Generate helper comments for synthetic accessors. True by default, use " +
-                    "--accessor-comments=false to disable.")
+            description = "Generate helper comments for synthetic accessors. True by default, use "
+                    + "--accessor-comments=false to disable.")
     @ExtendedParameter(argumentNames = "boolean")
     private boolean accessorComments = true;
 
     @Parameter(names = {"--normalize-virtual-methods", "--norm", "--nvm"},
-            description = "Normalize virtual method references to use the base class where the method is " +
-                    "originally declared.")
+            description = "Normalize virtual method references to use the base class where the method is "
+                    + "originally declared.")
     private boolean normalizeVirtualMethods = false;
 
     @Parameter(names = {"-o", "--output"},
@@ -111,26 +111,26 @@ public class DisassembleCommand extends DexInputCommand {
     private String outputDir = "out";
 
     @Parameter(names = {"--parameter-registers", "--preg", "--pr"}, arity = 1,
-            description = "Use the pNN syntax for registers that refer to a method parameter on method entry. True " +
-                    "by default, use --parameter-registers=false to disable.")
+            description = "Use the pNN syntax for registers that refer to a method parameter on method entry. True "
+                    + "by default, use --parameter-registers=false to disable.")
     @ExtendedParameter(argumentNames = "boolean")
     private boolean parameterRegisters = true;
 
     @Parameter(names = {"-r", "--register-info"},
-            description = "Add comments before/after each instruction with information about register types. " +
-                    "The value is a comma-separated list of any of ALL, ALLPRE, ALLPOST, ARGS, DEST, MERGE and " +
-                    "FULLMERGE. See \"baksmali help register-info\" for more information.")
+            description = "Add comments before/after each instruction with information about register types. "
+                    + "The value is a comma-separated list of any of ALL, ALLPRE, ALLPOST, ARGS, DEST, MERGE and "
+                    + "FULLMERGE. See \"baksmali help register-info\" for more information.")
     @ExtendedParameter(argumentNames = "register info specifier")
     private List<String> registerInfoTypes = Lists.newArrayList();
 
     @Parameter(names = {"--sequential-labels", "--seq", "--sl"},
-            description = "Create label names using a sequential numbering scheme per label type, rather than " +
-                    "using the bytecode address.")
+            description = "Create label names using a sequential numbering scheme per label type, rather than "
+                    + "using the bytecode address.")
     private boolean sequentialLabels = false;
 
     @Parameter(names = {"--implicit-references", "--implicit", "--ir"},
-            description = "Use implicit method and field references (without the class name) for methods and " +
-                    "fields from the current class.")
+            description = "Use implicit method and field references (without the class name) for methods and "
+                    + "fields from the current class.")
     private boolean implicitReferences = false;
 
     @Parameter(names = "--allow-odex-opcodes",
@@ -142,7 +142,7 @@ public class DisassembleCommand extends DexInputCommand {
     @ExtendedParameter(argumentNames = "classes")
     private List<String> classes = null;
 
-    public DisassembleCommand(@Nonnull List<JCommander> commandAncestors) {
+    public DisassembleCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);
     }
 
@@ -163,8 +163,8 @@ public class DisassembleCommand extends DexInputCommand {
 
         if (showDeodexWarning() && dexFile.supportsOptimizedOpcodes()) {
             StringWrapper.printWrappedString(System.err,
-                    "Warning: You are disassembling an odex/oat file without deodexing it. You won't be able to " +
-                            "re-assemble the results unless you deodex it. See \"baksmali help deodex\"",
+                    "Warning: You are disassembling an odex/oat file without deodexing it. You won't be able to "
+                            + "re-assemble the results unless you deodex it. See \"baksmali help deodex\"",
                     ConsoleUtil.getConsoleWidth());
         }
 
@@ -219,9 +219,9 @@ public class DisassembleCommand extends DexInputCommand {
             Map<String, File> resourceFiles = Maps.newHashMap();
 
             assert (resourceIdFiles.size() % 2) == 0;
-            for (int i=0; i<resourceIdFiles.size(); i+=2) {
+            for (int i = 0; i < resourceIdFiles.size(); i += 2) {
                 String resourcePrefix = resourceIdFiles.get(i);
-                String publicXml = resourceIdFiles.get(i+1);
+                String publicXml = resourceIdFiles.get(i + 1);
 
                 File publicXmlFile = new File(publicXml);
 

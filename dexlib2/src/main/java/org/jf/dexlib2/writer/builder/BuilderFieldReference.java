@@ -42,9 +42,9 @@ public class BuilderFieldReference extends BaseFieldReference implements Builder
     @Nonnull final BuilderTypeReference fieldType;
     int index = DexWriter.NO_INDEX;
 
-    BuilderFieldReference(@Nonnull BuilderTypeReference definingClass,
-                          @Nonnull BuilderStringReference name,
-                          @Nonnull BuilderTypeReference fieldType) {
+    BuilderFieldReference(final @Nonnull BuilderTypeReference definingClass,
+                          final @Nonnull BuilderStringReference name,
+                          final @Nonnull BuilderTypeReference fieldType) {
         this.definingClass = definingClass;
         this.name = name;
         this.fieldType = fieldType;
@@ -66,7 +66,7 @@ public class BuilderFieldReference extends BaseFieldReference implements Builder
         return index;
     }
 
-    @Override public void setIndex(int index) {
+    @Override public void setIndex(final int index) {
         this.index = index;
     }
 }

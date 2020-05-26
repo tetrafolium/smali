@@ -40,15 +40,15 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 public class CollectionUtils {
-    public static <T> int listHashCode(@Nonnull Iterable<T> iterable) {
+    public static <T> int listHashCode(final @Nonnull Iterable<T> iterable) {
         int hashCode = 1;
         for (T item: iterable) {
-            hashCode = hashCode*31 + item.hashCode();
+            hashCode = hashCode * 31 + item.hashCode();
         }
         return hashCode;
     }
 
-    public static <T> int lastIndexOf(@Nonnull Iterable<T> iterable, @Nonnull Predicate<? super T> predicate) {
+    public static <T> int lastIndexOf(final @Nonnull Iterable<T> iterable, final @Nonnull Predicate<? super T> predicate) {
         int index = 0;
         int lastMatchingIndex = -1;
         for (T item: iterable) {
@@ -60,8 +60,8 @@ public class CollectionUtils {
         return lastMatchingIndex;
     }
 
-    public static <T extends Comparable<? super T>> int compareAsList(@Nonnull Collection<? extends T> list1,
-                                                                      @Nonnull Collection<? extends T> list2) {
+    public static <T extends Comparable<? super T>> int compareAsList(final @Nonnull Collection<? extends T> list1,
+                                                                      final @Nonnull Collection<? extends T> list2) {
         int res = Ints.compare(list1.size(), list2.size());
         if (res != 0) return res;
         Iterator<? extends T> elements2 = list2.iterator();
@@ -72,9 +72,9 @@ public class CollectionUtils {
         return 0;
     }
 
-    public static <T> int compareAsIterable(@Nonnull Comparator<? super T> comparator,
-                                            @Nonnull Iterable<? extends T> it1,
-                                            @Nonnull Iterable<? extends T> it2) {
+    public static <T> int compareAsIterable(final @Nonnull Comparator<? super T> comparator,
+                                            final @Nonnull Iterable<? extends T> it1,
+                                            final @Nonnull Iterable<? extends T> it2) {
         Iterator<? extends T> elements2 = it2.iterator();
         for (T element1: it1) {
             T element2;
@@ -92,8 +92,8 @@ public class CollectionUtils {
         return 0;
     }
 
-    public static <T extends Comparable<? super T>> int compareAsIterable(@Nonnull Iterable<? extends T> it1,
-                                                                          @Nonnull Iterable<? extends T> it2) {
+    public static <T extends Comparable<? super T>> int compareAsIterable(final @Nonnull Iterable<? extends T> it1,
+                                                                          final @Nonnull Iterable<? extends T> it2) {
         Iterator<? extends T> elements2 = it2.iterator();
         for (T element1: it1) {
             T element2;
@@ -111,9 +111,9 @@ public class CollectionUtils {
         return 0;
     }
 
-    public static <T> int compareAsList(@Nonnull Comparator<? super T> elementComparator,
-                                        @Nonnull Collection<? extends T> list1,
-                                        @Nonnull Collection<? extends T> list2) {
+    public static <T> int compareAsList(final @Nonnull Comparator<? super T> elementComparator,
+                                        final @Nonnull Collection<? extends T> list1,
+                                        final @Nonnull Collection<? extends T> list2) {
         int res = Ints.compare(list1.size(), list2.size());
         if (res != 0) return res;
         Iterator<? extends T> elements2 = list2.iterator();
@@ -129,25 +129,25 @@ public class CollectionUtils {
             @Nonnull final Comparator<? super T> elementComparator) {
         return new Comparator<Collection<? extends T>>() {
             @Override
-            public int compare(Collection<? extends T> list1, Collection<? extends T> list2) {
+            public int compare(final Collection<? extends T> list1, final Collection<? extends T> list2) {
                 return compareAsList(elementComparator, list1, list2);
             }
         };
     }
 
-    public static <T> boolean isNaturalSortedSet(@Nonnull Iterable<? extends T> it) {
+    public static <T> boolean isNaturalSortedSet(final @Nonnull Iterable<? extends T> it) {
         if (it instanceof SortedSet) {
-            SortedSet<? extends T> sortedSet = (SortedSet<? extends T>)it;
+            SortedSet<? extends T> sortedSet = (SortedSet<? extends T>) it;
             Comparator<?> comparator = sortedSet.comparator();
             return (comparator == null) || comparator.equals(Ordering.natural());
         }
         return false;
     }
 
-    public static <T> boolean isSortedSet(@Nonnull Comparator<? extends T> elementComparator,
-                                          @Nonnull Iterable<? extends T> it) {
+    public static <T> boolean isSortedSet(final @Nonnull Comparator<? extends T> elementComparator,
+                                          final @Nonnull Iterable<? extends T> it) {
         if (it instanceof SortedSet) {
-            SortedSet<? extends T> sortedSet = (SortedSet<? extends T>)it;
+            SortedSet<? extends T> sortedSet = (SortedSet<? extends T>) it;
             Comparator<?> comparator = sortedSet.comparator();
             if (comparator == null) {
                 return elementComparator.equals(Ordering.natural());
@@ -158,18 +158,18 @@ public class CollectionUtils {
     }
 
     @Nonnull
-    private static <T> SortedSet<? extends T> toNaturalSortedSet(@Nonnull Collection<? extends T> collection) {
+    private static <T> SortedSet<? extends T> toNaturalSortedSet(final @Nonnull Collection<? extends T> collection) {
         if (isNaturalSortedSet(collection)) {
-            return (SortedSet<? extends T>)collection;
+            return (SortedSet<? extends T>) collection;
         }
         return ImmutableSortedSet.copyOf(collection);
     }
 
     @Nonnull
-    private static <T> SortedSet<? extends T> toSortedSet(@Nonnull Comparator<? super T> elementComparator,
-                                                          @Nonnull Collection<? extends T> collection) {
+    private static <T> SortedSet<? extends T> toSortedSet(final @Nonnull Comparator<? super T> elementComparator,
+                                                          final @Nonnull Collection<? extends T> collection) {
         if (collection instanceof SortedSet) {
-            SortedSet<? extends T> sortedSet = (SortedSet<? extends T>)collection;
+            SortedSet<? extends T> sortedSet = (SortedSet<? extends T>) collection;
             Comparator<?> comparator = sortedSet.comparator();
             if (comparator != null && comparator.equals(elementComparator)) {
                 return sortedSet;
@@ -183,14 +183,14 @@ public class CollectionUtils {
             @Nonnull final Comparator<? super T> elementComparator) {
         return new Comparator<Collection<? extends T>>() {
             @Override
-            public int compare(Collection<? extends T> list1, Collection<? extends T> list2) {
+            public int compare(final Collection<? extends T> list1, final Collection<? extends T> list2) {
                 return compareAsSet(elementComparator, list1, list2);
             }
         };
     }
 
-    public static <T extends Comparable<T>> int compareAsSet(@Nonnull Collection<? extends T> set1,
-                                                             @Nonnull Collection<? extends T> set2) {
+    public static <T extends Comparable<T>> int compareAsSet(final @Nonnull Collection<? extends T> set1,
+                                                             final @Nonnull Collection<? extends T> set2) {
         int res = Ints.compare(set1.size(), set2.size());
         if (res != 0) return res;
 
@@ -205,9 +205,9 @@ public class CollectionUtils {
         return 0;
     }
 
-    public static <T> int compareAsSet(@Nonnull Comparator<? super T> elementComparator,
-                                       @Nonnull Collection<? extends T> list1,
-                                       @Nonnull Collection<? extends T> list2) {
+    public static <T> int compareAsSet(final @Nonnull Comparator<? super T> elementComparator,
+                                       final @Nonnull Collection<? extends T> list1,
+                                       final @Nonnull Collection<? extends T> list2) {
         int res = Ints.compare(list1.size(), list2.size());
         if (res != 0) return res;
 

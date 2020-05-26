@@ -7,11 +7,11 @@ import org.junit.Test;
 
 public class PreconditionsTest {
 
-  private void verifyArrayPayloadElementIsValid(int elementWidth, long value) {
+  private void verifyArrayPayloadElementIsValid(final int elementWidth, final long value) {
     Preconditions.checkArrayPayloadElements(elementWidth, ImmutableList.of(value));
   }
 
-  private void verifyArrayPayloadElementIsInvalid(int elementWidth, long value) {
+  private void verifyArrayPayloadElementIsInvalid(final int elementWidth, final long value) {
     try {
       Preconditions.checkArrayPayloadElements(elementWidth, ImmutableList.of(value));
       Assert.fail();

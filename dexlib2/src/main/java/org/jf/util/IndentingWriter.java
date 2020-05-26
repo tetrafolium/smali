@@ -38,18 +38,18 @@ public class IndentingWriter extends Writer {
     private boolean beginningOfLine = true;
     private static final String newLine = System.getProperty("line.separator");
 
-    public IndentingWriter(Writer writer) {
+    public IndentingWriter(final Writer writer) {
         this.writer = writer;
     }
 
     protected void writeIndent() throws IOException {
-        for (int i=0; i<indentLevel; i++) {
+        for (int i = 0; i < indentLevel; i++) {
             writer.write(' ');
         }
     }
 
     @Override
-    public void write(int chr) throws IOException {
+    public void write(final int chr) throws IOException {
         if (chr == '\n') {
             writer.write(newLine);
             beginningOfLine = true;
@@ -65,7 +65,7 @@ public class IndentingWriter extends Writer {
     /**
      * Writes out a block of text that contains no newlines
      */
-    private void writeLine(char[] chars, int start, int len) throws IOException {
+    private void writeLine(final char[] chars, final int start, final int len) throws IOException {
         if (beginningOfLine && len > 0) {
             writeIndent();
             beginningOfLine = false;
@@ -77,7 +77,7 @@ public class IndentingWriter extends Writer {
     /**
      * Writes out a block of text that contains no newlines
      */
-    private void writeLine(String str, int start, int len) throws IOException {
+    private void writeLine(final String str, final int start, final int len) throws IOException {
         if (beginningOfLine && len > 0) {
             writeIndent();
             beginningOfLine = false;
@@ -86,17 +86,17 @@ public class IndentingWriter extends Writer {
     }
 
     @Override
-    public void write(char[] chars) throws IOException {
+    public void write(final char[] chars) throws IOException {
         write(chars, 0, chars.length);
     }
 
     @Override
-    public void write(char[] chars, int start, int len) throws IOException {
-        final int end = start+len;
+    public void write(final char[] chars, final int start, final int len) throws IOException {
+        final int end = start + len;
         int pos = start;
         while (pos < end) {
             if (chars[pos] == '\n') {
-                writeLine(chars, start, pos-start);
+                writeLine(chars, start, pos - start);
 
                 writer.write(newLine);
                 beginningOfLine = true;
@@ -106,46 +106,46 @@ public class IndentingWriter extends Writer {
                 pos++;
             }
         }
-        writeLine(chars, start, pos-start);
+        writeLine(chars, start, pos - start);
     }
 
     @Override
-    public void write(String s) throws IOException {
+    public void write(final String s) throws IOException {
         write(s, 0, s.length());
     }
 
     @Override
-    public void write(String str, int start, int len) throws IOException {
-        final int end = start+len;
+    public void write(final String str, final int start, final int len) throws IOException {
+        final int end = start + len;
         int pos = start;
         while (pos < end) {
             pos = str.indexOf('\n', start);
             if (pos == -1 || pos >= end) {
-                writeLine(str, start, end-start);
+                writeLine(str, start, end - start);
                 return;
             } else {
-                writeLine(str, start, pos-start);
+                writeLine(str, start, pos - start);
                 writer.write(newLine);
                 beginningOfLine = true;
-                start = pos+1;
+                start = pos + 1;
             }
         }
     }
 
     @Override
-    public Writer append(CharSequence charSequence) throws IOException {
+    public Writer append(final CharSequence charSequence) throws IOException {
         write(charSequence.toString());
         return this;
     }
 
     @Override
-    public Writer append(CharSequence charSequence, int start, int len) throws IOException {
+    public Writer append(final CharSequence charSequence, final int start, final int len) throws IOException {
         write(charSequence.subSequence(start, len).toString());
         return this;
     }
 
     @Override
-    public Writer append(char c) throws IOException {
+    public Writer append(final char c) throws IOException {
         write(c);
         return this;
     }
@@ -160,28 +160,28 @@ public class IndentingWriter extends Writer {
         writer.close();
     }
 
-    public void indent(int indentAmount) {
+    public void indent(final int indentAmount) {
         this.indentLevel += indentAmount;
         if (indentLevel < 0) {
             indentLevel = 0;
         }
     }
 
-    public void deindent(int indentAmount) {
+    public void deindent(final int indentAmount) {
         this.indentLevel -= indentAmount;
         if (indentLevel < 0) {
             indentLevel = 0;
         }
     }
 
-    public void printUnsignedLongAsHex(long value) throws IOException {
+    public void printUnsignedLongAsHex(final long value) throws IOException {
         int bufferIndex = 23;
         do {
-            int digit = (int)(value & 15);
+            int digit = (int) (value & 15);
             if (digit < 10) {
-                buffer[bufferIndex--] = (char)(digit + '0');
+                buffer[bufferIndex--] = (char) (digit + '0');
             } else {
-                buffer[bufferIndex--] = (char)((digit - 10) + 'a');
+                buffer[bufferIndex--] = (char) ((digit - 10) + 'a');
             }
 
             value >>>= 4;
@@ -189,10 +189,10 @@ public class IndentingWriter extends Writer {
 
         bufferIndex++;
 
-        writeLine(buffer, bufferIndex, 24-bufferIndex);
+        writeLine(buffer, bufferIndex, 24 - bufferIndex);
     }
 
-    public void printSignedLongAsDec(long value) throws IOException {
+    public void printSignedLongAsDec(final long value) throws IOException {
         int bufferIndex = 23;
 
         if (value < 0) {
@@ -202,17 +202,17 @@ public class IndentingWriter extends Writer {
 
         do {
             long digit = value % 10;
-            buffer[bufferIndex--] = (char)(digit + '0');
+            buffer[bufferIndex--] = (char) (digit + '0');
 
             value = value / 10;
         } while (value != 0);
 
         bufferIndex++;
 
-        writeLine(buffer, bufferIndex, 24-bufferIndex);
+        writeLine(buffer, bufferIndex, 24 - bufferIndex);
     }
 
-    public void printSignedIntAsDec(int value) throws IOException {
+    public void printSignedIntAsDec(final int value) throws IOException {
         int bufferIndex = 15;
 
         if (value < 0) {
@@ -222,17 +222,17 @@ public class IndentingWriter extends Writer {
 
         do {
             int digit = value % 10;
-            buffer[bufferIndex--] = (char)(digit + '0');
+            buffer[bufferIndex--] = (char) (digit + '0');
 
             value = value / 10;
         } while (value != 0);
 
         bufferIndex++;
 
-        writeLine(buffer, bufferIndex, 16-bufferIndex);
+        writeLine(buffer, bufferIndex, 16 - bufferIndex);
     }
 
-    public void printUnsignedIntAsDec(int value) throws IOException {
+    public void printUnsignedIntAsDec(final int value) throws IOException {
         int bufferIndex = 15;
 
         if (value < 0) {

@@ -43,8 +43,8 @@ class BuilderAnnotation extends BaseAnnotation {
     @Nonnull final Set<? extends BuilderAnnotationElement> elements;
     int offset = DexWriter.NO_OFFSET;
 
-    public BuilderAnnotation(int visibility, @Nonnull BuilderTypeReference type,
-                             @Nonnull Set<? extends BuilderAnnotationElement> elements) {
+    public BuilderAnnotation(final int visibility, final @Nonnull BuilderTypeReference type,
+                             final @Nonnull Set<? extends BuilderAnnotationElement> elements) {
         this.visibility = visibility;
         this.type = type;
         this.elements = elements;

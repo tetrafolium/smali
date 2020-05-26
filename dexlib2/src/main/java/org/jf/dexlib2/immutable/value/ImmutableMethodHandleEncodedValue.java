@@ -40,12 +40,12 @@ import javax.annotation.Nonnull;
 public class ImmutableMethodHandleEncodedValue extends BaseMethodHandleEncodedValue implements ImmutableEncodedValue {
     @Nonnull protected final ImmutableMethodHandleReference methodHandleReference;
 
-    public ImmutableMethodHandleEncodedValue(@Nonnull ImmutableMethodHandleReference methodHandleReference) {
+    public ImmutableMethodHandleEncodedValue(final @Nonnull ImmutableMethodHandleReference methodHandleReference) {
         this.methodHandleReference = methodHandleReference;
     }
 
     @Nonnull
-    public static ImmutableMethodHandleEncodedValue of(@Nonnull MethodHandleEncodedValue methodHandleEncodedValue) {
+    public static ImmutableMethodHandleEncodedValue of(final @Nonnull MethodHandleEncodedValue methodHandleEncodedValue) {
         if (methodHandleEncodedValue instanceof ImmutableMethodHandleEncodedValue) {
             return (ImmutableMethodHandleEncodedValue) methodHandleEncodedValue;
         }
@@ -53,5 +53,6 @@ public class ImmutableMethodHandleEncodedValue extends BaseMethodHandleEncodedVa
                 ImmutableMethodHandleReference.of(methodHandleEncodedValue.getValue()));
     }
 
-    @Nonnull @Override public ImmutableMethodHandleReference getValue() { return methodHandleReference; }
+    @Nonnull @Override public ImmutableMethodHandleReference getValue() {
+        return methodHandleReference; }
 }

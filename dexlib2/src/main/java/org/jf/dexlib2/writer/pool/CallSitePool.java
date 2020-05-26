@@ -41,11 +41,11 @@ import javax.annotation.Nonnull;
 public class CallSitePool extends BaseIndexPool<CallSiteReference>
         implements CallSiteSection<CallSiteReference, ArrayEncodedValue> {
 
-    public CallSitePool(@Nonnull DexPool dexPool) {
+    public CallSitePool(final @Nonnull DexPool dexPool) {
         super(dexPool);
     }
 
-    public void intern(CallSiteReference callSiteReference) {
+    public void intern(final CallSiteReference callSiteReference) {
         Integer prev = internedItems.put(callSiteReference, 0);
         if (prev == null) {
             dexPool.encodedArraySection.intern(getEncodedCallSite(callSiteReference));
@@ -53,7 +53,7 @@ public class CallSitePool extends BaseIndexPool<CallSiteReference>
     }
 
     @Override
-    public ArrayEncodedValue getEncodedCallSite(CallSiteReference callSiteReference) {
+    public ArrayEncodedValue getEncodedCallSite(final CallSiteReference callSiteReference) {
         return CallSiteUtil.getEncodedCallSite(callSiteReference);
     }
 }

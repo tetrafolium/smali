@@ -49,8 +49,8 @@ public class BuilderMethodProtoReference extends BaseMethodProtoReference implem
     @Nonnull final BuilderTypeReference returnType;
     int index = DexWriter.NO_INDEX;
 
-    public BuilderMethodProtoReference(@Nonnull BuilderStringReference shorty, @Nonnull BuilderTypeList parameterTypes,
-                                       @Nonnull BuilderTypeReference returnType) {
+    public BuilderMethodProtoReference(final @Nonnull BuilderStringReference shorty, final @Nonnull BuilderTypeList parameterTypes,
+                                       final @Nonnull BuilderTypeReference returnType) {
         this.shorty = shorty;
         this.parameterTypes = parameterTypes;
         this.returnType = returnType;
@@ -70,7 +70,7 @@ public class BuilderMethodProtoReference extends BaseMethodProtoReference implem
     }
 
     @Override
-    public void setIndex(int index) {
+    public void setIndex(final int index) {
         this.index = index;
     }
 }

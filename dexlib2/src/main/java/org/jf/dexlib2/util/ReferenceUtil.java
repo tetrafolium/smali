@@ -43,11 +43,11 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 public final class ReferenceUtil {
-    public static String getMethodDescriptor(MethodReference methodReference) {
+    public static String getMethodDescriptor(final MethodReference methodReference) {
         return getMethodDescriptor(methodReference, false);
     }
 
-    public static String getMethodDescriptor(MethodReference methodReference, boolean useImplicitReference) {
+    public static String getMethodDescriptor(final MethodReference methodReference, final boolean useImplicitReference) {
         StringBuilder sb = new StringBuilder();
         if (!useImplicitReference) {
             sb.append(methodReference.getDefiningClass());
@@ -63,7 +63,7 @@ public final class ReferenceUtil {
         return sb.toString();
     }
 
-    public static String getMethodProtoDescriptor(MethodProtoReference methodProtoReference) {
+    public static String getMethodProtoDescriptor(final MethodProtoReference methodProtoReference) {
         StringWriter stringWriter = new StringWriter();
         try {
             writeMethodProtoDescriptor(stringWriter, methodProtoReference);
@@ -74,7 +74,7 @@ public final class ReferenceUtil {
         return stringWriter.toString();
     }
 
-    public static void writeMethodProtoDescriptor(Writer writer, MethodProtoReference methodProtoReference)
+    public static void writeMethodProtoDescriptor(final Writer writer, final MethodProtoReference methodProtoReference)
             throws IOException {
         writer.write('(');
         for (CharSequence paramType : methodProtoReference.getParameterTypes()) {
@@ -84,12 +84,12 @@ public final class ReferenceUtil {
         writer.write(methodProtoReference.getReturnType());
     }
 
-    public static void writeMethodDescriptor(Writer writer, MethodReference methodReference) throws IOException {
+    public static void writeMethodDescriptor(final Writer writer, final MethodReference methodReference) throws IOException {
         writeMethodDescriptor(writer, methodReference, false);
     }
 
-    public static void writeMethodDescriptor(Writer writer, MethodReference methodReference,
-                                             boolean useImplicitReference) throws IOException {
+    public static void writeMethodDescriptor(final Writer writer, final MethodReference methodReference,
+                                             final boolean useImplicitReference) throws IOException {
         if (!useImplicitReference) {
             writer.write(methodReference.getDefiningClass());
             writer.write("->");
@@ -103,11 +103,11 @@ public final class ReferenceUtil {
         writer.write(methodReference.getReturnType());
     }
 
-    public static String getFieldDescriptor(FieldReference fieldReference) {
+    public static String getFieldDescriptor(final FieldReference fieldReference) {
         return getFieldDescriptor(fieldReference, false);
     }
 
-    public static String getFieldDescriptor(FieldReference fieldReference, boolean useImplicitReference) {
+    public static String getFieldDescriptor(final FieldReference fieldReference, final boolean useImplicitReference) {
         StringBuilder sb = new StringBuilder();
         if (!useImplicitReference) {
             sb.append(fieldReference.getDefiningClass());
@@ -119,7 +119,7 @@ public final class ReferenceUtil {
         return sb.toString();
     }
 
-    public static String getShortFieldDescriptor(FieldReference fieldReference) {
+    public static String getShortFieldDescriptor(final FieldReference fieldReference) {
         StringBuilder sb = new StringBuilder();
         sb.append(fieldReference.getName());
         sb.append(':');
@@ -127,12 +127,12 @@ public final class ReferenceUtil {
         return sb.toString();
     }
 
-    public static void writeFieldDescriptor(Writer writer, FieldReference fieldReference) throws IOException {
+    public static void writeFieldDescriptor(final Writer writer, final FieldReference fieldReference) throws IOException {
         writeFieldDescriptor(writer, fieldReference, false);
     }
 
-    public static void writeFieldDescriptor(Writer writer, FieldReference fieldReference,
-                                            boolean implicitReference) throws IOException {
+    public static void writeFieldDescriptor(final Writer writer, final FieldReference fieldReference,
+                                            final boolean implicitReference) throws IOException {
         if (!implicitReference) {
             writer.write(fieldReference.getDefiningClass());
             writer.write("->");
@@ -142,7 +142,7 @@ public final class ReferenceUtil {
         writer.write(fieldReference.getType());
     }
 
-    public static String getMethodHandleString(MethodHandleReference methodHandleReference) {
+    public static String getMethodHandleString(final MethodHandleReference methodHandleReference) {
         StringWriter stringWriter = new StringWriter();
         try {
             writeMethodHandle(stringWriter, methodHandleReference);
@@ -153,20 +153,20 @@ public final class ReferenceUtil {
         return stringWriter.toString();
     }
 
-    public static void writeMethodHandle(Writer writer, MethodHandleReference methodHandleReference)
+    public static void writeMethodHandle(final Writer writer, final MethodHandleReference methodHandleReference)
             throws IOException {
         writer.write(MethodHandleType.toString(methodHandleReference.getMethodHandleType()));
         writer.write('@');
 
         Reference memberReference = methodHandleReference.getMemberReference();
         if (memberReference instanceof MethodReference) {
-            writeMethodDescriptor(writer, (MethodReference)memberReference);
+            writeMethodDescriptor(writer, (MethodReference) memberReference);
         } else {
-            writeFieldDescriptor(writer, (FieldReference)memberReference);
+            writeFieldDescriptor(writer, (FieldReference) memberReference);
         }
     }
 
-    public static String getCallSiteString(CallSiteReference callSiteReference) {
+    public static String getCallSiteString(final CallSiteReference callSiteReference) {
         StringWriter stringWriter = new StringWriter();
         try {
             writeCallSite(stringWriter, callSiteReference);
@@ -177,7 +177,7 @@ public final class ReferenceUtil {
         return stringWriter.toString();
     }
 
-    public static void writeCallSite(Writer writer, CallSiteReference callSiteReference) throws IOException {
+    public static void writeCallSite(final Writer writer, final CallSiteReference callSiteReference) throws IOException {
         writer.write(callSiteReference.getName());
         writer.write('(');
         writer.write('"');
@@ -195,46 +195,46 @@ public final class ReferenceUtil {
         if (methodHandle.getMethodHandleType() != MethodHandleType.INVOKE_STATIC) {
             throw new IllegalArgumentException("The linker method handle for a call site must be of type invoke-static");
         }
-        writeMethodDescriptor(writer, (MethodReference)callSiteReference.getMethodHandle().getMemberReference());
+        writeMethodDescriptor(writer, (MethodReference) callSiteReference.getMethodHandle().getMemberReference());
     }
 
     @Nullable
-    public static String getReferenceString(@Nonnull Reference reference) {
+    public static String getReferenceString(final @Nonnull Reference reference) {
         return getReferenceString(reference, null);
     }
 
     @Nullable
-    public static String getReferenceString(@Nonnull Reference reference, @Nullable String containingClass) {
+    public static String getReferenceString(final @Nonnull Reference reference, final @Nullable String containingClass) {
         if (reference instanceof StringReference) {
-            return String.format("\"%s\"", StringUtils.escapeString(((StringReference)reference).getString()));
+            return String.format("\"%s\"", StringUtils.escapeString(((StringReference) reference).getString()));
         }
         if (reference instanceof TypeReference) {
-            return ((TypeReference)reference).getType();
+            return ((TypeReference) reference).getType();
         }
         if (reference instanceof FieldReference) {
-            FieldReference fieldReference = (FieldReference)reference;
+            FieldReference fieldReference = (FieldReference) reference;
             boolean useImplicitReference = fieldReference.getDefiningClass().equals(containingClass);
             return getFieldDescriptor(fieldReference, useImplicitReference);
         }
         if (reference instanceof MethodReference) {
-            MethodReference methodReference = (MethodReference)reference;
+            MethodReference methodReference = (MethodReference) reference;
             boolean useImplicitReference = methodReference.getDefiningClass().equals(containingClass);
             return getMethodDescriptor(methodReference, useImplicitReference);
         }
         if (reference instanceof MethodProtoReference) {
-            MethodProtoReference methodProtoReference = (MethodProtoReference)reference;
+            MethodProtoReference methodProtoReference = (MethodProtoReference) reference;
             return getMethodProtoDescriptor(methodProtoReference);
         }
         if (reference instanceof MethodHandleReference) {
-            MethodHandleReference methodHandleReference = (MethodHandleReference)reference;
+            MethodHandleReference methodHandleReference = (MethodHandleReference) reference;
             return getMethodHandleString(methodHandleReference);
         }
         if (reference instanceof CallSiteReference) {
-            CallSiteReference callSiteReference = (CallSiteReference)reference;
+            CallSiteReference callSiteReference = (CallSiteReference) reference;
             return getCallSiteString(callSiteReference);
         }
         return null;
     }
 
-    private ReferenceUtil() {}
+    private ReferenceUtil() { }
 }

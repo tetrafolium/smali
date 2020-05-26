@@ -40,12 +40,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TestUtils {
-    public static ClassDef makeClassDef(@Nonnull String classType, @Nullable String superType, String... interfaces) {
+    public static ClassDef makeClassDef(final @Nonnull String classType, final @Nullable String superType, final String... interfaces) {
         return new ImmutableClassDef(classType, 0, superType, ImmutableSet.copyOf(interfaces),
                 null, null, null, null, null, null);
     }
 
-    public static ClassDef makeInterfaceDef(@Nonnull String classType, String... interfaces) {
+    public static ClassDef makeInterfaceDef(final @Nonnull String classType, final String... interfaces) {
         return new ImmutableClassDef(classType, AccessFlags.INTERFACE.getValue(), "Ljava/lang/Object;",
                 ImmutableSet.copyOf(interfaces), null, null, null, null, null, null);
     }

@@ -43,20 +43,24 @@ public abstract class BaseStringReference extends BaseReference implements Strin
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o != null && o instanceof StringReference) {
-            return getString().equals(((StringReference)o).getString());
+            return getString().equals(((StringReference) o).getString());
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull CharSequence o) {
+    public int compareTo(final @Nonnull CharSequence o) {
         return getString().compareTo(o.toString());
     }
 
-    @Override public int length() { return getString().length(); }
-    @Override public char charAt(int index) { return getString().charAt(index); }
-    @Override public CharSequence subSequence(int start, int end) { return getString().subSequence(start, end); }
-    @Override @Nonnull public String toString() { return getString(); }
+    @Override public int length() {
+        return getString().length(); }
+    @Override public char charAt(final int index) {
+        return getString().charAt(index); }
+    @Override public CharSequence subSequence(final int start, final int end) {
+        return getString().subSequence(start, end); }
+    @Override @Nonnull public String toString() {
+        return getString(); }
 }

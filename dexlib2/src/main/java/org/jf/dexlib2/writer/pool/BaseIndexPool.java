@@ -40,7 +40,7 @@ import java.util.Map;
 
 public abstract class BaseIndexPool<Key> extends BasePool<Key, Integer> implements IndexSection<Key> {
 
-    public BaseIndexPool(@Nonnull DexPool dexPool) {
+    public BaseIndexPool(final @Nonnull DexPool dexPool) {
         super(dexPool);
     }
 
@@ -48,7 +48,7 @@ public abstract class BaseIndexPool<Key> extends BasePool<Key, Integer> implemen
         return internedItems.entrySet();
     }
 
-    @Override public int getItemIndex(@Nonnull Key key) {
+    @Override public int getItemIndex(final @Nonnull Key key) {
         Integer index = internedItems.get(key);
         if (index == null) {
             throw new ExceptionWithContext("Item not found.: %s", getItemString(key));
@@ -56,7 +56,7 @@ public abstract class BaseIndexPool<Key> extends BasePool<Key, Integer> implemen
         return index;
     }
 
-    @Nonnull protected String getItemString(@Nonnull Key key) {
+    @Nonnull protected String getItemString(final @Nonnull Key key) {
         return key.toString();
     }
 }

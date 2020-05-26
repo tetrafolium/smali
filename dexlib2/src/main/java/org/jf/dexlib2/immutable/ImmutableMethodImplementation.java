@@ -51,20 +51,20 @@ public class ImmutableMethodImplementation implements MethodImplementation {
     @Nonnull protected final ImmutableList<? extends ImmutableTryBlock> tryBlocks;
     @Nonnull protected final ImmutableList<? extends ImmutableDebugItem> debugItems;
 
-    public ImmutableMethodImplementation(int registerCount,
-                                         @Nullable Iterable<? extends Instruction> instructions,
-                                         @Nullable List<? extends TryBlock<? extends ExceptionHandler>> tryBlocks,
-                                         @Nullable Iterable<? extends DebugItem> debugItems) {
+    public ImmutableMethodImplementation(final int registerCount,
+                                         final @Nullable Iterable<? extends Instruction> instructions,
+                                         final @Nullable List<? extends TryBlock<? extends ExceptionHandler>> tryBlocks,
+                                         final @Nullable Iterable<? extends DebugItem> debugItems) {
         this.registerCount = registerCount;
         this.instructions = ImmutableInstruction.immutableListOf(instructions);
         this.tryBlocks = ImmutableTryBlock.immutableListOf(tryBlocks);
         this.debugItems = ImmutableDebugItem.immutableListOf(debugItems);
     }
 
-    public ImmutableMethodImplementation(int registerCount,
-                                         @Nullable ImmutableList<? extends ImmutableInstruction> instructions,
-                                         @Nullable ImmutableList<? extends ImmutableTryBlock> tryBlocks,
-                                         @Nullable ImmutableList<? extends ImmutableDebugItem> debugItems) {
+    public ImmutableMethodImplementation(final int registerCount,
+                                         final @Nullable ImmutableList<? extends ImmutableInstruction> instructions,
+                                         final @Nullable ImmutableList<? extends ImmutableTryBlock> tryBlocks,
+                                         final @Nullable ImmutableList<? extends ImmutableDebugItem> debugItems) {
         this.registerCount = registerCount;
         this.instructions = ImmutableUtils.nullToEmptyList(instructions);
         this.tryBlocks = ImmutableUtils.nullToEmptyList(tryBlocks);
@@ -72,12 +72,12 @@ public class ImmutableMethodImplementation implements MethodImplementation {
     }
 
     @Nullable
-    public static ImmutableMethodImplementation of(@Nullable MethodImplementation methodImplementation) {
+    public static ImmutableMethodImplementation of(final @Nullable MethodImplementation methodImplementation) {
         if (methodImplementation == null) {
             return null;
         }
         if (methodImplementation instanceof ImmutableMethodImplementation) {
-            return (ImmutableMethodImplementation)methodImplementation;
+            return (ImmutableMethodImplementation) methodImplementation;
         }
         return new ImmutableMethodImplementation(
                 methodImplementation.getRegisterCount(),
@@ -86,8 +86,12 @@ public class ImmutableMethodImplementation implements MethodImplementation {
                 methodImplementation.getDebugItems());
     }
 
-    @Override public int getRegisterCount() { return registerCount; }
-    @Nonnull @Override public ImmutableList<? extends ImmutableInstruction> getInstructions() { return instructions; }
-    @Nonnull @Override public ImmutableList<? extends ImmutableTryBlock> getTryBlocks() { return tryBlocks; }
-    @Nonnull @Override public ImmutableList<? extends ImmutableDebugItem> getDebugItems() { return debugItems; }
+    @Override public int getRegisterCount() {
+        return registerCount; }
+    @Nonnull @Override public ImmutableList<? extends ImmutableInstruction> getInstructions() {
+        return instructions; }
+    @Nonnull @Override public ImmutableList<? extends ImmutableTryBlock> getTryBlocks() {
+        return tryBlocks; }
+    @Nonnull @Override public ImmutableList<? extends ImmutableDebugItem> getDebugItems() {
+        return debugItems; }
 }

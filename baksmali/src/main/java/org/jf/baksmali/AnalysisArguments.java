@@ -52,47 +52,47 @@ import static org.jf.dexlib2.analysis.ClassPath.NOT_SPECIFIED;
 
 public class AnalysisArguments {
     @Parameter(names = {"-b", "--bootclasspath", "--bcp"},
-            description = "A colon separated list of the files to include in the bootclasspath when analyzing the " +
-                    "dex file. If not specified, baksmali will attempt to choose an " +
-                    "appropriate default. When analyzing oat files, this can simply be the path to the device's " +
-                    "boot.oat file. A single empty string can be used to specify that an empty bootclasspath should " +
-                    "be used. (e.g. --bootclasspath \"\") See baksmali help classpath for more information.",
+            description = "A colon separated list of the files to include in the bootclasspath when analyzing the "
+                    + "dex file. If not specified, baksmali will attempt to choose an "
+                    + "appropriate default. When analyzing oat files, this can simply be the path to the device's "
+                    + "boot.oat file. A single empty string can be used to specify that an empty bootclasspath should "
+                    + "be used. (e.g. --bootclasspath \"\") See baksmali help classpath for more information.",
             splitter = ColonParameterSplitter.class)
     @ExtendedParameter(argumentNames = "classpath")
     public List<String> bootClassPath = null;
 
     @Parameter(names = {"-c", "--classpath", "--cp"},
-            description = "A colon separated list of additional files to include in the classpath when analyzing the " +
-                    "dex file. These will be added to the classpath after any bootclasspath entries.",
+            description = "A colon separated list of additional files to include in the classpath when analyzing the "
+                    + "dex file. These will be added to the classpath after any bootclasspath entries.",
             splitter = ColonParameterSplitter.class)
     @ExtendedParameter(argumentNames = "classpath")
     public List<String> classPath = Lists.newArrayList();
 
     @Parameter(names = {"-d", "--classpath-dir", "--cpd", "--dir"},
-            description = "A directory to search for classpath files. This option can be used multiple times to " +
-                    "specify multiple directories to search. They will be searched in the order they are provided.")
+            description = "A directory to search for classpath files. This option can be used multiple times to "
+                    + "specify multiple directories to search. They will be searched in the order they are provided.")
     @ExtendedParameter(argumentNames = "dir")
     public List<String> classPathDirectories = null;
 
     public static class CheckPackagePrivateArgument {
         @Parameter(names = {"--check-package-private-access", "--package-private", "--checkpp", "--pp"},
-                description = "Use the package-private access check when calculating vtable indexes. This is enabled " +
-                        "by default for oat files. For odex files, this is only needed for odexes from 4.2.0. It " +
-                        "was reverted in 4.2.1.")
+                description = "Use the package-private access check when calculating vtable indexes. This is enabled "
+                        + "by default for oat files. For odex files, this is only needed for odexes from 4.2.0. It "
+                        + "was reverted in 4.2.1.")
         public boolean checkPackagePrivateAccess = false;
     }
 
     @Nonnull
-    public ClassPath loadClassPathForDexFile(@Nonnull File dexFileDir,
-                                             @Nonnull MultiDexContainer.DexEntry<? extends DexBackedDexFile> dexEntry,
-                                             boolean checkPackagePrivateAccess) throws IOException {
+    public ClassPath loadClassPathForDexFile(final @Nonnull File dexFileDir,
+                                             final @Nonnull MultiDexContainer.DexEntry<? extends DexBackedDexFile> dexEntry,
+                                             final boolean checkPackagePrivateAccess) throws IOException {
         return loadClassPathForDexFile(dexFileDir, dexEntry, checkPackagePrivateAccess, NOT_SPECIFIED);
     }
 
     @Nonnull
-    public ClassPath loadClassPathForDexFile(@Nonnull File dexFileDir,
-                                             @Nonnull MultiDexContainer.DexEntry<? extends DexBackedDexFile> dexEntry,
-                                             boolean checkPackagePrivateAccess, int oatVersion)
+    public ClassPath loadClassPathForDexFile(final @Nonnull File dexFileDir,
+                                             final @Nonnull MultiDexContainer.DexEntry<? extends DexBackedDexFile> dexEntry,
+                                             final boolean checkPackagePrivateAccess, final int oatVersion)
             throws IOException {
         ClassPathResolver resolver;
 

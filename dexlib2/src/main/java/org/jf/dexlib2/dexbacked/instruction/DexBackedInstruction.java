@@ -45,19 +45,21 @@ public abstract class DexBackedInstruction implements Instruction {
     @Nonnull public final Opcode opcode;
     public final int instructionStart;
 
-    public DexBackedInstruction(@Nonnull DexBackedDexFile dexFile,
-                                @Nonnull Opcode opcode,
-                                int instructionStart) {
+    public DexBackedInstruction(final @Nonnull DexBackedDexFile dexFile,
+                                final @Nonnull Opcode opcode,
+                                final int instructionStart) {
         this.dexFile = dexFile;
         this.opcode = opcode;
         this.instructionStart = instructionStart;
     }
 
-    @Nonnull public Opcode getOpcode() { return opcode; }
-    @Override public int getCodeUnits() { return opcode.format.size / 2; }
+    @Nonnull public Opcode getOpcode() {
+        return opcode; }
+    @Override public int getCodeUnits() {
+        return opcode.format.size / 2; }
 
     @Nonnull
-    public static Instruction readFrom(DexBackedDexFile dexFile, @Nonnull DexReader reader) {
+    public static Instruction readFrom(final DexBackedDexFile dexFile, final @Nonnull DexReader reader) {
         int opcodeValue = reader.peekUbyte();
 
         if (opcodeValue == 0) {
@@ -67,14 +69,14 @@ public abstract class DexBackedInstruction implements Instruction {
         Opcode opcode = dexFile.getOpcodes().getOpcodeByValue(opcodeValue);
 
         Instruction instruction = buildInstruction(dexFile, opcode,
-                reader.getOffset() + reader.dexBuf.getBaseOffset() -
-                        dexFile.getBuffer().getBaseOffset() - dexFile.getBaseDataOffset());
-        reader.moveRelative(instruction.getCodeUnits()*2);
+                reader.getOffset() + reader.dexBuf.getBaseOffset()
+                        - dexFile.getBuffer().getBaseOffset() - dexFile.getBaseDataOffset());
+        reader.moveRelative(instruction.getCodeUnits() * 2);
         return instruction;
     }
     
-    private static DexBackedInstruction buildInstruction(@Nonnull DexBackedDexFile dexFile, @Nullable Opcode opcode,
-                                                         int instructionStartOffset) {
+    private static DexBackedInstruction buildInstruction(final @Nonnull DexBackedDexFile dexFile, final @Nullable Opcode opcode,
+                                                         final int instructionStartOffset) {
         if (opcode == null) {
             return new DexBackedUnknownInstruction(dexFile, instructionStartOffset);
         }

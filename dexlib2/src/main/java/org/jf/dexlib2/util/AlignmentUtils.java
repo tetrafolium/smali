@@ -32,13 +32,13 @@
 package org.jf.dexlib2.util;
 
 public abstract class AlignmentUtils {
-    public static int alignOffset(int offset, int alignment) {
+    public static int alignOffset(final int offset, final int alignment) {
         int mask = alignment - 1;
         assert (alignment >= 0) && ((mask & alignment) == 0);
         return (offset + mask) & ~mask;
     }
 
-    public static boolean isAligned(int offset, int alignment) {
+    public static boolean isAligned(final int offset, final int alignment) {
         return (offset % alignment) == 0;
     }
 }

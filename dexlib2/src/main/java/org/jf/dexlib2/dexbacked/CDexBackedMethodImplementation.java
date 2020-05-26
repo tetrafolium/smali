@@ -38,7 +38,7 @@ import static org.jf.dexlib2.dexbacked.raw.CodeItem.*;
 public class CDexBackedMethodImplementation extends DexBackedMethodImplementation {
 
     public CDexBackedMethodImplementation(
-            @Nonnull DexBackedDexFile dexFile, @Nonnull DexBackedMethod method, int codeOffset) {
+            final @Nonnull DexBackedDexFile dexFile, final @Nonnull DexBackedMethod method, final int codeOffset) {
         super(dexFile, method, codeOffset);
     }
 
@@ -49,7 +49,7 @@ public class CDexBackedMethodImplementation extends DexBackedMethodImplementatio
             int preheaderCount = 1;
 
             if ((getPreheaderFlags() & CDEX_PREHEADER_FLAG_INSTRUCTIONS_SIZE) != 0) {
-                preheaderCount+=2;
+                preheaderCount += 2;
             }
             if ((getPreheaderFlags() & CDEX_PREHEADER_FLAG_REGISTER_COUNT) != 0) {
                 preheaderCount++;
@@ -77,8 +77,8 @@ public class CDexBackedMethodImplementation extends DexBackedMethodImplementatio
     @Override
     protected int getInstructionsSize() {
         int instructionsSize = dexFile.getDataBuffer().readUshort(
-                codeOffset + CDEX_INSTRUCTIONS_SIZE_AND_PREHEADER_FLAGS_OFFSET) >>
-                CDEX_INSTRUCTIONS_SIZE_SHIFT;
+                codeOffset + CDEX_INSTRUCTIONS_SIZE_AND_PREHEADER_FLAGS_OFFSET)
+                >> CDEX_INSTRUCTIONS_SIZE_SHIFT;
 
         if ((getPreheaderFlags() & CDEX_PREHEADER_FLAG_INSTRUCTIONS_SIZE) != 0) {
             instructionsSize += dexFile.getDataBuffer().readUshort(codeOffset - 2);
@@ -93,8 +93,8 @@ public class CDexBackedMethodImplementation extends DexBackedMethodImplementatio
     }
 
     private int getPreheaderFlags() {
-        return dexFile.getDataBuffer().readUshort(codeOffset + CDEX_INSTRUCTIONS_SIZE_AND_PREHEADER_FLAGS_OFFSET) &
-                CDEX_PREHEADER_FLAGS_MASK;
+        return dexFile.getDataBuffer().readUshort(codeOffset + CDEX_INSTRUCTIONS_SIZE_AND_PREHEADER_FLAGS_OFFSET)
+                & CDEX_PREHEADER_FLAGS_MASK;
     }
 
     @Override
@@ -132,9 +132,9 @@ public class CDexBackedMethodImplementation extends DexBackedMethodImplementatio
             return 0;
         }
 
-        int offsetCount = Integer.bitCount(bitMask & 0xFFFF >> (16-bitIndex));
+        int offsetCount = Integer.bitCount(bitMask & 0xFFFF >> (16 - bitIndex));
         int baseDebugOffset = cdexFile.getDebugInfoBase();
-        for (int i=0; i<offsetCount; i++) {
+        for (int i = 0; i < offsetCount; i++) {
             baseDebugOffset += reader.readBigUleb128();
         }
         baseDebugOffset += reader.readBigUleb128();

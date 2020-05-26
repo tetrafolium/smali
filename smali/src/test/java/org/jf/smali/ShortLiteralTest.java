@@ -29,7 +29,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.jf.smali;import org.jf.smali.LiteralTools;
+package org.jf.smali; import org.jf.smali.LiteralTools;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -54,17 +54,17 @@ public class ShortLiteralTest
         Assert.assertTrue(LiteralTools.parseShort("-0x1fff") == -0x1fff);
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FaileHexTest1() {
         LiteralTools.parseShort("-0x8001");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailHexTest2() {
         LiteralTools.parseShort("-0xFFFF");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailHexTest3() {
         LiteralTools.parseShort("0x100000");
     }
@@ -88,22 +88,22 @@ public class ShortLiteralTest
         Assert.assertTrue(LiteralTools.parseShort("-32768") == Short.MIN_VALUE);
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FaileDecTest1() {
         LiteralTools.parseShort("-32769");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest2() {
         LiteralTools.parseShort("-65535");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest3() {
         LiteralTools.parseShort("65536");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest4() {
         LiteralTools.parseShort("65600");
     }
@@ -126,17 +126,17 @@ public class ShortLiteralTest
         Assert.assertTrue(LiteralTools.parseShort("-0100000") == Short.MIN_VALUE);
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FaileOctTest1() {
         LiteralTools.parseShort("-0100001");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailOctTest2() {
         LiteralTools.parseShort("-0177777");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailOctTest3() {
         LiteralTools.parseShort("0200000");
     }

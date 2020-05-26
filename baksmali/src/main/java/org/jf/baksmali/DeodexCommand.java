@@ -57,13 +57,13 @@ public class DeodexCommand extends DisassembleCommand {
     protected CheckPackagePrivateArgument checkPackagePrivateArgument = new CheckPackagePrivateArgument();
 
     @Parameter(names = {"--inline-table", "--inline", "--it"},
-            description = "Specify a file containing a custom inline method table to use. See the " +
-                    "\"deodexerant\" tool in the smali github repository to dump the inline method table from a " +
-                    "device that uses dalvik.")
+            description = "Specify a file containing a custom inline method table to use. See the "
+                    + "\"deodexerant\" tool in the smali github repository to dump the inline method table from a "
+                    + "device that uses dalvik.")
     @ExtendedParameter(argumentNames = "file")
     private String inlineTable;
 
-    public DeodexCommand(@Nonnull List<JCommander> commandAncestors) {
+    public DeodexCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);
     }
 
@@ -75,7 +75,7 @@ public class DeodexCommand extends DisassembleCommand {
         if (dexFile instanceof DexBackedOdexFile) {
             if (inlineTable == null) {
                 options.inlineResolver = InlineMethodResolver.createInlineMethodResolver(
-                        ((DexBackedOdexFile)dexFile).getOdexVersion());
+                        ((DexBackedOdexFile) dexFile).getOdexVersion());
             } else {
                 File inlineTableFile = new File(inlineTable);
                 if (!inlineTableFile.exists()) {

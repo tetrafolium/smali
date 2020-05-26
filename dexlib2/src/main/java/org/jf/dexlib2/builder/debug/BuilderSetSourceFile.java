@@ -42,14 +42,15 @@ public class BuilderSetSourceFile extends BuilderDebugItem implements SetSourceF
     @Nullable
     private final StringReference sourceFile;
 
-    public BuilderSetSourceFile(@Nullable StringReference sourceFile) {
+    public BuilderSetSourceFile(final @Nullable StringReference sourceFile) {
         this.sourceFile = sourceFile;
     }
 
-    @Override public int getDebugItemType() { return DebugItemType.SET_SOURCE_FILE; }
+    @Override public int getDebugItemType() {
+        return DebugItemType.SET_SOURCE_FILE; }
 
     @Nullable @Override public String getSourceFile() {
-        return sourceFile==null?null:sourceFile.getString();
+        return sourceFile == null ? null : sourceFile.getString();
     }
 
     @Nullable @Override public StringReference getSourceFileReference() {

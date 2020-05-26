@@ -44,17 +44,17 @@ public class ImmutableInstruction12x extends ImmutableInstruction implements Ins
     protected final int registerA;
     protected final int registerB;
 
-    public ImmutableInstruction12x(@Nonnull Opcode opcode,
-                                   int registerA,
-                                   int registerB) {
+    public ImmutableInstruction12x(final @Nonnull Opcode opcode,
+                                   final int registerA,
+                                   final int registerB) {
         super(opcode);
         this.registerA = Preconditions.checkNibbleRegister(registerA);
         this.registerB = Preconditions.checkNibbleRegister(registerB);
     }
 
-    public static ImmutableInstruction12x of(Instruction12x instruction) {
+    public static ImmutableInstruction12x of(final Instruction12x instruction) {
         if (instruction instanceof ImmutableInstruction12x) {
-            return (ImmutableInstruction12x)instruction;
+            return (ImmutableInstruction12x) instruction;
         }
         return new ImmutableInstruction12x(
                 instruction.getOpcode(),
@@ -62,8 +62,11 @@ public class ImmutableInstruction12x extends ImmutableInstruction implements Ins
                 instruction.getRegisterB());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getRegisterB() {
+        return registerB; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

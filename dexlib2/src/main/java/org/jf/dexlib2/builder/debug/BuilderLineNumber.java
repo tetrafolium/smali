@@ -38,11 +38,13 @@ import org.jf.dexlib2.iface.debug.LineNumber;
 public class BuilderLineNumber extends BuilderDebugItem implements LineNumber {
     private final int lineNumber;
 
-    public BuilderLineNumber(int lineNumber) {
+    public BuilderLineNumber(final int lineNumber) {
         this.lineNumber = lineNumber;
     }
 
-    @Override public int getLineNumber() { return lineNumber; }
+    @Override public int getLineNumber() {
+        return lineNumber; }
 
-    @Override public int getDebugItemType() { return DebugItemType.LINE_NUMBER; }
+    @Override public int getDebugItemType() {
+        return DebugItemType.LINE_NUMBER; }
 }

@@ -43,40 +43,42 @@ public class ImmutableSwitchElement implements SwitchElement {
     protected final int key;
     protected final int offset;
 
-    public ImmutableSwitchElement(int key,
-                                  int offset) {
+    public ImmutableSwitchElement(final int key,
+                                  final int offset) {
         this.key = key;
         this.offset = offset;
     }
 
     @Nonnull
-    public static ImmutableSwitchElement of(SwitchElement switchElement) {
+    public static ImmutableSwitchElement of(final SwitchElement switchElement) {
         if (switchElement instanceof  ImmutableSwitchElement) {
-            return (ImmutableSwitchElement)switchElement;
+            return (ImmutableSwitchElement) switchElement;
         }
         return new ImmutableSwitchElement(
                 switchElement.getKey(),
                 switchElement.getOffset());
     }
 
-    @Override public int getKey() { return key; }
-    @Override public int getOffset() { return offset; }
+    @Override public int getKey() {
+        return key; }
+    @Override public int getOffset() {
+        return offset; }
 
     @Nonnull
-    public static ImmutableList<ImmutableSwitchElement> immutableListOf(@Nullable List<? extends SwitchElement> list) {
+    public static ImmutableList<ImmutableSwitchElement> immutableListOf(final @Nullable List<? extends SwitchElement> list) {
         return CONVERTER.toList(list);
     }
 
     private static final ImmutableConverter<ImmutableSwitchElement, SwitchElement> CONVERTER =
             new ImmutableConverter<ImmutableSwitchElement, SwitchElement>() {
                 @Override
-                protected boolean isImmutable(@Nonnull SwitchElement item) {
+                protected boolean isImmutable(final @Nonnull SwitchElement item) {
                     return item instanceof ImmutableSwitchElement;
                 }
 
                 @Nonnull
                 @Override
-                protected ImmutableSwitchElement makeImmutable(@Nonnull SwitchElement item) {
+                protected ImmutableSwitchElement makeImmutable(final @Nonnull SwitchElement item) {
                     return ImmutableSwitchElement.of(item);
                 }
             };

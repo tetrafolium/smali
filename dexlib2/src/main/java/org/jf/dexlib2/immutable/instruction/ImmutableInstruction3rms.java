@@ -45,19 +45,19 @@ public class ImmutableInstruction3rms extends ImmutableInstruction implements In
     protected final int registerCount;
     protected final int vtableIndex;
 
-    public ImmutableInstruction3rms(@Nonnull Opcode opcode,
-                                    int startRegister,
-                                    int registerCount,
-                                    int vtableIndex) {
+    public ImmutableInstruction3rms(final @Nonnull Opcode opcode,
+                                    final int startRegister,
+                                    final int registerCount,
+                                    final int vtableIndex) {
         super(opcode);
         this.startRegister = Preconditions.checkShortRegister(startRegister);
         this.registerCount = Preconditions.checkRegisterRangeCount(registerCount);
         this.vtableIndex = Preconditions.checkVtableIndex(vtableIndex);
     }
 
-    public static ImmutableInstruction3rms of(Instruction3rms instruction) {
+    public static ImmutableInstruction3rms of(final Instruction3rms instruction) {
         if (instruction instanceof ImmutableInstruction3rms) {
-            return (ImmutableInstruction3rms)instruction;
+            return (ImmutableInstruction3rms) instruction;
         }
         return new ImmutableInstruction3rms(
                 instruction.getOpcode(),
@@ -66,10 +66,14 @@ public class ImmutableInstruction3rms extends ImmutableInstruction implements In
                 instruction.getVtableIndex());
     }
 
-    @Override public int getStartRegister() { return startRegister; }
-    @Override public int getRegisterCount() { return registerCount; }
-    @Override public int getVtableIndex() { return vtableIndex; }
+    @Override public int getStartRegister() {
+        return startRegister; }
+    @Override public int getRegisterCount() {
+        return registerCount; }
+    @Override public int getVtableIndex() {
+        return vtableIndex; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }
 

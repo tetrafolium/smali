@@ -29,7 +29,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.jf.smali;import org.jf.smali.LiteralTools;
+package org.jf.smali; import org.jf.smali.LiteralTools;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -53,17 +53,17 @@ public class IntLiteralTest
         Assert.assertTrue(LiteralTools.parseInt("-0x1FFFFFFF") == -0x1FFFFFFF);
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FaileHexTest1() {
         LiteralTools.parseInt("-0x80000001");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailHexTest2() {
         LiteralTools.parseInt("-0xFFFFFFFF");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailHexTest3() {
         LiteralTools.parseInt("0x100000000");
     }
@@ -87,27 +87,27 @@ public class IntLiteralTest
         Assert.assertTrue(LiteralTools.parseInt("-2147483648") == Integer.MIN_VALUE);
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FaileDecTest1() {
         LiteralTools.parseInt("-2147483649");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest2() {
         LiteralTools.parseInt("-4294967295");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest3() {
         LiteralTools.parseInt("4294967296");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest4() {
         LiteralTools.parseInt("4294967300");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailDecTest5() {
         LiteralTools.parseInt("8589934592");
     }
@@ -130,17 +130,17 @@ public class IntLiteralTest
         Assert.assertTrue(LiteralTools.parseInt("-020000000000") == Integer.MIN_VALUE);
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FaileOctTest1() {
         LiteralTools.parseInt("-020000000001");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailOctTest2() {
         LiteralTools.parseInt("-037777777777");
     }
 
-    @Test(expected=NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void FailOctTest3() {
         LiteralTools.parseInt("040000000000");
     }

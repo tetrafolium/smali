@@ -10,7 +10,7 @@ public abstract class ItemWithLocation {
         return location != null;
     }
 
-    public void setLocation(MethodLocation methodLocation) {
+    public void setLocation(final MethodLocation methodLocation) {
         location = methodLocation;
     }
 }

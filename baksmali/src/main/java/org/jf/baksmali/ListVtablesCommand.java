@@ -69,12 +69,12 @@ public class ListVtablesCommand extends DexInputCommand {
     private List<String> classes = null;
 
     @Parameter(names = "--override-oat-version",
-            description = "Uses a classpath for the given oat version, regardless of the actual oat version. This " +
-                    "can be used, e.g. to list vtables from a dex file, as if they were in an oat file of the given " +
-                    "version.")
+            description = "Uses a classpath for the given oat version, regardless of the actual oat version. This "
+                    + "can be used, e.g. to list vtables from a dex file, as if they were in an oat file of the given "
+                    + "version.")
     private int oatVersion = 0;
 
-    public ListVtablesCommand(@Nonnull List<JCommander> commandAncestors) {
+    public ListVtablesCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);
     }
 
@@ -101,14 +101,14 @@ public class ListVtablesCommand extends DexInputCommand {
         try {
             if (classes != null && !classes.isEmpty()) {
                 for (String cls: classes) {
-                    listClassVtable((ClassProto)options.classPath.getClass(cls));
+                    listClassVtable((ClassProto) options.classPath.getClass(cls));
                 }
                 return;
             }
 
             for (ClassDef classDef : dexFile.getClasses()) {
                 if (!AccessFlags.INTERFACE.isSet(classDef.getAccessFlags())) {
-                    listClassVtable((ClassProto)options.classPath.getClass(classDef));
+                    listClassVtable((ClassProto) options.classPath.getClass(classDef));
                 }
             }
         } catch (IOException ex) {
@@ -116,10 +116,10 @@ public class ListVtablesCommand extends DexInputCommand {
         }
     }
 
-    private void listClassVtable(ClassProto classProto) throws IOException {
+    private void listClassVtable(final ClassProto classProto) throws IOException {
         List<Method> methods = classProto.getVtable();
-        String className = "Class " + classProto.getType() + " extends " + classProto.getSuperclass() +
-                " : " + methods.size() + " methods\n";
+        String className = "Class " + classProto.getType() + " extends " + classProto.getSuperclass()
+                + " : " + methods.size() + " methods\n";
         System.out.write(className.getBytes());
         for (int i = 0; i < methods.size(); i++) {
             Method method = methods.get(i);

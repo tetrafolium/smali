@@ -48,7 +48,7 @@ public class MapItem {
     private final DexBackedDexFile dexFile;
     private final int offset;
 
-    public MapItem(DexBackedDexFile dexFile, int offset) {
+    public MapItem(final DexBackedDexFile dexFile, final int offset) {
         this.dexFile = dexFile;
         this.offset = offset;
     }
@@ -71,14 +71,14 @@ public class MapItem {
     }
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "map_item";
             }
 
             @Override
-            protected void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            protected void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 int itemType = dexFile.getBuffer().readUshort(out.getCursor());
                 out.annotate(2, "type = 0x%x: %s", itemType, ItemType.getItemTypeName(itemType));
 
@@ -91,7 +91,7 @@ public class MapItem {
                 out.annotate(4, "offset = 0x%x", offset);
             }
 
-            @Override public void annotateSection(@Nonnull AnnotatedBytes out) {
+            @Override public void annotateSection(final @Nonnull AnnotatedBytes out) {
                 out.moveTo(sectionOffset);
                 int mapItemCount = dexFile.getBuffer().readSmallUint(out.getCursor());
                 out.annotate(4, "size = %d", mapItemCount);

@@ -43,7 +43,7 @@ public abstract class BuilderSwitchPayload extends BuilderInstruction implements
     @Nullable
     MethodLocation referrer;
 
-    protected BuilderSwitchPayload(@Nonnull Opcode opcode) {
+    protected BuilderSwitchPayload(final @Nonnull Opcode opcode) {
         super(opcode);
     }
 

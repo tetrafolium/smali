@@ -43,22 +43,24 @@ public class ImmutableInstruction11x extends ImmutableInstruction implements Ins
 
     protected final int registerA;
 
-    public ImmutableInstruction11x(@Nonnull Opcode opcode,
-                                   int registerA) {
+    public ImmutableInstruction11x(final @Nonnull Opcode opcode,
+                                   final int registerA) {
         super(opcode);
         this.registerA = Preconditions.checkByteRegister(registerA);
     }
 
-    public static ImmutableInstruction11x of(Instruction11x instruction) {
+    public static ImmutableInstruction11x of(final Instruction11x instruction) {
         if (instruction instanceof ImmutableInstruction11x) {
-            return (ImmutableInstruction11x)instruction;
+            return (ImmutableInstruction11x) instruction;
         }
         return new ImmutableInstruction11x(
                 instruction.getOpcode(),
                 instruction.getRegisterA());
     }
 
-    @Override public int getRegisterA() { return registerA; }
+    @Override public int getRegisterA() {
+        return registerA; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

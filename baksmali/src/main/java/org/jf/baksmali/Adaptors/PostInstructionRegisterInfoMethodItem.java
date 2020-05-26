@@ -41,9 +41,9 @@ public class PostInstructionRegisterInfoMethodItem extends MethodItem {
     @Nonnull private final RegisterFormatter registerFormatter;
     @Nonnull private final AnalyzedInstruction analyzedInstruction;
 
-    public PostInstructionRegisterInfoMethodItem(@Nonnull RegisterFormatter registerFormatter,
-                                                 @Nonnull AnalyzedInstruction analyzedInstruction,
-                                                 int codeAddress) {
+    public PostInstructionRegisterInfoMethodItem(final @Nonnull RegisterFormatter registerFormatter,
+                                                 final @Nonnull AnalyzedInstruction analyzedInstruction,
+                                                 final int codeAddress) {
         super(codeAddress);
         this.registerFormatter = registerFormatter;
         this.analyzedInstruction = analyzedInstruction;
@@ -55,7 +55,7 @@ public class PostInstructionRegisterInfoMethodItem extends MethodItem {
     }
 
     @Override
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         int registerInfo = registerFormatter.options.registerInfo;
         int registerCount = analyzedInstruction.getRegisterCount();
         BitSet registers = new BitSet(registerCount);
@@ -73,8 +73,8 @@ public class PostInstructionRegisterInfoMethodItem extends MethodItem {
         return writeRegisterInfo(writer, registers);
     }
 
-    private void addDestRegs(BitSet printPostRegister, int registerCount) {
-        for (int registerNum=0; registerNum<registerCount; registerNum++) {
+    private void addDestRegs(final BitSet printPostRegister, final int registerCount) {
+        for (int registerNum = 0; registerNum < registerCount; registerNum++) {
             if (!analyzedInstruction.getPreInstructionRegisterType(registerNum).equals(
                     analyzedInstruction.getPostInstructionRegisterType(registerNum))) {
                 printPostRegister.set(registerNum);
@@ -82,7 +82,7 @@ public class PostInstructionRegisterInfoMethodItem extends MethodItem {
         }
     }
 
-    private boolean writeRegisterInfo(IndentingWriter writer, BitSet registers) throws IOException {
+    private boolean writeRegisterInfo(final IndentingWriter writer, final BitSet registers) throws IOException {
         int registerNum = registers.nextSetBit(0);
         if (registerNum < 0) {
             return false;

@@ -51,8 +51,8 @@ public class BaksmaliTestUtils {
 
     private static String newline = System.getProperty("line.separator");
 
-    public static void assertSmaliCompiledEquals(String source, String expected,
-                                                 BaksmaliOptions options, boolean stripComments) throws IOException,
+    public static void assertSmaliCompiledEquals(final String source, final String expected,
+                                                 final BaksmaliOptions options, final boolean stripComments) throws IOException,
             RecognitionException {
         ClassDef classDef = SmaliTestUtils.compileSmali(source, options.apiLevel);
 
@@ -64,19 +64,19 @@ public class BaksmaliTestUtils {
         Assert.assertEquals(normalizedExpected, normalizedActual);
     }
 
-    public static void assertSmaliCompiledEquals(String source, String expected,
-            BaksmaliOptions options) throws IOException, RecognitionException {
+    public static void assertSmaliCompiledEquals(final String source, final String expected,
+            final BaksmaliOptions options) throws IOException, RecognitionException {
         assertSmaliCompiledEquals(source, expected, options, false);
     }
 
-    public static void assertSmaliCompiledEquals(String source, String expected)
+    public static void assertSmaliCompiledEquals(final String source, final String expected)
             throws IOException, RecognitionException {
         BaksmaliOptions options = new BaksmaliOptions();
         assertSmaliCompiledEquals(source, expected, options);
     }
 
     @Nonnull
-    public static String normalizeSmali(@Nonnull String smaliText, boolean stripComments) {
+    public static String normalizeSmali(final @Nonnull String smaliText, final boolean stripComments) {
         if (stripComments) {
             smaliText = stripComments(smaliText);
         }
@@ -84,8 +84,8 @@ public class BaksmaliTestUtils {
     }
 
     @Nonnull
-    public static String getNormalizedSmali(@Nonnull ClassDef classDef, @Nonnull BaksmaliOptions options,
-                                            boolean stripComments)
+    public static String getNormalizedSmali(final @Nonnull ClassDef classDef, final @Nonnull BaksmaliOptions options,
+                                            final boolean stripComments)
             throws IOException {
         StringWriter stringWriter = new StringWriter();
         IndentingWriter writer = new IndentingWriter(stringWriter);
@@ -96,7 +96,7 @@ public class BaksmaliTestUtils {
     }
 
     @Nonnull
-    public static byte[] readResourceBytesFully(@Nonnull String fileName) throws IOException {
+    public static byte[] readResourceBytesFully(final @Nonnull String fileName) throws IOException {
         InputStream smaliStream = RoundtripTest.class.getClassLoader().
                 getResourceAsStream(fileName);
         if (smaliStream == null) {
@@ -107,28 +107,28 @@ public class BaksmaliTestUtils {
     }
 
     @Nonnull
-    public static String readResourceFully(@Nonnull String fileName) throws IOException {
+    public static String readResourceFully(final @Nonnull String fileName) throws IOException {
         return readResourceFully(fileName, "UTF-8");
     }
 
     @Nonnull
-    public static String readResourceFully(@Nonnull String fileName, @Nonnull String encoding)
+    public static String readResourceFully(final @Nonnull String fileName, final @Nonnull String encoding)
             throws IOException {
         return new String(readResourceBytesFully(fileName), encoding);
     }
 
     @Nonnull
-    public static String normalizeNewlines(@Nonnull String source) {
+    public static String normalizeNewlines(final @Nonnull String source) {
         return normalizeNewlines(source, newline);
     }
 
     @Nonnull
-    public static String normalizeNewlines(@Nonnull String source, String newlineValue) {
+    public static String normalizeNewlines(final @Nonnull String source, final String newlineValue) {
         return source.replace("\r", "").replace("\n", newlineValue);
     }
 
     @Nonnull
-    public static String normalizeWhitespace(@Nonnull String source) {
+    public static String normalizeWhitespace(final @Nonnull String source) {
         // Go to native system new lines so that ^/$ work correctly
         source = normalizeNewlines(source);
 
@@ -153,7 +153,7 @@ public class BaksmaliTestUtils {
     }
 
     @Nonnull
-    public static String stripComments(@Nonnull String source) {
+    public static String stripComments(final @Nonnull String source) {
         Pattern pattern = Pattern.compile("#(.*)");
         Matcher matcher = pattern.matcher(source);
         return matcher.replaceAll("");

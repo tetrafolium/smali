@@ -37,17 +37,18 @@ import org.jf.dexlib2.iface.debug.PrologueEnd;
 import javax.annotation.Nonnull;
 
 public class ImmutablePrologueEnd extends ImmutableDebugItem implements PrologueEnd {
-    public ImmutablePrologueEnd(int codeAddress) {
+    public ImmutablePrologueEnd(final int codeAddress) {
         super(codeAddress);
     }
 
     @Nonnull
-    public static ImmutablePrologueEnd of(@Nonnull PrologueEnd prologueEnd) {
+    public static ImmutablePrologueEnd of(final @Nonnull PrologueEnd prologueEnd) {
         if (prologueEnd instanceof ImmutablePrologueEnd) {
-            return (ImmutablePrologueEnd)prologueEnd;
+            return (ImmutablePrologueEnd) prologueEnd;
         }
         return new ImmutablePrologueEnd(prologueEnd.getCodeAddress());
     }
 
-    @Override public int getDebugItemType() { return DebugItemType.PROLOGUE_END; }
+    @Override public int getDebugItemType() {
+        return DebugItemType.PROLOGUE_END; }
 }

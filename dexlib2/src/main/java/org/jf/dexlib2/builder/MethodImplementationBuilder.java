@@ -48,7 +48,7 @@ public class MethodImplementationBuilder {
 
     private MethodLocation currentLocation;
 
-    public MethodImplementationBuilder(int registerCount) {
+    public MethodImplementationBuilder(final int registerCount) {
         this.impl = new MutableMethodImplementation(registerCount);
         this.currentLocation = impl.instructionList.get(0);
     }
@@ -66,7 +66,7 @@ public class MethodImplementationBuilder {
      * @return A LabelRef representing the label
      */
     @Nonnull
-    public Label addLabel(@Nonnull String name) {
+    public Label addLabel(final @Nonnull String name) {
         Label label = labels.get(name);
 
         if (label != null) {
@@ -94,7 +94,7 @@ public class MethodImplementationBuilder {
      * @return A LabelRef representing the label
      */
     @Nonnull
-    public Label getLabel(@Nonnull String name) {
+    public Label getLabel(final @Nonnull String name) {
         Label label = labels.get(name);
         if (label == null) {
             label = new Label();
@@ -103,34 +103,34 @@ public class MethodImplementationBuilder {
         return label;
     }
 
-    public void addCatch(@Nullable TypeReference type, @Nonnull Label from,
-                         @Nonnull Label to, @Nonnull Label handler) {
+    public void addCatch(final @Nullable TypeReference type, final @Nonnull Label from,
+                         final @Nonnull Label to, final @Nonnull Label handler) {
         impl.addCatch(type, from, to, handler);
     }
 
-    public void addCatch(@Nullable String type, @Nonnull Label from, @Nonnull Label to,
-                         @Nonnull Label handler) {
+    public void addCatch(final @Nullable String type, final @Nonnull Label from, final @Nonnull Label to,
+                         final @Nonnull Label handler) {
         impl.addCatch(type, from, to, handler);
     }
 
-    public void addCatch(@Nonnull Label from, @Nonnull Label to, @Nonnull Label handler) {
+    public void addCatch(final @Nonnull Label from, final @Nonnull Label to, final @Nonnull Label handler) {
         impl.addCatch(from, to, handler);
     }
 
-    public void addLineNumber(int lineNumber) {
+    public void addLineNumber(final int lineNumber) {
         currentLocation.addLineNumber(lineNumber);
     }
 
-    public void addStartLocal(int registerNumber, @Nullable StringReference name, @Nullable TypeReference type,
-                              @Nullable StringReference signature) {
+    public void addStartLocal(final int registerNumber, final @Nullable StringReference name, final @Nullable TypeReference type,
+                              final @Nullable StringReference signature) {
         currentLocation.addStartLocal(registerNumber, name, type, signature);
     }
 
-    public void addEndLocal(int registerNumber) {
+    public void addEndLocal(final int registerNumber) {
         currentLocation.addEndLocal(registerNumber);
     }
 
-    public void addRestartLocal(int registerNumber) {
+    public void addRestartLocal(final int registerNumber) {
         currentLocation.addRestartLocal(registerNumber);
     }
 
@@ -142,12 +142,12 @@ public class MethodImplementationBuilder {
         currentLocation.addEpilogue();
     }
 
-    public void addSetSourceFile(@Nullable StringReference sourceFile) {
+    public void addSetSourceFile(final @Nullable StringReference sourceFile) {
         currentLocation.addSetSourceFile(sourceFile);
     }
 
-    public void addInstruction(@Nullable BuilderInstruction instruction) {
+    public void addInstruction(final @Nullable BuilderInstruction instruction) {
         impl.addInstruction(instruction);
-        currentLocation = impl.instructionList.get(impl.instructionList.size()-1);
+        currentLocation = impl.instructionList.get(impl.instructionList.size() - 1);
     }
 }

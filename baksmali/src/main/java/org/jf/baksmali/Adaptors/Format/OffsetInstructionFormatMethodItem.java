@@ -41,8 +41,8 @@ import java.io.IOException;
 public class OffsetInstructionFormatMethodItem extends InstructionMethodItem<OffsetInstruction> {
     protected LabelMethodItem label;
 
-    public OffsetInstructionFormatMethodItem(@Nonnull BaksmaliOptions options, @Nonnull MethodDefinition methodDef,
-                                             int codeAddress, OffsetInstruction instruction) {
+    public OffsetInstructionFormatMethodItem(final @Nonnull BaksmaliOptions options, final @Nonnull MethodDefinition methodDef,
+                                             final int codeAddress, final OffsetInstruction instruction) {
         super(methodDef, codeAddress, instruction);
 
         label = new LabelMethodItem(options, codeAddress + instruction.getCodeOffset(), getLabelPrefix());
@@ -50,7 +50,7 @@ public class OffsetInstructionFormatMethodItem extends InstructionMethodItem<Off
     }
 
     @Override
-    protected void writeTargetLabel(IndentingWriter writer) throws IOException {
+    protected void writeTargetLabel(final IndentingWriter writer) throws IOException {
         label.writeTo(writer);
     }
 

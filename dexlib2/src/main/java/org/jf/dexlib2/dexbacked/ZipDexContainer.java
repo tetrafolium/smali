@@ -65,7 +65,7 @@ public class ZipDexContainer implements MultiDexContainer<DexBackedDexFile> {
      *
      * @param zipFilePath The path to the zip file
      */
-    public ZipDexContainer(@Nonnull File zipFilePath, @Nullable Opcodes opcodes) {
+    public ZipDexContainer(final @Nonnull File zipFilePath, final @Nullable Opcodes opcodes) {
         this.zipFilePath = zipFilePath;
         this.opcodes = opcodes;
     }
@@ -104,7 +104,7 @@ public class ZipDexContainer implements MultiDexContainer<DexBackedDexFile> {
      * @return A ZipDexFile, or null if there is no entry with the given name
      * @throws NotADexFile If the entry isn't a dex file
      */
-    @Nullable @Override public DexEntry<DexBackedDexFile> getEntry(@Nonnull String entryName) throws IOException {
+    @Nullable @Override public DexEntry<DexBackedDexFile> getEntry(final @Nonnull String entryName) throws IOException {
         ZipFile zipFile = getZipFile();
         try {
             ZipEntry entry = zipFile.getEntry(entryName);
@@ -128,7 +128,7 @@ public class ZipDexContainer implements MultiDexContainer<DexBackedDexFile> {
         } catch (NotAZipFileException ex) {
             return false;
         } finally {
-            if(zipFile != null) {
+            if (zipFile != null) {
                 try {
                     zipFile.close();
                 } catch (IOException ex) {
@@ -138,7 +138,7 @@ public class ZipDexContainer implements MultiDexContainer<DexBackedDexFile> {
         }
     }
 
-    protected boolean isDex(@Nonnull ZipFile zipFile, @Nonnull ZipEntry zipEntry) throws IOException {
+    protected boolean isDex(final @Nonnull ZipFile zipFile, final @Nonnull ZipEntry zipEntry) throws IOException {
         InputStream inputStream = new BufferedInputStream(zipFile.getInputStream(zipEntry));
         try {
             DexUtil.verifyDexHeader(inputStream);
@@ -163,7 +163,7 @@ public class ZipDexContainer implements MultiDexContainer<DexBackedDexFile> {
     }
 
     @Nonnull
-    protected DexEntry loadEntry(@Nonnull ZipFile zipFile, @Nonnull ZipEntry zipEntry) throws IOException {
+    protected DexEntry loadEntry(final @Nonnull ZipFile zipFile, final @Nonnull ZipEntry zipEntry) throws IOException {
         InputStream inputStream = zipFile.getInputStream(zipEntry);
         try {
             byte[] buf = ByteStreams.toByteArray(inputStream);

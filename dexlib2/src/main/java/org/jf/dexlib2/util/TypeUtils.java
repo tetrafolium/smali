@@ -38,21 +38,21 @@ import org.jf.dexlib2.iface.reference.TypeReference;
 import javax.annotation.Nonnull;
 
 public final class TypeUtils {
-    public static boolean isWideType(@Nonnull String type) {
+    public static boolean isWideType(final @Nonnull String type) {
         char c = type.charAt(0);
         return c == 'J' || c == 'D';
     }
 
-    public static boolean isWideType(@Nonnull TypeReference type) {
+    public static boolean isWideType(final @Nonnull TypeReference type) {
         return isWideType(type.getType());
     }
 
-    public static boolean isPrimitiveType(String type) {
+    public static boolean isPrimitiveType(final String type) {
         return type.length() == 1;
     }
 
     @Nonnull
-    public static String getPackage(@Nonnull String type) {
+    public static String getPackage(final @Nonnull String type) {
         int lastSlash = type.lastIndexOf('/');
         if (lastSlash < 0) {
             return "";
@@ -60,7 +60,7 @@ public final class TypeUtils {
         return type.substring(1, lastSlash);
     }
 
-    public static boolean canAccessClass(@Nonnull String accessorType, @Nonnull ClassDef accesseeClassDef) {
+    public static boolean canAccessClass(final @Nonnull String accessorType, final @Nonnull ClassDef accesseeClassDef) {
         if (AccessFlags.PUBLIC.isSet(accesseeClassDef.getAccessFlags())) {
             return true;
         }
@@ -70,5 +70,5 @@ public final class TypeUtils {
         return getPackage(accesseeClassDef.getType()).equals(getPackage(accessorType));
     }
 
-    private TypeUtils() {}
+    private TypeUtils() { }
 }

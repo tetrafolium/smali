@@ -52,7 +52,7 @@ class PoolClassDef extends BaseTypeReference implements ClassDef {
     int classDefIndex = DexPool.NO_INDEX;
     int annotationDirectoryOffset = DexPool.NO_OFFSET;
 
-    PoolClassDef(@Nonnull ClassDef classDef) {
+    PoolClassDef(final @Nonnull ClassDef classDef) {
         this.classDef = classDef;
 
         interfaces = new TypeListPool.Key<List<String>>(ImmutableList.copyOf(classDef.getInterfaces()));

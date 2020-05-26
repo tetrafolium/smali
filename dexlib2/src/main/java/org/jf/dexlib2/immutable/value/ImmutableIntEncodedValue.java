@@ -37,16 +37,17 @@ import org.jf.dexlib2.iface.value.IntEncodedValue;
 public class ImmutableIntEncodedValue extends BaseIntEncodedValue implements ImmutableEncodedValue {
     protected final int value;
 
-    public ImmutableIntEncodedValue(int value) {
+    public ImmutableIntEncodedValue(final int value) {
         this.value = value;
     }
 
-    public static ImmutableIntEncodedValue of(IntEncodedValue intEncodedValue) {
+    public static ImmutableIntEncodedValue of(final IntEncodedValue intEncodedValue) {
         if (intEncodedValue instanceof ImmutableIntEncodedValue) {
-            return (ImmutableIntEncodedValue)intEncodedValue;
+            return (ImmutableIntEncodedValue) intEncodedValue;
         }
         return new ImmutableIntEncodedValue(intEncodedValue.getValue());
     }
 
-    @Override public int getValue() { return value; }
+    @Override public int getValue() {
+        return value; }
 }

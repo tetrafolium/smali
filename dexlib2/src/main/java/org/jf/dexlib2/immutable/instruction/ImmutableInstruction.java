@@ -44,87 +44,87 @@ import javax.annotation.Nonnull;
 public abstract class ImmutableInstruction implements Instruction {
     @Nonnull protected final Opcode opcode;
 
-    protected ImmutableInstruction(@Nonnull Opcode opcode) {
+    protected ImmutableInstruction(final @Nonnull Opcode opcode) {
         Preconditions.checkFormat(opcode, getFormat());
         this.opcode = opcode;
     }
 
     @Nonnull
-    public static ImmutableInstruction of(Instruction instruction) {
+    public static ImmutableInstruction of(final Instruction instruction) {
         if (instruction instanceof ImmutableInstruction) {
-            return (ImmutableInstruction)instruction;
+            return (ImmutableInstruction) instruction;
         }
 
         switch (instruction.getOpcode().format) {
             case Format10t:
-                return ImmutableInstruction10t.of((Instruction10t)instruction);
+                return ImmutableInstruction10t.of((Instruction10t) instruction);
             case Format10x:
                 if (instruction instanceof UnknownInstruction) {
-                    return ImmutableUnknownInstruction.of((UnknownInstruction)instruction);
+                    return ImmutableUnknownInstruction.of((UnknownInstruction) instruction);
                 }
-                return ImmutableInstruction10x.of((Instruction10x)instruction);
+                return ImmutableInstruction10x.of((Instruction10x) instruction);
             case Format11n:
-                return ImmutableInstruction11n.of((Instruction11n)instruction);
+                return ImmutableInstruction11n.of((Instruction11n) instruction);
             case Format11x:
-                return ImmutableInstruction11x.of((Instruction11x)instruction);
+                return ImmutableInstruction11x.of((Instruction11x) instruction);
             case Format12x:
-                return ImmutableInstruction12x.of((Instruction12x)instruction);
+                return ImmutableInstruction12x.of((Instruction12x) instruction);
             case Format20bc:
-                return ImmutableInstruction20bc.of((Instruction20bc)instruction);
+                return ImmutableInstruction20bc.of((Instruction20bc) instruction);
             case Format20t:
-                return ImmutableInstruction20t.of((Instruction20t)instruction);
+                return ImmutableInstruction20t.of((Instruction20t) instruction);
             case Format21c:
-                return ImmutableInstruction21c.of((Instruction21c)instruction);
+                return ImmutableInstruction21c.of((Instruction21c) instruction);
             case Format21ih:
-                return ImmutableInstruction21ih.of((Instruction21ih)instruction);
+                return ImmutableInstruction21ih.of((Instruction21ih) instruction);
             case Format21lh:
-                return ImmutableInstruction21lh.of((Instruction21lh)instruction);
+                return ImmutableInstruction21lh.of((Instruction21lh) instruction);
             case Format21s:
-                return ImmutableInstruction21s.of((Instruction21s)instruction);
+                return ImmutableInstruction21s.of((Instruction21s) instruction);
             case Format21t:
-                return ImmutableInstruction21t.of((Instruction21t)instruction);
+                return ImmutableInstruction21t.of((Instruction21t) instruction);
             case Format22b:
-                return ImmutableInstruction22b.of((Instruction22b)instruction);
+                return ImmutableInstruction22b.of((Instruction22b) instruction);
             case Format22c:
-                return ImmutableInstruction22c.of((Instruction22c)instruction);
+                return ImmutableInstruction22c.of((Instruction22c) instruction);
             case Format22cs:
-                return ImmutableInstruction22cs.of((Instruction22cs)instruction);
+                return ImmutableInstruction22cs.of((Instruction22cs) instruction);
             case Format22s:
-                return ImmutableInstruction22s.of((Instruction22s)instruction);
+                return ImmutableInstruction22s.of((Instruction22s) instruction);
             case Format22t:
-                return ImmutableInstruction22t.of((Instruction22t)instruction);
+                return ImmutableInstruction22t.of((Instruction22t) instruction);
             case Format22x:
-                return ImmutableInstruction22x.of((Instruction22x)instruction);
+                return ImmutableInstruction22x.of((Instruction22x) instruction);
             case Format23x:
-                return ImmutableInstruction23x.of((Instruction23x)instruction);
+                return ImmutableInstruction23x.of((Instruction23x) instruction);
             case Format30t:
-                return ImmutableInstruction30t.of((Instruction30t)instruction);
+                return ImmutableInstruction30t.of((Instruction30t) instruction);
             case Format31c:
-                return ImmutableInstruction31c.of((Instruction31c)instruction);
+                return ImmutableInstruction31c.of((Instruction31c) instruction);
             case Format31i:
-                return ImmutableInstruction31i.of((Instruction31i)instruction);
+                return ImmutableInstruction31i.of((Instruction31i) instruction);
             case Format31t:
-                return ImmutableInstruction31t.of((Instruction31t)instruction);
+                return ImmutableInstruction31t.of((Instruction31t) instruction);
             case Format32x:
-                return ImmutableInstruction32x.of((Instruction32x)instruction);
+                return ImmutableInstruction32x.of((Instruction32x) instruction);
             case Format35c:
-                return ImmutableInstruction35c.of((Instruction35c)instruction);
+                return ImmutableInstruction35c.of((Instruction35c) instruction);
             case Format35mi:
-                return ImmutableInstruction35mi.of((Instruction35mi)instruction);
+                return ImmutableInstruction35mi.of((Instruction35mi) instruction);
             case Format35ms:
-                return ImmutableInstruction35ms.of((Instruction35ms)instruction);
+                return ImmutableInstruction35ms.of((Instruction35ms) instruction);
             case Format3rc:
-                return ImmutableInstruction3rc.of((Instruction3rc)instruction);
+                return ImmutableInstruction3rc.of((Instruction3rc) instruction);
             case Format3rmi:
-                return ImmutableInstruction3rmi.of((Instruction3rmi)instruction);
+                return ImmutableInstruction3rmi.of((Instruction3rmi) instruction);
             case Format3rms:
-                return ImmutableInstruction3rms.of((Instruction3rms)instruction);
+                return ImmutableInstruction3rms.of((Instruction3rms) instruction);
             case Format45cc:
-                return ImmutableInstruction45cc.of((Instruction45cc)instruction);
+                return ImmutableInstruction45cc.of((Instruction45cc) instruction);
             case Format4rcc:
-                return ImmutableInstruction4rcc.of((Instruction4rcc)instruction);
+                return ImmutableInstruction4rcc.of((Instruction4rcc) instruction);
             case Format51l:
-                return ImmutableInstruction51l.of((Instruction51l)instruction);
+                return ImmutableInstruction51l.of((Instruction51l) instruction);
             case PackedSwitchPayload:
                 return ImmutablePackedSwitchPayload.of((PackedSwitchPayload) instruction);
             case SparseSwitchPayload:
@@ -147,20 +147,20 @@ public abstract class ImmutableInstruction implements Instruction {
     }
 
     @Nonnull
-    public static ImmutableList<ImmutableInstruction> immutableListOf(Iterable<? extends Instruction> list) {
+    public static ImmutableList<ImmutableInstruction> immutableListOf(final Iterable<? extends Instruction> list) {
         return CONVERTER.toList(list);
     }
 
     private static final ImmutableConverter<ImmutableInstruction, Instruction> CONVERTER =
             new ImmutableConverter<ImmutableInstruction, Instruction>() {
                 @Override
-                protected boolean isImmutable(@Nonnull Instruction item) {
+                protected boolean isImmutable(final @Nonnull Instruction item) {
                     return item instanceof ImmutableInstruction;
                 }
 
                 @Nonnull
                 @Override
-                protected ImmutableInstruction makeImmutable(@Nonnull Instruction item) {
+                protected ImmutableInstruction makeImmutable(final @Nonnull Instruction item) {
                     return ImmutableInstruction.of(item);
                 }
             };

@@ -37,16 +37,17 @@ import org.jf.dexlib2.iface.value.DoubleEncodedValue;
 public class ImmutableDoubleEncodedValue extends BaseDoubleEncodedValue implements ImmutableEncodedValue {
     protected final double value;
 
-    public ImmutableDoubleEncodedValue(double value) {
+    public ImmutableDoubleEncodedValue(final double value) {
         this.value = value;
     }
 
-    public static ImmutableDoubleEncodedValue of(DoubleEncodedValue doubleEncodedValue) {
+    public static ImmutableDoubleEncodedValue of(final DoubleEncodedValue doubleEncodedValue) {
         if (doubleEncodedValue instanceof ImmutableDoubleEncodedValue) {
-            return (ImmutableDoubleEncodedValue)doubleEncodedValue;
+            return (ImmutableDoubleEncodedValue) doubleEncodedValue;
         }
         return new ImmutableDoubleEncodedValue(doubleEncodedValue.getValue());
     }
 
-    @Override public double getValue() { return value; }
+    @Override public double getValue() {
+        return value; }
 }

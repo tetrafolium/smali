@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class ColonParameterSplitter implements IParameterSplitter {
     @Override
-    public List<String> split(String value) {
+    public List<String> split(final String value) {
         return Arrays.asList(value.split(":"));
     }
 }

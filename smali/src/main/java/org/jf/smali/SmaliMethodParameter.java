@@ -47,20 +47,25 @@ public class SmaliMethodParameter extends BaseMethodParameter implements WithReg
     @Nonnull public Set<? extends Annotation> annotations;
     @Nullable public String name;
 
-    public SmaliMethodParameter(int register, @Nonnull String type) {
+    public SmaliMethodParameter(final int register, final @Nonnull String type) {
         this.register = register;
         this.type = type;
         this.annotations = ImmutableSet.of();
     }
 
-    @Override public int getRegister() { return register; }
-    @Nonnull @Override public String getType() { return type; }
-    @Nonnull @Override public Set<? extends Annotation> getAnnotations() { return annotations; }
-    @Nullable @Override public String getName() { return name; }
-    @Nullable @Override public String getSignature() { return null; }
+    @Override public int getRegister() {
+        return register; }
+    @Nonnull @Override public String getType() {
+        return type; }
+    @Nonnull @Override public Set<? extends Annotation> getAnnotations() {
+        return annotations; }
+    @Nullable @Override public String getName() {
+        return name; }
+    @Nullable @Override public String getSignature() {
+        return null; }
 
     public static final Comparator<WithRegister> COMPARATOR = new Comparator<WithRegister>() {
-        @Override public int compare(WithRegister o1, WithRegister o2) {
+        @Override public int compare(final WithRegister o1, final WithRegister o2) {
             return Ints.compare(o1.getRegister(), o2.getRegister());
         }
     };

@@ -40,7 +40,7 @@ import java.util.List;
 public class PoolMethodProto extends BaseMethodProtoReference implements MethodProtoReference {
     private final MethodReference methodReference;
 
-    public PoolMethodProto(MethodReference methodReference) {
+    public PoolMethodProto(final MethodReference methodReference) {
         this.methodReference = methodReference;
     }
 

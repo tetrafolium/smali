@@ -46,25 +46,25 @@ import javax.annotation.Nonnull;
 public class InstructionRewriter implements Rewriter<Instruction> {
     @Nonnull protected final Rewriters rewriters;
 
-    public InstructionRewriter(@Nonnull Rewriters rewriters) {
+    public InstructionRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public Instruction rewrite(@Nonnull Instruction instruction) {
+    @Nonnull @Override public Instruction rewrite(final @Nonnull Instruction instruction) {
         if (instruction instanceof ReferenceInstruction) {
             switch (instruction.getOpcode().format) {
                 case Format20bc:
-                    return new RewrittenInstruction20bc((Instruction20bc)instruction);
+                    return new RewrittenInstruction20bc((Instruction20bc) instruction);
                 case Format21c:
-                    return new RewrittenInstruction21c((Instruction21c)instruction);
+                    return new RewrittenInstruction21c((Instruction21c) instruction);
                 case Format22c:
-                    return new RewrittenInstruction22c((Instruction22c)instruction);
+                    return new RewrittenInstruction22c((Instruction22c) instruction);
                 case Format31c:
-                    return new RewrittenInstruction31c((Instruction31c)instruction);
+                    return new RewrittenInstruction31c((Instruction31c) instruction);
                 case Format35c:
-                    return new RewrittenInstruction35c((Instruction35c)instruction);
+                    return new RewrittenInstruction35c((Instruction35c) instruction);
                 case Format3rc:
-                    return new RewrittenInstruction3rc((Instruction3rc)instruction);
+                    return new RewrittenInstruction3rc((Instruction3rc) instruction);
                 default:
                     throw new IllegalArgumentException();
             }
@@ -76,7 +76,7 @@ public class InstructionRewriter implements Rewriter<Instruction> {
             implements ReferenceInstruction {
         @Nonnull protected T instruction;
 
-        protected BaseRewrittenReferenceInstruction(@Nonnull T instruction) {
+        protected BaseRewrittenReferenceInstruction(final @Nonnull T instruction) {
             this.instruction = instruction;
         }
 
@@ -84,11 +84,11 @@ public class InstructionRewriter implements Rewriter<Instruction> {
             switch (instruction.getReferenceType()) {
                 case ReferenceType.TYPE:
                     return RewriterUtils.rewriteTypeReference(rewriters.getTypeRewriter(),
-                            (TypeReference)instruction.getReference());
+                            (TypeReference) instruction.getReference());
                 case ReferenceType.FIELD:
-                    return rewriters.getFieldReferenceRewriter().rewrite((FieldReference)instruction.getReference());
+                    return rewriters.getFieldReferenceRewriter().rewrite((FieldReference) instruction.getReference());
                 case ReferenceType.METHOD:
-                    return rewriters.getMethodReferenceRewriter().rewrite((MethodReference)instruction.getReference());
+                    return rewriters.getMethodReferenceRewriter().rewrite((MethodReference) instruction.getReference());
                 case ReferenceType.STRING:
                     return instruction.getReference();
                 default:
@@ -111,7 +111,7 @@ public class InstructionRewriter implements Rewriter<Instruction> {
 
     protected class RewrittenInstruction20bc extends BaseRewrittenReferenceInstruction<Instruction20bc>
             implements Instruction20bc {
-        public RewrittenInstruction20bc(@Nonnull Instruction20bc instruction) {
+        public RewrittenInstruction20bc(final @Nonnull Instruction20bc instruction) {
             super(instruction);
         }
 
@@ -122,7 +122,7 @@ public class InstructionRewriter implements Rewriter<Instruction> {
 
     protected class RewrittenInstruction21c extends BaseRewrittenReferenceInstruction<Instruction21c>
             implements Instruction21c {
-        public RewrittenInstruction21c(@Nonnull Instruction21c instruction) {
+        public RewrittenInstruction21c(final @Nonnull Instruction21c instruction) {
             super(instruction);
         }
 
@@ -133,7 +133,7 @@ public class InstructionRewriter implements Rewriter<Instruction> {
 
     protected class RewrittenInstruction22c extends BaseRewrittenReferenceInstruction<Instruction22c>
             implements Instruction22c {
-        public RewrittenInstruction22c(@Nonnull Instruction22c instruction) {
+        public RewrittenInstruction22c(final @Nonnull Instruction22c instruction) {
             super(instruction);
         }
 
@@ -148,7 +148,7 @@ public class InstructionRewriter implements Rewriter<Instruction> {
 
     protected class RewrittenInstruction31c extends BaseRewrittenReferenceInstruction<Instruction31c>
             implements Instruction31c {
-        public RewrittenInstruction31c(@Nonnull Instruction31c instruction) {
+        public RewrittenInstruction31c(final @Nonnull Instruction31c instruction) {
             super(instruction);
         }
 
@@ -159,7 +159,7 @@ public class InstructionRewriter implements Rewriter<Instruction> {
 
     protected class RewrittenInstruction35c extends BaseRewrittenReferenceInstruction<Instruction35c>
             implements Instruction35c {
-        public RewrittenInstruction35c(@Nonnull Instruction35c instruction) {
+        public RewrittenInstruction35c(final @Nonnull Instruction35c instruction) {
             super(instruction);
         }
 
@@ -190,7 +190,7 @@ public class InstructionRewriter implements Rewriter<Instruction> {
 
     protected class RewrittenInstruction3rc extends BaseRewrittenReferenceInstruction<Instruction3rc>
             implements Instruction3rc {
-        public RewrittenInstruction3rc(@Nonnull Instruction3rc instruction) {
+        public RewrittenInstruction3rc(final @Nonnull Instruction3rc instruction) {
             super(instruction);
         }
 

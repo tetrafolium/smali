@@ -39,9 +39,9 @@ import org.jf.util.NibbleUtils;
 import javax.annotation.Nonnull;
 
 public class DexBackedInstruction22s extends DexBackedInstruction implements Instruction22s {
-    public DexBackedInstruction22s(@Nonnull DexBackedDexFile dexFile,
-                                   @Nonnull Opcode opcode,
-                                   int instructionStart) {
+    public DexBackedInstruction22s(final @Nonnull DexBackedDexFile dexFile,
+                                   final @Nonnull Opcode opcode,
+                                   final int instructionStart) {
         super(dexFile, opcode, instructionStart);
     }
 
@@ -55,6 +55,8 @@ public class DexBackedInstruction22s extends DexBackedInstruction implements Ins
         return NibbleUtils.extractHighUnsignedNibble(dexFile.getDataBuffer().readByte(instructionStart + 1));
     }
 
-    @Override public int getNarrowLiteral() { return dexFile.getDataBuffer().readShort(instructionStart + 2); }
-    @Override public long getWideLiteral() { return getNarrowLiteral(); }
+    @Override public int getNarrowLiteral() {
+        return dexFile.getDataBuffer().readShort(instructionStart + 2); }
+    @Override public long getWideLiteral() {
+        return getNarrowLiteral(); }
 }

@@ -42,14 +42,14 @@ import java.util.Collection;
 import java.util.List;
 
 public class Preconditions {
-    public static void checkFormat(Opcode opcode, Format expectedFormat) {
+    public static void checkFormat(final Opcode opcode, final Format expectedFormat) {
         if (opcode.format != expectedFormat) {
             throw new IllegalArgumentException(
                     String.format("Invalid opcode %s for %s", opcode.name, expectedFormat.name()));
         }
     }
 
-    public static int checkNibbleRegister(int register) {
+    public static int checkNibbleRegister(final int register) {
         if ((register & 0xFFFFFFF0) != 0) {
             throw new IllegalArgumentException(
                     String.format("Invalid register: v%d. Must be between v0 and v15, inclusive.", register));
@@ -57,7 +57,7 @@ public class Preconditions {
         return register;
     }
 
-    public static int checkByteRegister(int register) {
+    public static int checkByteRegister(final int register) {
         if ((register & 0xFFFFFF00) != 0) {
             throw new IllegalArgumentException(
                     String.format("Invalid register: v%d. Must be between v0 and v255, inclusive.", register));
@@ -65,7 +65,7 @@ public class Preconditions {
         return register;
     }
 
-    public static int checkShortRegister(int register) {
+    public static int checkShortRegister(final int register) {
         if ((register & 0xFFFF0000) != 0) {
             throw new IllegalArgumentException(
                     String.format("Invalid register: v%d. Must be between v0 and v65535, inclusive.", register));
@@ -73,7 +73,7 @@ public class Preconditions {
         return register;
     }
 
-    public static int checkNibbleLiteral(int literal) {
+    public static int checkNibbleLiteral(final int literal) {
         if (literal < -8 || literal > 7) {
             throw new IllegalArgumentException(
                     String.format("Invalid literal value: %d. Must be between -8 and 7, inclusive.", literal));
@@ -81,7 +81,7 @@ public class Preconditions {
         return literal;
     }
 
-    public static int checkByteLiteral(int literal) {
+    public static int checkByteLiteral(final int literal) {
         if (literal < -128 || literal > 127) {
             throw new IllegalArgumentException(
                     String.format("Invalid literal value: %d. Must be between -128 and 127, inclusive.", literal));
@@ -89,7 +89,7 @@ public class Preconditions {
         return literal;
     }
 
-    public static int checkShortLiteral(int literal) {
+    public static int checkShortLiteral(final int literal) {
         if (literal < -32768 || literal > 32767) {
             throw new IllegalArgumentException(
                     String.format("Invalid literal value: %d. Must be between -32768 and 32767, inclusive.", literal));
@@ -97,7 +97,7 @@ public class Preconditions {
         return literal;
     }
 
-    public static int checkIntegerHatLiteral(int literal) {
+    public static int checkIntegerHatLiteral(final int literal) {
         if ((literal & 0xFFFF) != 0) {
             throw new IllegalArgumentException(
                     String.format("Invalid literal value: %d. Low 16 bits must be zeroed out.", literal));
@@ -105,7 +105,7 @@ public class Preconditions {
         return literal;
     }
 
-    public static long checkLongHatLiteral(long literal) {
+    public static long checkLongHatLiteral(final long literal) {
         if ((literal & 0xFFFFFFFFFFFFL) != 0) {
             throw new IllegalArgumentException(
                     String.format("Invalid literal value: %d. Low 48 bits must be zeroed out.", literal));
@@ -113,7 +113,7 @@ public class Preconditions {
         return literal;
     }
 
-    public static int checkByteCodeOffset(int offset) {
+    public static int checkByteCodeOffset(final int offset) {
         if (offset < -128 || offset > 127) {
             throw new IllegalArgumentException(
                     String.format("Invalid code offset: %d. Must be between -128 and 127, inclusive.", offset));
@@ -121,7 +121,7 @@ public class Preconditions {
         return offset;
     }
 
-    public static int checkShortCodeOffset(int offset) {
+    public static int checkShortCodeOffset(final int offset) {
         if (offset < -32768 || offset > 32767) {
             throw new IllegalArgumentException(
                     String.format("Invalid code offset: %d. Must be between -32768 and 32767, inclusive.", offset));
@@ -129,7 +129,7 @@ public class Preconditions {
         return offset;
     }
 
-    public static int check35cAnd45ccRegisterCount(int registerCount) {
+    public static int check35cAnd45ccRegisterCount(final int registerCount) {
         if (registerCount < 0 || registerCount > 5) {
             throw new IllegalArgumentException(
                     String.format("Invalid register count: %d. Must be between 0 and 5, inclusive.", registerCount));
@@ -137,7 +137,7 @@ public class Preconditions {
         return registerCount;
     }
 
-    public static int checkRegisterRangeCount(int registerCount) {
+    public static int checkRegisterRangeCount(final int registerCount) {
         if ((registerCount & 0xFFFFFF00) != 0) {
             throw new IllegalArgumentException(
                     String.format("Invalid register count: %d. Must be between 0 and 255, inclusive.", registerCount));
@@ -145,7 +145,7 @@ public class Preconditions {
         return registerCount;
     }
 
-    public static void checkValueArg(int valueArg, int maxValue) {
+    public static void checkValueArg(final int valueArg, final int maxValue) {
         if (valueArg > maxValue) {
             if (maxValue == 0) {
                 throw new IllegalArgumentException(
@@ -158,7 +158,7 @@ public class Preconditions {
         }
     }
 
-    public static int checkFieldOffset(int fieldOffset) {
+    public static int checkFieldOffset(final int fieldOffset) {
         if (fieldOffset < 0 || fieldOffset > 65535) {
             throw new IllegalArgumentException(
                     String.format("Invalid field offset: 0x%x. Must be between 0x0000 and 0xFFFF inclusive",
@@ -167,7 +167,7 @@ public class Preconditions {
         return fieldOffset;
     }
 
-    public static int checkVtableIndex(int vtableIndex) {
+    public static int checkVtableIndex(final int vtableIndex) {
         if (vtableIndex < 0 || vtableIndex > 65535) {
             throw new IllegalArgumentException(
                     String.format("Invalid vtable index: %d. Must be between 0 and 65535, inclusive", vtableIndex));
@@ -175,7 +175,7 @@ public class Preconditions {
         return vtableIndex;
     }
 
-    public static int checkInlineIndex(int inlineIndex) {
+    public static int checkInlineIndex(final int inlineIndex) {
         if (inlineIndex < 0 || inlineIndex > 65535) {
             throw new IllegalArgumentException(
                     String.format("Invalid inline index: %d. Must be between 0 and 65535, inclusive", inlineIndex));
@@ -183,7 +183,7 @@ public class Preconditions {
         return inlineIndex;
     }
 
-    public static int checkVerificationError(int verificationError) {
+    public static int checkVerificationError(final int verificationError) {
         if (!VerificationError.isValidVerificationError(verificationError)) {
             throw new IllegalArgumentException(
                     String.format("Invalid verification error value: %d. Must be between 1 and 9, inclusive",
@@ -192,7 +192,7 @@ public class Preconditions {
         return verificationError;
     }
 
-    public static <C extends Collection<? extends SwitchElement>> C checkSequentialOrderedKeys(C elements) {
+    public static <C extends Collection<? extends SwitchElement>> C checkSequentialOrderedKeys(final C elements) {
         Integer previousKey = null;
         for (SwitchElement element : elements) {
             int key = element.getKey();
@@ -206,7 +206,7 @@ public class Preconditions {
         return elements;
     }
 
-    public static int checkArrayPayloadElementWidth(int elementWidth) {
+    public static int checkArrayPayloadElementWidth(final int elementWidth) {
         switch (elementWidth) {
             case 1:
             case 2:
@@ -219,7 +219,7 @@ public class Preconditions {
         }
     }
 
-    public static <L extends List<? extends Number>> L checkArrayPayloadElements(int elementWidth, L elements) {
+    public static <L extends List<? extends Number>> L checkArrayPayloadElements(final int elementWidth, final L elements) {
         long maxValue = (1L << ((8 * elementWidth) - 1)) - 1;
         long minValue = -maxValue - 1;
 
@@ -234,7 +234,7 @@ public class Preconditions {
         return elements;
     }
 
-    public static <T extends Reference> T checkReference(int referenceType, T reference) {
+    public static <T extends Reference> T checkReference(final int referenceType, final T reference) {
         switch (referenceType) {
             case ReferenceType.STRING:
                 if (!(reference instanceof StringReference)) {

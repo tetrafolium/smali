@@ -42,18 +42,18 @@ import java.util.List;
 public class MethodReferenceRewriter implements Rewriter<MethodReference> {
     @Nonnull protected final Rewriters rewriters;
 
-    public MethodReferenceRewriter(@Nonnull Rewriters rewriters) {
+    public MethodReferenceRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public MethodReference rewrite(@Nonnull MethodReference methodReference) {
+    @Nonnull @Override public MethodReference rewrite(final @Nonnull MethodReference methodReference) {
         return new RewrittenMethodReference(methodReference);
     }
 
     protected class RewrittenMethodReference extends BaseMethodReference {
         @Nonnull protected MethodReference methodReference;
 
-        public RewrittenMethodReference(@Nonnull MethodReference methodReference) {
+        public RewrittenMethodReference(final @Nonnull MethodReference methodReference) {
             this.methodReference = methodReference;
         }
 
@@ -69,7 +69,7 @@ public class MethodReferenceRewriter implements Rewriter<MethodReference> {
             return RewriterUtils.rewriteList(rewriters.getTypeRewriter(),
                     Lists.transform(methodReference.getParameterTypes(),
                     new Function<CharSequence, String>() {
-                        @Nonnull @Override public String apply(CharSequence input) {
+                        @Nonnull @Override public String apply(final CharSequence input) {
                             return input.toString();
                         }
                     }));

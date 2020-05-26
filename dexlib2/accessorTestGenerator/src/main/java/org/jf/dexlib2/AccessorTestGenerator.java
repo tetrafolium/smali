@@ -39,7 +39,7 @@ import java.net.URL;
 public class AccessorTestGenerator {
     private static class UnaryOperation {
         public final String name;
-        public UnaryOperation(String name) {
+        public UnaryOperation(final String name) {
             this.name = name;
         }
     }
@@ -47,7 +47,7 @@ public class AccessorTestGenerator {
     private static class BinaryOperation {
         public final String name;
         public final String[] inputTypes;
-        public BinaryOperation(String name, String[] inputTypes) {
+        public BinaryOperation(final String name, final String[] inputTypes) {
             this.name = name;
             this.inputTypes = inputTypes;
         }
@@ -57,7 +57,7 @@ public class AccessorTestGenerator {
         public final String name;
         public final UnaryOperation[] unaryOperations;
         public final BinaryOperation[] binaryOperations;
-        public TypeDef(String name, UnaryOperation[] unaryOperations, BinaryOperation[] binaryOperations) {
+        public TypeDef(final String name, final UnaryOperation[] unaryOperations, final BinaryOperation[] binaryOperations) {
             this.name = name;
             this.unaryOperations = unaryOperations;
             this.binaryOperations = binaryOperations;
@@ -115,7 +115,7 @@ public class AccessorTestGenerator {
     };
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(final String[] args) throws IOException {
         if (args.length != 1) {
             System.err.println("Usage: java org.jf.dexlib2.AccessorTestGenerator <output_file>");
         }

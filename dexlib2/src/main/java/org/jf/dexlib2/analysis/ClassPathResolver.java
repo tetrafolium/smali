@@ -70,10 +70,10 @@ public class ClassPathResolver {
      *                             depending on the the file type of dexFile and the api level. If empty, no boot
      *                             classpath entries will be loaded
      */
-    public ClassPathResolver(@Nonnull List<String> bootClassPathDirs,
-                             @Nullable List<String> bootClassPathEntries,
-                             @Nonnull List<String> extraClassPathEntries,
-                             @Nonnull MultiDexContainer.DexEntry<?> dexEntry)
+    public ClassPathResolver(final @Nonnull List<String> bootClassPathDirs,
+                             final @Nullable List<String> bootClassPathEntries,
+                             final @Nonnull List<String> extraClassPathEntries,
+                             final @Nonnull MultiDexContainer.DexEntry<?> dexEntry)
             throws IOException {
         DexFile dexFile = dexEntry.getDexFile();
 
@@ -148,8 +148,8 @@ public class ClassPathResolver {
      *                             depending on the the file type of dexFile and the api level. If empty, no boot
      *                             classpath entries will be loaded
      */
-    public ClassPathResolver(@Nonnull List<String> bootClassPathDirs, @Nonnull List<String> extraClassPathEntries,
-                             @Nonnull MultiDexContainer.DexEntry<?> dexEntry)
+    public ClassPathResolver(final @Nonnull List<String> bootClassPathDirs, final @Nonnull List<String> extraClassPathEntries,
+                             final @Nonnull MultiDexContainer.DexEntry<?> dexEntry)
             throws IOException {
         this(bootClassPathDirs, null, extraClassPathEntries, dexEntry);
     }
@@ -159,7 +159,7 @@ public class ClassPathResolver {
         return pathEntryLoader.getResolvedClassProviders();
     }
 
-    private boolean loadLocalClassPathEntry(@Nonnull String entry) throws PathEntryLoader.NoDexException, IOException {
+    private boolean loadLocalClassPathEntry(final @Nonnull String entry) throws PathEntryLoader.NoDexException, IOException {
         File entryFile = new File(entry);
         if (entryFile.exists() && entryFile.isFile()) {
             try {
@@ -172,7 +172,7 @@ public class ClassPathResolver {
         return false;
     }
 
-    private void loadLocalOrDeviceBootClassPathEntry(@Nonnull String entry)
+    private void loadLocalOrDeviceBootClassPathEntry(final @Nonnull String entry)
             throws IOException, PathEntryLoader.NoDexException, NotFoundException {
         // first, see if the entry is a valid local path
         if (loadLocalClassPathEntry(entry)) {
@@ -190,7 +190,7 @@ public class ClassPathResolver {
                 continue;
             }
 
-            for (int i=0; i<pathComponents.size(); i++) {
+            for (int i = 0; i < pathComponents.size(); i++) {
                 String partialPath = pathJoiner.join(pathComponents.subList(i, pathComponents.size()));
                 File entryFile = new File(directoryFile, partialPath);
                 if (entryFile.exists() && entryFile.isFile()) {
@@ -204,12 +204,12 @@ public class ClassPathResolver {
     }
 
     @Nonnull
-    private static List<String> splitDevicePath(@Nonnull String path) {
+    private static List<String> splitDevicePath(final @Nonnull String path) {
         return Lists.newArrayList(Splitter.on('/').split(path));
     }
 
     static class NotFoundException extends Exception {
-        public NotFoundException(String message, Object... formatArgs) {
+        public NotFoundException(final String message, final Object... formatArgs) {
             super(String.format(message, formatArgs));
         }
     }
@@ -218,15 +218,15 @@ public class ClassPathResolver {
      * An error that occurred while resolving the classpath
      */
     public static class ResolveException extends RuntimeException {
-        public ResolveException (String message, Object... formatArgs) {
+        public ResolveException(final String message, final Object... formatArgs) {
             super(String.format(message, formatArgs));
         }
 
-        public ResolveException (Throwable cause) {
+        public ResolveException(final Throwable cause) {
             super(cause);
         }
 
-        public ResolveException (Throwable cause, String message, Object... formatArgs) {
+        public ResolveException(final Throwable cause, final String message, final Object... formatArgs) {
             super(String.format(message, formatArgs), cause);
         }
     }
@@ -236,7 +236,7 @@ public class ClassPathResolver {
      */
     @Nonnull
     private static List<String> getDefaultBootClassPath(
-            @Nonnull MultiDexContainer.DexEntry<?> dexEntry, int apiLevel) {
+            final @Nonnull MultiDexContainer.DexEntry<?> dexEntry, final int apiLevel) {
         MultiDexContainer<? extends DexFile> container = dexEntry.getContainer();
 
         if (container instanceof OatFile) {
@@ -246,7 +246,7 @@ public class ClassPathResolver {
         DexFile dexFile = dexEntry.getDexFile();
 
         if (dexFile instanceof DexBackedOdexFile) {
-            return ((DexBackedOdexFile)dexFile).getDependencies();
+            return ((DexBackedOdexFile) dexFile).getDependencies();
         }
 
         if (apiLevel <= 8) {
@@ -375,17 +375,17 @@ public class ClassPathResolver {
         }
     }
 
-    private static List<String> bootClassPathForOat(@Nonnull OatFile oatFile) {
+    private static List<String> bootClassPathForOat(final @Nonnull OatFile oatFile) {
         List<String> bcp = oatFile.getBootClassPath();
-        if(bcp.isEmpty()) {
+        if (bcp.isEmpty()) {
             return Lists.newArrayList("boot.oat");
         } else {
             return replaceElementsSuffix(bcp, ".art", ".oat");
         }
     }
 
-    private static List<String> replaceElementsSuffix(List<String> bcp, String originalSuffix, String newSuffix) {
-        for (int i=0; i<bcp.size(); i++) {
+    private static List<String> replaceElementsSuffix(final List<String> bcp, final String originalSuffix, final String newSuffix) {
+        for (int i = 0; i < bcp.size(); i++) {
             String entry = bcp.get(i);
             if (entry.endsWith(originalSuffix)) {
                 bcp.set(i, entry.substring(0, entry.length() - originalSuffix.length()) + newSuffix);

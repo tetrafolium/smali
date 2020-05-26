@@ -50,7 +50,7 @@ import java.util.Set;
 public class ReflectionMethod extends BaseMethodReference implements Method {
     private final java.lang.reflect.Method method;
 
-    public ReflectionMethod(java.lang.reflect.Method method) {
+    public ReflectionMethod(final java.lang.reflect.Method method) {
         this.method = method;
     }
 
@@ -105,7 +105,7 @@ public class ReflectionMethod extends BaseMethodReference implements Method {
         return new AbstractList<String>() {
             private final List<? extends MethodParameter> parameters = getParameters();
 
-            @Override public String get(int index) {
+            @Override public String get(final int index) {
                 return parameters.get(index).getType();
             }
 

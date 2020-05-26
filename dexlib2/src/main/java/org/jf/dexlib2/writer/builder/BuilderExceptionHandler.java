@@ -39,13 +39,13 @@ public class BuilderExceptionHandler extends BaseExceptionHandler {
     @Nullable final BuilderTypeReference exceptionType;
     final int handlerCodeAddress;
 
-    BuilderExceptionHandler(@Nullable BuilderTypeReference exceptionType, int handlerCodeAddress) {
+    BuilderExceptionHandler(final @Nullable BuilderTypeReference exceptionType, final int handlerCodeAddress) {
         this.exceptionType = exceptionType;
         this.handlerCodeAddress = handlerCodeAddress;
     }
 
     @Nullable @Override public String getExceptionType() {
-        return exceptionType==null?null:exceptionType.getType();
+        return exceptionType == null ? null : exceptionType.getType();
     }
 
     @Override public int getHandlerCodeAddress() {

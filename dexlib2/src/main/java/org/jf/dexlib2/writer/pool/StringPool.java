@@ -40,21 +40,21 @@ import javax.annotation.Nullable;
 
 public class StringPool extends StringTypeBasePool implements StringSection<CharSequence, StringReference> {
 
-    public StringPool(@Nonnull DexPool dexPool) {
+    public StringPool(final @Nonnull DexPool dexPool) {
         super(dexPool);
     }
 
-    public void intern(@Nonnull CharSequence string) {
+    public void intern(final @Nonnull CharSequence string) {
         internedItems.put(string.toString(), 0);
     }
 
-    public void internNullable(@Nullable CharSequence string) {
+    public void internNullable(final @Nullable CharSequence string) {
         if (string != null) {
             intern(string);
         }
     }
 
-    @Override public int getItemIndex(@Nonnull StringReference key) {
+    @Override public int getItemIndex(final @Nonnull StringReference key) {
         Integer index = internedItems.get(key.toString());
         if (index == null) {
             throw new ExceptionWithContext("Item not found.: %s", key.toString());

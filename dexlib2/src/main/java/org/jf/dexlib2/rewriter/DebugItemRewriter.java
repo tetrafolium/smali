@@ -42,18 +42,18 @@ import javax.annotation.Nullable;
 public class DebugItemRewriter implements Rewriter<DebugItem> {
     @Nonnull protected final Rewriters rewriters;
 
-    public DebugItemRewriter(@Nonnull Rewriters rewriters) {
+    public DebugItemRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public DebugItem rewrite(@Nonnull DebugItem value) {
+    @Nonnull @Override public DebugItem rewrite(final @Nonnull DebugItem value) {
         switch (value.getDebugItemType()) {
             case DebugItemType.START_LOCAL:
-                return new RewrittenStartLocal((StartLocal)value);
+                return new RewrittenStartLocal((StartLocal) value);
             case DebugItemType.END_LOCAL:
-                return new RewrittenEndLocal((EndLocal)value);
+                return new RewrittenEndLocal((EndLocal) value);
             case DebugItemType.RESTART_LOCAL:
-                return new RewrittenRestartLocal((RestartLocal)value);
+                return new RewrittenRestartLocal((RestartLocal) value);
             default:
                 return value;
         }
@@ -62,7 +62,7 @@ public class DebugItemRewriter implements Rewriter<DebugItem> {
     protected class BaseRewrittenLocalInfoDebugItem<T extends DebugItem & LocalInfo> implements DebugItem, LocalInfo {
         @Nonnull protected T debugItem;
 
-        public BaseRewrittenLocalInfoDebugItem (@Nonnull T debugItem) {
+        public BaseRewrittenLocalInfoDebugItem(final @Nonnull T debugItem) {
             this.debugItem = debugItem;
         }
 
@@ -88,7 +88,7 @@ public class DebugItemRewriter implements Rewriter<DebugItem> {
     }
 
     protected class RewrittenStartLocal extends BaseRewrittenLocalInfoDebugItem<StartLocal> implements StartLocal {
-        public RewrittenStartLocal(@Nonnull StartLocal debugItem) {
+        public RewrittenStartLocal(final @Nonnull StartLocal debugItem) {
             super(debugItem);
         }
 
@@ -115,7 +115,7 @@ public class DebugItemRewriter implements Rewriter<DebugItem> {
     }
 
     protected class RewrittenEndLocal extends BaseRewrittenLocalInfoDebugItem<EndLocal> implements EndLocal {
-        public RewrittenEndLocal(@Nonnull EndLocal instruction) {
+        public RewrittenEndLocal(final @Nonnull EndLocal instruction) {
             super(instruction);
         }
 
@@ -126,7 +126,7 @@ public class DebugItemRewriter implements Rewriter<DebugItem> {
 
     protected class RewrittenRestartLocal extends BaseRewrittenLocalInfoDebugItem<RestartLocal>
             implements RestartLocal {
-        public RewrittenRestartLocal(@Nonnull RestartLocal instruction) {
+        public RewrittenRestartLocal(final @Nonnull RestartLocal instruction) {
             super(instruction);
         }
 

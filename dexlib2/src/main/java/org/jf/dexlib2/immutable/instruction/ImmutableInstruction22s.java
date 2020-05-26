@@ -45,19 +45,19 @@ public class ImmutableInstruction22s extends ImmutableInstruction implements Ins
     protected final int registerB;
     protected final int literal;
 
-    public ImmutableInstruction22s(@Nonnull Opcode opcode,
-                                   int registerA,
-                                   int registerB,
-                                   int literal) {
+    public ImmutableInstruction22s(final @Nonnull Opcode opcode,
+                                   final int registerA,
+                                   final int registerB,
+                                   final int literal) {
         super(opcode);
         this.registerA = Preconditions.checkNibbleRegister(registerA);
         this.registerB = Preconditions.checkNibbleRegister(registerB);
         this.literal = Preconditions.checkShortLiteral(literal);
     }
 
-    public static ImmutableInstruction22s of(Instruction22s instruction) {
+    public static ImmutableInstruction22s of(final Instruction22s instruction) {
         if (instruction instanceof ImmutableInstruction22s) {
-            return (ImmutableInstruction22s)instruction;
+            return (ImmutableInstruction22s) instruction;
         }
         return new ImmutableInstruction22s(
                 instruction.getOpcode(),
@@ -66,10 +66,15 @@ public class ImmutableInstruction22s extends ImmutableInstruction implements Ins
                 instruction.getNarrowLiteral());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
-    @Override public int getNarrowLiteral() { return literal; }
-    @Override public long getWideLiteral() { return literal; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getRegisterB() {
+        return registerB; }
+    @Override public int getNarrowLiteral() {
+        return literal; }
+    @Override public long getWideLiteral() {
+        return literal; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

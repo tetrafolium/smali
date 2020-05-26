@@ -35,7 +35,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 public class StringUtils {
-    public static void writeEscapedChar(Writer writer, char c) throws IOException {
+    public static void writeEscapedChar(final Writer writer, final char c) throws IOException {
         if ((c >= ' ') && (c < 0x7f)) {
             if ((c == '\'') || (c == '\"') || (c == '\\')) {
                 writer.write('\\');
@@ -57,7 +57,7 @@ public class StringUtils {
         writer.write(Character.forDigit(c & 0x0f, 16));
     }
 
-    public static void writeEscapedString(Writer writer, String value) throws IOException {
+    public static void writeEscapedString(final Writer writer, final String value) throws IOException {
         for (int i = 0; i < value.length(); i++) {
             char c = value.charAt(i);
 
@@ -83,7 +83,7 @@ public class StringUtils {
         }
     }
 
-    public static String escapeString(String value) {
+    public static String escapeString(final String value) {
         int len = value.length();
         StringBuilder sb = new StringBuilder(len * 3 / 2);
 

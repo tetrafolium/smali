@@ -45,7 +45,7 @@ import javax.annotation.Nullable;
 public class HeaderItem {
     public static final int ITEM_SIZE = 0x70;
 
-    private static final byte[] MAGIC_VALUE = new byte[] { 0x64, 0x65, 0x78, 0x0a, 0x00, 0x00, 0x00, 0x00 };
+    private static final byte[] MAGIC_VALUE = new byte[] {0x64, 0x65, 0x78, 0x0a, 0x00, 0x00, 0x00, 0x00 };
 
     public static final int LITTLE_ENDIAN_TAG = 0x12345678;
     public static final int BIG_ENDIAN_TAG = 0x78563412;
@@ -90,7 +90,7 @@ public class HeaderItem {
 
     @Nonnull private DexBackedDexFile dexFile;
 
-    public HeaderItem(@Nonnull DexBackedDexFile dexFile) {
+    public HeaderItem(final @Nonnull DexBackedDexFile dexFile) {
         this.dexFile = dexFile;
     }
 
@@ -159,20 +159,20 @@ public class HeaderItem {
     }
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "header_item";
             }
 
             @Override
-            protected void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            protected void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 int startOffset = out.getCursor();
                 int headerSize;
 
                 StringBuilder magicBuilder = new StringBuilder();
-                for (int i=0; i<8; i++) {
-                    magicBuilder.append((char)dexFile.getBuffer().readUbyte(startOffset + i));
+                for (int i = 0; i < 8; i++) {
+                    magicBuilder.append((char) dexFile.getBuffer().readUbyte(startOffset + i));
                 }
 
                 out.annotate(8, "magic: %s", StringUtils.escapeString(magicBuilder.toString()));
@@ -223,7 +223,7 @@ public class HeaderItem {
         };
     }
 
-    private static String getEndianText(int endianTag) {
+    private static String getEndianText(final int endianTag) {
         if (endianTag == LITTLE_ENDIAN_TAG) {
             return "Little Endian";
         }
@@ -237,20 +237,20 @@ public class HeaderItem {
      * Get the highest magic number supported by Android for this api level.
      * @return The dex file magic number
      */
-    public static byte[] getMagicForApi(int api) {
+    public static byte[] getMagicForApi(final int api) {
         return getMagicForDexVersion(VersionMap.mapApiToDexVersion(api));
     }
 
-    public static byte[] getMagicForDexVersion(int dexVersion) {
+    public static byte[] getMagicForDexVersion(final int dexVersion) {
         byte[] magic = MAGIC_VALUE.clone();
 
         if (dexVersion < 0 || dexVersion > 999) {
             throw new IllegalArgumentException("dexVersion must be within [0, 999]");
         }
 
-        for (int i=6; i>=4; i--) {
+        for (int i = 6; i >= 4; i--) {
             int digit = dexVersion % 10;
-            magic[i] = (byte)('0' + digit);
+            magic[i] = (byte) ('0' + digit);
             dexVersion /= 10;
         }
 
@@ -264,19 +264,19 @@ public class HeaderItem {
      * @param offset The offset within the buffer to the beginning of the dex header
      * @return True if the magic value is valid
      */
-    public static boolean verifyMagic(byte[] buf, int offset) {
+    public static boolean verifyMagic(final byte[] buf, final int offset) {
         if (buf.length - offset < 8) {
             return false;
         }
 
-        for (int i=0; i<4; i++) {
+        for (int i = 0; i < 4; i++) {
             if (buf[offset + i] != MAGIC_VALUE[i]) {
                 return false;
             }
         }
-        for (int i=4; i<7; i++) {
-            if (buf[offset + i] < '0' ||
-                    buf[offset + i] > '9') {
+        for (int i = 4; i < 7; i++) {
+            if (buf[offset + i] < '0'
+                    || buf[offset + i] > '9') {
                 return false;
             }
         }
@@ -294,7 +294,7 @@ public class HeaderItem {
      * @param offset The offset within the buffer to the beginning of the dex header
      * @return The dex version if the header is valid or -1 if the header is invalid
      */
-    public static int getVersion(byte[] buf, int offset) {
+    public static int getVersion(final byte[] buf, final int offset) {
         if (!verifyMagic(buf, offset)) {
             return -1;
         }
@@ -302,7 +302,7 @@ public class HeaderItem {
         return getVersionUnchecked(buf, offset);
     }
 
-    private static int getVersionUnchecked(byte[] buf, int offset) {
+    private static int getVersionUnchecked(final byte[] buf, final int offset) {
         int version = (buf[offset + 4] - '0') * 100;
         version += (buf[offset + 5] - '0') * 10;
         version += buf[offset + 6] - '0';
@@ -310,11 +310,11 @@ public class HeaderItem {
         return version;
     }
 
-    public static boolean isSupportedDexVersion(int version) {
+    public static boolean isSupportedDexVersion(final int version) {
         return VersionMap.mapDexVersionToApi(version) != VersionMap.NO_VERSION;
     }
 
-    public static int getEndian(byte[] buf, int offset) {
+    public static int getEndian(final byte[] buf, final int offset) {
         DexBuffer bdb = new DexBuffer(buf);
         return bdb.readInt(offset + ENDIAN_TAG_OFFSET);
     }

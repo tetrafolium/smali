@@ -77,8 +77,8 @@ public class MethodDefinition {
     @Nonnull private final SparseIntArray sparseSwitchMap;
     @Nonnull private final InstructionOffsetMap instructionOffsetMap;
 
-    public MethodDefinition(@Nonnull ClassDefinition classDef, @Nonnull Method method,
-                            @Nonnull MethodImplementation methodImpl) {
+    public MethodDefinition(final @Nonnull ClassDefinition classDef, final @Nonnull Method method,
+                            final @Nonnull MethodImplementation methodImpl) {
         this.classDef = classDef;
         this.method = method;
         this.methodImpl = methodImpl;
@@ -95,17 +95,17 @@ public class MethodDefinition {
             sparseSwitchMap = new SparseIntArray(0);
             instructionOffsetMap = new InstructionOffsetMap(instructions);
 
-            int endOffset = instructionOffsetMap.getInstructionCodeOffset(instructions.size()-1) +
-                    instructions.get(instructions.size()-1).getCodeUnits();
+            int endOffset = instructionOffsetMap.getInstructionCodeOffset(instructions.size() - 1)
+                    + instructions.get(instructions.size() - 1).getCodeUnits();
 
-            for (int i=0; i<instructions.size(); i++) {
+            for (int i = 0; i < instructions.size(); i++) {
                 Instruction instruction = instructions.get(i);
 
                 Opcode opcode = instruction.getOpcode();
                 if (opcode == Opcode.PACKED_SWITCH) {
                     boolean valid = true;
                     int codeOffset = instructionOffsetMap.getInstructionCodeOffset(i);
-                    int targetOffset = codeOffset + ((OffsetInstruction)instruction).getCodeOffset();
+                    int targetOffset = codeOffset + ((OffsetInstruction) instruction).getCodeOffset();
                     try {
                         targetOffset = findPayloadOffset(targetOffset, Opcode.PACKED_SWITCH_PAYLOAD);
                     } catch (InvalidSwitchPayload ex) {
@@ -117,7 +117,7 @@ public class MethodDefinition {
                                     findSwitchPayload(targetOffset, Opcode.PACKED_SWITCH_PAYLOAD);
                             targetOffset = endOffset;
                             effectiveInstructions.set(i, new ImmutableInstruction31t(opcode,
-                                    ((Instruction31t)instruction).getRegisterA(), targetOffset-codeOffset));
+                                    ((Instruction31t) instruction).getRegisterA(), targetOffset - codeOffset));
                             effectiveInstructions.add(payloadInstruction);
                             endOffset += payloadInstruction.getCodeUnits();
                         }
@@ -126,7 +126,7 @@ public class MethodDefinition {
                 } else if (opcode == Opcode.SPARSE_SWITCH) {
                     boolean valid = true;
                     int codeOffset = instructionOffsetMap.getInstructionCodeOffset(i);
-                    int targetOffset = codeOffset + ((OffsetInstruction)instruction).getCodeOffset();
+                    int targetOffset = codeOffset + ((OffsetInstruction) instruction).getCodeOffset();
                     try {
                         targetOffset = findPayloadOffset(targetOffset, Opcode.SPARSE_SWITCH_PAYLOAD);
                     } catch (InvalidSwitchPayload ex) {
@@ -140,7 +140,7 @@ public class MethodDefinition {
                                     findSwitchPayload(targetOffset, Opcode.SPARSE_SWITCH_PAYLOAD);
                             targetOffset = endOffset;
                             effectiveInstructions.set(i, new ImmutableInstruction31t(opcode,
-                                    ((Instruction31t)instruction).getRegisterA(), targetOffset-codeOffset));
+                                    ((Instruction31t) instruction).getRegisterA(), targetOffset - codeOffset));
                             effectiveInstructions.add(payloadInstruction);
                             endOffset += payloadInstruction.getCodeUnits();
                         }
@@ -159,8 +159,8 @@ public class MethodDefinition {
         }
     }
 
-    public static void writeEmptyMethodTo(IndentingWriter writer, Method method,
-                                          BaksmaliOptions options) throws IOException {
+    public static void writeEmptyMethodTo(final IndentingWriter writer, final Method method,
+                                          final BaksmaliOptions options) throws IOException {
         writer.write(".method ");
         writeAccessFlagsAndRestrictions(writer, method.getAccessFlags(), method.getHiddenApiRestrictions());
         writer.write(method.getName());
@@ -186,7 +186,7 @@ public class MethodDefinition {
         writer.write(".end method\n");
     }
 
-    public void writeTo(IndentingWriter writer) throws IOException {
+    public void writeTo(final IndentingWriter writer) throws IOException {
         int parameterRegisterCount = 0;
         if (!AccessFlags.STATIC.isSet(method.getAccessFlags())) {
             parameterRegisterCount++;
@@ -242,7 +242,7 @@ public class MethodDefinition {
         writer.write(".end method\n");
     }
 
-    public Instruction findSwitchPayload(int targetOffset, Opcode type) {
+    public Instruction findSwitchPayload(final int targetOffset, final Opcode type) {
         int targetIndex;
         try {
             targetIndex = instructionOffsetMap.getInstructionIndexAtCodeOffset(targetOffset);
@@ -271,7 +271,7 @@ public class MethodDefinition {
         }
     }
 
-    public int findPayloadOffset(int targetOffset, Opcode type) {
+    public int findPayloadOffset(final int targetOffset, final Opcode type) {
         int targetIndex;
         try {
             targetIndex = instructionOffsetMap.getInstructionIndexAtCodeOffset(targetOffset);
@@ -301,7 +301,7 @@ public class MethodDefinition {
     }
 
     private static void writeAccessFlagsAndRestrictions(
-            IndentingWriter writer, int accessFlags, Set<HiddenApiRestriction> hiddenApiRestrictions)
+            final IndentingWriter writer, final int accessFlags, final Set<HiddenApiRestriction> hiddenApiRestrictions)
             throws IOException {
         for (AccessFlags accessFlag: AccessFlags.getAccessFlagsForMethod(accessFlags)) {
             writer.write(accessFlag.toString());
@@ -313,11 +313,11 @@ public class MethodDefinition {
         }
     }
 
-    private static void writeParameters(IndentingWriter writer, Method method,
-                                        List<? extends MethodParameter> parameters,
-                                        BaksmaliOptions options) throws IOException {
+    private static void writeParameters(final IndentingWriter writer, final Method method,
+                                        final List<? extends MethodParameter> parameters,
+                                        final BaksmaliOptions options) throws IOException {
         boolean isStatic = AccessFlags.STATIC.isSet(method.getAccessFlags());
-        int registerNumber = isStatic?0:1;
+        int registerNumber = isStatic ? 0 : 1;
         for (MethodParameter parameter: parameters) {
             String parameterType = parameter.getType();
             String parameterName = parameter.getName();
@@ -357,19 +357,19 @@ public class MethodDefinition {
         return labelCache;
     }
 
-    public int getPackedSwitchBaseAddress(int packedSwitchPayloadCodeOffset) {
+    public int getPackedSwitchBaseAddress(final int packedSwitchPayloadCodeOffset) {
         return packedSwitchMap.get(packedSwitchPayloadCodeOffset, -1);
     }
 
-    public int getSparseSwitchBaseAddress(int sparseSwitchPayloadCodeOffset) {
+    public int getSparseSwitchBaseAddress(final int sparseSwitchPayloadCodeOffset) {
         return sparseSwitchMap.get(sparseSwitchPayloadCodeOffset, -1);
     }
 
     private List<MethodItem> getMethodItems() {
         ArrayList<MethodItem> methodItems = new ArrayList<MethodItem>();
 
-        if ((classDef.options.registerInfo != 0) || (classDef.options.normalizeVirtualMethods) ||
-                (classDef.options.deodex && needsAnalyzed())) {
+        if ((classDef.options.registerInfo != 0) || (classDef.options.normalizeVirtualMethods)
+                || (classDef.options.deodex && needsAnalyzed())) {
             addAnalyzedInstructionMethodItems(methodItems);
         } else {
             addInstructionMethodItems(methodItems);
@@ -402,10 +402,10 @@ public class MethodDefinition {
         return false;
     }
 
-    private void addInstructionMethodItems(List<MethodItem> methodItems) {
+    private void addInstructionMethodItems(final List<MethodItem> methodItems) {
         int currentCodeAddress = 0;
 
-        for (int i=0; i<effectiveInstructions.size(); i++) {
+        for (int i = 0; i < effectiveInstructions.size(); i++) {
             Instruction instruction = effectiveInstructions.get(i);
 
             MethodItem methodItem = InstructionMethodItemFactory.makeInstructionFormatMethodItem(this,
@@ -426,7 +426,7 @@ public class MethodDefinition {
                     }
 
                     @Override
-                    public boolean writeTo(IndentingWriter writer) throws IOException {
+                    public boolean writeTo(final IndentingWriter writer) throws IOException {
                         writer.write("#@");
                         writer.printUnsignedLongAsHex(codeAddress & 0xFFFFFFFFL);
                         return true;
@@ -434,13 +434,13 @@ public class MethodDefinition {
                 });
             }
 
-            if (classDef.options.accessorComments && classDef.options.syntheticAccessorResolver != null &&
-                    (instruction instanceof ReferenceInstruction)) {
+            if (classDef.options.accessorComments && classDef.options.syntheticAccessorResolver != null
+                    && (instruction instanceof ReferenceInstruction)) {
                 Opcode opcode = instruction.getOpcode();
 
                 if (opcode.referenceType == ReferenceType.METHOD) {
                     MethodReference methodReference =
-                            (MethodReference)((ReferenceInstruction)instruction).getReference();
+                            (MethodReference) ((ReferenceInstruction) instruction).getReference();
 
                     try {
                         methodReference.validateReference();
@@ -462,7 +462,7 @@ public class MethodDefinition {
         }
     }
 
-    private void addAnalyzedInstructionMethodItems(List<MethodItem> methodItems) {
+    private void addAnalyzedInstructionMethodItems(final List<MethodItem> methodItems) {
         MethodAnalyzer methodAnalyzer = new MethodAnalyzer(classDef.options.classPath, method,
                 classDef.options.inlineResolver, classDef.options.normalizeVirtualMethods);
 
@@ -478,7 +478,7 @@ public class MethodDefinition {
         List<AnalyzedInstruction> instructions = methodAnalyzer.getAnalyzedInstructions();
 
         int currentCodeAddress = 0;
-        for (int i=0; i<instructions.size(); i++) {
+        for (int i = 0; i < instructions.size(); i++) {
             AnalyzedInstruction instruction = instructions.get(i);
 
             MethodItem methodItem = InstructionMethodItemFactory.makeInstructionFormatMethodItem(
@@ -505,7 +505,7 @@ public class MethodDefinition {
                     }
 
                     @Override
-                    public boolean writeTo(IndentingWriter writer) throws IOException {
+                    public boolean writeTo(final IndentingWriter writer) throws IOException {
                         writer.write("#@");
                         writer.printUnsignedLongAsHex(codeAddress & 0xFFFFFFFFL);
                         return true;
@@ -513,8 +513,8 @@ public class MethodDefinition {
                 });
             }
 
-            if (classDef.options.registerInfo != 0 &&
-                    !instruction.getInstruction().getOpcode().format.isPayloadFormat) {
+            if (classDef.options.registerInfo != 0
+                    && !instruction.getInstruction().getOpcode().format.isPayloadFormat) {
                 methodItems.add(
                         new PreInstructionRegisterInfoMethodItem(classDef.options.registerInfo,
                                 methodAnalyzer, registerFormatter, instruction, currentCodeAddress));
@@ -527,7 +527,7 @@ public class MethodDefinition {
         }
     }
 
-    private void addTries(List<MethodItem> methodItems) {
+    private void addTries(final List<MethodItem> methodItems) {
         List<? extends TryBlock<? extends ExceptionHandler>> tryBlocks = methodImpl.getTryBlocks();
         if (tryBlocks.size() == 0) {
             return;
@@ -612,7 +612,7 @@ public class MethodDefinition {
         public LabelCache() {
         }
 
-        public LabelMethodItem internLabel(LabelMethodItem labelMethodItem) {
+        public LabelMethodItem internLabel(final LabelMethodItem labelMethodItem) {
             LabelMethodItem internedLabelMethodItem = labels.get(labelMethodItem);
             if (internedLabelMethodItem != null) {
                 return internedLabelMethodItem;
@@ -630,7 +630,7 @@ public class MethodDefinition {
     public static class InvalidSwitchPayload extends ExceptionWithContext {
         private final int payloadOffset;
 
-        public InvalidSwitchPayload(int payloadOffset) {
+        public InvalidSwitchPayload(final int payloadOffset) {
             super("No switch payload at offset: %d", payloadOffset);
             this.payloadOffset = payloadOffset;
         }

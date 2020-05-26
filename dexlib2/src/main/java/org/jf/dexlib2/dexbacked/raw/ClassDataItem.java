@@ -43,11 +43,11 @@ import javax.annotation.Nullable;
 
 public class ClassDataItem {
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             private SectionAnnotator codeItemAnnotator = null;
 
-            @Override public void annotateSection(@Nonnull AnnotatedBytes out) {
+            @Override public void annotateSection(final @Nonnull AnnotatedBytes out) {
                 codeItemAnnotator = annotator.getAnnotator(ItemType.CODE_ITEM);
                 super.annotateSection(out);
             }
@@ -57,7 +57,7 @@ public class ClassDataItem {
             }
 
             @Override
-            protected void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            protected void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 DexReader reader = dexFile.getBuffer().readerAt(out.getCursor());
 
                 int staticFieldsSize = reader.readSmallUleb128();
@@ -76,7 +76,7 @@ public class ClassDataItem {
                 if (staticFieldsSize > 0) {
                     out.annotate(0, "static_fields:");
                     out.indent();
-                    for (int i=0; i<staticFieldsSize; i++) {
+                    for (int i = 0; i < staticFieldsSize; i++) {
                         out.annotate(0, "static_field[%d]", i);
                         out.indent();
                         previousIndex = annotateEncodedField(out, dexFile, reader, previousIndex);
@@ -89,7 +89,7 @@ public class ClassDataItem {
                     out.annotate(0, "instance_fields:");
                     out.indent();
                     previousIndex = 0;
-                    for (int i=0; i<instanceFieldsSize; i++) {
+                    for (int i = 0; i < instanceFieldsSize; i++) {
                         out.annotate(0, "instance_field[%d]", i);
                         out.indent();
                         previousIndex = annotateEncodedField(out, dexFile, reader, previousIndex);
@@ -102,7 +102,7 @@ public class ClassDataItem {
                     out.annotate(0, "direct_methods:");
                     out.indent();
                     previousIndex = 0;
-                    for (int i=0; i<directMethodsSize; i++) {
+                    for (int i = 0; i < directMethodsSize; i++) {
                         out.annotate(0, "direct_method[%d]", i);
                         out.indent();
                         previousIndex = annotateEncodedMethod(out, dexFile, reader, previousIndex);
@@ -115,7 +115,7 @@ public class ClassDataItem {
                     out.annotate(0, "virtual_methods:");
                     out.indent();
                     previousIndex = 0;
-                    for (int i=0; i<virtualMethodsSize; i++) {
+                    for (int i = 0; i < virtualMethodsSize; i++) {
                         out.annotate(0, "virtual_method[%d]", i);
                         out.indent();
                         previousIndex = annotateEncodedMethod(out, dexFile, reader, previousIndex);
@@ -125,8 +125,8 @@ public class ClassDataItem {
                 }
             }
 
-            private int annotateEncodedField(@Nonnull AnnotatedBytes out, @Nonnull DexBackedDexFile dexFile,
-                                             @Nonnull DexReader reader, int previousIndex) {
+            private int annotateEncodedField(final @Nonnull AnnotatedBytes out, final @Nonnull DexBackedDexFile dexFile,
+                                             final @Nonnull DexReader reader, final int previousIndex) {
                 // large values may be used for the index delta, which cause the cumulative index to overflow upon
                 // addition, effectively allowing out of order entries.
                 int indexDelta = reader.readLargeUleb128();
@@ -141,8 +141,8 @@ public class ClassDataItem {
                 return fieldIndex;
             }
 
-            private int annotateEncodedMethod(@Nonnull AnnotatedBytes out, @Nonnull DexBackedDexFile dexFile,
-                                              @Nonnull DexReader reader, int previousIndex) {
+            private int annotateEncodedMethod(final @Nonnull AnnotatedBytes out, final @Nonnull DexBackedDexFile dexFile,
+                                              final @Nonnull DexReader reader, final int previousIndex) {
                 // large values may be used for the index delta, which cause the cumulative index to overflow upon
                 // addition, effectively allowing out of order entries.
                 int indexDelta = reader.readLargeUleb128();
@@ -165,7 +165,7 @@ public class ClassDataItem {
                 return methodIndex;
             }
 
-            private void addCodeItemIdentity(int codeItemOffset, String methodString) {
+            private void addCodeItemIdentity(final int codeItemOffset, final String methodString) {
                 if (codeItemAnnotator != null) {
                     codeItemAnnotator.setItemIdentity(codeItemOffset, methodString);
                 }

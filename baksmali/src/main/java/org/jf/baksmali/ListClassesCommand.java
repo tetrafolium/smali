@@ -50,7 +50,7 @@ public class ListClassesCommand extends DexInputCommand {
             description = "Show usage information")
     private boolean help;
 
-    public ListClassesCommand(@Nonnull List<JCommander> commandAncestors) {
+    public ListClassesCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);
     }
 

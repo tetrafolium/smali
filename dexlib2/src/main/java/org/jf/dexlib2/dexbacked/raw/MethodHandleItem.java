@@ -46,14 +46,14 @@ public class MethodHandleItem {
     public static final int MEMBER_ID_OFFSET = 4;
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "method_handle_item";
             }
 
             @Override
-            protected void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            protected void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 int methodHandleType = dexFile.getBuffer().readUshort(out.getCursor());
                 out.annotate(2, "type = %s", MethodHandleType.toString(methodHandleType));
                 out.annotate(2, "unused");

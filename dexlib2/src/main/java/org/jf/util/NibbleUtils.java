@@ -38,7 +38,7 @@ public abstract class NibbleUtils {
      * @param value the value to extract the nibble from
      * @return the extracted signed nibble value
      */
-    public static int extractHighSignedNibble(int value) {
+    public static int extractHighSignedNibble(final int value) {
         return (value << 24) >> 28;
     }
 
@@ -48,7 +48,7 @@ public abstract class NibbleUtils {
      * @param value the value to extract the nibble from
      * @return the extracted signed nibble value
      */
-    public static int extractLowSignedNibble(int value) {
+    public static int extractLowSignedNibble(final int value) {
         return (value << 28) >> 28;
     }
 
@@ -58,7 +58,7 @@ public abstract class NibbleUtils {
      * @param value the value to extract the nibble from
      * @return the extracted unsigned nibble value
      */
-    public static int extractHighUnsignedNibble(int value) {
+    public static int extractHighUnsignedNibble(final int value) {
         return (value & 0xF0) >>> 4;
     }
 
@@ -68,7 +68,7 @@ public abstract class NibbleUtils {
      * @param value the value to extract the nibble from
      * @return the extracted unsigned nibble value
      */
-    public static int extractLowUnsignedNibble(int value) {
+    public static int extractLowUnsignedNibble(final int value) {
         return value & 0x0F;
     }
 }

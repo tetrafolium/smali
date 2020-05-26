@@ -44,7 +44,7 @@ public final class ReferenceType {
     public static final int METHOD_HANDLE = 6;
     public static final int NONE = 7;
 
-    public static int getReferenceType(Reference reference) {
+    public static int getReferenceType(final Reference reference) {
         if (reference instanceof StringReference) {
             return STRING;
         } else if (reference instanceof TypeReference) {
@@ -69,7 +69,7 @@ public final class ReferenceType {
      *
      * @throws InvalidReferenceTypeException
      */
-    public static void validateReferenceType(int referenceType) {
+    public static void validateReferenceType(final int referenceType) {
         if (referenceType < 0 || referenceType > 4) {
             throw new InvalidReferenceTypeException(referenceType);
         }
@@ -78,12 +78,12 @@ public final class ReferenceType {
     public static class InvalidReferenceTypeException extends ExceptionWithContext {
         private final int referenceType;
 
-        public InvalidReferenceTypeException(int referenceType) {
+        public InvalidReferenceTypeException(final int referenceType) {
             super("Invalid reference type: %d", referenceType);
             this.referenceType = referenceType;
         }
 
-        public InvalidReferenceTypeException(int referenceType, String message, Object... formatArgs) {
+        public InvalidReferenceTypeException(final int referenceType, final String message, final Object... formatArgs) {
             super(message, formatArgs);
             this.referenceType = referenceType;
         }
@@ -93,5 +93,5 @@ public final class ReferenceType {
         }
     }
 
-    private ReferenceType() {}
+    private ReferenceType() { }
 }

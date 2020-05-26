@@ -58,12 +58,12 @@ public class PrintTokensCommand extends Command {
     @ExtendedParameter(argumentNames = "api")
     private int apiLevel = 15;
 
-    @Parameter(description = "Assembles the given files. If a directory is specified, it will be " +
-            "recursively searched for any files with a .smali prefix")
+    @Parameter(description = "Assembles the given files. If a directory is specified, it will be "
+            + "recursively searched for any files with a .smali prefix")
     @ExtendedParameter(argumentNames = "[<file>|<dir>]+")
     private List<String> input;
 
-    public PrintTokensCommand(@Nonnull List<JCommander> commandAncestors) {
+    public PrintTokensCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);
     }
 

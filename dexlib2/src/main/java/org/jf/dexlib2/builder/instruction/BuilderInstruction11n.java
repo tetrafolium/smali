@@ -45,17 +45,21 @@ public class BuilderInstruction11n extends BuilderInstruction implements Instruc
     protected final int registerA;
     protected final int literal;
 
-    public BuilderInstruction11n(@Nonnull Opcode opcode,
-                                 int registerA,
-                                 int literal) {
+    public BuilderInstruction11n(final @Nonnull Opcode opcode,
+                                 final int registerA,
+                                 final int literal) {
         super(opcode);
         this.registerA = Preconditions.checkNibbleRegister(registerA);
         this.literal = Preconditions.checkNibbleLiteral(literal);
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getNarrowLiteral() { return literal; }
-    @Override public long getWideLiteral() { return literal; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getNarrowLiteral() {
+        return literal; }
+    @Override public long getWideLiteral() {
+        return literal; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

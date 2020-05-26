@@ -57,7 +57,7 @@ public class ItemType {
     public static final int HIDDENAPI_CLASS_DATA_ITEM = 0xF000;
 
     @Nonnull
-    public static String getItemTypeName(int itemType) {
+    public static String getItemTypeName(final int itemType) {
         switch (itemType) {
             case HEADER_ITEM: return "header_item";
             case STRING_ID_ITEM: return "string_id_item";

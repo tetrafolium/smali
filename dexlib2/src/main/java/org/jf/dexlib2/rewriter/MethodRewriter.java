@@ -46,18 +46,18 @@ import java.util.Set;
 public class MethodRewriter implements Rewriter<Method> {
     @Nonnull protected final Rewriters rewriters;
 
-    public MethodRewriter(@Nonnull Rewriters rewriters) {
+    public MethodRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public Method rewrite(@Nonnull Method value) {
+    @Nonnull @Override public Method rewrite(final @Nonnull Method value) {
         return new RewrittenMethod(value);
     }
 
     protected class RewrittenMethod extends BaseMethodReference implements Method {
         @Nonnull protected Method method;
 
-        public RewrittenMethod(@Nonnull Method method) {
+        public RewrittenMethod(final @Nonnull Method method) {
             this.method = method;
         }
 

@@ -37,7 +37,7 @@ public class CommentMethodItem extends MethodItem {
     private final String comment;
     private final double sortOrder;
 
-    public CommentMethodItem(String comment, int codeAddress, double sortOrder) {
+    public CommentMethodItem(final String comment, final int codeAddress, final double sortOrder) {
         super(codeAddress);
         this.comment = comment;
         this.sortOrder = sortOrder;
@@ -47,7 +47,7 @@ public class CommentMethodItem extends MethodItem {
         return sortOrder;
     }
 
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         writer.write('#');
         writer.write(comment);
         return true;

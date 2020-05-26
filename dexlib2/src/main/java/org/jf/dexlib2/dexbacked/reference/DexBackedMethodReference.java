@@ -47,7 +47,7 @@ public class DexBackedMethodReference extends BaseMethodReference {
     private final int methodIndex;
     private int protoIdItemOffset;
 
-    public DexBackedMethodReference(@Nonnull DexBackedDexFile dexFile, int methodIndex) {
+    public DexBackedMethodReference(final @Nonnull DexBackedDexFile dexFile, final int methodIndex) {
         this.dexFile = dexFile;
         this.methodIndex = methodIndex;
     }
@@ -80,9 +80,10 @@ public class DexBackedMethodReference extends BaseMethodReference {
                 @Nonnull
                 @Override
                 public String readItem(final int index) {
-                    return dexFile.getTypeSection().get(dexFile.getDataBuffer().readUshort(paramListStart + 2*index));
+                    return dexFile.getTypeSection().get(dexFile.getDataBuffer().readUshort(paramListStart + 2 * index));
                 }
-                @Override public int size() { return parameterCount; }
+                @Override public int size() {
+                    return parameterCount; }
             };
         }
         return ImmutableList.of();

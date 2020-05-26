@@ -37,17 +37,18 @@ import org.jf.dexlib2.iface.debug.EpilogueBegin;
 import javax.annotation.Nonnull;
 
 public class ImmutableEpilogueBegin extends ImmutableDebugItem implements EpilogueBegin {
-    public ImmutableEpilogueBegin(int codeAddress) {
+    public ImmutableEpilogueBegin(final int codeAddress) {
         super(codeAddress);
     }
 
     @Nonnull
-    public static ImmutableEpilogueBegin of(@Nonnull EpilogueBegin epilogueBegin) {
+    public static ImmutableEpilogueBegin of(final @Nonnull EpilogueBegin epilogueBegin) {
         if (epilogueBegin instanceof ImmutableEpilogueBegin) {
-            return (ImmutableEpilogueBegin)epilogueBegin;
+            return (ImmutableEpilogueBegin) epilogueBegin;
         }
         return new ImmutableEpilogueBegin(epilogueBegin.getCodeAddress());
     }
 
-    @Override public int getDebugItemType() { return DebugItemType.EPILOGUE_BEGIN; }
+    @Override public int getDebugItemType() {
+        return DebugItemType.EPILOGUE_BEGIN; }
 }

@@ -38,14 +38,18 @@ import org.jf.dexlib2.iface.instruction.formats.Instruction22b;
 import javax.annotation.Nonnull;
 
 public class DexBackedInstruction22b extends DexBackedInstruction implements Instruction22b {
-    public DexBackedInstruction22b(@Nonnull DexBackedDexFile dexFile,
-                                   @Nonnull Opcode opcode,
-                                   int instructionStart) {
+    public DexBackedInstruction22b(final @Nonnull DexBackedDexFile dexFile,
+                                   final @Nonnull Opcode opcode,
+                                   final int instructionStart) {
         super(dexFile, opcode, instructionStart);
     }
 
-    @Override public int getRegisterA() { return dexFile.getDataBuffer().readUbyte(instructionStart + 1); }
-    @Override public int getRegisterB() { return dexFile.getDataBuffer().readUbyte(instructionStart + 2); }
-    @Override public int getNarrowLiteral() { return dexFile.getDataBuffer().readByte(instructionStart + 3); }
-    @Override public long getWideLiteral() { return getNarrowLiteral(); }
+    @Override public int getRegisterA() {
+        return dexFile.getDataBuffer().readUbyte(instructionStart + 1); }
+    @Override public int getRegisterB() {
+        return dexFile.getDataBuffer().readUbyte(instructionStart + 2); }
+    @Override public int getNarrowLiteral() {
+        return dexFile.getDataBuffer().readByte(instructionStart + 3); }
+    @Override public long getWideLiteral() {
+        return getNarrowLiteral(); }
 }

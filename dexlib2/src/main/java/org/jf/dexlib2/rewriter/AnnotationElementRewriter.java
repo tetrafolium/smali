@@ -40,18 +40,18 @@ import javax.annotation.Nonnull;
 public class AnnotationElementRewriter implements Rewriter<AnnotationElement> {
     @Nonnull protected final Rewriters rewriters;
 
-    public AnnotationElementRewriter(@Nonnull Rewriters rewriters) {
+    public AnnotationElementRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public AnnotationElement rewrite(@Nonnull AnnotationElement annotationElement) {
+    @Nonnull @Override public AnnotationElement rewrite(final @Nonnull AnnotationElement annotationElement) {
         return new RewrittenAnnotationElement(annotationElement);
     }
 
     protected class RewrittenAnnotationElement extends BaseAnnotationElement {
         @Nonnull protected AnnotationElement annotationElement;
 
-        public RewrittenAnnotationElement(@Nonnull AnnotationElement annotationElement) {
+        public RewrittenAnnotationElement(final @Nonnull AnnotationElement annotationElement) {
             this.annotationElement = annotationElement;
         }
 

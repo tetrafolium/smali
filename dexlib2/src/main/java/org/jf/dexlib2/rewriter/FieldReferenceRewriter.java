@@ -39,18 +39,18 @@ import javax.annotation.Nonnull;
 public class FieldReferenceRewriter implements Rewriter<FieldReference> {
     @Nonnull protected final Rewriters rewriters;
 
-    public FieldReferenceRewriter(@Nonnull Rewriters rewriters) {
+    public FieldReferenceRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public FieldReference rewrite(@Nonnull FieldReference fieldReference) {
+    @Nonnull @Override public FieldReference rewrite(final @Nonnull FieldReference fieldReference) {
         return new RewrittenFieldReference(fieldReference);
     }
 
     protected class RewrittenFieldReference extends BaseFieldReference {
         @Nonnull protected FieldReference fieldReference;
 
-        public RewrittenFieldReference(@Nonnull FieldReference fieldReference) {
+        public RewrittenFieldReference(final @Nonnull FieldReference fieldReference) {
             this.fieldReference = fieldReference;
         }
 

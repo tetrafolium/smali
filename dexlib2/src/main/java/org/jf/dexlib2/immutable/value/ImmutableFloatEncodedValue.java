@@ -37,16 +37,17 @@ import org.jf.dexlib2.iface.value.FloatEncodedValue;
 public class ImmutableFloatEncodedValue extends BaseFloatEncodedValue implements ImmutableEncodedValue {
     protected final float value;
 
-    public ImmutableFloatEncodedValue(float value) {
+    public ImmutableFloatEncodedValue(final float value) {
         this.value = value;
     }
 
-    public static ImmutableFloatEncodedValue of(FloatEncodedValue floatEncodedValue) {
+    public static ImmutableFloatEncodedValue of(final FloatEncodedValue floatEncodedValue) {
         if (floatEncodedValue instanceof ImmutableFloatEncodedValue) {
-            return (ImmutableFloatEncodedValue)floatEncodedValue;
+            return (ImmutableFloatEncodedValue) floatEncodedValue;
         }
         return new ImmutableFloatEncodedValue(floatEncodedValue.getValue());
     }
 
-    @Override public float getValue() { return value; }
+    @Override public float getValue() {
+        return value; }
 }

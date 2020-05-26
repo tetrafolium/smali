@@ -46,7 +46,7 @@ public class FieldGapOrderTest extends DexTest {
         Assert.assertEquals(3, dexFile.getClasses().size());
 
         ClassPath classPath = new ClassPath(Lists.newArrayList(new DexClassProvider(dexFile)), false, 66);
-        ClassProto classProto = (ClassProto)classPath.getClass("LGapOrder;");
+        ClassProto classProto = (ClassProto) classPath.getClass("LGapOrder;");
         Assert.assertEquals("r1", classProto.getFieldByOffset(12).getName());
         Assert.assertEquals("r2", classProto.getFieldByOffset(16).getName());
         Assert.assertEquals("d", classProto.getFieldByOffset(24).getName());
@@ -60,7 +60,7 @@ public class FieldGapOrderTest extends DexTest {
         Assert.assertEquals(3, dexFile.getClasses().size());
 
         ClassPath classPath = new ClassPath(Lists.newArrayList(new DexClassProvider(dexFile)), false, 67);
-        ClassProto classProto = (ClassProto)classPath.getClass("LGapOrder;");
+        ClassProto classProto = (ClassProto) classPath.getClass("LGapOrder;");
         Assert.assertEquals("s", classProto.getFieldByOffset(10).getName());
         Assert.assertEquals("r1", classProto.getFieldByOffset(12).getName());
         Assert.assertEquals("r2", classProto.getFieldByOffset(16).getName());

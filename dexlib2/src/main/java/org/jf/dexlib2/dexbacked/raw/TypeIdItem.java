@@ -42,14 +42,14 @@ public class TypeIdItem {
     public static final int ITEM_SIZE = 4;
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "type_id_item";
             }
 
             @Override
-            protected void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            protected void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 int stringIndex = dexFile.getBuffer().readSmallUint(out.getCursor());
                 out.annotate(4, StringIdItem.getReferenceAnnotation(dexFile, stringIndex));
             }
@@ -57,7 +57,7 @@ public class TypeIdItem {
     }
 
     @Nonnull
-    public static String getReferenceAnnotation(@Nonnull DexBackedDexFile dexFile, int typeIndex) {
+    public static String getReferenceAnnotation(final @Nonnull DexBackedDexFile dexFile, final int typeIndex) {
         try {
             String typeString = dexFile.getTypeSection().get(typeIndex);
             return String.format("type_id_item[%d]: %s", typeIndex, typeString);
@@ -68,7 +68,7 @@ public class TypeIdItem {
     }
 
     @Nonnull
-    public static String getOptionalReferenceAnnotation(@Nonnull DexBackedDexFile dexFile, int typeIndex) {
+    public static String getOptionalReferenceAnnotation(final @Nonnull DexBackedDexFile dexFile, final int typeIndex) {
         if (typeIndex == -1) {
             return "type_id_item[NO_INDEX]";
         }

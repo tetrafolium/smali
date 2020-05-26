@@ -43,23 +43,24 @@ import javax.annotation.Nullable;
 public abstract class BaseBooleanEncodedValue implements BooleanEncodedValue {
     @Override
     public int hashCode() {
-        return getValue()?1:0;
+        return getValue() ? 1 : 0;
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof BooleanEncodedValue) {
-            return getValue() == ((BooleanEncodedValue)o).getValue();
+            return getValue() == ((BooleanEncodedValue) o).getValue();
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull EncodedValue o) {
+    public int compareTo(final @Nonnull EncodedValue o) {
         int res = Ints.compare(getValueType(), o.getValueType());
         if (res != 0) return res;
-        return Booleans.compare(getValue(), ((BooleanEncodedValue)o).getValue());
+        return Booleans.compare(getValue(), ((BooleanEncodedValue) o).getValue());
     }
 
-    public int getValueType() { return ValueType.BOOLEAN; }
+    public int getValueType() {
+        return ValueType.BOOLEAN; }
 }

@@ -66,8 +66,8 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
      */
     public abstract int getSize();
 
-    public static DebugInfo newOrEmpty(@Nonnull DexBackedDexFile dexFile, int debugInfoOffset,
-                                       @Nonnull DexBackedMethodImplementation methodImpl) {
+    public static DebugInfo newOrEmpty(final @Nonnull DexBackedDexFile dexFile, final int debugInfoOffset,
+                                       final @Nonnull DexBackedMethodImplementation methodImpl) {
         if (debugInfoOffset == 0) {
             return EmptyDebugInfo.INSTANCE;
         }
@@ -76,13 +76,13 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
 
     private static class EmptyDebugInfo extends DebugInfo {
         public static final EmptyDebugInfo INSTANCE = new EmptyDebugInfo();
-        private EmptyDebugInfo() {}
+        private EmptyDebugInfo() { }
 
         @Nonnull @Override public Iterator<DebugItem> iterator() {
             return ImmutableSet.<DebugItem>of().iterator();
         }
 
-        @Nonnull @Override public Iterator<String> getParameterNames(@Nullable DexReader reader) {
+        @Nonnull @Override public Iterator<String> getParameterNames(final @Nullable DexReader reader) {
             return ImmutableSet.<String>of().iterator();
         }
 
@@ -97,18 +97,21 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
         private final int debugInfoOffset;
         @Nonnull private final DexBackedMethodImplementation methodImpl;
 
-        public DebugInfoImpl(@Nonnull DexBackedDexFile dexFile,
-                         int debugInfoOffset,
-                         @Nonnull DexBackedMethodImplementation methodImpl) {
+        public DebugInfoImpl(final @Nonnull DexBackedDexFile dexFile,
+                         final int debugInfoOffset,
+                         final @Nonnull DexBackedMethodImplementation methodImpl) {
             this.dexFile = dexFile;
             this.debugInfoOffset = debugInfoOffset;
             this.methodImpl = methodImpl;
         }
 
         private static final LocalInfo EMPTY_LOCAL_INFO = new LocalInfo() {
-            @Nullable @Override public String getName() { return null; }
-            @Nullable @Override public String getType() { return null; }
-            @Nullable @Override public String getSignature() { return null; }
+            @Nullable @Override public String getName() {
+                return null; }
+            @Nullable @Override public String getType() {
+                return null; }
+            @Nullable @Override public String getSignature() {
+                return null; }
         };
 
         @Nonnull
@@ -138,9 +141,12 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
             if (!AccessFlags.STATIC.isSet(methodImpl.method.getAccessFlags())) {
                 // add the local info for the "this" parameter
                 locals[parameterIndex++] = new LocalInfo() {
-                    @Override public String getName() { return "this"; }
-                    @Override public String getType() { return methodImpl.method.getDefiningClass(); }
-                    @Override public String getSignature() { return null; }
+                    @Override public String getName() {
+                        return "this"; }
+                    @Override public String getType() {
+                        return methodImpl.method.getDefiningClass(); }
+                    @Override public String getSignature() {
+                        return null; }
                 };
             }
             while (parameterIterator.hasNext()) {
@@ -149,8 +155,8 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
 
             if (parameterIndex < registerCount) {
                 // now, we push the parameter locals back to their appropriate register, starting from the end
-                int localIndex = registerCount-1;
-                while(--parameterIndex > -1) {
+                int localIndex = registerCount - 1;
+                while (--parameterIndex > -1) {
                     LocalInfo currentLocal = locals[parameterIndex];
                     String type = currentLocal.getType();
                     if (type != null && (type.equals("J") || type.equals("D"))) {
@@ -171,7 +177,7 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
                 private int lineNumber = lineNumberStart;
 
                 @Nullable
-                protected DebugItem readNextItem(@Nonnull DexReader reader) {
+                protected DebugItem readNextItem(final @Nonnull DexReader reader) {
                     while (true) {
                         int next = reader.readUbyte();
                         switch (next) {
@@ -280,7 +286,7 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
 
         @Nonnull
         @Override
-        public VariableSizeIterator<String> getParameterNames(@Nullable DexReader reader) {
+        public VariableSizeIterator<String> getParameterNames(final @Nullable DexReader reader) {
             if (reader == null) {
                 reader = dexFile.getDataBuffer().readerAt(debugInfoOffset);
                 reader.skipUleb128();
@@ -288,7 +294,7 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
             //TODO: make sure dalvik doesn't allow more parameter names than we have parameters
             final int parameterNameCount = reader.readSmallUleb128();
             return new VariableSizeIterator<String>(reader, parameterNameCount) {
-                @Override protected String readNextItem(@Nonnull DexReader reader, int index) {
+                @Override protected String readNextItem(final @Nonnull DexReader reader, final int index) {
                     return dexFile.getStringSection().getOptional(reader.readSmallUleb128() - 1);
                 }
             };
@@ -297,7 +303,7 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
         @Override
         public int getSize() {
             Iterator<DebugItem> iter = iterator();
-            while(iter.hasNext()) {
+            while (iter.hasNext()) {
                 iter.next();
             }
             return ((VariableSizeLookaheadIterator) iter).getReaderOffset() - debugInfoOffset;

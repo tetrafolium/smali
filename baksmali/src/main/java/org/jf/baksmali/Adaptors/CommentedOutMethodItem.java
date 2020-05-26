@@ -35,7 +35,7 @@ import java.io.IOException;
 public class CommentedOutMethodItem extends MethodItem {
     private final MethodItem commentedOutMethodItem;
 
-    public CommentedOutMethodItem(MethodItem commentedOutMethodItem) {
+    public CommentedOutMethodItem(final MethodItem commentedOutMethodItem) {
         super(commentedOutMethodItem.getCodeAddress());
         this.commentedOutMethodItem = commentedOutMethodItem;
     }
@@ -44,7 +44,7 @@ public class CommentedOutMethodItem extends MethodItem {
         return commentedOutMethodItem.getSortOrder() + .001;
     }
 
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         writer.write('#');
         commentedOutMethodItem.writeTo(writer);
         return true;

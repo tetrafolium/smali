@@ -98,8 +98,8 @@ public class CommonSuperclassTest {
                 new ImmutableDexFile(Opcodes.forArtVersion(72), classes))), true, 72);
     }
 
-    public void superclassTest(ClassPath classPath, String commonSuperclass,
-                               String type1, String type2) {
+    public void superclassTest(final ClassPath classPath, final String commonSuperclass,
+                               final String type1, final String type2) {
         TypeProto commonSuperclassProto = classPath.getClass(commonSuperclass);
         TypeProto type1Proto = classPath.getClass(type1);
         TypeProto type2Proto = classPath.getClass(type2);
@@ -108,7 +108,7 @@ public class CommonSuperclassTest {
         Assert.assertSame(commonSuperclassProto, type2Proto.getCommonSuperclass(type1Proto));
     }
 
-    public void superclassTest(String commonSuperclass, String type1, String type2) {
+    public void superclassTest(final String commonSuperclass, final String type1, final String type2) {
         superclassTest(oldClassPath, commonSuperclass, type1, type2);
         superclassTest(newClassPath, commonSuperclass, type1, type2);
     }

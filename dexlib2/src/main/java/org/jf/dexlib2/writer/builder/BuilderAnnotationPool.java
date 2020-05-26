@@ -46,11 +46,11 @@ class BuilderAnnotationPool extends BaseBuilderPool implements AnnotationSection
     @Nonnull private final ConcurrentMap<Annotation, BuilderAnnotation> internedItems =
             Maps.newConcurrentMap();
 
-    public BuilderAnnotationPool(@Nonnull DexBuilder dexBuilder) {
+    public BuilderAnnotationPool(final @Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
     }
 
-    @Nonnull public BuilderAnnotation internAnnotation(@Nonnull Annotation annotation) {
+    @Nonnull public BuilderAnnotation internAnnotation(final @Nonnull Annotation annotation) {
         BuilderAnnotation ret = internedItems.get(annotation);
         if (ret != null) {
             return ret;
@@ -61,43 +61,43 @@ class BuilderAnnotationPool extends BaseBuilderPool implements AnnotationSection
                 dexBuilder.typeSection.internType(annotation.getType()),
                 dexBuilder.internAnnotationElements(annotation.getElements()));
         ret = internedItems.putIfAbsent(dexBuilderAnnotation, dexBuilderAnnotation);
-        return ret==null?dexBuilderAnnotation:ret;
+        return ret == null ? dexBuilderAnnotation : ret;
     }
 
-    @Override public int getVisibility(@Nonnull BuilderAnnotation key) {
+    @Override public int getVisibility(final @Nonnull BuilderAnnotation key) {
         return key.visibility;
     }
 
-    @Nonnull @Override public BuilderTypeReference getType(@Nonnull BuilderAnnotation key) {
+    @Nonnull @Override public BuilderTypeReference getType(final @Nonnull BuilderAnnotation key) {
         return key.type;
     }
 
     @Nonnull @Override
-    public Collection<? extends BuilderAnnotationElement> getElements(@Nonnull BuilderAnnotation key) {
+    public Collection<? extends BuilderAnnotationElement> getElements(final @Nonnull BuilderAnnotation key) {
         return key.elements;
     }
 
     @Nonnull @Override
-    public BuilderStringReference getElementName(@Nonnull BuilderAnnotationElement element) {
+    public BuilderStringReference getElementName(final @Nonnull BuilderAnnotationElement element) {
         return element.name;
     }
 
     @Nonnull @Override
-    public BuilderEncodedValue getElementValue(@Nonnull BuilderAnnotationElement element) {
+    public BuilderEncodedValue getElementValue(final @Nonnull BuilderAnnotationElement element) {
         return element.value;
     }
 
-    @Override public int getItemOffset(@Nonnull BuilderAnnotation key) {
+    @Override public int getItemOffset(final @Nonnull BuilderAnnotation key) {
         return key.offset;
     }
 
     @Nonnull @Override public Collection<? extends Entry<? extends BuilderAnnotation, Integer>> getItems() {
         return new BuilderMapEntryCollection<BuilderAnnotation>(internedItems.values()) {
-            @Override protected int getValue(@Nonnull BuilderAnnotation key) {
+            @Override protected int getValue(final @Nonnull BuilderAnnotation key) {
                 return key.offset;
             }
 
-            @Override protected int setValue(@Nonnull BuilderAnnotation key, int value) {
+            @Override protected int setValue(final @Nonnull BuilderAnnotation key, final int value) {
                 int prev = key.offset;
                 key.offset = value;
                 return prev;

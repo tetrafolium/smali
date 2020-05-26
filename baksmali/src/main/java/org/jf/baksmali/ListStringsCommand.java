@@ -44,7 +44,7 @@ import java.util.List;
         commandName = "strings",
         commandAliases = { "string", "str", "s" })
 public class ListStringsCommand extends ListReferencesCommand {
-    public ListStringsCommand(@Nonnull List<JCommander> commandAncestors) {
+    public ListStringsCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors, ReferenceType.STRING);
     }
 }

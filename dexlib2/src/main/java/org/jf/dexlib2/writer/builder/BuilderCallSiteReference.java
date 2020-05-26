@@ -49,8 +49,8 @@ public class BuilderCallSiteReference extends BaseCallSiteReference implements B
     @Nonnull final BuilderArrayEncodedValue encodedCallSite;
     int index = NO_INDEX;
 
-    public BuilderCallSiteReference(@Nonnull String name,
-                                    @Nonnull BuilderArrayEncodedValue encodedCallSite) {
+    public BuilderCallSiteReference(final @Nonnull String name,
+                                    final @Nonnull BuilderArrayEncodedValue encodedCallSite) {
         this.name = name;
         this.encodedCallSite = encodedCallSite;
     }
@@ -82,7 +82,7 @@ public class BuilderCallSiteReference extends BaseCallSiteReference implements B
         return index;
     }
 
-    @Override public void setIndex(int index) {
+    @Override public void setIndex(final int index) {
         this.index = index;
     }
 }

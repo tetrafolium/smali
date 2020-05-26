@@ -48,19 +48,23 @@ public class BuilderInstruction3rms extends BuilderInstruction implements Instru
     protected final int registerCount;
     protected final int vtableIndex;
 
-    public BuilderInstruction3rms(@Nonnull Opcode opcode,
-                                  int startRegister,
-                                  int registerCount,
-                                  int vtableIndex) {
+    public BuilderInstruction3rms(final @Nonnull Opcode opcode,
+                                  final int startRegister,
+                                  final int registerCount,
+                                  final int vtableIndex) {
         super(opcode);
         this.startRegister = Preconditions.checkShortRegister(startRegister);
         this.registerCount = Preconditions.checkRegisterRangeCount(registerCount);
         this.vtableIndex = vtableIndex;
     }
 
-    @Override public int getStartRegister() { return startRegister; }
-    @Override public int getRegisterCount() { return registerCount; }
-    @Override public int getVtableIndex() { return vtableIndex; }
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public int getStartRegister() {
+        return startRegister; }
+    @Override public int getRegisterCount() {
+        return registerCount; }
+    @Override public int getVtableIndex() {
+        return vtableIndex; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }
 

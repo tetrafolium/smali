@@ -58,9 +58,9 @@ public abstract class DexInputCommand extends Command {
     @ExtendedParameter(argumentNames = "api")
     public int apiLevel = -1;
 
-    @Parameter(description = "A dex/apk/oat/odex file. For apk or oat files that contain multiple dex " +
-            "files, you can specify the specific entry to use as if the apk/oat file was a directory. " +
-            "e.g. \"app.apk/classes2.dex\". For more information, see \"baksmali help input\".")
+    @Parameter(description = "A dex/apk/oat/odex file. For apk or oat files that contain multiple dex "
+            + "files, you can specify the specific entry to use as if the apk/oat file was a directory. "
+            + "e.g. \"app.apk/classes2.dex\". For more information, see \"baksmali help input\".")
     @ExtendedParameter(argumentNames = "file")
     protected List<String> inputList = Lists.newArrayList();
 
@@ -69,7 +69,7 @@ public abstract class DexInputCommand extends Command {
     protected MultiDexContainer.DexEntry<? extends DexBackedDexFile> dexEntry;
     protected DexBackedDexFile dexFile;
 
-    public DexInputCommand(@Nonnull List<JCommander> commandAncestors) {
+    public DexInputCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);
     }
 
@@ -108,7 +108,7 @@ public abstract class DexInputCommand extends Command {
      *
      * @param input The name of a dex, apk, odex or oat file/entry.
      */
-    protected void loadDexFile(@Nonnull String input) {
+    protected void loadDexFile(final @Nonnull String input) {
         File file = new File(input);
 
         while (file != null && !file.exists()) {

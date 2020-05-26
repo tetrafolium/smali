@@ -52,15 +52,15 @@ import java.io.IOException;
 public class DisassemblyTest extends DexTest {
 
     @Nonnull
-    protected String getOutputFilename(@Nonnull String testName) {
+    protected String getOutputFilename(final @Nonnull String testName) {
         return String.format("%s%s%sOutput.smali", testDir, File.separatorChar, testName);
     }
 
-    protected void runTest(@Nonnull String testName) {
+    protected void runTest(final @Nonnull String testName) {
         runTest(testName, new BaksmaliOptions());
     }
 
-    protected void runTest(@Nonnull String testName, @Nonnull BaksmaliOptions options) {
+    protected void runTest(final @Nonnull String testName, final @Nonnull BaksmaliOptions options) {
         try {
             DexBackedDexFile inputDex = getInputDexFile(testName, options);
             Assert.assertEquals(1, inputDex.getClassSection().size());

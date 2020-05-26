@@ -11,9 +11,9 @@ public class BuilderSwitchElement implements SwitchElement {
     private final int key;
     @Nonnull private final Label target;
 
-    public BuilderSwitchElement(@Nonnull BuilderSwitchPayload parent,
-                                int key,
-                                @Nonnull Label target) {
+    public BuilderSwitchElement(final @Nonnull BuilderSwitchPayload parent,
+                                final int key,
+                                final @Nonnull Label target) {
         this.parent = parent;
         this.key = key;
         this.target = target;

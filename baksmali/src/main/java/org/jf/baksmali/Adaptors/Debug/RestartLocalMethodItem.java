@@ -42,15 +42,15 @@ public class RestartLocalMethodItem extends DebugMethodItem {
     @Nonnull private final RestartLocal restartLocal;
     @Nonnull private final RegisterFormatter registerFormatter;
 
-    public RestartLocalMethodItem(int codeAddress, int sortOrder, @Nonnull RegisterFormatter registerFormatter,
-                              @Nonnull RestartLocal restartLocal) {
+    public RestartLocalMethodItem(final int codeAddress, final int sortOrder, final @Nonnull RegisterFormatter registerFormatter,
+                              final @Nonnull RestartLocal restartLocal) {
         super(codeAddress, sortOrder);
         this.restartLocal = restartLocal;
         this.registerFormatter = registerFormatter;
     }
 
     @Override
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         writer.write(".restart local ");
         registerFormatter.writeTo(writer, restartLocal.getRegister());
 

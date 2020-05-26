@@ -40,16 +40,17 @@ import javax.annotation.Nonnull;
 public class ImmutableFieldEncodedValue extends BaseFieldEncodedValue implements ImmutableEncodedValue {
     @Nonnull protected final ImmutableFieldReference value;
 
-    public ImmutableFieldEncodedValue(@Nonnull ImmutableFieldReference value) {
+    public ImmutableFieldEncodedValue(final @Nonnull ImmutableFieldReference value) {
         this.value = value;
     }
 
-    public static ImmutableFieldEncodedValue of(@Nonnull FieldEncodedValue fieldEncodedValue) {
+    public static ImmutableFieldEncodedValue of(final @Nonnull FieldEncodedValue fieldEncodedValue) {
         if (fieldEncodedValue instanceof ImmutableFieldEncodedValue) {
-            return (ImmutableFieldEncodedValue)fieldEncodedValue;
+            return (ImmutableFieldEncodedValue) fieldEncodedValue;
         }
         return new ImmutableFieldEncodedValue(ImmutableFieldReference.of(fieldEncodedValue.getValue()));
     }
 
-    @Nonnull @Override public ImmutableFieldReference getValue() { return value; }
+    @Nonnull @Override public ImmutableFieldReference getValue() {
+        return value; }
 }

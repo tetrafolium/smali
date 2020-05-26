@@ -48,28 +48,31 @@ public class ImmutablePackedSwitchPayload extends ImmutableInstruction implement
 
     @Nonnull protected final ImmutableList<? extends ImmutableSwitchElement> switchElements;
 
-    public ImmutablePackedSwitchPayload(@Nullable List<? extends SwitchElement> switchElements) {
+    public ImmutablePackedSwitchPayload(final @Nullable List<? extends SwitchElement> switchElements) {
         super(OPCODE);
         this.switchElements = Preconditions.checkSequentialOrderedKeys(ImmutableSwitchElement.immutableListOf(switchElements));
     }
 
     public ImmutablePackedSwitchPayload(
-            @Nullable ImmutableList<? extends ImmutableSwitchElement> switchElements) {
+            final @Nullable ImmutableList<? extends ImmutableSwitchElement> switchElements) {
         super(OPCODE);
         this.switchElements = Preconditions.checkSequentialOrderedKeys(ImmutableUtils.nullToEmptyList(switchElements));
     }
 
     @Nonnull
-    public static ImmutablePackedSwitchPayload of(PackedSwitchPayload instruction) {
+    public static ImmutablePackedSwitchPayload of(final PackedSwitchPayload instruction) {
         if (instruction instanceof ImmutablePackedSwitchPayload) {
-            return (ImmutablePackedSwitchPayload)instruction;
+            return (ImmutablePackedSwitchPayload) instruction;
         }
         return new ImmutablePackedSwitchPayload(
                 instruction.getSwitchElements());
     }
 
-    @Nonnull @Override public List<? extends SwitchElement> getSwitchElements() { return switchElements; }
+    @Nonnull @Override public List<? extends SwitchElement> getSwitchElements() {
+        return switchElements; }
 
-    @Override public int getCodeUnits() { return 4 + switchElements.size() * 2; }
-    @Override public Format getFormat() { return OPCODE.format; }
+    @Override public int getCodeUnits() {
+        return 4 + switchElements.size() * 2; }
+    @Override public Format getFormat() {
+        return OPCODE.format; }
 }

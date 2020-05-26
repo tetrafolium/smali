@@ -41,8 +41,8 @@ public class BuilderTryBlock extends BaseTryBlock<BuilderExceptionHandler> {
     private final int codeUnitCount;
     @Nonnull private final List<? extends BuilderExceptionHandler> exceptionHandlers;
 
-    public BuilderTryBlock(int startCodeAddress, int codeUnitCount,
-                           @Nonnull List<? extends BuilderExceptionHandler> exceptionHandlers) {
+    public BuilderTryBlock(final int startCodeAddress, final int codeUnitCount,
+                           final @Nonnull List<? extends BuilderExceptionHandler> exceptionHandlers) {
         this.startCodeAddress = startCodeAddress;
         this.codeUnitCount = codeUnitCount;
         this.exceptionHandlers = exceptionHandlers;

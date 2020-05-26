@@ -93,7 +93,7 @@ public class LinearSearchTest {
         doTest(list, -1, 0);
     }
 
-    private void doTest(List<Integer> list, int key, int guess) {
+    private void doTest(final List<Integer> list, final int key, final int guess) {
         int expectedIndex =  Ordering.natural().binarySearch(list, key);
 
         Assert.assertEquals(expectedIndex, LinearSearch.linearSearch(list, Ordering.<Integer>natural(), key, guess));

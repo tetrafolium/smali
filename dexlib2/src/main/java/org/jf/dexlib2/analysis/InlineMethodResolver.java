@@ -50,7 +50,7 @@ public abstract class InlineMethodResolver {
     public static final int DIRECT = 0x2; // AccessFlags.PRIVATE.value;
 
     @Nonnull
-    public static InlineMethodResolver createInlineMethodResolver(int odexVersion) {
+    public static InlineMethodResolver createInlineMethodResolver(final int odexVersion) {
         if (odexVersion == 35) {
             return new InlineMethodResolver_version35();
         } else if (odexVersion == 36) {
@@ -64,8 +64,8 @@ public abstract class InlineMethodResolver {
     }
 
     @Nonnull
-    private static Method inlineMethod(int accessFlags, @Nonnull String cls, @Nonnull String name,
-                                       @Nonnull String params, @Nonnull String returnType) {
+    private static Method inlineMethod(final int accessFlags, final @Nonnull String cls, final @Nonnull String name,
+                                       final @Nonnull String params, final @Nonnull String returnType) {
         ImmutableList<ImmutableMethodParameter> paramList = ImmutableList.copyOf(ParamUtil.parseParamString(params));
         return new ImmutableMethod(cls, name, paramList, returnType, accessFlags, null, null, null);
     }
@@ -97,8 +97,8 @@ public abstract class InlineMethodResolver {
 
         @Override
         @Nonnull
-        public Method resolveExecuteInline(@Nonnull AnalyzedInstruction analyzedInstruction) {
-            InlineIndexInstruction instruction = (InlineIndexInstruction)analyzedInstruction.instruction;
+        public Method resolveExecuteInline(final @Nonnull AnalyzedInstruction analyzedInstruction) {
+            InlineIndexInstruction instruction = (InlineIndexInstruction) analyzedInstruction.instruction;
             int inlineIndex = instruction.getInlineIndex();
 
             if (inlineIndex < 0 || inlineIndex >= inlineMethods.length) {
@@ -167,8 +167,8 @@ public abstract class InlineMethodResolver {
 
         @Override
         @Nonnull
-        public Method resolveExecuteInline(@Nonnull AnalyzedInstruction analyzedInstruction) {
-            InlineIndexInstruction instruction = (InlineIndexInstruction)analyzedInstruction.instruction;
+        public Method resolveExecuteInline(final @Nonnull AnalyzedInstruction analyzedInstruction) {
+            InlineIndexInstruction instruction = (InlineIndexInstruction) analyzedInstruction.instruction;
             int inlineIndex = instruction.getInlineIndex();
 
             if (inlineIndex < 0 || inlineIndex >= inlineMethods.length) {
@@ -176,7 +176,7 @@ public abstract class InlineMethodResolver {
             }
 
             if (inlineIndex == 4) {
-                int parameterCount = ((VariableRegisterInstruction)instruction).getRegisterCount();
+                int parameterCount = ((VariableRegisterInstruction) instruction).getRegisterCount();
                 if (parameterCount == 2) {
                     return indexOfIMethod;
                 } else if (parameterCount == 3) {
@@ -185,7 +185,7 @@ public abstract class InlineMethodResolver {
                     throw new RuntimeException("Could not determine the correct inline method to use");
                 }
             } else if (inlineIndex == 5) {
-                int parameterCount = ((VariableRegisterInstruction)instruction).getRegisterCount();
+                int parameterCount = ((VariableRegisterInstruction) instruction).getRegisterCount();
                 if (parameterCount == 3) {
                     return indexOfIIMethod;
                 } else if (parameterCount == 1) {

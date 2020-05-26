@@ -43,9 +43,9 @@ public class RegisterType {
     public final byte category;
     @Nullable public final TypeProto type;
 
-    private RegisterType(byte category, @Nullable TypeProto type) {
-        assert ((category == REFERENCE || category == UNINIT_REF || category == UNINIT_THIS) && type != null) ||
-               ((category != REFERENCE && category != UNINIT_REF && category != UNINIT_THIS) && type == null);
+    private RegisterType(final byte category, final @Nullable TypeProto type) {
+        assert ((category == REFERENCE || category == UNINIT_REF || category == UNINIT_THIS) && type != null)
+               || ((category != REFERENCE && category != UNINIT_REF && category != UNINIT_THIS) && type == null);
 
         this.category = category;
         this.type = type;
@@ -53,10 +53,10 @@ public class RegisterType {
 
     @Override
     public String toString() {
-        return "(" + CATEGORY_NAMES[category] + (type==null?"":("," + type)) + ")";
+        return "(" + CATEGORY_NAMES[category] + (type == null ? "" : ("," + type)) + ")";
     }
 
-    public void writeTo(Writer writer) throws IOException {
+    public void writeTo(final Writer writer) throws IOException {
         writer.write('(');
         writer.write(CATEGORY_NAMES[category]);
         if (type != null) {
@@ -67,7 +67,7 @@ public class RegisterType {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -151,7 +151,7 @@ public class RegisterType {
     protected static byte[][] mergeTable  =
     {
             /*              UNKNOWN      UNINIT      NULL        ONE,        BOOLEAN     BYTE        POS_BYTE    SHORT       POS_SHORT   CHAR        INTEGER,    FLOAT,      LONG_LO     LONG_HI     DOUBLE_LO   DOUBLE_HI   UNINIT_REF  UNINIT_THIS REFERENCE   CONFLICTED*/
-            /*UNKNOWN*/    {UNKNOWN,     UNINIT,     NULL,       ONE,        BOOLEAN,    BYTE,       POS_BYTE,   SHORT,      POS_SHORT,  CHAR,       INTEGER,    FLOAT,      LONG_LO,    LONG_HI,    DOUBLE_LO,  DOUBLE_HI,  UNINIT_REF, UNINIT_THIS,REFERENCE,  CONFLICTED},
+            /*UNKNOWN*/    {UNKNOWN,     UNINIT,     NULL,       ONE,        BOOLEAN,    BYTE,       POS_BYTE,   SHORT,      POS_SHORT,  CHAR,       INTEGER,    FLOAT,      LONG_LO,    LONG_HI,    DOUBLE_LO,  DOUBLE_HI,  UNINIT_REF, UNINIT_THIS, REFERENCE,  CONFLICTED},
             /*UNINIT*/     {UNINIT,      UNINIT,     CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED},
             /*NULL*/       {NULL,        CONFLICTED, NULL,       BOOLEAN,    BOOLEAN,    BYTE,       POS_BYTE,   SHORT,      POS_SHORT,  CHAR,       INTEGER,    FLOAT,      CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, REFERENCE,  CONFLICTED},
             /*ONE*/        {ONE,         CONFLICTED, BOOLEAN,    ONE,        BOOLEAN,    BYTE,       POS_BYTE,   SHORT,      POS_SHORT,  CHAR,       INTEGER,    FLOAT,      CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED},
@@ -168,7 +168,7 @@ public class RegisterType {
             /*DOUBLE_LO*/  {DOUBLE_LO,   CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, LONG_LO,    CONFLICTED, DOUBLE_LO,  CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED},
             /*DOUBLE_HI*/  {DOUBLE_HI,   CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, LONG_HI,    CONFLICTED, DOUBLE_HI,  CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED},
             /*UNINIT_REF*/ {UNINIT_REF,  CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED},
-            /*UNINIT_THIS*/{UNINIT_THIS, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, UNINIT_THIS,CONFLICTED, CONFLICTED},
+            /*UNINIT_THIS*/{UNINIT_THIS, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, UNINIT_THIS, CONFLICTED, CONFLICTED},
             /*REFERENCE*/  {REFERENCE,   CONFLICTED, REFERENCE,  CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, REFERENCE,  CONFLICTED},
             /*CONFLICTED*/ {CONFLICTED,  CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED, CONFLICTED}
     };
@@ -193,7 +193,7 @@ public class RegisterType {
     public static final RegisterType CONFLICTED_TYPE = new RegisterType(CONFLICTED, null);
 
     @Nonnull
-    public static RegisterType getWideRegisterType(@Nonnull CharSequence type, boolean firstRegister) {
+    public static RegisterType getWideRegisterType(final @Nonnull CharSequence type, final boolean firstRegister) {
         switch (type.charAt(0)) {
             case 'J':
                 if (firstRegister) {
@@ -213,7 +213,7 @@ public class RegisterType {
     }
 
     @Nonnull
-    public static RegisterType getRegisterType(@Nonnull ClassPath classPath, @Nonnull CharSequence type) {
+    public static RegisterType getRegisterType(final @Nonnull ClassPath classPath, final @Nonnull CharSequence type) {
         switch (type.charAt(0)) {
             case 'Z':
                 return BOOLEAN_TYPE;
@@ -240,7 +240,7 @@ public class RegisterType {
     }
 
     @Nonnull
-    public static RegisterType getRegisterTypeForLiteral(int literalValue) {
+    public static RegisterType getRegisterTypeForLiteral(final int literalValue) {
         if (literalValue < -32768) {
             return INTEGER_TYPE;
         }
@@ -269,7 +269,7 @@ public class RegisterType {
     }
 
     @Nonnull
-    public RegisterType merge(@Nonnull RegisterType other) {
+    public RegisterType merge(final @Nonnull RegisterType other) {
         if (other.equals(this)) {
             return this;
         }
@@ -308,7 +308,7 @@ public class RegisterType {
     }
 
     @Nonnull
-    public static RegisterType getRegisterType(byte category, @Nullable TypeProto typeProto) {
+    public static RegisterType getRegisterType(final byte category, final @Nullable TypeProto typeProto) {
         switch (category) {
             case UNKNOWN:
                 return UNKNOWN_TYPE;

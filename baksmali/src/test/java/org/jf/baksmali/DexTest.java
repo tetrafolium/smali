@@ -51,7 +51,7 @@ import java.io.IOException;
 public abstract class DexTest {
     protected final String testDir;
 
-    protected DexTest(@Nonnull String testDir) {
+    protected DexTest(final @Nonnull String testDir) {
         this.testDir = testDir;
     }
 
@@ -60,12 +60,12 @@ public abstract class DexTest {
     }
 
     @Nonnull
-    protected String getInputFilename(@Nonnull String testName) {
+    protected String getInputFilename(final @Nonnull String testName) {
         return String.format("%s%s%sInput.dex", testDir, File.separatorChar, testName);
     }
 
     @Nonnull
-    protected DexBackedDexFile getInputDexFile(@Nonnull String testName, @Nonnull BaksmaliOptions options) {
+    protected DexBackedDexFile getInputDexFile(final @Nonnull String testName, final @Nonnull BaksmaliOptions options) {
         try {
             // Load file from resources as a stream
             byte[] inputBytes = BaksmaliTestUtils.readResourceBytesFully(getInputFilename(testName));

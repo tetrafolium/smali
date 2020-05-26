@@ -39,18 +39,18 @@ import javax.annotation.Nonnull;
 
 public class ImmutableReferenceFactory {
     @Nonnull
-    public static ImmutableReference of(Reference reference) {
+    public static ImmutableReference of(final Reference reference) {
         if (reference instanceof StringReference) {
-            return ImmutableStringReference.of((StringReference)reference);
+            return ImmutableStringReference.of((StringReference) reference);
         }
         if (reference instanceof TypeReference) {
-            return ImmutableTypeReference.of((TypeReference)reference);
+            return ImmutableTypeReference.of((TypeReference) reference);
         }
         if (reference instanceof FieldReference) {
-            return ImmutableFieldReference.of((FieldReference)reference);
+            return ImmutableFieldReference.of((FieldReference) reference);
         }
         if (reference instanceof MethodReference) {
-            return ImmutableMethodReference.of((MethodReference)reference);
+            return ImmutableMethodReference.of((MethodReference) reference);
         }
         if (reference instanceof MethodProtoReference) {
             return ImmutableMethodProtoReference.of((MethodProtoReference) reference);
@@ -65,18 +65,18 @@ public class ImmutableReferenceFactory {
     }
 
     @Nonnull
-    public static ImmutableReference of(int referenceType, Reference reference) {
+    public static ImmutableReference of(final int referenceType, final Reference reference) {
         switch (referenceType) {
             case ReferenceType.STRING:
-                return ImmutableStringReference.of((StringReference)reference);
+                return ImmutableStringReference.of((StringReference) reference);
             case ReferenceType.TYPE:
-                return ImmutableTypeReference.of((TypeReference)reference);
+                return ImmutableTypeReference.of((TypeReference) reference);
             case ReferenceType.FIELD:
-                return ImmutableFieldReference.of((FieldReference)reference);
+                return ImmutableFieldReference.of((FieldReference) reference);
             case ReferenceType.METHOD:
-                return ImmutableMethodReference.of((MethodReference)reference);
+                return ImmutableMethodReference.of((MethodReference) reference);
             case ReferenceType.METHOD_PROTO:
-                return ImmutableMethodProtoReference.of((MethodProtoReference)reference);
+                return ImmutableMethodProtoReference.of((MethodProtoReference) reference);
             case ReferenceType.CALL_SITE:
                 return ImmutableCallSiteReference.of((CallSiteReference) reference);
             case ReferenceType.METHOD_HANDLE:

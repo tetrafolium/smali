@@ -37,7 +37,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 public class CommentingIndentingWriter extends IndentingWriter {
-    public CommentingIndentingWriter(Writer writer) {
+    public CommentingIndentingWriter(final Writer writer) {
         super(writer);
     }
 

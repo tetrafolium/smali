@@ -124,7 +124,7 @@ public class DexWriterTest {
         Assert.assertNotNull(dbAnnotation);
 
         AnnotationElement element = Iterables.getFirst(dbAnnotation.getElements(), null);
-        AnnotationEncodedValue dbAnnotationEncodedValue = (AnnotationEncodedValue)element.getValue();
+        AnnotationEncodedValue dbAnnotationEncodedValue = (AnnotationEncodedValue) element.getValue();
 
         List<AnnotationElement> dbElements = Lists.newArrayList(dbAnnotationEncodedValue.getElements());
 

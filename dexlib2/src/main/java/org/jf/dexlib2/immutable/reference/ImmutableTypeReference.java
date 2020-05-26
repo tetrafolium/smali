@@ -43,35 +43,36 @@ import java.util.List;
 public class ImmutableTypeReference extends BaseTypeReference implements ImmutableReference {
     @Nonnull protected final String type;
 
-    public ImmutableTypeReference(String type) {
+    public ImmutableTypeReference(final String type) {
         this.type = type;
     }
 
     @Nonnull
-    public static ImmutableTypeReference of(@Nonnull TypeReference typeReference) {
+    public static ImmutableTypeReference of(final @Nonnull TypeReference typeReference) {
         if (typeReference instanceof ImmutableTypeReference) {
-            return (ImmutableTypeReference)typeReference;
+            return (ImmutableTypeReference) typeReference;
         }
         return new ImmutableTypeReference(typeReference.getType());
     }
 
-    @Nonnull @Override public String getType() { return type; }
+    @Nonnull @Override public String getType() {
+        return type; }
 
     @Nonnull
-    public static ImmutableList<ImmutableTypeReference> immutableListOf(@Nullable List<? extends TypeReference> list) {
+    public static ImmutableList<ImmutableTypeReference> immutableListOf(final @Nullable List<? extends TypeReference> list) {
         return CONVERTER.toList(list);
     }
 
     private static final ImmutableConverter<ImmutableTypeReference, TypeReference> CONVERTER =
             new ImmutableConverter<ImmutableTypeReference, TypeReference>() {
                 @Override
-                protected boolean isImmutable(@Nonnull TypeReference item) {
+                protected boolean isImmutable(final @Nonnull TypeReference item) {
                     return item instanceof ImmutableTypeReference;
                 }
 
                 @Nonnull
                 @Override
-                protected ImmutableTypeReference makeImmutable(@Nonnull TypeReference item) {
+                protected ImmutableTypeReference makeImmutable(final @Nonnull TypeReference item) {
                     return ImmutableTypeReference.of(item);
                 }
             };

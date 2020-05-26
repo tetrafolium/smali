@@ -41,11 +41,11 @@ public class TypePool extends StringTypeBasePool
         implements TypeSection<CharSequence, CharSequence, TypeReference> {
 
 
-    public TypePool(@Nonnull DexPool dexPool) {
+    public TypePool(final @Nonnull DexPool dexPool) {
         super(dexPool);
     }
 
-    public void intern(@Nonnull CharSequence type) {
+    public void intern(final @Nonnull CharSequence type) {
         String typeString = type.toString();
         Integer prev = internedItems.put(typeString, 0);
         if (prev == null) {
@@ -53,17 +53,17 @@ public class TypePool extends StringTypeBasePool
         }
     }
 
-    public void internNullable(@Nullable CharSequence type) {
+    public void internNullable(final @Nullable CharSequence type) {
         if (type != null) {
             intern(type);
         }
     }
 
-    @Override public int getItemIndex(@Nonnull TypeReference key) {
+    @Override public int getItemIndex(final @Nonnull TypeReference key) {
         return getItemIndex(key.getType());
     }
 
-    @Nonnull @Override public CharSequence getString(@Nonnull CharSequence type) {
+    @Nonnull @Override public CharSequence getString(final @Nonnull CharSequence type) {
         return type;
     }
 }

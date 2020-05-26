@@ -41,9 +41,9 @@ public class BuilderMethodParameter extends BaseMethodParameter {
     @Nullable final BuilderStringReference name;
     @Nonnull final BuilderAnnotationSet annotations;
 
-    public BuilderMethodParameter(@Nonnull BuilderTypeReference type,
-                                  @Nullable BuilderStringReference name,
-                                  @Nonnull BuilderAnnotationSet annotations) {
+    public BuilderMethodParameter(final @Nonnull BuilderTypeReference type,
+                                  final @Nullable BuilderStringReference name,
+                                  final @Nonnull BuilderAnnotationSet annotations) {
         this.type = type;
         this.name = name;
         this.annotations = annotations;
@@ -54,7 +54,7 @@ public class BuilderMethodParameter extends BaseMethodParameter {
     }
 
     @Nullable @Override public String getName() {
-        return name==null?null:name.getString();
+        return name == null ? null : name.getString();
     }
 
     @Nonnull @Override public BuilderAnnotationSet getAnnotations() {

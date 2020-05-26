@@ -33,7 +33,7 @@ import org.jf.util.IndentingWriter;
 import java.io.IOException;
 
 public class ShortRenderer {
-    public static void writeTo(IndentingWriter writer, short val) throws IOException {
+    public static void writeTo(final IndentingWriter writer, final short val) throws IOException {
         if (val < 0) {
             writer.write("-0x");
             writer.printUnsignedLongAsHex(-val);

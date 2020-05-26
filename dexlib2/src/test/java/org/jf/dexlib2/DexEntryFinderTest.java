@@ -160,7 +160,7 @@ public class DexEntryFinderTest {
         assertDexFileNotFound(testFinder, "/blah/classes.dex", false);
     }
 
-    private void assertEntryNotFound(DexEntryFinder finder, String entry, boolean exactMatch) throws IOException {
+    private void assertEntryNotFound(final DexEntryFinder finder, final String entry, final boolean exactMatch) throws IOException {
         try {
             finder.findEntry(entry, exactMatch);
             Assert.fail();
@@ -169,7 +169,7 @@ public class DexEntryFinderTest {
         }
     }
 
-    private void assertMultipleMatchingEntries(DexEntryFinder finder, String entry) throws IOException {
+    private void assertMultipleMatchingEntries(final DexEntryFinder finder, final String entry) throws IOException {
         try {
             finder.findEntry(entry, false);
             Assert.fail();
@@ -178,7 +178,7 @@ public class DexEntryFinderTest {
         }
     }
 
-    private void assertUnsupportedFileType(DexEntryFinder finder, String entry, boolean exactMatch) throws IOException {
+    private void assertUnsupportedFileType(final DexEntryFinder finder, final String entry, final boolean exactMatch) throws IOException {
         try {
             finder.findEntry(entry, exactMatch);
             Assert.fail();
@@ -187,7 +187,7 @@ public class DexEntryFinderTest {
         }
     }
 
-    private void assertDexFileNotFound(DexEntryFinder finder, String entry, boolean exactMatch) throws IOException {
+    private void assertDexFileNotFound(final DexEntryFinder finder, final String entry, final boolean exactMatch) throws IOException {
         try {
             finder.findEntry(entry, exactMatch);
             Assert.fail();
@@ -199,7 +199,7 @@ public class DexEntryFinderTest {
     public static class TestMultiDexContainer implements MultiDexContainer<DexBackedDexFile> {
         @Nonnull private final Map<String, DexBackedDexFile> entries;
 
-        public TestMultiDexContainer(@Nonnull Map<String, DexBackedDexFile> entries) {
+        public TestMultiDexContainer(final @Nonnull Map<String, DexBackedDexFile> entries) {
             this.entries = entries;
         }
 
@@ -217,7 +217,7 @@ public class DexEntryFinderTest {
 
         @Nullable
         @Override
-        public DexEntry<DexBackedDexFile> getEntry(@Nonnull String entryName) throws IOException {
+        public DexEntry<DexBackedDexFile> getEntry(final @Nonnull String entryName) throws IOException {
             if (entries.containsKey(entryName)) {
                 DexBackedDexFile dexFile = entries.get(entryName);
                 if (dexFile == null) {

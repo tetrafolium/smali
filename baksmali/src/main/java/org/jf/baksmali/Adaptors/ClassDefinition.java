@@ -54,7 +54,7 @@ public class ClassDefinition {
 
     protected boolean validationErrors;
 
-    public ClassDefinition(@Nonnull BaksmaliOptions options, @Nonnull ClassDef classDef) {
+    public ClassDefinition(final @Nonnull BaksmaliOptions options, final @Nonnull ClassDef classDef) {
         this.options = options;
         this.classDef = classDef;
         fieldsSetInStaticConstructor = findFieldsSetInStaticConstructor(classDef);
@@ -65,7 +65,7 @@ public class ClassDefinition {
     }
 
     @Nonnull
-    private static HashSet<String> findFieldsSetInStaticConstructor(@Nonnull ClassDef classDef) {
+    private static HashSet<String> findFieldsSetInStaticConstructor(final @Nonnull ClassDef classDef) {
         HashSet<String> fieldsSetInStaticConstructor = new HashSet<String>();
 
         for (Method method: classDef.getDirectMethods()) {
@@ -81,8 +81,8 @@ public class ClassDefinition {
                             case SPUT_OBJECT:
                             case SPUT_SHORT:
                             case SPUT_WIDE: {
-                                Instruction21c ins = (Instruction21c)instruction;
-                                FieldReference fieldRef = (FieldReference)ins.getReference();
+                                Instruction21c ins = (Instruction21c) instruction;
+                                FieldReference fieldRef = (FieldReference) ins.getReference();
                                 try {
                                     fieldRef.validateReference();
                                     if (fieldRef.getDefiningClass().equals((classDef.getType()))) {
@@ -101,7 +101,7 @@ public class ClassDefinition {
         return fieldsSetInStaticConstructor;
     }
 
-    public void writeTo(IndentingWriter writer) throws IOException {
+    public void writeTo(final IndentingWriter writer) throws IOException {
         writeClass(writer);
         writeSuper(writer);
         writeSourceFile(writer);
@@ -113,21 +113,21 @@ public class ClassDefinition {
         writeVirtualMethods(writer, directMethods);
     }
 
-    private void writeClass(IndentingWriter writer) throws IOException {
+    private void writeClass(final IndentingWriter writer) throws IOException {
         writer.write(".class ");
         writeAccessFlags(writer);
         writer.write(classDef.getType());
         writer.write('\n');
     }
 
-    private void writeAccessFlags(IndentingWriter writer) throws IOException {
+    private void writeAccessFlags(final IndentingWriter writer) throws IOException {
         for (AccessFlags accessFlag: AccessFlags.getAccessFlagsForClass(classDef.getAccessFlags())) {
             writer.write(accessFlag.toString());
             writer.write(' ');
         }
     }
 
-    private void writeSuper(IndentingWriter writer) throws IOException {
+    private void writeSuper(final IndentingWriter writer) throws IOException {
         String superClass = classDef.getSuperclass();
         if (superClass != null) {
             writer.write(".super ");
@@ -136,7 +136,7 @@ public class ClassDefinition {
         }
     }
 
-    private void writeSourceFile(IndentingWriter writer) throws IOException {
+    private void writeSourceFile(final IndentingWriter writer) throws IOException {
         String sourceFile = classDef.getSourceFile();
         if (sourceFile != null) {
             writer.write(".source \"");
@@ -145,7 +145,7 @@ public class ClassDefinition {
         }
     }
 
-    private void writeInterfaces(IndentingWriter writer) throws IOException {
+    private void writeInterfaces(final IndentingWriter writer) throws IOException {
         List<String> interfaces = classDef.getInterfaces();
 
         if (interfaces.size() != 0) {
@@ -159,7 +159,7 @@ public class ClassDefinition {
         }
     }
 
-    private void writeAnnotations(IndentingWriter writer) throws IOException {
+    private void writeAnnotations(final IndentingWriter writer) throws IOException {
         Collection<? extends Annotation> classAnnotations = classDef.getAnnotations();
         if (classAnnotations.size() != 0) {
             writer.write("\n\n");
@@ -174,13 +174,13 @@ public class ClassDefinition {
         }
     }
 
-    private Set<String> writeStaticFields(IndentingWriter writer) throws IOException {
+    private Set<String> writeStaticFields(final IndentingWriter writer) throws IOException {
         boolean wroteHeader = false;
         Set<String> writtenFields = new HashSet<String>();
 
         Iterable<? extends Field> staticFields;
         if (classDef instanceof DexBackedClassDef) {
-            staticFields = ((DexBackedClassDef)classDef).getStaticFields(false);
+            staticFields = ((DexBackedClassDef) classDef).getStaticFields(false);
         } else {
             staticFields = classDef.getStaticFields();
         }
@@ -209,13 +209,13 @@ public class ClassDefinition {
         return writtenFields;
     }
 
-    private void writeInstanceFields(IndentingWriter writer, Set<String> staticFields) throws IOException {
+    private void writeInstanceFields(final IndentingWriter writer, final Set<String> staticFields) throws IOException {
         boolean wroteHeader = false;
         Set<String> writtenFields = new HashSet<String>();
 
         Iterable<? extends Field> instanceFields;
         if (classDef instanceof DexBackedClassDef) {
-            instanceFields = ((DexBackedClassDef)classDef).getInstanceFields(false);
+            instanceFields = ((DexBackedClassDef) classDef).getInstanceFields(false);
         } else {
             instanceFields = classDef.getInstanceFields();
         }
@@ -239,20 +239,20 @@ public class ClassDefinition {
                         classDef.getType(), fieldString));
                 System.err.println("You will need to rename one of these fields, including all references.");
 
-                writer.write("# There is both a static and instance field with this signature.\n" +
-                             "# You will need to rename one of these fields, including all references.\n");
+                writer.write("# There is both a static and instance field with this signature.\n"
+                             + "# You will need to rename one of these fields, including all references.\n");
             }
             FieldDefinition.writeTo(options, fieldWriter, field, false);
         }
     }
 
-    private Set<String> writeDirectMethods(IndentingWriter writer) throws IOException {
+    private Set<String> writeDirectMethods(final IndentingWriter writer) throws IOException {
         boolean wroteHeader = false;
         Set<String> writtenMethods = new HashSet<String>();
 
         Iterable<? extends Method> directMethods;
         if (classDef instanceof DexBackedClassDef) {
-            directMethods = ((DexBackedClassDef)classDef).getDirectMethods(false);
+            directMethods = ((DexBackedClassDef) classDef).getDirectMethods(false);
         } else {
             directMethods = classDef.getDirectMethods();
         }
@@ -285,13 +285,13 @@ public class ClassDefinition {
         return writtenMethods;
     }
 
-    private void writeVirtualMethods(IndentingWriter writer, Set<String> directMethods) throws IOException {
+    private void writeVirtualMethods(final IndentingWriter writer, final Set<String> directMethods) throws IOException {
         boolean wroteHeader = false;
         Set<String> writtenMethods = new HashSet<String>();
 
         Iterable<? extends Method> virtualMethods;
         if (classDef instanceof DexBackedClassDef) {
-            virtualMethods = ((DexBackedClassDef)classDef).getVirtualMethods(false);
+            virtualMethods = ((DexBackedClassDef) classDef).getVirtualMethods(false);
         } else {
             virtualMethods = classDef.getVirtualMethods();
         }
@@ -312,8 +312,8 @@ public class ClassDefinition {
                 writer.write("# duplicate method ignored\n");
                 methodWriter = new CommentingIndentingWriter(writer);
             } else if (directMethods.contains(methodString)) {
-                writer.write("# There is both a direct and virtual method with this signature.\n" +
-                             "# You will need to rename one of these methods, including all references.\n");
+                writer.write("# There is both a direct and virtual method with this signature.\n"
+                             + "# You will need to rename one of these methods, including all references.\n");
                 System.err.println(String.format("Duplicate direct+virtual method found: %s->%s",
                         classDef.getType(), methodString));
                 System.err.println("You will need to rename one of these methods, including all references.");

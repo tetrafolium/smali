@@ -47,9 +47,9 @@ public class ParameterIterator implements Iterator<MethodParameter> {
     private final Iterator<? extends Set<? extends Annotation>> parameterAnnotations;
     private final Iterator<String> parameterNames;
 
-    public ParameterIterator(@Nonnull List<? extends CharSequence> parameterTypes,
-                             @Nonnull List<? extends Set<? extends Annotation>> parameterAnnotations,
-                             @Nonnull Iterator<String> parameterNames) {
+    public ParameterIterator(final @Nonnull List<? extends CharSequence> parameterTypes,
+                             final @Nonnull List<? extends Set<? extends Annotation>> parameterAnnotations,
+                             final @Nonnull Iterator<String> parameterNames) {
         this.parameterTypes = parameterTypes.iterator();
         this.parameterAnnotations = parameterAnnotations.iterator();
         this.parameterNames = parameterNames;
@@ -77,9 +77,12 @@ public class ParameterIterator implements Iterator<MethodParameter> {
         }
 
         return new BaseMethodParameter() {
-            @Nonnull @Override public Set<? extends Annotation> getAnnotations() { return annotations; }
-            @Nullable @Override public String getName() { return name; }
-            @Nonnull @Override public String getType() { return type; }
+            @Nonnull @Override public Set<? extends Annotation> getAnnotations() {
+                return annotations; }
+            @Nullable @Override public String getName() {
+                return name; }
+            @Nonnull @Override public String getType() {
+                return type; }
         };
     }
 

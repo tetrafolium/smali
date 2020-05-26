@@ -44,12 +44,12 @@ public abstract class VariableSizeIterator<T> implements Iterator<T> {
 
     private int index;
 
-    protected VariableSizeIterator(@Nonnull DexBuffer buffer, int offset, int size) {
+    protected VariableSizeIterator(final @Nonnull DexBuffer buffer, final int offset, final int size) {
         this.reader = buffer.readerAt(offset);
         this.size = size;
     }
 
-    protected VariableSizeIterator(@Nonnull DexReader reader, int size) {
+    protected VariableSizeIterator(final @Nonnull DexReader reader, final int size) {
         this.reader = reader;
         this.size = size;
     }
@@ -80,5 +80,6 @@ public abstract class VariableSizeIterator<T> implements Iterator<T> {
         return readNextItem(reader, index++);
     }
 
-    @Override public void remove() { throw new UnsupportedOperationException(); }
+    @Override public void remove() {
+        throw new UnsupportedOperationException(); }
 }

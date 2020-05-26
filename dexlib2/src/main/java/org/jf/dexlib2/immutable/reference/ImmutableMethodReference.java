@@ -46,20 +46,20 @@ public class ImmutableMethodReference extends BaseMethodReference implements Imm
     @Nonnull protected final ImmutableList<String> parameters;
     @Nonnull protected final String returnType;
 
-    public ImmutableMethodReference(@Nonnull String definingClass,
-                                    @Nonnull String name,
-                                    @Nullable Iterable<? extends CharSequence> parameters,
-                                    @Nonnull String returnType) {
+    public ImmutableMethodReference(final @Nonnull String definingClass,
+                                    final @Nonnull String name,
+                                    final @Nullable Iterable<? extends CharSequence> parameters,
+                                    final @Nonnull String returnType) {
         this.definingClass = definingClass;
         this.name = name;
         this.parameters = CharSequenceConverter.immutableStringList(parameters);
         this.returnType = returnType;
     }
 
-    public ImmutableMethodReference(@Nonnull String definingClass,
-                                    @Nonnull String name,
-                                    @Nullable ImmutableList<String> parameters,
-                                    @Nonnull String returnType) {
+    public ImmutableMethodReference(final @Nonnull String definingClass,
+                                    final @Nonnull String name,
+                                    final @Nullable ImmutableList<String> parameters,
+                                    final @Nonnull String returnType) {
         this.definingClass = definingClass;
         this.name = name;
         this.parameters = ImmutableUtils.nullToEmptyList(parameters);
@@ -67,9 +67,9 @@ public class ImmutableMethodReference extends BaseMethodReference implements Imm
     }
 
     @Nonnull
-    public static ImmutableMethodReference of(@Nonnull MethodReference methodReference) {
+    public static ImmutableMethodReference of(final @Nonnull MethodReference methodReference) {
         if (methodReference instanceof ImmutableMethodReference) {
-            return (ImmutableMethodReference)methodReference;
+            return (ImmutableMethodReference) methodReference;
         }
         return new ImmutableMethodReference(
                 methodReference.getDefiningClass(),
@@ -78,10 +78,14 @@ public class ImmutableMethodReference extends BaseMethodReference implements Imm
                 methodReference.getReturnType());
     }
 
-    @Nonnull @Override public String getDefiningClass() { return definingClass; }
-    @Nonnull @Override public String getName() { return name; }
-    @Nonnull @Override public ImmutableList<String> getParameterTypes() { return parameters; }
-    @Nonnull @Override public String getReturnType() { return returnType; }
+    @Nonnull @Override public String getDefiningClass() {
+        return definingClass; }
+    @Nonnull @Override public String getName() {
+        return name; }
+    @Nonnull @Override public ImmutableList<String> getParameterTypes() {
+        return parameters; }
+    @Nonnull @Override public String getReturnType() {
+        return returnType; }
 
 
 }

@@ -47,11 +47,11 @@ public class BuilderCallSitePool extends BaseBuilderPool
     @Nonnull private final ConcurrentMap<CallSiteReference, BuilderCallSiteReference> internedItems =
             Maps.newConcurrentMap();
 
-    public BuilderCallSitePool(@Nonnull DexBuilder dexBuilder) {
+    public BuilderCallSitePool(final @Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
     }
 
-    @Nonnull public BuilderCallSiteReference internCallSite(@Nonnull CallSiteReference callSiteReference) {
+    @Nonnull public BuilderCallSiteReference internCallSite(final @Nonnull CallSiteReference callSiteReference) {
         BuilderCallSiteReference internedCallSite = internedItems.get(callSiteReference);
         if (internedCallSite != null) {
             return internedCallSite;
@@ -64,12 +64,12 @@ public class BuilderCallSitePool extends BaseBuilderPool
     }
 
     @Override
-    public BuilderArrayEncodedValue getEncodedCallSite(BuilderCallSiteReference callSiteReference) {
+    public BuilderArrayEncodedValue getEncodedCallSite(final BuilderCallSiteReference callSiteReference) {
         return callSiteReference.encodedCallSite;
     }
 
     @Override
-    public int getItemIndex(@Nonnull BuilderCallSiteReference builderCallSite) {
+    public int getItemIndex(final @Nonnull BuilderCallSiteReference builderCallSite) {
         return builderCallSite.index;
     }
 
@@ -78,12 +78,12 @@ public class BuilderCallSitePool extends BaseBuilderPool
     public Collection<? extends Map.Entry<? extends BuilderCallSiteReference, Integer>> getItems() {
         return new BuilderMapEntryCollection<BuilderCallSiteReference>(internedItems.values()) {
             @Override
-            protected int getValue(@Nonnull BuilderCallSiteReference builderCallSiteReference) {
+            protected int getValue(final @Nonnull BuilderCallSiteReference builderCallSiteReference) {
                 return builderCallSiteReference.index;
             }
 
             @Override
-            protected int setValue(@Nonnull BuilderCallSiteReference builderCallSiteReference, int value) {
+            protected int setValue(final @Nonnull BuilderCallSiteReference builderCallSiteReference, final int value) {
                 int prev = builderCallSiteReference.index;
                 builderCallSiteReference.index = value;
                 return prev;

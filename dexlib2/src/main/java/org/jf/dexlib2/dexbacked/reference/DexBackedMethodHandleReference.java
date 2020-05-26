@@ -45,7 +45,7 @@ public class DexBackedMethodHandleReference extends BaseMethodHandleReference {
     public final int methodHandleIndex;
     public final int methodHandleOffset;
 
-    public DexBackedMethodHandleReference(DexBackedDexFile dexFile, int methodHandleIndex) {
+    public DexBackedMethodHandleReference(final DexBackedDexFile dexFile, final int methodHandleIndex) {
         this.dexFile = dexFile;
         this.methodHandleIndex = methodHandleIndex;
         this.methodHandleOffset = dexFile.getMethodHandleSection().getOffset(methodHandleIndex);

@@ -39,7 +39,7 @@ public final class Utf8Utils {
      * @param string non-null; the string to convert
      * @return non-null; the UTF-8 bytes for it
      */
-    public static byte[] stringToUtf8Bytes(String string) {
+    public static byte[] stringToUtf8Bytes(final String string) {
         int len = string.length();
         byte[] bytes = new byte[len * 3]; // Avoid having to reallocate.
         int outAt = 0;
@@ -67,7 +67,7 @@ public final class Utf8Utils {
     }
 
     private static final ThreadLocal<char[]> localBuffer =
-            new ThreadLocal<char[]> () {
+            new ThreadLocal<char[]>() {
                 @Override protected char[] initialValue() {
                     // A reasonably sized initial value
                     return new char[256];
@@ -82,7 +82,7 @@ public final class Utf8Utils {
      * @param length the length of the utf8 string to convert, not including any null-terminator that might be present
      * @return non-null; the converted string
      */
-    public static String utf8BytesToString(byte[] bytes, int start, int length) {
+    public static String utf8BytesToString(final byte[] bytes, final int start, final int length) {
         char[] chars = localBuffer.get();
         if (chars == null || chars.length < length) {
             chars = new char[length];
@@ -142,8 +142,8 @@ public final class Utf8Utils {
                     if ((v2 & 0xc0) != 0x80) {
                         return throwBadUtf8(v2, at + 2);
                     }
-                    int value = ((v0 & 0x0f) << 12) | ((v1 & 0x3f) << 6) |
-                            (v2 & 0x3f);
+                    int value = ((v0 & 0x0f) << 12) | ((v1 & 0x3f) << 6)
+                            | (v2 & 0x3f);
                     if (value < 0x800) {
                         /*
                          * This should have been represented with one- or
@@ -175,7 +175,7 @@ public final class Utf8Utils {
      * @param utf16Length the number of utf16 characters in the string to decode
      * @return non-null; the converted string
      */
-    public static String utf8BytesWithUtf16LengthToString(@Nonnull byte[] bytes, int start, int utf16Length) {
+    public static String utf8BytesWithUtf16LengthToString(final @Nonnull byte[] bytes, final int start, final int utf16Length) {
         return utf8BytesWithUtf16LengthToString(bytes, start, utf16Length, null);
     }
 
@@ -188,8 +188,8 @@ public final class Utf8Utils {
      * @param readLength If non-null, the first element will contain the number of bytes read after the method exits
      * @return non-null; the converted string
      */
-    public static String utf8BytesWithUtf16LengthToString(@Nonnull byte[] bytes, int start, int utf16Length,
-                                                          @Nullable int[] readLength) {
+    public static String utf8BytesWithUtf16LengthToString(final @Nonnull byte[] bytes, final int start, final int utf16Length,
+                                                          final @Nullable int[] readLength) {
         char[] chars = localBuffer.get();
         if (chars == null || chars.length < utf16Length) {
             chars = new char[utf16Length];
@@ -241,8 +241,8 @@ public final class Utf8Utils {
                     if ((v2 & 0xc0) != 0x80) {
                         return throwBadUtf8(v2, at + 2);
                     }
-                    int value = ((v0 & 0x0f) << 12) | ((v1 & 0x3f) << 6) |
-                        (v2 & 0x3f);
+                    int value = ((v0 & 0x0f) << 12) | ((v1 & 0x3f) << 6)
+                        | (v2 & 0x3f);
                     if (value < 0x800) {
                         /*
                          * This should have been represented with one- or
@@ -279,8 +279,8 @@ public final class Utf8Utils {
      * @return never
      * @throws IllegalArgumentException always thrown
      */
-    private static String throwBadUtf8(int value, int offset) {
-        throw new IllegalArgumentException("bad utf-8 byte " + Hex.u1(value) +
-                                           " at offset " + Hex.u4(offset));
+    private static String throwBadUtf8(final int value, final int offset) {
+        throw new IllegalArgumentException("bad utf-8 byte " + Hex.u1(value)
+                                           + " at offset " + Hex.u4(offset));
     }
 }

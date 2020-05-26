@@ -46,27 +46,29 @@ public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue 
     @Nonnull protected final String type;
     @Nonnull protected final ImmutableSet<? extends ImmutableAnnotationElement> elements;
 
-    public ImmutableAnnotationEncodedValue(@Nonnull String type,
-                                           @Nullable Collection<? extends AnnotationElement> elements) {
+    public ImmutableAnnotationEncodedValue(final @Nonnull String type,
+                                           final @Nullable Collection<? extends AnnotationElement> elements) {
         this.type = type;
         this.elements = ImmutableAnnotationElement.immutableSetOf(elements);
     }
 
-    public ImmutableAnnotationEncodedValue(@Nonnull String type,
-                                           @Nullable ImmutableSet<? extends ImmutableAnnotationElement> elements) {
+    public ImmutableAnnotationEncodedValue(final @Nonnull String type,
+                                           final @Nullable ImmutableSet<? extends ImmutableAnnotationElement> elements) {
         this.type = type;
         this.elements = ImmutableUtils.nullToEmptySet(elements);
     }
 
-    public static ImmutableAnnotationEncodedValue of(AnnotationEncodedValue annotationEncodedValue) {
+    public static ImmutableAnnotationEncodedValue of(final AnnotationEncodedValue annotationEncodedValue) {
         if (annotationEncodedValue instanceof ImmutableAnnotationEncodedValue) {
-            return (ImmutableAnnotationEncodedValue)annotationEncodedValue;
+            return (ImmutableAnnotationEncodedValue) annotationEncodedValue;
         }
         return new ImmutableAnnotationEncodedValue(
                 annotationEncodedValue.getType(),
                 annotationEncodedValue.getElements());
     }
 
-    @Nonnull @Override public String getType() { return type; }
-    @Nonnull @Override public ImmutableSet<? extends ImmutableAnnotationElement> getElements() { return elements; }
+    @Nonnull @Override public String getType() {
+        return type; }
+    @Nonnull @Override public ImmutableSet<? extends ImmutableAnnotationElement> getElements() {
+        return elements; }
 }

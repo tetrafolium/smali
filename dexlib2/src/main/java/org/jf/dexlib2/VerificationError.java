@@ -63,7 +63,7 @@ public class VerificationError {
     }
 
     @Nullable
-    public static String getVerificationErrorName(int verificationError) {
+    public static String getVerificationErrorName(final int verificationError) {
         switch (verificationError) {
             case GENERIC:
                 return "generic-error";
@@ -88,7 +88,7 @@ public class VerificationError {
         }
     }
 
-    public static int getVerificationError(String verificationError) {
+    public static int getVerificationError(final String verificationError) {
         Integer ret = verificationErrorNames.get(verificationError);
         if (ret == null) {
             throw new ExceptionWithContext("Invalid verification error: %s", verificationError);
@@ -96,7 +96,7 @@ public class VerificationError {
         return ret;
     }
 
-    public static boolean isValidVerificationError(int verificationError) {
+    public static boolean isValidVerificationError(final int verificationError) {
         return verificationError > 0 && verificationError < 10;
     }
 }

@@ -40,7 +40,7 @@ public class RandomAccessFileInputStream extends InputStream {
     private int filePosition;
     @Nonnull private final RandomAccessFile raf;
 
-    public RandomAccessFileInputStream(@Nonnull RandomAccessFile raf, int filePosition) {
+    public RandomAccessFileInputStream(final @Nonnull RandomAccessFile raf, final int filePosition) {
         this.filePosition = filePosition;
         this.raf = raf;
     }
@@ -51,28 +51,28 @@ public class RandomAccessFileInputStream extends InputStream {
         return raf.read();
     }
 
-    @Override public int read(byte[] bytes) throws IOException {
+    @Override public int read(final byte[] bytes) throws IOException {
         raf.seek(filePosition);
         int bytesRead = raf.read(bytes);
         filePosition += bytesRead;
         return bytesRead;
     }
 
-    @Override public int read(byte[] bytes, int offset, int length) throws IOException {
+    @Override public int read(final byte[] bytes, final int offset, final int length) throws IOException {
         raf.seek(filePosition);
         int bytesRead = raf.read(bytes, offset, length);
         filePosition += bytesRead;
         return bytesRead;
     }
 
-    @Override public long skip(long l) throws IOException {
-        int skipBytes = Math.min((int)l, available());
+    @Override public long skip(final long l) throws IOException {
+        int skipBytes = Math.min((int) l, available());
         filePosition += skipBytes;
         return skipBytes;
     }
 
     @Override public int available() throws IOException {
-        return (int)raf.length() - filePosition;
+        return (int) raf.length() - filePosition;
     }
 
     @Override public boolean markSupported() {

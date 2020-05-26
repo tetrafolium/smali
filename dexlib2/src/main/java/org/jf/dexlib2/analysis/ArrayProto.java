@@ -47,9 +47,9 @@ public class ArrayProto implements TypeProto {
     protected final int dimensions;
     protected final String elementType;
 
-    public ArrayProto(@Nonnull ClassPath classPath, @Nonnull String type) {
+    public ArrayProto(final @Nonnull ClassPath classPath, final @Nonnull String type) {
         this.classPath = classPath;
-        int i=0;
+        int i = 0;
         while (type.charAt(i) == '[') {
             i++;
             if (i == type.length()) {
@@ -65,16 +65,22 @@ public class ArrayProto implements TypeProto {
         elementType = type.substring(i);
     }
 
-    @Override public String toString() { return getType(); }
-    @Nonnull @Override public ClassPath getClassPath() { return classPath; }
-    @Nonnull @Override public String getType() { return makeArrayType(elementType, dimensions); }
-    public int getDimensions() { return dimensions; }
-    @Override public boolean isInterface() { return false; }
+    @Override public String toString() {
+        return getType(); }
+    @Nonnull @Override public ClassPath getClassPath() {
+        return classPath; }
+    @Nonnull @Override public String getType() {
+        return makeArrayType(elementType, dimensions); }
+    public int getDimensions() {
+        return dimensions; }
+    @Override public boolean isInterface() {
+        return false; }
 
     /**
      * @return The base element type of this array. E.g. This would return Ljava/lang/String; for [[Ljava/lang/String;
      */
-    @Nonnull public String getElementType() { return elementType; }
+    @Nonnull public String getElementType() {
+        return elementType; }
 
     /**
      * @return The immediate element type of this array. E.g. This would return [Ljava/lang/String; for
@@ -82,12 +88,12 @@ public class ArrayProto implements TypeProto {
      */
     @Nonnull public String getImmediateElementType() {
         if (dimensions > 1) {
-            return makeArrayType(elementType, dimensions-1);
+            return makeArrayType(elementType, dimensions - 1);
         }
         return elementType;
     }
 
-    @Override public boolean implementsInterface(@Nonnull String iface) {
+    @Override public boolean implementsInterface(final @Nonnull String iface) {
         return iface.equals("Ljava/lang/Cloneable;") || iface.equals("Ljava/io/Serializable;");
     }
 
@@ -97,20 +103,20 @@ public class ArrayProto implements TypeProto {
     }
 
     @Nonnull @Override
-    public TypeProto getCommonSuperclass(@Nonnull TypeProto other) {
+    public TypeProto getCommonSuperclass(final @Nonnull TypeProto other) {
         if (other instanceof ArrayProto) {
-            if (TypeUtils.isPrimitiveType(getElementType()) ||
-                    TypeUtils.isPrimitiveType(((ArrayProto)other).getElementType())) {
-                if (dimensions == ((ArrayProto)other).dimensions &&
-                        getElementType().equals(((ArrayProto)other).getElementType())) {
+            if (TypeUtils.isPrimitiveType(getElementType())
+                    || TypeUtils.isPrimitiveType(((ArrayProto) other).getElementType())) {
+                if (dimensions == ((ArrayProto) other).dimensions
+                        && getElementType().equals(((ArrayProto) other).getElementType())) {
                     return this;
                 }
                 return classPath.getClass("Ljava/lang/Object;");
             }
 
-            if (dimensions == ((ArrayProto)other).dimensions) {
+            if (dimensions == ((ArrayProto) other).dimensions) {
                 TypeProto thisClass = classPath.getClass(elementType);
-                TypeProto otherClass = classPath.getClass(((ArrayProto)other).elementType);
+                TypeProto otherClass = classPath.getClass(((ArrayProto) other).elementType);
                 TypeProto mergedClass = thisClass.getCommonSuperclass(otherClass);
                 if (thisClass == mergedClass) {
                     return this;
@@ -121,7 +127,7 @@ public class ArrayProto implements TypeProto {
                 return classPath.getClass(makeArrayType(mergedClass.getType(), dimensions));
             }
 
-            int dimensions = Math.min(this.dimensions, ((ArrayProto)other).dimensions);
+            int dimensions = Math.min(this.dimensions, ((ArrayProto) other).dimensions);
             return classPath.getClass(makeArrayType("Ljava/lang/Object;", dimensions));
         }
 
@@ -145,15 +151,15 @@ public class ArrayProto implements TypeProto {
     private static final String BRACKETS = Strings.repeat("[", 256);
 
     @Nonnull
-    private static String makeArrayType(@Nonnull String elementType, int dimensions) {
+    private static String makeArrayType(final @Nonnull String elementType, final int dimensions) {
         return BRACKETS.substring(0, dimensions) + elementType;
     }
 
 
     @Override
     @Nullable
-    public FieldReference getFieldByOffset(int fieldOffset) {
-        if (fieldOffset==8) {
+    public FieldReference getFieldByOffset(final int fieldOffset) {
+        if (fieldOffset == 8) {
             return new ImmutableFieldReference(getType(), "length", "int");
         }
         return null;
@@ -161,11 +167,11 @@ public class ArrayProto implements TypeProto {
 
     @Override
     @Nullable
-    public Method getMethodByVtableIndex(int vtableIndex) {
+    public Method getMethodByVtableIndex(final int vtableIndex) {
         return classPath.getClass("Ljava/lang/Object;").getMethodByVtableIndex(vtableIndex);
     }
 
-    @Override public int findMethodIndexInVtable(@Nonnull MethodReference method) {
+    @Override public int findMethodIndexInVtable(final @Nonnull MethodReference method) {
         return classPath.getClass("Ljava/lang/Object;").findMethodIndexInVtable(method);
     }
 }

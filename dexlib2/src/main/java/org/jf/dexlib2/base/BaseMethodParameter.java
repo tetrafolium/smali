@@ -64,7 +64,7 @@ public abstract class BaseMethodParameter extends BaseTypeReference implements M
                 if (encodedValue.getValueType() != ValueType.ARRAY) {
                     return null;
                 }
-                signatureValues = (ArrayEncodedValue)encodedValue;
+                signatureValues = (ArrayEncodedValue) encodedValue;
                 break;
             }
         }
@@ -77,7 +77,7 @@ public abstract class BaseMethodParameter extends BaseTypeReference implements M
             if (signatureValue.getValueType() != ValueType.STRING) {
                 return null;
             }
-            sb.append(((StringEncodedValue)signatureValue).getValue());
+            sb.append(((StringEncodedValue) signatureValue).getValue());
         }
         return sb.toString();
     }

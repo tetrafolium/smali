@@ -42,7 +42,7 @@ public abstract class VariableSizeSet<T> extends AbstractSet<T> {
     private final int offset;
     private final int size;
 
-    public VariableSizeSet(@Nonnull DexBuffer buffer, int offset, int size) {
+    public VariableSizeSet(final @Nonnull DexBuffer buffer, final int offset, final int size) {
         this.buffer = buffer;
         this.offset = offset;
         this.size = size;
@@ -55,11 +55,12 @@ public abstract class VariableSizeSet<T> extends AbstractSet<T> {
     public VariableSizeIterator<T> iterator() {
         return new VariableSizeIterator<T>(buffer, offset, size) {
             @Override
-            protected T readNextItem(@Nonnull DexReader reader, int index) {
+            protected T readNextItem(final @Nonnull DexReader reader, final int index) {
                 return VariableSizeSet.this.readNextItem(reader, index);
             }
         };
     }
 
-    @Override public int size() { return size; }
+    @Override public int size() {
+        return size; }
 }

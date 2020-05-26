@@ -37,7 +37,7 @@ public class Label extends ItemWithLocation {
     Label() {
     }
 
-    Label(MethodLocation location) {
+    Label(final MethodLocation location) {
         this.location = location;
     }
 

@@ -57,8 +57,8 @@ public class OdexedFieldInstructionMapper {
         @Nullable public final Opcode quickOpcode;
         @Nullable public final Opcode volatileOpcode;
 
-        public FieldOpcode(char type, @Nonnull Opcode normalOpcode, @Nullable Opcode quickOpcode,
-                           @Nullable Opcode volatileOpcode) {
+        public FieldOpcode(final char type, final @Nonnull Opcode normalOpcode, final @Nullable Opcode quickOpcode,
+                           final @Nullable Opcode volatileOpcode) {
             this.type = type;
             this.isStatic = false;
             this.normalOpcode = normalOpcode;
@@ -66,7 +66,7 @@ public class OdexedFieldInstructionMapper {
             this.volatileOpcode = volatileOpcode;
         }
 
-        public FieldOpcode(char type, boolean isStatic, @Nonnull Opcode normalOpcode, @Nullable Opcode volatileOpcode) {
+        public FieldOpcode(final char type, final boolean isStatic, final @Nonnull Opcode normalOpcode, final @Nullable Opcode volatileOpcode) {
             this.type = type;
             this.isStatic = isStatic;
             this.normalOpcode = normalOpcode;
@@ -74,7 +74,7 @@ public class OdexedFieldInstructionMapper {
             this.volatileOpcode = volatileOpcode;
         }
 
-        public FieldOpcode(char type, @Nonnull Opcode normalOpcode, @Nullable Opcode quickOpcode) {
+        public FieldOpcode(final char type, final @Nonnull Opcode normalOpcode, final @Nullable Opcode quickOpcode) {
             this.type = type;
             this.isStatic = false;
             this.normalOpcode = normalOpcode;
@@ -156,7 +156,7 @@ public class OdexedFieldInstructionMapper {
     private final FieldOpcode[][][] opcodeMap = new FieldOpcode[2][2][10];
     private final Map<Opcode, Integer> opcodeValueTypeMap = new HashMap<Opcode, Integer>(30);
 
-    private static int getValueType(char type) {
+    private static int getValueType(final char type) {
         switch (type) {
             case 'Z':
             case 'B':
@@ -175,7 +175,7 @@ public class OdexedFieldInstructionMapper {
         throw new RuntimeException(String.format("Unknown type %s: ", type));
     }
 
-    private static int getTypeIndex(char type) {
+    private static int getTypeIndex(final char type) {
         switch (type) {
             case 'Z':
                 return 0;
@@ -201,15 +201,15 @@ public class OdexedFieldInstructionMapper {
         throw new RuntimeException(String.format("Unknown type %s: ", type));
     }
 
-    private static boolean isGet(@Nonnull Opcode opcode) {
+    private static boolean isGet(final @Nonnull Opcode opcode) {
         return (opcode.flags & Opcode.SETS_REGISTER) != 0;
     }
 
-    private static boolean isStatic(@Nonnull Opcode opcode) {
+    private static boolean isStatic(final @Nonnull Opcode opcode) {
         return (opcode.flags & Opcode.STATIC_FIELD_ACCESSOR) != 0;
     }
 
-    public OdexedFieldInstructionMapper(boolean isArt) {
+    public OdexedFieldInstructionMapper(final boolean isArt) {
         FieldOpcode[] opcodes;
         if (isArt) {
             opcodes = artFieldOpcodes;
@@ -218,8 +218,8 @@ public class OdexedFieldInstructionMapper {
         }
 
         for (FieldOpcode fieldOpcode: opcodes) {
-            opcodeMap[isGet(fieldOpcode.normalOpcode)?GET:PUT]
-                    [isStatic(fieldOpcode.normalOpcode)?STATIC:INSTANCE]
+            opcodeMap[isGet(fieldOpcode.normalOpcode) ? GET : PUT]
+                    [isStatic(fieldOpcode.normalOpcode) ? STATIC : INSTANCE]
                     [getTypeIndex(fieldOpcode.type)] = fieldOpcode;
 
             if (fieldOpcode.quickOpcode != null) {
@@ -232,9 +232,9 @@ public class OdexedFieldInstructionMapper {
     }
 
     @Nonnull
-    public Opcode getAndCheckDeodexedOpcode(@Nonnull String fieldType, @Nonnull Opcode odexedOpcode) {
-        FieldOpcode fieldOpcode = opcodeMap[isGet(odexedOpcode)?GET:PUT]
-                [isStatic(odexedOpcode)?STATIC:INSTANCE]
+    public Opcode getAndCheckDeodexedOpcode(final @Nonnull String fieldType, final @Nonnull Opcode odexedOpcode) {
+        FieldOpcode fieldOpcode = opcodeMap[isGet(odexedOpcode) ? GET : PUT]
+                [isStatic(odexedOpcode) ? STATIC : INSTANCE]
                 [getTypeIndex(fieldType.charAt(0))];
 
         if (!isCompatible(odexedOpcode, fieldOpcode.type)) {
@@ -245,7 +245,7 @@ public class OdexedFieldInstructionMapper {
         return fieldOpcode.normalOpcode;
     }
 
-    private boolean isCompatible(Opcode opcode, char type) {
+    private boolean isCompatible(final Opcode opcode, final char type) {
         Integer valueType = opcodeValueTypeMap.get(opcode);
         if (valueType == null) {
             throw new RuntimeException("Unexpected opcode: " + opcode.name);

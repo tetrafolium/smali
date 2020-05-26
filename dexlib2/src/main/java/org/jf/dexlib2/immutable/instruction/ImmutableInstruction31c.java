@@ -47,17 +47,17 @@ public class ImmutableInstruction31c extends ImmutableInstruction implements Ins
     protected final int registerA;
     @Nonnull protected final ImmutableReference reference;
 
-    public ImmutableInstruction31c(@Nonnull Opcode opcode,
-                                   int registerA,
-                                   @Nonnull Reference reference) {
+    public ImmutableInstruction31c(final @Nonnull Opcode opcode,
+                                   final int registerA,
+                                   final @Nonnull Reference reference) {
         super(opcode);
         this.registerA = Preconditions.checkByteRegister(registerA);
         this.reference = ImmutableReferenceFactory.of(opcode.referenceType, reference);
     }
 
-    public static ImmutableInstruction31c of(Instruction31c instruction) {
+    public static ImmutableInstruction31c of(final Instruction31c instruction) {
         if (instruction instanceof ImmutableInstruction31c) {
-            return (ImmutableInstruction31c)instruction;
+            return (ImmutableInstruction31c) instruction;
         }
         return new ImmutableInstruction31c(
                 instruction.getOpcode(),
@@ -65,9 +65,13 @@ public class ImmutableInstruction31c extends ImmutableInstruction implements Ins
                 instruction.getReference());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Nonnull @Override public ImmutableReference getReference() { return reference; }
-    @Override public int getReferenceType() { return opcode.referenceType; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Nonnull @Override public ImmutableReference getReference() {
+        return reference; }
+    @Override public int getReferenceType() {
+        return opcode.referenceType; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

@@ -47,19 +47,20 @@ public abstract class BaseCharEncodedValue implements CharEncodedValue {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof CharEncodedValue) {
-            return getValue() == ((CharEncodedValue)o).getValue();
+            return getValue() == ((CharEncodedValue) o).getValue();
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull EncodedValue o) {
+    public int compareTo(final @Nonnull EncodedValue o) {
         int res = Ints.compare(getValueType(), o.getValueType());
         if (res != 0) return res;
-        return Chars.compare(getValue(), ((CharEncodedValue)o).getValue());
+        return Chars.compare(getValue(), ((CharEncodedValue) o).getValue());
     }
 
-    public int getValueType() { return ValueType.CHAR; }
+    public int getValueType() {
+        return ValueType.CHAR; }
 }

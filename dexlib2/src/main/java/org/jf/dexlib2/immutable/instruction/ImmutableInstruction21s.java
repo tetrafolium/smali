@@ -44,17 +44,17 @@ public class ImmutableInstruction21s extends ImmutableInstruction implements Ins
     protected final int registerA;
     protected final int literal;
 
-    public ImmutableInstruction21s(@Nonnull Opcode opcode,
-                                   int registerA,
-                                   int literal) {
+    public ImmutableInstruction21s(final @Nonnull Opcode opcode,
+                                   final int registerA,
+                                   final int literal) {
         super(opcode);
         this.registerA = Preconditions.checkByteRegister(registerA);
         this.literal = Preconditions.checkShortLiteral(literal);
     }
 
-    public static ImmutableInstruction21s of(Instruction21s instruction) {
+    public static ImmutableInstruction21s of(final Instruction21s instruction) {
         if (instruction instanceof ImmutableInstruction21s) {
-            return (ImmutableInstruction21s)instruction;
+            return (ImmutableInstruction21s) instruction;
         }
         return new ImmutableInstruction21s(
                 instruction.getOpcode(),
@@ -62,9 +62,13 @@ public class ImmutableInstruction21s extends ImmutableInstruction implements Ins
                 instruction.getNarrowLiteral());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getNarrowLiteral() { return literal; }
-    @Override public long getWideLiteral() { return literal; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getNarrowLiteral() {
+        return literal; }
+    @Override public long getWideLiteral() {
+        return literal; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

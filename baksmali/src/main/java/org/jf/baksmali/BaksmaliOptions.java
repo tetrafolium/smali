@@ -71,7 +71,7 @@ public class BaksmaliOptions {
 
     public int registerInfo = 0;
 
-    public Map<Integer,String> resourceIds = new HashMap<Integer,String>();
+    public Map<Integer, String> resourceIds = new HashMap<Integer, String>();
     public InlineMethodResolver inlineResolver = null;
     public ClassPath classPath = null;
     public SyntheticAccessorResolver syntheticAccessorResolver = null;
@@ -81,15 +81,15 @@ public class BaksmaliOptions {
      *
      * @param resourceFiles A map of resource prefixes -> public.xml files
      */
-    public void loadResourceIds(Map<String, File> resourceFiles) throws SAXException, IOException {
+    public void loadResourceIds(final Map<String, File> resourceFiles) throws SAXException, IOException {
         for (Map.Entry<String, File> entry: resourceFiles.entrySet()) {
             try {
                 SAXParser saxp = SAXParserFactory.newInstance().newSAXParser();
                 final String prefix = entry.getKey();
                 saxp.parse(entry.getValue(), new DefaultHandler() {
                     @Override
-                    public void startElement(String uri, String localName, String qName,
-                                             Attributes attr) throws SAXException {
+                    public void startElement(final String uri, final String localName, final String qName,
+                                             final Attributes attr) throws SAXException {
                         if (qName.equals("public")) {
                             String resourceType = attr.getValue("type");
                             String resourceName = attr.getValue("name").replace('.', '_');

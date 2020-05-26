@@ -40,11 +40,11 @@ import javax.annotation.Nonnull;
 public class MethodPool extends BaseIndexPool<MethodReference>
         implements MethodSection<CharSequence, CharSequence, MethodProtoReference, MethodReference, PoolMethod> {
 
-    public MethodPool(@Nonnull DexPool dexPool) {
+    public MethodPool(final @Nonnull DexPool dexPool) {
         super(dexPool);
     }
 
-    public void intern(@Nonnull MethodReference method) {
+    public void intern(final @Nonnull MethodReference method) {
         Integer prev = internedItems.put(method, 0);
         if (prev == null) {
             dexPool.typeSection.intern(method.getDefiningClass());
@@ -53,27 +53,27 @@ public class MethodPool extends BaseIndexPool<MethodReference>
         }
     }
 
-    @Nonnull @Override public MethodReference getMethodReference(@Nonnull PoolMethod poolMethod) {
+    @Nonnull @Override public MethodReference getMethodReference(final @Nonnull PoolMethod poolMethod) {
         return poolMethod;
     }
 
-    @Nonnull @Override public CharSequence getDefiningClass(@Nonnull MethodReference methodReference) {
+    @Nonnull @Override public CharSequence getDefiningClass(final @Nonnull MethodReference methodReference) {
         return methodReference.getDefiningClass();
     }
 
-    @Nonnull @Override public MethodProtoReference getPrototype(@Nonnull MethodReference methodReference) {
+    @Nonnull @Override public MethodProtoReference getPrototype(final @Nonnull MethodReference methodReference) {
         return new PoolMethodProto(methodReference);
     }
 
-    @Nonnull @Override public MethodProtoReference getPrototype(@Nonnull PoolMethod poolMethod) {
+    @Nonnull @Override public MethodProtoReference getPrototype(final @Nonnull PoolMethod poolMethod) {
         return new PoolMethodProto(poolMethod);
     }
 
-    @Nonnull @Override public CharSequence getName(@Nonnull MethodReference methodReference) {
+    @Nonnull @Override public CharSequence getName(final @Nonnull MethodReference methodReference) {
         return methodReference.getName();
     }
 
-    @Override public int getMethodIndex(@Nonnull PoolMethod poolMethod) {
+    @Override public int getMethodIndex(final @Nonnull PoolMethod poolMethod) {
         return getItemIndex(poolMethod);
     }
 }

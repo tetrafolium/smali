@@ -58,14 +58,14 @@ public class ImmutableMethod extends BaseMethodReference implements Method {
     @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
     @Nullable protected final ImmutableMethodImplementation methodImplementation;
 
-    public ImmutableMethod(@Nonnull String definingClass,
-                           @Nonnull String name,
-                           @Nullable Iterable<? extends MethodParameter> parameters,
-                           @Nonnull String returnType,
-                           int accessFlags,
-                           @Nullable Set<? extends Annotation> annotations,
-                           @Nullable Set<HiddenApiRestriction> hiddenApiRestrictions,
-                           @Nullable MethodImplementation methodImplementation) {
+    public ImmutableMethod(final @Nonnull String definingClass,
+                           final @Nonnull String name,
+                           final @Nullable Iterable<? extends MethodParameter> parameters,
+                           final @Nonnull String returnType,
+                           final int accessFlags,
+                           final @Nullable Set<? extends Annotation> annotations,
+                           final @Nullable Set<HiddenApiRestriction> hiddenApiRestrictions,
+                           final @Nullable MethodImplementation methodImplementation) {
         this.definingClass = definingClass;
         this.name = name;
         this.parameters = ImmutableMethodParameter.immutableListOf(parameters);
@@ -77,14 +77,14 @@ public class ImmutableMethod extends BaseMethodReference implements Method {
         this.methodImplementation = ImmutableMethodImplementation.of(methodImplementation);
     }
 
-    public ImmutableMethod(@Nonnull String definingClass,
-                           @Nonnull String name,
-                           @Nullable ImmutableList<? extends ImmutableMethodParameter> parameters,
-                           @Nonnull String returnType,
-                           int accessFlags,
-                           @Nullable ImmutableSet<? extends ImmutableAnnotation> annotations,
-                           @Nullable ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions,
-                           @Nullable ImmutableMethodImplementation methodImplementation) {
+    public ImmutableMethod(final @Nonnull String definingClass,
+                           final @Nonnull String name,
+                           final @Nullable ImmutableList<? extends ImmutableMethodParameter> parameters,
+                           final @Nonnull String returnType,
+                           final int accessFlags,
+                           final @Nullable ImmutableSet<? extends ImmutableAnnotation> annotations,
+                           final @Nullable ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions,
+                           final @Nullable ImmutableMethodImplementation methodImplementation) {
         this.definingClass = definingClass;
         this.name = name;
         this.parameters = ImmutableUtils.nullToEmptyList(parameters);
@@ -95,9 +95,9 @@ public class ImmutableMethod extends BaseMethodReference implements Method {
         this.methodImplementation = methodImplementation;
     }
 
-    public static ImmutableMethod of(Method method) {
+    public static ImmutableMethod of(final Method method) {
         if (method instanceof ImmutableMethod) {
-            return (ImmutableMethod)method;
+            return (ImmutableMethod) method;
         }
         return new ImmutableMethod(
                 method.getDefiningClass(),
@@ -110,31 +110,40 @@ public class ImmutableMethod extends BaseMethodReference implements Method {
                 method.getImplementation());
     }
 
-    @Override @Nonnull public String getDefiningClass() { return definingClass; }
-    @Override @Nonnull public String getName() { return name; }
-    @Override @Nonnull public ImmutableList<? extends CharSequence> getParameterTypes() { return parameters; }
-    @Override @Nonnull public ImmutableList<? extends ImmutableMethodParameter> getParameters() { return parameters; }
-    @Override @Nonnull public String getReturnType() { return returnType; }
-    @Override public int getAccessFlags() { return accessFlags; }
-    @Override @Nonnull public ImmutableSet<? extends ImmutableAnnotation> getAnnotations() { return annotations; }
-    @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() { return hiddenApiRestrictions; }
-    @Override @Nullable public ImmutableMethodImplementation getImplementation() { return methodImplementation; }
+    @Override @Nonnull public String getDefiningClass() {
+        return definingClass; }
+    @Override @Nonnull public String getName() {
+        return name; }
+    @Override @Nonnull public ImmutableList<? extends CharSequence> getParameterTypes() {
+        return parameters; }
+    @Override @Nonnull public ImmutableList<? extends ImmutableMethodParameter> getParameters() {
+        return parameters; }
+    @Override @Nonnull public String getReturnType() {
+        return returnType; }
+    @Override public int getAccessFlags() {
+        return accessFlags; }
+    @Override @Nonnull public ImmutableSet<? extends ImmutableAnnotation> getAnnotations() {
+        return annotations; }
+    @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
+        return hiddenApiRestrictions; }
+    @Override @Nullable public ImmutableMethodImplementation getImplementation() {
+        return methodImplementation; }
 
     @Nonnull
-    public static ImmutableSortedSet<ImmutableMethod> immutableSetOf(@Nullable Iterable<? extends Method> list) {
+    public static ImmutableSortedSet<ImmutableMethod> immutableSetOf(final @Nullable Iterable<? extends Method> list) {
         return CONVERTER.toSortedSet(Ordering.natural(), list);
     }
 
     private static final ImmutableConverter<ImmutableMethod, Method> CONVERTER =
             new ImmutableConverter<ImmutableMethod, Method>() {
                 @Override
-                protected boolean isImmutable(@Nonnull Method item) {
+                protected boolean isImmutable(final @Nonnull Method item) {
                     return item instanceof ImmutableMethod;
                 }
 
                 @Nonnull
                 @Override
-                protected ImmutableMethod makeImmutable(@Nonnull Method item) {
+                protected ImmutableMethod makeImmutable(final @Nonnull Method item) {
                     return ImmutableMethod.of(item);
                 }
             };

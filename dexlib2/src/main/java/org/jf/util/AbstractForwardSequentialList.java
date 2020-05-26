@@ -40,13 +40,13 @@ import java.util.NoSuchElementException;
 
 public abstract class AbstractForwardSequentialList<T> extends AbstractSequentialList<T> {
 
-    @Nonnull private Iterator<T> iterator(int index) {
+    @Nonnull private Iterator<T> iterator(final int index) {
         if (index < 0) {
             throw new NoSuchElementException();
         }
 
         Iterator<T> it = iterator();
-        for (int i=0; i<index; i++) {
+        for (int i = 0; i < index; i++) {
             it.next();
         }
         return it;
@@ -71,7 +71,7 @@ public abstract class AbstractForwardSequentialList<T> extends AbstractSequentia
             private Iterator<T> getForwardIterator() {
                 if (forwardIterator == null) {
                     try {
-                        forwardIterator = iterator(index+1);
+                        forwardIterator = iterator(index + 1);
                     } catch (IndexOutOfBoundsException ex) {
                         throw new NoSuchElementException();
                     }
@@ -94,7 +94,7 @@ public abstract class AbstractForwardSequentialList<T> extends AbstractSequentia
             }
 
             @Override public int nextIndex() {
-                return index+1;
+                return index + 1;
             }
 
             @Override public T previous() {

@@ -45,16 +45,19 @@ public class BuilderInstruction32x extends BuilderInstruction implements Instruc
     protected final int registerA;
     protected final int registerB;
 
-    public BuilderInstruction32x(@Nonnull Opcode opcode,
-                                 int registerA,
-                                 int registerB) {
+    public BuilderInstruction32x(final @Nonnull Opcode opcode,
+                                 final int registerA,
+                                 final int registerB) {
         super(opcode);
         this.registerA = Preconditions.checkShortRegister(registerA);
         this.registerB = Preconditions.checkShortRegister(registerB);
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getRegisterB() {
+        return registerB; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

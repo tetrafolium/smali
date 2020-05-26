@@ -47,7 +47,7 @@ public class ReflectionUtils {
             .put("byte", "B")
             .build();
 
-    public static String javaToDexName(String javaName) {
+    public static String javaToDexName(final String javaName) {
         if (javaName.charAt(0) == '[') {
             return javaName.replace('.', '/');
         }
@@ -59,7 +59,7 @@ public class ReflectionUtils {
         return 'L' + javaName.replace('.', '/') + ';';
     }
 
-    public static String dexToJavaName(String dexName) {
+    public static String dexToJavaName(final String dexName) {
         if (dexName.charAt(0) == '[') {
             return dexName.replace('/', '.');
         }
@@ -68,6 +68,6 @@ public class ReflectionUtils {
             return primitiveMap.inverse().get(dexName);
         }
 
-        return dexName.replace('/', '.').substring(1, dexName.length()-2);
+        return dexName.replace('/', '.').substring(1, dexName.length() - 2);
     }
 }

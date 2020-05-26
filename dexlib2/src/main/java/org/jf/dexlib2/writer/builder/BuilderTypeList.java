@@ -44,11 +44,11 @@ public class BuilderTypeList extends AbstractList<BuilderTypeReference> {
     @Nonnull final List<? extends BuilderTypeReference> types;
     int offset = DexWriter.NO_OFFSET;
 
-    public BuilderTypeList(@Nonnull List<? extends BuilderTypeReference> types) {
+    public BuilderTypeList(final @Nonnull List<? extends BuilderTypeReference> types) {
         this.types = types;
     }
 
-    @Override public BuilderTypeReference get(int index) {
+    @Override public BuilderTypeReference get(final int index) {
         return types.get(index);
     }
 
@@ -60,7 +60,7 @@ public class BuilderTypeList extends AbstractList<BuilderTypeReference> {
         return offset;
     }
 
-    public void setOffset(int offset) {
+    public void setOffset(final int offset) {
         this.offset = offset;
     }
 }

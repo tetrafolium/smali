@@ -44,9 +44,9 @@ import java.io.StringWriter;
 
 public class EncodedValue {
     public static void annotateEncodedValue(
-            @Nonnull DexBackedDexFile dexFile,
-            @Nonnull AnnotatedBytes out,
-            @Nonnull DexReader reader) {
+            final @Nonnull DexBackedDexFile dexFile,
+            final @Nonnull AnnotatedBytes out,
+            final @Nonnull DexReader reader) {
         int valueArgType = reader.readUbyte();
 
         int valueArg = valueArgType >>> 5;
@@ -84,7 +84,7 @@ public class EncodedValue {
                 out.annotate(1, "valueArg = %d, valueType = 0x%x: null", valueArg, valueType);
                 break;
             case ValueType.BOOLEAN:
-                out.annotate(1, "valueArg = %d, valueType = 0x%x: boolean, value=%s", valueArg, valueType, valueArg==1);
+                out.annotate(1, "valueArg = %d, valueType = 0x%x: boolean, value=%s", valueArg, valueType, valueArg == 1);
                 break;
             default:
                 throw new IllegalArgumentException(String.format("Invalid encoded value type 0x%x at offset 0x%x", valueType,
@@ -93,9 +93,9 @@ public class EncodedValue {
     }
 
     public static void annotateEncodedAnnotation(
-            @Nonnull DexBackedDexFile dexFile,
-            @Nonnull AnnotatedBytes out,
-            @Nonnull DexReader reader) {
+            final @Nonnull DexBackedDexFile dexFile,
+            final @Nonnull AnnotatedBytes out,
+            final @Nonnull DexReader reader) {
         assert out.getCursor() == reader.getOffset();
 
         int typeIndex = reader.readSmallUleb128();
@@ -104,7 +104,7 @@ public class EncodedValue {
         int size = reader.readSmallUleb128();
         out.annotateTo(reader.getOffset(), "size: %d", size);
 
-        for (int i=0; i<size; i++) {
+        for (int i = 0; i < size; i++) {
             out.annotate(0, "element[%d]", i);
             out.indent();
 
@@ -119,15 +119,15 @@ public class EncodedValue {
     }
 
     public static void annotateEncodedArray(
-            @Nonnull DexBackedDexFile dexFile,
-            @Nonnull AnnotatedBytes out,
-            @Nonnull DexReader reader) {
+            final @Nonnull DexBackedDexFile dexFile,
+            final @Nonnull AnnotatedBytes out,
+            final @Nonnull DexReader reader) {
         assert out.getCursor() == reader.getOffset();
 
         int size = reader.readSmallUleb128();
         out.annotateTo(reader.getOffset(), "size: %d", size);
 
-        for (int i=0; i<size; i++) {
+        for (int i = 0; i < size; i++) {
             out.annotate(0, "element[%d]", i);
             out.indent();
 
@@ -137,7 +137,7 @@ public class EncodedValue {
         }
     }
 
-    public static String asString(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader reader) {
+    public static String asString(final @Nonnull DexBackedDexFile dexFile, final @Nonnull DexReader reader) {
         int valueArgType = reader.readUbyte();
 
         int valueArg = valueArgType >>> 5;
@@ -148,16 +148,16 @@ public class EncodedValue {
                 int intValue = reader.readByte();
                 return String.format("0x%x", intValue);
             case ValueType.SHORT:
-                intValue = reader.readSizedInt(valueArg+1);
+                intValue = reader.readSizedInt(valueArg + 1);
                 return String.format("0x%x", intValue);
             case ValueType.CHAR:
-                intValue = reader.readSizedSmallUint(valueArg+1);
+                intValue = reader.readSizedSmallUint(valueArg + 1);
                 return String.format("0x%x", intValue);
             case ValueType.INT:
-                intValue = reader.readSizedInt(valueArg+1);
+                intValue = reader.readSizedInt(valueArg + 1);
                 return String.format("0x%x", intValue);
             case ValueType.LONG:
-                long longValue = reader.readSizedLong(valueArg+1);
+                long longValue = reader.readSizedLong(valueArg + 1);
                 return String.format("0x%x", longValue);
             case ValueType.FLOAT:
                 float floatValue = Float.intBitsToFloat(reader.readSizedRightExtendedInt(valueArg + 1));
@@ -172,16 +172,16 @@ public class EncodedValue {
                 int stringIndex = reader.readSizedSmallUint(valueArg + 1);
                 return StringIdItem.getReferenceAnnotation(dexFile, stringIndex, true);
             case ValueType.TYPE:
-                int typeIndex = reader.readSizedSmallUint(valueArg+1);
+                int typeIndex = reader.readSizedSmallUint(valueArg + 1);
                 return TypeIdItem.getReferenceAnnotation(dexFile, typeIndex);
             case ValueType.FIELD:
-                int fieldIndex = reader.readSizedSmallUint(valueArg+1);
+                int fieldIndex = reader.readSizedSmallUint(valueArg + 1);
                 return FieldIdItem.getReferenceAnnotation(dexFile, fieldIndex);
             case ValueType.METHOD:
-                int methodIndex = reader.readSizedSmallUint(valueArg+1);
+                int methodIndex = reader.readSizedSmallUint(valueArg + 1);
                 return MethodIdItem.getReferenceAnnotation(dexFile, methodIndex);
             case ValueType.ENUM:
-                fieldIndex = reader.readSizedSmallUint(valueArg+1);
+                fieldIndex = reader.readSizedSmallUint(valueArg + 1);
                 return FieldIdItem.getReferenceAnnotation(dexFile, fieldIndex);
             case ValueType.ARRAY:
             case ValueType.ANNOTATION:

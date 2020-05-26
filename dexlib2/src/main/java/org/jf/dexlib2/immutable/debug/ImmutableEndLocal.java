@@ -43,8 +43,8 @@ public class ImmutableEndLocal extends ImmutableDebugItem implements EndLocal {
     @Nullable protected final String type;
     @Nullable protected final String signature;
 
-    public ImmutableEndLocal(int codeAddress,
-                             int register) {
+    public ImmutableEndLocal(final int codeAddress,
+                             final int register) {
         super(codeAddress);
         this.register = register;
         this.name = null;
@@ -52,11 +52,11 @@ public class ImmutableEndLocal extends ImmutableDebugItem implements EndLocal {
         this.signature = null;
     }
 
-    public ImmutableEndLocal(int codeAddress,
-                             int register,
-                             @Nullable String name,
-                             @Nullable String type,
-                             @Nullable String signature) {
+    public ImmutableEndLocal(final int codeAddress,
+                             final int register,
+                             final @Nullable String name,
+                             final @Nullable String type,
+                             final @Nullable String signature) {
         super(codeAddress);
         this.register = register;
         this.name = name;
@@ -65,9 +65,9 @@ public class ImmutableEndLocal extends ImmutableDebugItem implements EndLocal {
     }
 
     @Nonnull
-    public static ImmutableEndLocal of(@Nonnull EndLocal endLocal) {
+    public static ImmutableEndLocal of(final @Nonnull EndLocal endLocal) {
         if (endLocal instanceof  ImmutableEndLocal) {
-            return (ImmutableEndLocal)endLocal;
+            return (ImmutableEndLocal) endLocal;
         }
         return new ImmutableEndLocal(
                 endLocal.getCodeAddress(),
@@ -77,10 +77,15 @@ public class ImmutableEndLocal extends ImmutableDebugItem implements EndLocal {
                 endLocal.getSignature());
     }
 
-    @Override public int getRegister() { return register; }
-    @Nullable @Override public String getName() { return name; }
-    @Nullable @Override public String getType() { return type; }
-    @Nullable @Override public String getSignature() { return signature; }
+    @Override public int getRegister() {
+        return register; }
+    @Nullable @Override public String getName() {
+        return name; }
+    @Nullable @Override public String getType() {
+        return type; }
+    @Nullable @Override public String getSignature() {
+        return signature; }
 
-    @Override public int getDebugItemType() { return DebugItemType.END_LOCAL; }
+    @Override public int getDebugItemType() {
+        return DebugItemType.END_LOCAL; }
 }

@@ -48,17 +48,17 @@ public class ImmutableInstruction20bc extends ImmutableInstruction implements In
     protected final int verificationError;
     @Nonnull protected final ImmutableReference reference;
 
-    public ImmutableInstruction20bc(@Nonnull Opcode opcode,
-                                   int verificationError,
-                                   @Nonnull Reference reference) {
+    public ImmutableInstruction20bc(final @Nonnull Opcode opcode,
+                                   final int verificationError,
+                                   final @Nonnull Reference reference) {
         super(opcode);
         this.verificationError = Preconditions.checkVerificationError(verificationError);
         this.reference = ImmutableReferenceFactory.of(opcode.referenceType, reference);
     }
 
-    public static ImmutableInstruction20bc of(Instruction20bc instruction) {
+    public static ImmutableInstruction20bc of(final Instruction20bc instruction) {
         if (instruction instanceof ImmutableInstruction20bc) {
-            return (ImmutableInstruction20bc)instruction;
+            return (ImmutableInstruction20bc) instruction;
         }
         return new ImmutableInstruction20bc(
                 instruction.getOpcode(),
@@ -66,9 +66,13 @@ public class ImmutableInstruction20bc extends ImmutableInstruction implements In
                 instruction.getReference());
     }
 
-    @Override public int getVerificationError() { return verificationError; }
-    @Nonnull @Override public ImmutableReference getReference() { return reference; }
-    @Override public int getReferenceType() { return ReferenceType.getReferenceType(reference); }
+    @Override public int getVerificationError() {
+        return verificationError; }
+    @Nonnull @Override public ImmutableReference getReference() {
+        return reference; }
+    @Override public int getReferenceType() {
+        return ReferenceType.getReferenceType(reference); }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

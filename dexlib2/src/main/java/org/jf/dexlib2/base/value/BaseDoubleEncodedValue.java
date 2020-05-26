@@ -43,24 +43,25 @@ public abstract class BaseDoubleEncodedValue implements DoubleEncodedValue {
     @Override
     public int hashCode() {
         long v = Double.doubleToRawLongBits(getValue());
-        return (int)(v^(v>>>32));
+        return (int) (v ^ (v >>> 32));
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof DoubleEncodedValue) {
-            return Double.doubleToRawLongBits(getValue()) ==
-                   Double.doubleToRawLongBits(((DoubleEncodedValue)o).getValue());
+            return Double.doubleToRawLongBits(getValue())
+                   == Double.doubleToRawLongBits(((DoubleEncodedValue) o).getValue());
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull EncodedValue o) {
+    public int compareTo(final @Nonnull EncodedValue o) {
         int res = Ints.compare(getValueType(), o.getValueType());
         if (res != 0) return res;
-        return Double.compare(getValue(), ((DoubleEncodedValue)o).getValue());
+        return Double.compare(getValue(), ((DoubleEncodedValue) o).getValue());
     }
 
-    public int getValueType() { return ValueType.DOUBLE; }
+    public int getValueType() {
+        return ValueType.DOUBLE; }
 }

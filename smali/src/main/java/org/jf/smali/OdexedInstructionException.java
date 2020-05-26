@@ -34,13 +34,13 @@ import org.antlr.runtime.RecognitionException;
 public class OdexedInstructionException extends RecognitionException {
     private String odexedInstruction;
 
-    OdexedInstructionException(IntStream input, String odexedInstruction) {
+    OdexedInstructionException(final IntStream input, final String odexedInstruction) {
         super(input);
         this.odexedInstruction = odexedInstruction;
     }
 
     public String getMessage() {
-        return odexedInstruction + " is an odexed instruction. You cannot reassemble a disassembled odex file " +
-                "unless it has been deodexed.";
+        return odexedInstruction + " is an odexed instruction. You cannot reassemble a disassembled odex file "
+                + "unless it has been deodexed.";
     }
 }

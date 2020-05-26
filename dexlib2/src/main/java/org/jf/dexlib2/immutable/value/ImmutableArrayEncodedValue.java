@@ -42,20 +42,21 @@ import java.util.Collection;
 public class ImmutableArrayEncodedValue extends BaseArrayEncodedValue implements ImmutableEncodedValue {
     @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> value;
 
-    public ImmutableArrayEncodedValue(@Nonnull Collection<? extends EncodedValue> value) {
+    public ImmutableArrayEncodedValue(final @Nonnull Collection<? extends EncodedValue> value) {
         this.value = ImmutableEncodedValueFactory.immutableListOf(value);
     }
 
-    public ImmutableArrayEncodedValue(@Nonnull ImmutableList<ImmutableEncodedValue> value) {
+    public ImmutableArrayEncodedValue(final @Nonnull ImmutableList<ImmutableEncodedValue> value) {
         this.value = value;
     }
 
-    public static ImmutableArrayEncodedValue of(@Nonnull ArrayEncodedValue arrayEncodedValue) {
+    public static ImmutableArrayEncodedValue of(final @Nonnull ArrayEncodedValue arrayEncodedValue) {
         if (arrayEncodedValue instanceof ImmutableArrayEncodedValue) {
-            return (ImmutableArrayEncodedValue)arrayEncodedValue;
+            return (ImmutableArrayEncodedValue) arrayEncodedValue;
         }
         return new ImmutableArrayEncodedValue(arrayEncodedValue.getValue());
     }
 
-    @Nonnull public ImmutableList<? extends ImmutableEncodedValue> getValue() { return value; }
+    @Nonnull public ImmutableList<? extends ImmutableEncodedValue> getValue() {
+        return value; }
 }

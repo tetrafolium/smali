@@ -46,60 +46,60 @@ import java.lang.reflect.Field;
 public class ExtendedCommands {
 
     @Nonnull
-    private static ExtendedParameters getExtendedParameters(Object command) {
+    private static ExtendedParameters getExtendedParameters(final Object command) {
         ExtendedParameters anno = command.getClass().getAnnotation(ExtendedParameters.class);
         if (anno == null) {
-            throw new IllegalStateException("All extended commands should have an ExtendedParameters annotation: " +
-                    command.getClass().getCanonicalName());
+            throw new IllegalStateException("All extended commands should have an ExtendedParameters annotation: "
+                    + command.getClass().getCanonicalName());
         }
         return anno;
     }
 
     @Nonnull
-    public static String commandName(JCommander jc) {
+    public static String commandName(final JCommander jc) {
         return getExtendedParameters(jc.getObjects().get(0)).commandName();
     }
 
     @Nonnull
-    public static String commandName(Object command) {
+    public static String commandName(final Object command) {
         return getExtendedParameters(command).commandName();
     }
 
     @Nonnull
-    public static String[] commandAliases(JCommander jc) {
+    public static String[] commandAliases(final JCommander jc) {
         return commandAliases(jc.getObjects().get(0));
     }
 
     @Nonnull
-    public static String[] commandAliases(Object command) {
+    public static String[] commandAliases(final Object command) {
         return getExtendedParameters(command).commandAliases();
     }
 
-    public static boolean includeParametersInUsage(JCommander jc) {
+    public static boolean includeParametersInUsage(final JCommander jc) {
         return includeParametersInUsage(jc.getObjects().get(0));
     }
 
-    public static boolean includeParametersInUsage(Object command) {
+    public static boolean includeParametersInUsage(final Object command) {
         return getExtendedParameters(command).includeParametersInUsage();
     }
 
     @Nonnull
-    public static String postfixDescription(JCommander jc) {
+    public static String postfixDescription(final JCommander jc) {
         return postfixDescription(jc.getObjects().get(0));
     }
 
     @Nonnull
-    public static String postfixDescription(Object command) {
+    public static String postfixDescription(final Object command) {
         return getExtendedParameters(command).postfixDescription();
     }
 
-    public static void addExtendedCommand(JCommander jc, Command command) {
+    public static void addExtendedCommand(final JCommander jc, final Command command) {
         jc.addCommand(commandName(command), command, commandAliases(command));
         command.setupCommand(command.getJCommander());
     }
 
     @Nonnull
-    public static String[] parameterArgumentNames(ParameterDescription parameterDescription) {
+    public static String[] parameterArgumentNames(final ParameterDescription parameterDescription) {
         Parameterized parameterized = parameterDescription.getParameterized();
 
         Class cls = parameterDescription.getObject().getClass();
@@ -124,7 +124,7 @@ public class ExtendedCommands {
     }
 
     @Nullable
-    public static JCommander getSubcommand(JCommander jc, String commandName) {
+    public static JCommander getSubcommand(final JCommander jc, final String commandName) {
         if (jc.getCommands().containsKey(commandName)) {
             return jc.getCommands().get(commandName);
         } else {
@@ -140,7 +140,7 @@ public class ExtendedCommands {
     }
 
     @Nullable
-    public static String getCommandDescription(@Nonnull JCommander jc) {
+    public static String getCommandDescription(final @Nonnull JCommander jc) {
         Parameters parameters = jc.getObjects().get(0).getClass().getAnnotation(Parameters.class);
         if (parameters == null) {
             return null;

@@ -36,12 +36,12 @@ import org.jf.util.IndentingWriter;
 import java.io.IOException;
 
 public class EndPrologueMethodItem extends DebugMethodItem {
-    public EndPrologueMethodItem(int codeAddress, int sortOrder) {
+    public EndPrologueMethodItem(final int codeAddress, final int sortOrder) {
         super(codeAddress, sortOrder);
     }
 
     @Override
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         writer.write(".prologue");
         return true;
     }

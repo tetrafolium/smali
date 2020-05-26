@@ -46,14 +46,14 @@ public class MethodIdItem {
     public static final int NAME_OFFSET = 4;
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "method_id_item";
             }
 
             @Override
-            public void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            public void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 int classIndex = dexFile.getBuffer().readUshort(out.getCursor());
                 out.annotate(2, "class_idx = %s", TypeIdItem.getReferenceAnnotation(dexFile, classIndex));
 
@@ -67,7 +67,7 @@ public class MethodIdItem {
     }
 
     @Nonnull
-    public static String asString(@Nonnull DexBackedDexFile dexFile, int methodIndex) {
+    public static String asString(final @Nonnull DexBackedDexFile dexFile, final int methodIndex) {
         int methodOffset = dexFile.getMethodSection().getOffset(methodIndex);
         int classIndex = dexFile.getBuffer().readUshort(methodOffset + CLASS_OFFSET);
         String classType = dexFile.getTypeSection().get(classIndex);
@@ -82,7 +82,7 @@ public class MethodIdItem {
     }
 
     @Nonnull
-    public static String getReferenceAnnotation(@Nonnull DexBackedDexFile dexFile, int methodIndex) {
+    public static String getReferenceAnnotation(final @Nonnull DexBackedDexFile dexFile, final int methodIndex) {
         try {
             String methodString = asString(dexFile, methodIndex);
             return String.format("method_id_item[%d]: %s", methodIndex, methodString);
@@ -92,7 +92,7 @@ public class MethodIdItem {
         return String.format("method_id_item[%d]", methodIndex);
     }
 
-    public static String[] getMethods(@Nonnull DexBackedDexFile dexFile) {
+    public static String[] getMethods(final @Nonnull DexBackedDexFile dexFile) {
         MapItem mapItem = dexFile.getMapItemForSection(ItemType.METHOD_ID_ITEM);
         if (mapItem == null) {
             return new String[0];
@@ -100,7 +100,7 @@ public class MethodIdItem {
 
         int methodCount = mapItem.getItemCount();
         String[] ret = new String[methodCount];
-        for (int i=0; i<methodCount; i++) {
+        for (int i = 0; i < methodCount; i++) {
             ret[i] = asString(dexFile, i);
         }
         return ret;

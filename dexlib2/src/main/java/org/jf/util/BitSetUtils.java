@@ -34,7 +34,7 @@ package org.jf.util;
 import java.util.BitSet;
 
 public class BitSetUtils {
-    public static BitSet bitSetOfIndexes(int... indexes) {
+    public static BitSet bitSetOfIndexes(final int... indexes) {
         BitSet bitSet = new BitSet();
         for (int index: indexes) {
             bitSet.set(index);

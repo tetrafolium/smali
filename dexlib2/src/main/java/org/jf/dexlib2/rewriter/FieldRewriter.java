@@ -44,18 +44,18 @@ import java.util.Set;
 public class FieldRewriter implements Rewriter<Field> {
     @Nonnull protected final Rewriters rewriters;
 
-    public FieldRewriter(@Nonnull Rewriters rewriters) {
+    public FieldRewriter(final @Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public Field rewrite(@Nonnull Field field) {
+    @Nonnull @Override public Field rewrite(final @Nonnull Field field) {
         return new RewrittenField(field);
     }
 
     protected class RewrittenField extends BaseFieldReference implements Field {
         @Nonnull protected Field field;
 
-        public RewrittenField(@Nonnull Field field) {
+        public RewrittenField(final @Nonnull Field field) {
             this.field = field;
         }
 

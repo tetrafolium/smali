@@ -54,9 +54,9 @@ public class DexBackedMethodImplementation implements MethodImplementation {
     @Nonnull public final DexBackedMethod method;
     protected final int codeOffset;
 
-    protected DexBackedMethodImplementation(@Nonnull DexBackedDexFile dexFile,
-                                  @Nonnull DexBackedMethod method,
-                                  int codeOffset) {
+    protected DexBackedMethodImplementation(final @Nonnull DexBackedDexFile dexFile,
+                                  final @Nonnull DexBackedMethod method,
+                                  final int codeOffset) {
         this.dexFile = dexFile;
         this.method = method;
         this.codeOffset = codeOffset;
@@ -79,14 +79,14 @@ public class DexBackedMethodImplementation implements MethodImplementation {
         int instructionsSize = getInstructionsSize();
 
         final int instructionsStartOffset = getInstructionsStartOffset();
-        final int endOffset = instructionsStartOffset + (instructionsSize*2);
+        final int endOffset = instructionsStartOffset + (instructionsSize * 2);
         return new Iterable<Instruction>() {
             @Override
             public Iterator<Instruction> iterator() {
                 return new VariableSizeLookaheadIterator<Instruction>(
                         dexFile.getDataBuffer(), instructionsStartOffset) {
                     @Override
-                    protected Instruction readNextItem(@Nonnull DexReader reader) {
+                    protected Instruction readNextItem(final @Nonnull DexReader reader) {
                         if (reader.getOffset() >= endOffset) {
                             return endOfData();
                         }
@@ -116,15 +116,15 @@ public class DexBackedMethodImplementation implements MethodImplementation {
         if (triesSize > 0) {
             int instructionsSize = getInstructionsSize();
             final int triesStartOffset = AlignmentUtils.alignOffset(
-                    getInstructionsStartOffset() + (instructionsSize*2), 4);
-            final int handlersStartOffset = triesStartOffset + triesSize*CodeItem.TryItem.ITEM_SIZE;
+                    getInstructionsStartOffset() + (instructionsSize * 2), 4);
+            final int handlersStartOffset = triesStartOffset + triesSize * CodeItem.TryItem.ITEM_SIZE;
 
             return new FixedSizeList<DexBackedTryBlock>() {
                 @Nonnull
                 @Override
-                public DexBackedTryBlock readItem(int index) {
+                public DexBackedTryBlock readItem(final int index) {
                     return new DexBackedTryBlock(dexFile,
-                            triesStartOffset + index*CodeItem.TryItem.ITEM_SIZE,
+                            triesStartOffset + index * CodeItem.TryItem.ITEM_SIZE,
                             handlersStartOffset);
                 }
 
@@ -165,7 +165,7 @@ public class DexBackedMethodImplementation implements MethodImplementation {
     }
 
     @Nonnull
-    public Iterator<String> getParameterNames(@Nullable DexReader dexReader) {
+    public Iterator<String> getParameterNames(final @Nullable DexReader dexReader) {
         return getDebugInfo().getParameterNames(dexReader);
     }
 
@@ -192,7 +192,7 @@ public class DexBackedMethodImplementation implements MethodImplementation {
             while (tryHandlerIter.hasNext()) {
                 tryHandlerIter.next();
             }
-            lastOffset = ((VariableSizeListIterator)tryHandlerIter).getReaderOffset();
+            lastOffset = ((VariableSizeListIterator) tryHandlerIter).getReaderOffset();
         }
 
         //method impl size = debug block size + code_item size

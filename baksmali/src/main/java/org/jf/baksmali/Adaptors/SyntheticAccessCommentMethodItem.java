@@ -38,7 +38,7 @@ import java.io.IOException;
 public class SyntheticAccessCommentMethodItem extends MethodItem {
     private final SyntheticAccessorResolver.AccessedMember accessedMember;
 
-    public SyntheticAccessCommentMethodItem(SyntheticAccessorResolver.AccessedMember accessedMember, int codeAddress) {
+    public SyntheticAccessCommentMethodItem(final SyntheticAccessorResolver.AccessedMember accessedMember, final int codeAddress) {
         super(codeAddress);
         this.accessedMember = accessedMember;
     }
@@ -48,7 +48,7 @@ public class SyntheticAccessCommentMethodItem extends MethodItem {
         return 99.8;
     }
 
-    public boolean writeTo(IndentingWriter writer) throws IOException {
+    public boolean writeTo(final IndentingWriter writer) throws IOException {
         writer.write("# ");
         switch (accessedMember.accessedMemberType) {
             case SyntheticAccessorResolver.METHOD:

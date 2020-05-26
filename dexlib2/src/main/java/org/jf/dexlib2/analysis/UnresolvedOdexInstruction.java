@@ -44,7 +44,7 @@ public class UnresolvedOdexInstruction implements Instruction {
     //the register number that holds the (null) reference type that the instruction operates on
     public final int objectRegisterNum;
 
-    public UnresolvedOdexInstruction(Instruction originalInstruction, int objectRegisterNumber) {
+    public UnresolvedOdexInstruction(final Instruction originalInstruction, final int objectRegisterNumber) {
         this.originalInstruction = originalInstruction;
         this.objectRegisterNum = objectRegisterNumber;
     }

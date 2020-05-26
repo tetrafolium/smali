@@ -46,19 +46,20 @@ public abstract class BaseIntEncodedValue implements IntEncodedValue {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof IntEncodedValue) {
-            return getValue() == ((IntEncodedValue)o).getValue();
+            return getValue() == ((IntEncodedValue) o).getValue();
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull EncodedValue o) {
+    public int compareTo(final @Nonnull EncodedValue o) {
         int res = Ints.compare(getValueType(), o.getValueType());
         if (res != 0) return res;
-        return Ints.compare(getValue(), ((IntEncodedValue)o).getValue());
+        return Ints.compare(getValue(), ((IntEncodedValue) o).getValue());
     }
 
-    public int getValueType() { return ValueType.INT; }
+    public int getValueType() {
+        return ValueType.INT; }
 }

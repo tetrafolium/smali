@@ -43,9 +43,9 @@ public class DexBackedTryBlock extends BaseTryBlock<DexBackedExceptionHandler> {
     private final int tryItemOffset;
     private final int handlersStartOffset;
 
-    public DexBackedTryBlock(@Nonnull DexBackedDexFile dexFile,
-                             int tryItemOffset,
-                             int handlersStartOffset) {
+    public DexBackedTryBlock(final @Nonnull DexBackedDexFile dexFile,
+                             final int tryItemOffset,
+                             final int handlersStartOffset) {
         this.dexFile = dexFile;
         this.tryItemOffset = tryItemOffset;
         this.handlersStartOffset = handlersStartOffset;
@@ -72,7 +72,7 @@ public class DexBackedTryBlock extends BaseTryBlock<DexBackedExceptionHandler> {
                     dexFile.getDataBuffer(), reader.getOffset(), encodedSize) {
                 @Nonnull
                 @Override
-                protected DexBackedTypedExceptionHandler readNextItem(@Nonnull DexReader reader, int index) {
+                protected DexBackedTypedExceptionHandler readNextItem(final @Nonnull DexReader reader, final int index) {
                     return new DexBackedTypedExceptionHandler(dexFile, reader);
                 }
             };
@@ -83,8 +83,8 @@ public class DexBackedTryBlock extends BaseTryBlock<DexBackedExceptionHandler> {
                     dexFile.getDataBuffer(), reader.getOffset(), sizeWithCatchAll) {
                 @Nonnull
                 @Override
-                protected DexBackedExceptionHandler readNextItem(@Nonnull DexReader dexReader, int index) {
-                    if (index == sizeWithCatchAll-1) {
+                protected DexBackedExceptionHandler readNextItem(final @Nonnull DexReader dexReader, final int index) {
+                    if (index == sizeWithCatchAll - 1) {
                         return new DexBackedCatchAllExceptionHandler(dexReader);
                     } else {
                         return new DexBackedTypedExceptionHandler(dexFile, dexReader);

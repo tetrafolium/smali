@@ -44,25 +44,25 @@ public abstract class BaseMethodReference extends BaseReference implements Metho
     @Override
     public int hashCode() {
         int hashCode = getDefiningClass().hashCode();
-        hashCode = hashCode*31 + getName().hashCode();
-        hashCode = hashCode*31 + getReturnType().hashCode();
-        return hashCode*31 + getParameterTypes().hashCode();
+        hashCode = hashCode * 31 + getName().hashCode();
+        hashCode = hashCode * 31 + getReturnType().hashCode();
+        return hashCode * 31 + getParameterTypes().hashCode();
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o != null && o instanceof MethodReference) {
-            MethodReference other = (MethodReference)o;
-            return getDefiningClass().equals(other.getDefiningClass()) &&
-                   getName().equals(other.getName()) &&
-                   getReturnType().equals(other.getReturnType()) &&
-                   CharSequenceUtils.listEquals(getParameterTypes(), other.getParameterTypes());
+            MethodReference other = (MethodReference) o;
+            return getDefiningClass().equals(other.getDefiningClass())
+                   && getName().equals(other.getName())
+                   && getReturnType().equals(other.getReturnType())
+                   && CharSequenceUtils.listEquals(getParameterTypes(), other.getParameterTypes());
         }
         return false;
     }
 
     @Override
-    public int compareTo(@Nonnull MethodReference o) {
+    public int compareTo(final @Nonnull MethodReference o) {
         int res = getDefiningClass().compareTo(o.getDefiningClass());
         if (res != 0) return res;
         res = getName().compareTo(o.getName());

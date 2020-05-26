@@ -35,7 +35,7 @@ import java.io.IOException;
 public abstract class MethodItem implements Comparable<MethodItem> {
     protected final int codeAddress;
 
-    protected MethodItem(int codeAddress) {
+    protected MethodItem(final int codeAddress) {
         this.codeAddress = codeAddress;
     }
 
@@ -46,11 +46,11 @@ public abstract class MethodItem implements Comparable<MethodItem> {
     //return an arbitrary double that determines how this item will be sorted with others at the same address
     public abstract double getSortOrder();
 
-    public int compareTo(MethodItem methodItem) {
+    public int compareTo(final MethodItem methodItem) {
         int result = ((Integer) codeAddress).compareTo(methodItem.codeAddress);
 
-        if (result == 0){
-            return ((Double)getSortOrder()).compareTo(methodItem.getSortOrder());
+        if (result == 0) {
+            return ((Double) getSortOrder()).compareTo(methodItem.getSortOrder());
         }
         return result;
     }

@@ -43,14 +43,14 @@ public class StringIdItem {
     public static final int ITEM_SIZE = 4;
 
     @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public static SectionAnnotator makeAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         return new SectionAnnotator(annotator, mapItem) {
             @Nonnull @Override public String getItemName() {
                 return "string_id_item";
             }
 
             @Override
-            public void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity) {
+            public void annotateItem(final @Nonnull AnnotatedBytes out, final int itemIndex, final @Nullable String itemIdentity) {
                 int stringDataOffset = dexFile.getBuffer().readSmallUint(out.getCursor());
                 try {
                     String stringValue = dexFile.getStringSection().get(itemIndex);
@@ -69,11 +69,11 @@ public class StringIdItem {
     }
 
     @Nonnull
-    public static String getReferenceAnnotation(@Nonnull DexBackedDexFile dexFile, int stringIndex) {
+    public static String getReferenceAnnotation(final @Nonnull DexBackedDexFile dexFile, final int stringIndex) {
         return getReferenceAnnotation(dexFile, stringIndex, false);
     }
 
-    public static String getReferenceAnnotation(@Nonnull DexBackedDexFile dexFile, int stringIndex, boolean quote) {
+    public static String getReferenceAnnotation(final @Nonnull DexBackedDexFile dexFile, final int stringIndex, final boolean quote) {
         try {
             String string = dexFile.getStringSection().get(stringIndex);
             if (quote) {
@@ -88,12 +88,12 @@ public class StringIdItem {
 
 
     @Nonnull
-    public static String getOptionalReferenceAnnotation(@Nonnull DexBackedDexFile dexFile, int stringIndex) {
+    public static String getOptionalReferenceAnnotation(final @Nonnull DexBackedDexFile dexFile, final int stringIndex) {
         return getOptionalReferenceAnnotation(dexFile, stringIndex, false);
     }
 
-    public static String getOptionalReferenceAnnotation(@Nonnull DexBackedDexFile dexFile, int stringIndex,
-                                                        boolean quote) {
+    public static String getOptionalReferenceAnnotation(final @Nonnull DexBackedDexFile dexFile, final int stringIndex,
+                                                        final boolean quote) {
         if (stringIndex == -1) {
             return "string_id_item[NO_INDEX]";
         }

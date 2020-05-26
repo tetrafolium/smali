@@ -41,7 +41,7 @@ public class BuilderAnnotationElement extends BaseAnnotationElement {
     @Nonnull final BuilderStringReference name;
     @Nonnull final BuilderEncodedValue value;
 
-    public BuilderAnnotationElement(@Nonnull BuilderStringReference name, @Nonnull BuilderEncodedValue value) {
+    public BuilderAnnotationElement(final @Nonnull BuilderStringReference name, final @Nonnull BuilderEncodedValue value) {
         this.name = name;
         this.value = value;
     }

@@ -38,8 +38,8 @@ import javax.annotation.Nonnull;
 
 public class CdexHeaderItem {
 
-    private static final byte[] MAGIC_VALUE = new byte[] { 0x63, 0x64, 0x65, 0x78, 0x00, 0x00, 0x00, 0x00 };
-    private static final int[] SUPPORTED_CDEX_VERSIONS = new int[] { 1 };
+    private static final byte[] MAGIC_VALUE = new byte[] {0x63, 0x64, 0x65, 0x78, 0x00, 0x00, 0x00, 0x00 };
+    private static final int[] SUPPORTED_CDEX_VERSIONS = new int[] {1 };
 
     public static final int FEATURE_FLAGS_OFFSET = 112;
     public static final int DEBUG_INFO_OFFSETS_POS_OFFSET = 116;
@@ -53,19 +53,19 @@ public class CdexHeaderItem {
      * @param offset The offset within the buffer to the beginning of the cdex header
      * @return True if the magic value is valid
      */
-    public static boolean verifyMagic(byte[] buf, int offset) {
+    public static boolean verifyMagic(final byte[] buf, final int offset) {
         if (buf.length - offset < 8) {
             return false;
         }
 
-        for (int i=0; i<4; i++) {
+        for (int i = 0; i < 4; i++) {
             if (buf[offset + i] != MAGIC_VALUE[i]) {
                 return false;
             }
         }
-        for (int i=4; i<7; i++) {
-            if (buf[offset + i] < '0' ||
-                    buf[offset + i] > '9') {
+        for (int i = 4; i < 7; i++) {
+            if (buf[offset + i] < '0'
+                    || buf[offset + i] > '9') {
                 return false;
             }
         }
@@ -83,7 +83,7 @@ public class CdexHeaderItem {
      * @param offset The offset within the buffer to the beginning of the odex header
      * @return The odex version if the header is valid or -1 if the header is invalid
      */
-    public static int getVersion(byte[] buf, int offset) {
+    public static int getVersion(final byte[] buf, final int offset) {
         if (!verifyMagic(buf, offset)) {
             return -1;
         }
@@ -91,7 +91,7 @@ public class CdexHeaderItem {
         return getVersionUnchecked(buf, offset);
     }
 
-    private static int getVersionUnchecked(byte[] buf, int offset) {
+    private static int getVersionUnchecked(final byte[] buf, final int offset) {
         int version = (buf[offset + 4] - '0') * 100;
         version += (buf[offset + 5] - '0') * 10;
         version += buf[offset + 6] - '0';
@@ -99,8 +99,8 @@ public class CdexHeaderItem {
         return version;
     }
 
-    public static boolean isSupportedCdexVersion(int version) {
-        for (int i=0; i<SUPPORTED_CDEX_VERSIONS.length; i++) {
+    public static boolean isSupportedCdexVersion(final int version) {
+        for (int i = 0; i < SUPPORTED_CDEX_VERSIONS.length; i++) {
             if (SUPPORTED_CDEX_VERSIONS[i] == version) {
                 return true;
             }
@@ -108,7 +108,7 @@ public class CdexHeaderItem {
         return false;
     }
 
-    public static void annotateCdexHeaderFields(@Nonnull AnnotatedBytes out, DexBuffer buf) {
+    public static void annotateCdexHeaderFields(final @Nonnull AnnotatedBytes out, final DexBuffer buf) {
         out.annotate(4, "feature_flags: 0x%x", buf.readInt(out.getCursor()));
         out.annotate(4, "debug_info_offsets_pos: 0x%x", buf.readInt(out.getCursor()));
         out.annotate(4, "debug_info_offsets_table_offset: 0x%x", buf.readInt(out.getCursor()));

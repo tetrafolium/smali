@@ -79,18 +79,18 @@ public class InstructionOffsetMapTest {
         ImmutableMethodImplementation impl = new ImmutableMethodImplementation(33, instructions, null, null);
         InstructionOffsetMap instructionOffsetMap = new InstructionOffsetMap(instructions);
 
-        int[] expectedOffsets = new int[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x07, 0x09, 0x0b, 0x0d, 0x0f, 0x11,
+        int[] expectedOffsets = new int[] {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x07, 0x09, 0x0b, 0x0d, 0x0f, 0x11,
                 0x13, 0x15, 0x17, 0x19, 0x1b, 0x1d, 0x20, 0x23, 0x26, 0x29, 0x2c, 0x2f, 0x32, 0x37};
 
-        for (int i=0; i<instructions.size(); i++) {
+        for (int i = 0; i < instructions.size(); i++) {
             Assert.assertEquals(expectedOffsets[i], instructionOffsetMap.getInstructionCodeOffset(i));
             Assert.assertEquals(i, instructionOffsetMap.getInstructionIndexAtCodeOffset(expectedOffsets[i], true));
             Assert.assertEquals(i, instructionOffsetMap.getInstructionIndexAtCodeOffset(expectedOffsets[i], false));
         }
 
         int instructionIndex = -1;
-        for (int codeOffset=0; codeOffset<=expectedOffsets[expectedOffsets.length-1]; codeOffset++) {
-            if (codeOffset == expectedOffsets[instructionIndex+1]) {
+        for (int codeOffset = 0; codeOffset <= expectedOffsets[expectedOffsets.length - 1]; codeOffset++) {
+            if (codeOffset == expectedOffsets[instructionIndex + 1]) {
                 // this offset is at the beginning of an instruction
                 instructionIndex++;
             } else {
@@ -106,9 +106,9 @@ public class InstructionOffsetMapTest {
                 }
             }
         }
-        Assert.assertEquals(expectedOffsets.length-1,
-                instructionOffsetMap.getInstructionIndexAtCodeOffset(expectedOffsets[expectedOffsets.length-1]+1, false));
-        Assert.assertEquals(expectedOffsets.length-1,
-                instructionOffsetMap.getInstructionIndexAtCodeOffset(expectedOffsets[expectedOffsets.length-1]+10, false));
+        Assert.assertEquals(expectedOffsets.length - 1,
+                instructionOffsetMap.getInstructionIndexAtCodeOffset(expectedOffsets[expectedOffsets.length - 1] + 1, false));
+        Assert.assertEquals(expectedOffsets.length - 1,
+                instructionOffsetMap.getInstructionIndexAtCodeOffset(expectedOffsets[expectedOffsets.length - 1] + 10, false));
     }
 }

@@ -58,7 +58,7 @@ public class ListFieldOffsetsCommand extends DexInputCommand {
     @ParametersDelegate
     private AnalysisArguments analysisArguments = new AnalysisArguments();
 
-    public ListFieldOffsetsCommand(@Nonnull List<JCommander> commandAncestors) {
+    public ListFieldOffsetsCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);
     }
 
@@ -84,7 +84,7 @@ public class ListFieldOffsetsCommand extends DexInputCommand {
                 SparseArray<FieldReference> fields = classProto.getInstanceFields();
                 String className = "Class "  + classDef.getType() + " : " + fields.size() + " instance fields\n";
                 System.out.write(className.getBytes());
-                for (int i=0;i<fields.size();i++) {
+                for (int i = 0; i < fields.size(); i++) {
                     String field = fields.keyAt(i) + ":" + fields.valueAt(i).getType() + " " + fields.valueAt(i).getName() + "\n";
                     System.out.write(field.getBytes());
                 }

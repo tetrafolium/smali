@@ -48,18 +48,22 @@ public class BuilderInstruction22cs extends BuilderInstruction implements Instru
     protected final int registerB;
     protected final int fieldOffset;
 
-    public BuilderInstruction22cs(@Nonnull Opcode opcode,
-                                  int registerA,
-                                  int registerB,
-                                  int fieldOffset) {
+    public BuilderInstruction22cs(final @Nonnull Opcode opcode,
+                                  final int registerA,
+                                  final int registerB,
+                                  final int fieldOffset) {
         super(opcode);
         this.registerA = Preconditions.checkNibbleRegister(registerA);
         this.registerB = Preconditions.checkNibbleRegister(registerB);
         this.fieldOffset = fieldOffset;
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
-    @Override public int getFieldOffset() { return fieldOffset; }
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public int getRegisterA() {
+        return registerA; }
+    @Override public int getRegisterB() {
+        return registerB; }
+    @Override public int getFieldOffset() {
+        return fieldOffset; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

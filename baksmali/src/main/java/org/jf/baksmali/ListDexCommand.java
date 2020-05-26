@@ -62,7 +62,7 @@ public class ListDexCommand extends Command {
     @ExtendedParameter(argumentNames = "file")
     private List<String> inputList = Lists.newArrayList();
 
-    public ListDexCommand(@Nonnull List<JCommander> commandAncestors) {
+    public ListDexCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);
     }
 

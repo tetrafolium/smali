@@ -75,8 +75,8 @@ public enum AccessFlags
         }
     }
 
-    private AccessFlags(int value, String accessFlagName, boolean validForClass, boolean validForMethod,
-                        boolean validForField) {
+    private AccessFlags(final int value, final String accessFlagName, final boolean validForClass, final boolean validForMethod,
+                        final boolean validForField) {
         this.value = value;
         this.accessFlagName = accessFlagName;
         this.validForClass = validForClass;
@@ -84,11 +84,11 @@ public enum AccessFlags
         this.validForField = validForField;
     }
 
-    public boolean isSet(int accessFlags) {
+    public boolean isSet(final int accessFlags) {
         return (this.value & accessFlags) != 0;
     }
 
-    public static AccessFlags[] getAccessFlagsForClass(int accessFlagValue) {
+    public static AccessFlags[] getAccessFlagsForClass(final int accessFlagValue) {
         int size = 0;
         for (AccessFlags accessFlag: allFlags) {
             if (accessFlag.validForClass && (accessFlagValue & accessFlag.value) != 0) {
@@ -106,7 +106,7 @@ public enum AccessFlags
         return accessFlags;
     }
 
-    private static String formatAccessFlags(AccessFlags[] accessFlags) {
+    private static String formatAccessFlags(final AccessFlags[] accessFlags) {
         int size = 0;
         for (AccessFlags accessFlag: accessFlags) {
             size += accessFlag.toString().length() + 1;
@@ -123,11 +123,11 @@ public enum AccessFlags
         return sb.toString();
     }
 
-    public static String formatAccessFlagsForClass(int accessFlagValue) {
+    public static String formatAccessFlagsForClass(final int accessFlagValue) {
         return formatAccessFlags(getAccessFlagsForClass(accessFlagValue));
     }
 
-    public static AccessFlags[] getAccessFlagsForMethod(int accessFlagValue) {
+    public static AccessFlags[] getAccessFlagsForMethod(final int accessFlagValue) {
         int size = 0;
         for (AccessFlags accessFlag: allFlags) {
             if (accessFlag.validForMethod && (accessFlagValue & accessFlag.value) != 0) {
@@ -145,11 +145,11 @@ public enum AccessFlags
         return accessFlags;
     }
 
-    public static String formatAccessFlagsForMethod(int accessFlagValue) {
+    public static String formatAccessFlagsForMethod(final int accessFlagValue) {
         return formatAccessFlags(getAccessFlagsForMethod(accessFlagValue));
     }
 
-    public static AccessFlags[] getAccessFlagsForField(int accessFlagValue) {
+    public static AccessFlags[] getAccessFlagsForField(final int accessFlagValue) {
         int size = 0;
         for (AccessFlags accessFlag: allFlags) {
             if (accessFlag.validForField && (accessFlagValue & accessFlag.value) != 0) {
@@ -167,11 +167,11 @@ public enum AccessFlags
         return accessFlags;
     }
 
-    public static String formatAccessFlagsForField(int accessFlagValue) {
+    public static String formatAccessFlagsForField(final int accessFlagValue) {
         return formatAccessFlags(getAccessFlagsForField(accessFlagValue));
     }
 
-    public static AccessFlags getAccessFlag(String accessFlag) {
+    public static AccessFlags getAccessFlag(final String accessFlag) {
         return accessFlagsByName.get(accessFlag);
     }
 

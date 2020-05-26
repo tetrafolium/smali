@@ -41,7 +41,7 @@ public class DexBackedFieldReference extends BaseFieldReference {
     @Nonnull public final DexBackedDexFile dexFile;
     private final int fieldIndex;
 
-    public DexBackedFieldReference(@Nonnull DexBackedDexFile dexFile, int fieldIndex) {
+    public DexBackedFieldReference(final @Nonnull DexBackedDexFile dexFile, final int fieldIndex) {
         this.dexFile = dexFile;
         this.fieldIndex = fieldIndex;
     }

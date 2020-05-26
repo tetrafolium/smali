@@ -53,7 +53,7 @@ public class DumpCommand extends DexInputCommand {
             description = "Show usage information for this command.")
     private boolean help;
 
-    public DumpCommand(@Nonnull List<JCommander> commandAncestors) {
+    public DumpCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);
     }
 
@@ -89,7 +89,7 @@ public class DumpCommand extends DexInputCommand {
      *
      * @throws IOException
      */
-    public static void dump(@Nonnull DexBackedDexFile dexFile, @Nonnull OutputStream output)
+    public static void dump(final @Nonnull DexBackedDexFile dexFile, final @Nonnull OutputStream output)
             throws IOException {
         Writer writer = new BufferedWriter(new OutputStreamWriter(output));
 

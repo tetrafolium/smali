@@ -55,17 +55,17 @@ public class Opcodes {
     @Nonnull private final HashMap<String, Opcode> opcodesByName;
 
     @Nonnull
-    public static Opcodes forApi(int api) {
+    public static Opcodes forApi(final int api) {
         return new Opcodes(api, NO_VERSION);
     }
 
     @Nonnull
-    public static Opcodes forArtVersion(int artVersion) {
+    public static Opcodes forArtVersion(final int artVersion) {
         return new Opcodes(NO_VERSION, artVersion);
     }
 
     @Nonnull
-    public static Opcodes forDexVersion(int dexVersion) {
+    public static Opcodes forDexVersion(final int dexVersion) {
         int api = VersionMap.mapDexVersionToApi(dexVersion);
         if (api == NO_VERSION) {
             throw new RuntimeException("Unsupported dex version " + dexVersion);
@@ -82,7 +82,7 @@ public class Opcodes {
         return forApi(20);
     }
 
-    private Opcodes(int api, int artVersion) {
+    private Opcodes(final int api, final int artVersion) {
         if (api >= 21) {
             this.api = api;
             this.artVersion = mapApiToArtVersion(api);
@@ -125,12 +125,12 @@ public class Opcodes {
     }
 
     @Nullable
-    public Opcode getOpcodeByName(@Nonnull String opcodeName) {
+    public Opcode getOpcodeByName(final @Nonnull String opcodeName) {
         return opcodesByName.get(opcodeName.toLowerCase());
     }
 
     @Nullable
-    public Opcode getOpcodeByValue(int opcodeValue) {
+    public Opcode getOpcodeByValue(final int opcodeValue) {
         switch (opcodeValue) {
             case 0x100:
                 return Opcode.PACKED_SWITCH_PAYLOAD;
@@ -147,7 +147,7 @@ public class Opcodes {
     }
 
     @Nullable
-    public Short getOpcodeValue(@Nonnull Opcode opcode) {
+    public Short getOpcodeValue(final @Nonnull Opcode opcode) {
         return opcodeValues.get(opcode);
     }
 

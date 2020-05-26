@@ -40,16 +40,17 @@ import javax.annotation.Nonnull;
 public class ImmutableMethodEncodedValue extends BaseMethodEncodedValue implements ImmutableEncodedValue {
     @Nonnull protected final ImmutableMethodReference value;
 
-    public ImmutableMethodEncodedValue(@Nonnull ImmutableMethodReference value) {
+    public ImmutableMethodEncodedValue(final @Nonnull ImmutableMethodReference value) {
         this.value = value;
     }
 
-    public static ImmutableMethodEncodedValue of(@Nonnull MethodEncodedValue methodEncodedValue) {
+    public static ImmutableMethodEncodedValue of(final @Nonnull MethodEncodedValue methodEncodedValue) {
         if (methodEncodedValue instanceof ImmutableMethodEncodedValue) {
-            return (ImmutableMethodEncodedValue)methodEncodedValue;
+            return (ImmutableMethodEncodedValue) methodEncodedValue;
         }
         return new ImmutableMethodEncodedValue(ImmutableMethodReference.of(methodEncodedValue.getValue()));
     }
 
-    @Nonnull @Override public ImmutableMethodReference getValue() { return value; }
+    @Nonnull @Override public ImmutableMethodReference getValue() {
+        return value; }
 }

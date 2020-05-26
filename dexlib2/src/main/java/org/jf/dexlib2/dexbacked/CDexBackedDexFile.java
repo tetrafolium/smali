@@ -41,23 +41,23 @@ import javax.annotation.Nullable;
 import java.io.UnsupportedEncodingException;
 
 public class CDexBackedDexFile extends DexBackedDexFile {
-    public CDexBackedDexFile(@Nullable Opcodes opcodes, @Nonnull byte[] buf, int offset, boolean verifyMagic) {
+    public CDexBackedDexFile(final @Nullable Opcodes opcodes, final @Nonnull byte[] buf, final int offset, final boolean verifyMagic) {
         super(opcodes, buf, offset, verifyMagic);
     }
 
-    public CDexBackedDexFile(@Nullable Opcodes opcodes, @Nonnull DexBuffer buf) {
+    public CDexBackedDexFile(final @Nullable Opcodes opcodes, final @Nonnull DexBuffer buf) {
         super(opcodes, buf);
     }
 
-    public CDexBackedDexFile(@Nullable Opcodes opcodes, @Nonnull byte[] buf, int offset) {
+    public CDexBackedDexFile(final @Nullable Opcodes opcodes, final @Nonnull byte[] buf, final int offset) {
         super(opcodes, buf, offset);
     }
 
-    public CDexBackedDexFile(@Nullable Opcodes opcodes, @Nonnull byte[] buf) {
+    public CDexBackedDexFile(final @Nullable Opcodes opcodes, final @Nonnull byte[] buf) {
         super(opcodes, buf);
     }
 
-    public static boolean isCdex(byte[] buf, int offset) {
+    public static boolean isCdex(final byte[] buf, final int offset) {
         if (offset + 4 > buf.length) {
             return false;
         }
@@ -68,14 +68,14 @@ public class CDexBackedDexFile extends DexBackedDexFile {
         } catch (UnsupportedEncodingException ex) {
             throw new RuntimeException(ex);
         }
-        return buf[offset] == cdexMagic[0] &&
-                buf[offset+1] == cdexMagic[1] &&
-                buf[offset+2] == cdexMagic[2] &&
-                buf[offset+3] == cdexMagic[3];
+        return buf[offset] == cdexMagic[0]
+                && buf[offset + 1] == cdexMagic[1]
+                && buf[offset + 2] == cdexMagic[2]
+                && buf[offset + 3] == cdexMagic[3];
     }
 
     @Override
-    protected int getVersion(byte[] buf, int offset, boolean verifyMagic) {
+    protected int getVersion(final byte[] buf, final int offset, final boolean verifyMagic) {
         if (verifyMagic) {
             return DexUtil.verifyCdexHeader(buf, offset);
         } else {
@@ -84,7 +84,7 @@ public class CDexBackedDexFile extends DexBackedDexFile {
     }
 
     @Override
-    protected Opcodes getDefaultOpcodes(int version) {
+    protected Opcodes getDefaultOpcodes(final int version) {
         // There is currently only 1 possible cdex version, which was introduced in api 28.
         return Opcodes.forApi(28);
     }
@@ -108,7 +108,7 @@ public class CDexBackedDexFile extends DexBackedDexFile {
 
     @Override
     protected DexBackedMethodImplementation createMethodImplementation(
-            @Nonnull DexBackedDexFile dexFile, @Nonnull DexBackedMethod method, int codeOffset) {
+            final @Nonnull DexBackedDexFile dexFile, final @Nonnull DexBackedMethod method, final int codeOffset) {
         return new CDexBackedMethodImplementation(dexFile, method, codeOffset);
     }
 }

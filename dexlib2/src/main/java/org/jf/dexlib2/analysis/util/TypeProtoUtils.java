@@ -82,7 +82,7 @@ public class TypeProtoUtils {
     }
 
     @Nullable
-    public static TypeProto getSuperclassAsTypeProto(@Nonnull TypeProto type) {
+    public static TypeProto getSuperclassAsTypeProto(final @Nonnull TypeProto type) {
         try {
             String next = type.getSuperclass();
             if (next != null) {
@@ -95,7 +95,7 @@ public class TypeProtoUtils {
         }
     }
 
-    public static boolean extendsFrom(@Nonnull TypeProto candidate, @Nonnull String possibleSuper) {
+    public static boolean extendsFrom(final @Nonnull TypeProto candidate, final @Nonnull String possibleSuper) {
         if (candidate.getType().equals(possibleSuper)) {
             return true;
         }

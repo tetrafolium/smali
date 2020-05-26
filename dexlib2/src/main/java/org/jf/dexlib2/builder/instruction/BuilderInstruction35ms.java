@@ -50,30 +50,38 @@ public class BuilderInstruction35ms extends BuilderInstruction implements Instru
     protected final int registerG;
     protected final int vtableIndex;
 
-    public BuilderInstruction35ms(@Nonnull Opcode opcode,
-                                  int registerCount,
-                                  int registerC,
-                                  int registerD,
-                                  int registerE,
-                                  int registerF,
-                                  int registerG,
-                                  int vtableIndex) {
+    public BuilderInstruction35ms(final @Nonnull Opcode opcode,
+                                  final int registerCount,
+                                  final int registerC,
+                                  final int registerD,
+                                  final int registerE,
+                                  final int registerF,
+                                  final int registerG,
+                                  final int vtableIndex) {
         super(opcode);
         this.registerCount = Preconditions.check35cAnd45ccRegisterCount(registerCount);
-        this.registerC = (registerCount>0) ? Preconditions.checkNibbleRegister(registerC) : 0;
-        this.registerD = (registerCount>1) ? Preconditions.checkNibbleRegister(registerD) : 0;
-        this.registerE = (registerCount>2) ? Preconditions.checkNibbleRegister(registerE) : 0;
-        this.registerF = (registerCount>3) ? Preconditions.checkNibbleRegister(registerF) : 0;
-        this.registerG = (registerCount>4) ? Preconditions.checkNibbleRegister(registerG) : 0;
+        this.registerC = (registerCount > 0) ? Preconditions.checkNibbleRegister(registerC) : 0;
+        this.registerD = (registerCount > 1) ? Preconditions.checkNibbleRegister(registerD) : 0;
+        this.registerE = (registerCount > 2) ? Preconditions.checkNibbleRegister(registerE) : 0;
+        this.registerF = (registerCount > 3) ? Preconditions.checkNibbleRegister(registerF) : 0;
+        this.registerG = (registerCount > 4) ? Preconditions.checkNibbleRegister(registerG) : 0;
         this.vtableIndex = vtableIndex;
     }
 
-    @Override public int getRegisterCount() { return registerCount; }
-    @Override public int getRegisterC() { return registerC; }
-    @Override public int getRegisterD() { return registerD; }
-    @Override public int getRegisterE() { return registerE; }
-    @Override public int getRegisterF() { return registerF; }
-    @Override public int getRegisterG() { return registerG; }
-    @Override public int getVtableIndex() { return vtableIndex; }
-    @Override public Format getFormat() { return FORMAT; }
+    @Override public int getRegisterCount() {
+        return registerCount; }
+    @Override public int getRegisterC() {
+        return registerC; }
+    @Override public int getRegisterD() {
+        return registerD; }
+    @Override public int getRegisterE() {
+        return registerE; }
+    @Override public int getRegisterF() {
+        return registerF; }
+    @Override public int getRegisterG() {
+        return registerG; }
+    @Override public int getVtableIndex() {
+        return vtableIndex; }
+    @Override public Format getFormat() {
+        return FORMAT; }
 }

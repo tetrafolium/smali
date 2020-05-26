@@ -41,7 +41,7 @@ public class DexBackedStringEncodedValue extends BaseStringEncodedValue {
     @Nonnull public final DexBackedDexFile dexFile;
     private final int stringIndex;
 
-    public DexBackedStringEncodedValue(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader reader, int valueArg) {
+    public DexBackedStringEncodedValue(final @Nonnull DexBackedDexFile dexFile, final @Nonnull DexReader reader, final int valueArg) {
         this.dexFile = dexFile;
         stringIndex = reader.readSizedSmallUint(valueArg + 1);
     }

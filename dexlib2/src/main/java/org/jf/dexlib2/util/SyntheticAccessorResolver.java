@@ -73,7 +73,7 @@ public class SyntheticAccessorResolver {
     private final Map<String, ClassDef> classDefMap;
     private final Map<String, AccessedMember> resolvedAccessors = Maps.newConcurrentMap();
 
-    public SyntheticAccessorResolver(@Nonnull Opcodes opcodes, @Nonnull Iterable<? extends ClassDef> classDefs) {
+    public SyntheticAccessorResolver(final @Nonnull Opcodes opcodes, final @Nonnull Iterable<? extends ClassDef> classDefs) {
         this.syntheticAccessorFSM = new SyntheticAccessorFSM(opcodes);
         ImmutableMap.Builder<String, ClassDef> builder = ImmutableMap.builder();
 
@@ -84,12 +84,12 @@ public class SyntheticAccessorResolver {
         this.classDefMap = builder.build();
     }
 
-    public static boolean looksLikeSyntheticAccessor(String methodName) {
+    public static boolean looksLikeSyntheticAccessor(final String methodName) {
         return methodName.startsWith("access$");
     }
 
     @Nullable
-    public AccessedMember getAccessedMember(@Nonnull MethodReference methodReference) {
+    public AccessedMember getAccessedMember(final @Nonnull MethodReference methodReference) {
         String methodDescriptor = ReferenceUtil.getMethodDescriptor(methodReference);
 
         AccessedMember accessedMember = resolvedAccessors.get(methodDescriptor);
@@ -132,7 +132,7 @@ public class SyntheticAccessorResolver {
 
         if (accessType >= 0) {
             AccessedMember member =
-                    new AccessedMember(accessType, ((ReferenceInstruction)instructions.get(0)).getReference());
+                    new AccessedMember(accessType, ((ReferenceInstruction) instructions.get(0)).getReference());
             resolvedAccessors.put(methodDescriptor, member);
             return member;
         }
@@ -143,16 +143,16 @@ public class SyntheticAccessorResolver {
         public final int accessedMemberType;
         @Nonnull public final Reference accessedMember;
 
-        public AccessedMember(int accessedMemberType, @Nonnull Reference accessedMember) {
+        public AccessedMember(final int accessedMemberType, final @Nonnull Reference accessedMember) {
             this.accessedMemberType = accessedMemberType;
             this.accessedMember = accessedMember;
         }
     }
 
-    private static boolean methodReferenceEquals(@Nonnull MethodReference ref1, @Nonnull MethodReference ref2) {
+    private static boolean methodReferenceEquals(final @Nonnull MethodReference ref1, final @Nonnull MethodReference ref2) {
         // we already know the containing class matches
-        return ref1.getName().equals(ref2.getName()) &&
-               ref1.getReturnType().equals(ref2.getReturnType()) &&
-               ref1.getParameterTypes().equals(ref2.getParameterTypes());
+        return ref1.getName().equals(ref2.getName())
+               && ref1.getReturnType().equals(ref2.getReturnType())
+               && ref1.getParameterTypes().equals(ref2.getParameterTypes());
     }
 }

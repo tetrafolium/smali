@@ -56,7 +56,7 @@ public class SparseArray<E> {
      * require any additional memory allocation to store the specified
      * number of mappings.
      */
-    public SparseArray(int initialCapacity) {
+    public SparseArray(final int initialCapacity) {
         mKeys = new int[initialCapacity];
         mValues = new Object[initialCapacity];
         mSize = 0;
@@ -66,7 +66,7 @@ public class SparseArray<E> {
      * Gets the Object mapped from the specified key, or <code>null</code>
      * if no such mapping has been made.
      */
-    public E get(int key) {
+    public E get(final int key) {
         return get(key, null);
     }
 
@@ -74,7 +74,7 @@ public class SparseArray<E> {
      * Gets the Object mapped from the specified key, or the specified Object
      * if no such mapping has been made.
      */
-    public E get(int key, E valueIfKeyNotFound) {
+    public E get(final int key, final E valueIfKeyNotFound) {
         int i = binarySearch(mKeys, 0, mSize, key);
 
         if (i < 0 || mValues[i] == DELETED) {
@@ -87,7 +87,7 @@ public class SparseArray<E> {
     /**
      * Removes the mapping from the specified key, if there was any.
      */
-    public void delete(int key) {
+    public void delete(final int key) {
         int i = binarySearch(mKeys, 0, mSize, key);
 
         if (i >= 0) {
@@ -101,7 +101,7 @@ public class SparseArray<E> {
     /**
      * Alias for {@link #delete(int)}.
      */
-    public void remove(int key) {
+    public void remove(final int key) {
         delete(key);
     }
 
@@ -137,7 +137,7 @@ public class SparseArray<E> {
      * replacing the previous mapping from the specified key if there
      * was one.
      */
-    public void put(int key, E value) {
+    public void put(final int key, final E value) {
         int i = binarySearch(mKeys, 0, mSize, key);
 
         if (i >= 0) {
@@ -201,7 +201,7 @@ public class SparseArray<E> {
      * the key from the <code>index</code>th key-value mapping that this
      * SparseArray stores.
      */
-    public int keyAt(int index) {
+    public int keyAt(final int index) {
         if (mGarbage) {
             gc();
         }
@@ -214,7 +214,7 @@ public class SparseArray<E> {
      * the value from the <code>index</code>th key-value mapping that this
      * SparseArray stores.
      */
-    public E valueAt(int index) {
+    public E valueAt(final int index) {
         if (mGarbage) {
             gc();
         }
@@ -227,7 +227,7 @@ public class SparseArray<E> {
      * value for the <code>index</code>th key-value mapping that this
      * SparseArray stores.
      */
-    public void setValueAt(int index, E value) {
+    public void setValueAt(final int index, final E value) {
         if (mGarbage) {
             gc();
         }
@@ -240,7 +240,7 @@ public class SparseArray<E> {
      * specified key, or a negative number if the specified
      * key is not mapped.
      */
-    public int indexOfKey(int key) {
+    public int indexOfKey(final int key) {
         if (mGarbage) {
             gc();
         }
@@ -256,7 +256,7 @@ public class SparseArray<E> {
      * and that multiple keys can map to the same value and this will
      * find only one of them.
      */
-    public int indexOfValue(E value) {
+    public int indexOfValue(final E value) {
         if (mGarbage) {
             gc();
         }
@@ -287,7 +287,7 @@ public class SparseArray<E> {
      * Puts a key/value pair into the array, optimizing for the case where
      * the key is greater than all existing keys in the array.
      */
-    public void append(int key, E value) {
+    public void append(final int key, final E value) {
         if (mSize != 0 && key <= mKeys[mSize - 1]) {
             put(key, value);
             return;
@@ -322,7 +322,7 @@ public class SparseArray<E> {
      * hold the specified number of items without having to allocate additional memory
      * @param capacity the number of items
      */
-    public void ensureCapacity(int capacity) {
+    public void ensureCapacity(final int capacity) {
         if (mGarbage && mSize >= mKeys.length) {
             gc();
         }
@@ -339,7 +339,7 @@ public class SparseArray<E> {
         }
     }
 
-    private static int binarySearch(int[] a, int start, int len, int key) {
+    private static int binarySearch(final int[] a, final int start, final int len, final int key) {
         int high = start + len, low = start - 1, guess;
 
         while (high - low > 1) {
@@ -364,7 +364,7 @@ public class SparseArray<E> {
      * associated key
      */
     public List<E> getValues() {
-        return Collections.unmodifiableList(Arrays.asList((E[])mValues));
+        return Collections.unmodifiableList(Arrays.asList((E[]) mValues));
     }
 
     private int[] mKeys;

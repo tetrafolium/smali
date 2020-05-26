@@ -67,11 +67,11 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
     @Nonnull private final ConcurrentMap<String, BuilderClassDef> internedItems =
             Maps.newConcurrentMap();
 
-    public BuilderClassPool(@Nonnull DexBuilder dexBuilder) {
+    public BuilderClassPool(final @Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
     }
 
-    @Nonnull BuilderClassDef internClass(@Nonnull BuilderClassDef classDef) {
+    @Nonnull BuilderClassDef internClass(final @Nonnull BuilderClassDef classDef) {
         BuilderClassDef prev = internedItems.put(classDef.getType(), classDef);
         if (prev != null) {
             throw new ExceptionWithContext("Class %s has already been interned", classDef.getType());
@@ -88,7 +88,7 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
     }
 
     @Nullable @Override
-    public Entry<? extends BuilderClassDef, Integer> getClassEntryByType(@Nullable BuilderTypeReference type) {
+    public Entry<? extends BuilderClassDef, Integer> getClassEntryByType(final @Nullable BuilderTypeReference type) {
         if (type == null) {
             return null;
         }
@@ -107,35 +107,35 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
                 return classDef.classDefIndex;
             }
 
-            @Override public Integer setValue(Integer value) {
+            @Override public Integer setValue(final Integer value) {
                 return classDef.classDefIndex = value;
             }
         };
     }
 
-    @Nonnull @Override public BuilderTypeReference getType(@Nonnull BuilderClassDef builderClassDef) {
+    @Nonnull @Override public BuilderTypeReference getType(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.type;
     }
 
-    @Override public int getAccessFlags(@Nonnull BuilderClassDef builderClassDef) {
+    @Override public int getAccessFlags(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.accessFlags;
     }
 
-    @Nullable @Override public BuilderTypeReference getSuperclass(@Nonnull BuilderClassDef builderClassDef) {
+    @Nullable @Override public BuilderTypeReference getSuperclass(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.superclass;
     }
 
-    @Nullable @Override public BuilderTypeList getInterfaces(@Nonnull BuilderClassDef builderClassDef) {
+    @Nullable @Override public BuilderTypeList getInterfaces(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.interfaces;
     }
 
-    @Nullable @Override public BuilderStringReference getSourceFile(@Nonnull BuilderClassDef builderClassDef) {
+    @Nullable @Override public BuilderStringReference getSourceFile(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.sourceFile;
     }
 
     private static final Predicate<Field> HAS_INITIALIZER = new Predicate<Field>() {
         @Override
-        public boolean apply(Field input) {
+        public boolean apply(final Field input) {
             EncodedValue encodedValue = input.getInitialValue();
             return encodedValue != null && !EncodedValueUtils.isDefaultValue(encodedValue);
         }
@@ -144,7 +144,7 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
     private static final Function<BuilderField, BuilderEncodedValue> GET_INITIAL_VALUE =
             new Function<BuilderField, BuilderEncodedValue>() {
                 @Override
-                public BuilderEncodedValue apply(BuilderField input) {
+                public BuilderEncodedValue apply(final BuilderField input) {
                     BuilderEncodedValue initialValue = input.getInitialValue();
                     if (initialValue == null) {
                         return BuilderEncodedValues.defaultValueForType(input.getType());
@@ -154,73 +154,73 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
             };
 
     @Nullable @Override
-    public BuilderArrayEncodedValue getStaticInitializers(@Nonnull BuilderClassDef classDef) {
+    public BuilderArrayEncodedValue getStaticInitializers(final @Nonnull BuilderClassDef classDef) {
         return classDef.staticInitializers;
     }
 
     @Nonnull @Override
-    public Collection<? extends BuilderField> getSortedStaticFields(@Nonnull BuilderClassDef builderClassDef) {
+    public Collection<? extends BuilderField> getSortedStaticFields(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.getStaticFields();
     }
 
     @Nonnull @Override
-    public Collection<? extends BuilderField> getSortedInstanceFields(@Nonnull BuilderClassDef builderClassDef) {
+    public Collection<? extends BuilderField> getSortedInstanceFields(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.getInstanceFields();
     }
 
     @Nonnull @Override
-    public Collection<? extends BuilderField> getSortedFields(@Nonnull BuilderClassDef builderClassDef) {
+    public Collection<? extends BuilderField> getSortedFields(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.getFields();
     }
 
     @Nonnull @Override
-    public Collection<? extends BuilderMethod> getSortedDirectMethods(@Nonnull BuilderClassDef builderClassDef) {
+    public Collection<? extends BuilderMethod> getSortedDirectMethods(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.getDirectMethods();
     }
 
     @Nonnull @Override
-    public Collection<? extends BuilderMethod> getSortedVirtualMethods(@Nonnull BuilderClassDef builderClassDef) {
+    public Collection<? extends BuilderMethod> getSortedVirtualMethods(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.getVirtualMethods();
     }
 
     @Nonnull @Override
-    public Collection<? extends BuilderMethod> getSortedMethods(@Nonnull BuilderClassDef builderClassDef) {
+    public Collection<? extends BuilderMethod> getSortedMethods(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.getMethods();
     }
 
-    @Override public int getFieldAccessFlags(@Nonnull BuilderField builderField) {
+    @Override public int getFieldAccessFlags(final @Nonnull BuilderField builderField) {
         return builderField.accessFlags;
     }
 
-    @Override public int getMethodAccessFlags(@Nonnull BuilderMethod builderMethod) {
+    @Override public int getMethodAccessFlags(final @Nonnull BuilderMethod builderMethod) {
         return builderMethod.accessFlags;
     }
 
     @Nonnull @Override
-    public Set<HiddenApiRestriction> getFieldHiddenApiRestrictions(@Nonnull BuilderField builderField) {
+    public Set<HiddenApiRestriction> getFieldHiddenApiRestrictions(final @Nonnull BuilderField builderField) {
         return builderField.getHiddenApiRestrictions();
     }
 
     @Nonnull @Override
-    public Set<HiddenApiRestriction> getMethodHiddenApiRestrictions(@Nonnull BuilderMethod builderMethod) {
+    public Set<HiddenApiRestriction> getMethodHiddenApiRestrictions(final @Nonnull BuilderMethod builderMethod) {
         return builderMethod.getHiddenApiRestrictions();
     }
 
-    @Nullable @Override public BuilderAnnotationSet getClassAnnotations(@Nonnull BuilderClassDef builderClassDef) {
+    @Nullable @Override public BuilderAnnotationSet getClassAnnotations(final @Nonnull BuilderClassDef builderClassDef) {
         if (builderClassDef.annotations.isEmpty()) {
             return null;
         }
         return builderClassDef.annotations;
     }
 
-    @Nullable @Override public BuilderAnnotationSet getFieldAnnotations(@Nonnull BuilderField builderField) {
+    @Nullable @Override public BuilderAnnotationSet getFieldAnnotations(final @Nonnull BuilderField builderField) {
         if (builderField.annotations.isEmpty()) {
             return null;
         }
         return builderField.annotations;
     }
 
-    @Nullable @Override public BuilderAnnotationSet getMethodAnnotations(@Nonnull BuilderMethod builderMethod) {
+    @Nullable @Override public BuilderAnnotationSet getMethodAnnotations(final @Nonnull BuilderMethod builderMethod) {
         if (builderMethod.annotations.isEmpty()) {
             return null;
         }
@@ -230,7 +230,7 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
     private static final Predicate<BuilderMethodParameter> HAS_PARAMETER_ANNOTATIONS =
             new Predicate<BuilderMethodParameter>() {
                 @Override
-                public boolean apply(BuilderMethodParameter input) {
+                public boolean apply(final BuilderMethodParameter input) {
                     return input.getAnnotations().size() > 0;
                 }
             };
@@ -238,7 +238,7 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
     private static final Function<BuilderMethodParameter, BuilderAnnotationSet> PARAMETER_ANNOTATIONS =
             new Function<BuilderMethodParameter, BuilderAnnotationSet>() {
                 @Override
-                public BuilderAnnotationSet apply(BuilderMethodParameter input) {
+                public BuilderAnnotationSet apply(final BuilderMethodParameter input) {
                     return input.getAnnotations();
                 }
             };
@@ -264,7 +264,7 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
     }
 
     @Nullable @Override
-    public Iterable<? extends DebugItem> getDebugItems(@Nonnull BuilderMethod builderMethod) {
+    public Iterable<? extends DebugItem> getDebugItems(final @Nonnull BuilderMethod builderMethod) {
         MethodImplementation impl = builderMethod.getImplementation();
         if (impl == null) {
             return null;
@@ -273,15 +273,15 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
     }
 
     @Nullable @Override
-    public Iterable<? extends BuilderStringReference> getParameterNames(@Nonnull BuilderMethod method) {
+    public Iterable<? extends BuilderStringReference> getParameterNames(final @Nonnull BuilderMethod method) {
         return Iterables.transform(method.getParameters(), new Function<BuilderMethodParameter, BuilderStringReference>() {
-            @Nullable @Override public BuilderStringReference apply(BuilderMethodParameter input) {
+            @Nullable @Override public BuilderStringReference apply(final BuilderMethodParameter input) {
                 return input.name;
             }
         });
     }
 
-    @Override public int getRegisterCount(@Nonnull BuilderMethod builderMethod) {
+    @Override public int getRegisterCount(final @Nonnull BuilderMethod builderMethod) {
         MethodImplementation impl = builderMethod.getImplementation();
         if (impl == null) {
             return 0;
@@ -290,7 +290,7 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
     }
 
     @Nullable @Override
-    public Iterable<? extends Instruction> getInstructions(@Nonnull BuilderMethod builderMethod) {
+    public Iterable<? extends Instruction> getInstructions(final @Nonnull BuilderMethod builderMethod) {
         MethodImplementation impl = builderMethod.getImplementation();
         if (impl == null) {
             return null;
@@ -299,7 +299,7 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
     }
 
     @Nonnull @Override
-    public List<? extends TryBlock<? extends ExceptionHandler>> getTryBlocks(@Nonnull BuilderMethod builderMethod) {
+    public List<? extends TryBlock<? extends ExceptionHandler>> getTryBlocks(final @Nonnull BuilderMethod builderMethod) {
         MethodImplementation impl = builderMethod.getImplementation();
         if (impl == null) {
             return ImmutableList.of();
@@ -307,73 +307,73 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
         return impl.getTryBlocks();
     }
 
-    @Nullable @Override public BuilderTypeReference getExceptionType(@Nonnull ExceptionHandler handler) {
+    @Nullable @Override public BuilderTypeReference getExceptionType(final @Nonnull ExceptionHandler handler) {
         return checkTypeReference(handler.getExceptionTypeReference());
     }
 
     @Nonnull @Override
-    public MutableMethodImplementation makeMutableMethodImplementation(@Nonnull BuilderMethod builderMethod) {
+    public MutableMethodImplementation makeMutableMethodImplementation(final @Nonnull BuilderMethod builderMethod) {
         MethodImplementation impl = builderMethod.getImplementation();
         if (impl instanceof MutableMethodImplementation) {
-            return (MutableMethodImplementation)impl;
+            return (MutableMethodImplementation) impl;
         }
         return new MutableMethodImplementation(impl);
     }
 
-    @Override public void setAnnotationDirectoryOffset(@Nonnull BuilderClassDef builderClassDef, int offset) {
+    @Override public void setAnnotationDirectoryOffset(final @Nonnull BuilderClassDef builderClassDef, final int offset) {
         builderClassDef.annotationDirectoryOffset = offset;
     }
 
-    @Override public int getAnnotationDirectoryOffset(@Nonnull BuilderClassDef builderClassDef) {
+    @Override public int getAnnotationDirectoryOffset(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.annotationDirectoryOffset;
     }
 
-    @Override public void setAnnotationSetRefListOffset(@Nonnull BuilderMethod builderMethod, int offset) {
+    @Override public void setAnnotationSetRefListOffset(final @Nonnull BuilderMethod builderMethod, final int offset) {
         builderMethod.annotationSetRefListOffset = offset;
     }
 
-    @Override public int getAnnotationSetRefListOffset(@Nonnull BuilderMethod builderMethod) {
+    @Override public int getAnnotationSetRefListOffset(final @Nonnull BuilderMethod builderMethod) {
         return builderMethod.annotationSetRefListOffset;
     }
 
-    @Override public void setCodeItemOffset(@Nonnull BuilderMethod builderMethod, int offset) {
+    @Override public void setCodeItemOffset(final @Nonnull BuilderMethod builderMethod, final int offset) {
         builderMethod.codeItemOffset = offset;
     }
 
-    @Override public int getCodeItemOffset(@Nonnull BuilderMethod builderMethod) {
+    @Override public int getCodeItemOffset(final @Nonnull BuilderMethod builderMethod) {
         return builderMethod.codeItemOffset;
     }
 
-    @Nullable private BuilderStringReference checkStringReference(@Nullable StringReference stringReference) {
+    @Nullable private BuilderStringReference checkStringReference(final @Nullable StringReference stringReference) {
         if (stringReference == null) {
             return null;
         }
         try {
-            return (BuilderStringReference)stringReference;
+            return (BuilderStringReference) stringReference;
         } catch (ClassCastException ex) {
-            throw new IllegalStateException("Only StringReference instances returned by " +
-                    "DexBuilder.internStringReference or DexBuilder.internNullableStringReference may be used.");
+            throw new IllegalStateException("Only StringReference instances returned by "
+                    + "DexBuilder.internStringReference or DexBuilder.internNullableStringReference may be used.");
         }
     }
 
-    @Nullable private BuilderTypeReference checkTypeReference(@Nullable TypeReference typeReference) {
+    @Nullable private BuilderTypeReference checkTypeReference(final @Nullable TypeReference typeReference) {
         if (typeReference == null) {
             return null;
         }
         try {
-            return (BuilderTypeReference)typeReference;
+            return (BuilderTypeReference) typeReference;
         } catch (ClassCastException ex) {
-            throw new IllegalStateException("Only TypeReference instances returned by " +
-                    "DexBuilder.internTypeReference or DexBuilder.internNullableTypeReference may be used.");
+            throw new IllegalStateException("Only TypeReference instances returned by "
+                    + "DexBuilder.internTypeReference or DexBuilder.internNullableTypeReference may be used.");
         }
     }
 
     @Override
-    public void writeDebugItem(@Nonnull DebugWriter<BuilderStringReference, BuilderTypeReference> writer,
-                               DebugItem debugItem) throws IOException {
+    public void writeDebugItem(final @Nonnull DebugWriter<BuilderStringReference, BuilderTypeReference> writer,
+                               final DebugItem debugItem) throws IOException {
         switch (debugItem.getDebugItemType()) {
             case DebugItemType.START_LOCAL: {
-                StartLocal startLocal = (StartLocal)debugItem;
+                StartLocal startLocal = (StartLocal) debugItem;
                 writer.writeStartLocal(startLocal.getCodeAddress(),
                         startLocal.getRegister(),
                         checkStringReference(startLocal.getNameReference()),
@@ -382,12 +382,12 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
                 break;
             }
             case DebugItemType.END_LOCAL: {
-                EndLocal endLocal = (EndLocal)debugItem;
+                EndLocal endLocal = (EndLocal) debugItem;
                 writer.writeEndLocal(endLocal.getCodeAddress(), endLocal.getRegister());
                 break;
             }
             case DebugItemType.RESTART_LOCAL: {
-                RestartLocal restartLocal = (RestartLocal)debugItem;
+                RestartLocal restartLocal = (RestartLocal) debugItem;
                 writer.writeRestartLocal(restartLocal.getCodeAddress(), restartLocal.getRegister());
                 break;
             }
@@ -400,12 +400,12 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
                 break;
             }
             case DebugItemType.LINE_NUMBER: {
-                LineNumber lineNumber = (LineNumber)debugItem;
+                LineNumber lineNumber = (LineNumber) debugItem;
                 writer.writeLineNumber(lineNumber.getCodeAddress(), lineNumber.getLineNumber());
                 break;
             }
             case DebugItemType.SET_SOURCE_FILE: {
-                SetSourceFile setSourceFile = (SetSourceFile)debugItem;
+                SetSourceFile setSourceFile = (SetSourceFile) debugItem;
                 writer.writeSetSourceFile(setSourceFile.getCodeAddress(),
                         checkStringReference(setSourceFile.getSourceFileReference()));
                 break;
@@ -415,17 +415,17 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
         }
     }
 
-    @Override public int getItemIndex(@Nonnull BuilderClassDef builderClassDef) {
+    @Override public int getItemIndex(final @Nonnull BuilderClassDef builderClassDef) {
         return builderClassDef.classDefIndex;
     }
 
     @Nonnull @Override public Collection<? extends Entry<? extends BuilderClassDef, Integer>> getItems() {
         return new BuilderMapEntryCollection<BuilderClassDef>(internedItems.values()) {
-            @Override protected int getValue(@Nonnull BuilderClassDef key) {
+            @Override protected int getValue(final @Nonnull BuilderClassDef key) {
                 return key.classDefIndex;
             }
 
-            @Override protected int setValue(@Nonnull BuilderClassDef key, int value) {
+            @Override protected int setValue(final @Nonnull BuilderClassDef key, final int value) {
                 int prev = key.classDefIndex;
                 key.classDefIndex = value;
                 return prev;

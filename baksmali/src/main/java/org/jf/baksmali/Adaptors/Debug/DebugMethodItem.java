@@ -40,30 +40,31 @@ import org.jf.util.ExceptionWithContext;
 public abstract class DebugMethodItem extends MethodItem {
     private final int sortOrder;
 
-    protected DebugMethodItem(int codeAddress, int sortOrder) {
+    protected DebugMethodItem(final int codeAddress, final int sortOrder) {
         super(codeAddress);
         this.sortOrder = sortOrder;
     }
 
-    @Override public double getSortOrder() { return sortOrder; }
+    @Override public double getSortOrder() {
+        return sortOrder; }
 
-    public static DebugMethodItem build(RegisterFormatter registerFormatter, DebugItem debugItem) {
+    public static DebugMethodItem build(final RegisterFormatter registerFormatter, final DebugItem debugItem) {
         int codeAddress = debugItem.getCodeAddress();
         switch (debugItem.getDebugItemType()) {
             case DebugItemType.START_LOCAL:
-                return new StartLocalMethodItem(codeAddress, -1, registerFormatter, (StartLocal)debugItem);
+                return new StartLocalMethodItem(codeAddress, -1, registerFormatter, (StartLocal) debugItem);
             case DebugItemType.END_LOCAL:
-                return new EndLocalMethodItem(codeAddress, -1, registerFormatter, (EndLocal)debugItem);
+                return new EndLocalMethodItem(codeAddress, -1, registerFormatter, (EndLocal) debugItem);
             case DebugItemType.RESTART_LOCAL:
-                return new RestartLocalMethodItem(codeAddress, -1, registerFormatter, (RestartLocal)debugItem);
+                return new RestartLocalMethodItem(codeAddress, -1, registerFormatter, (RestartLocal) debugItem);
             case DebugItemType.EPILOGUE_BEGIN:
                 return new BeginEpilogueMethodItem(codeAddress, -4);
             case DebugItemType.PROLOGUE_END:
                 return new EndPrologueMethodItem(codeAddress, -4);
             case DebugItemType.SET_SOURCE_FILE:
-                return new SetSourceFileMethodItem(codeAddress, -3, (SetSourceFile)debugItem);
+                return new SetSourceFileMethodItem(codeAddress, -3, (SetSourceFile) debugItem);
             case DebugItemType.LINE_NUMBER:
-                return new LineNumberMethodItem(codeAddress, -2, (LineNumber)debugItem);
+                return new LineNumberMethodItem(codeAddress, -2, (LineNumber) debugItem);
             default:
                 throw new ExceptionWithContext("Invalid debug item type: %d", debugItem.getDebugItemType());
         }

@@ -45,7 +45,7 @@ public abstract class BaseMethodTypeEncodedValue implements MethodTypeEncodedVal
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (o instanceof MethodTypeEncodedValue) {
             return getValue().equals(((MethodTypeEncodedValue) o).getValue());
         }
@@ -53,7 +53,7 @@ public abstract class BaseMethodTypeEncodedValue implements MethodTypeEncodedVal
     }
 
     @Override
-    public int compareTo(@Nonnull EncodedValue o) {
+    public int compareTo(final @Nonnull EncodedValue o) {
         int res = Ints.compare(getValueType(), o.getValueType());
         if (res != 0) return res;
         return getValue().compareTo(((MethodTypeEncodedValue) o).getValue());

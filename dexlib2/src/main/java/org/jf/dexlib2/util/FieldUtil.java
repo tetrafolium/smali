@@ -40,20 +40,20 @@ import javax.annotation.Nullable;
 
 public final class FieldUtil {
     public static Predicate<Field> FIELD_IS_STATIC = new Predicate<Field>() {
-        @Override public boolean apply(@Nullable Field input) {
-            return input!=null && isStatic(input);
+        @Override public boolean apply(final @Nullable Field input) {
+            return input != null && isStatic(input);
         }
     };
 
     public static Predicate<Field> FIELD_IS_INSTANCE = new Predicate<Field>() {
-        @Override public boolean apply(@Nullable Field input) {
-            return input!= null && !isStatic(input);
+        @Override public boolean apply(final @Nullable Field input) {
+            return input != null && !isStatic(input);
         }
     };
 
-    public static boolean isStatic(@Nonnull Field field) {
+    public static boolean isStatic(final @Nonnull Field field) {
         return AccessFlags.STATIC.isSet(field.getAccessFlags());
     }
 
-    private FieldUtil() {}
+    private FieldUtil() { }
 }

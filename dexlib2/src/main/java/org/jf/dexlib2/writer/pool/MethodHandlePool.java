@@ -42,11 +42,11 @@ import javax.annotation.Nonnull;
 
 public class MethodHandlePool extends BaseIndexPool<MethodHandleReference>
         implements MethodHandleSection<MethodHandleReference, FieldReference, MethodReference> {
-    public MethodHandlePool(@Nonnull DexPool dexPool) {
+    public MethodHandlePool(final @Nonnull DexPool dexPool) {
         super(dexPool);
     }
 
-    public void intern(MethodHandleReference methodHandleReference) {
+    public void intern(final MethodHandleReference methodHandleReference) {
         Integer prev = internedItems.put(methodHandleReference, 0);
         if (prev == null) {
             switch (methodHandleReference.getMethodHandleType()) {
@@ -71,12 +71,12 @@ public class MethodHandlePool extends BaseIndexPool<MethodHandleReference>
     }
 
     @Override
-    public FieldReference getFieldReference(MethodHandleReference methodHandleReference) {
+    public FieldReference getFieldReference(final MethodHandleReference methodHandleReference) {
         return (FieldReference) methodHandleReference.getMemberReference();
     }
 
     @Override
-    public MethodReference getMethodReference(MethodHandleReference methodHandleReference) {
+    public MethodReference getMethodReference(final MethodHandleReference methodHandleReference) {
         return (MethodReference) methodHandleReference.getMemberReference();
     }
 }

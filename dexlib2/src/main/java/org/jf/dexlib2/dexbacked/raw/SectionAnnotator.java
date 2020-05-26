@@ -50,7 +50,7 @@ public abstract class SectionAnnotator {
 
     protected Map<Integer, String> itemIdentities = Maps.newHashMap();
 
-    public SectionAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+    public SectionAnnotator(final @Nonnull DexAnnotator annotator, final @Nonnull MapItem mapItem) {
         this.annotator = annotator;
         this.dexFile = annotator.dexFile;
         this.itemType = mapItem.getType();
@@ -72,16 +72,16 @@ public abstract class SectionAnnotator {
      *
      * @param out The AnnotatedBytes object to annotate to
      */
-    public void annotateSection(@Nonnull AnnotatedBytes out) {
+    public void annotateSection(final @Nonnull AnnotatedBytes out) {
         out.moveTo(sectionOffset);
         annotateSectionInner(out, itemCount);
     }
 
-    protected int getItemOffset(int itemIndex, int currentOffset) {
+    protected int getItemOffset(final int itemIndex, final int currentOffset) {
         return AlignmentUtils.alignOffset(currentOffset, getItemAlignment());
     }
 
-    protected void annotateSectionInner(@Nonnull AnnotatedBytes out, int itemCount) {
+    protected void annotateSectionInner(final @Nonnull AnnotatedBytes out, final int itemCount) {
         String itemName = getItemName();
         if (itemCount > 0) {
             out.annotate(0, "");
@@ -90,7 +90,7 @@ public abstract class SectionAnnotator {
             out.annotate(0, "-----------------------------");
             out.annotate(0, "");
 
-            for (int i=0; i<itemCount; i++) {
+            for (int i = 0; i < itemCount; i++) {
                 out.moveTo(getItemOffset(i, out.getCursor()));
 
                 String itemIdentity = getItemIdentity(out.getCursor());
@@ -106,11 +106,11 @@ public abstract class SectionAnnotator {
         }
     }
 
-    @Nullable private String getItemIdentity(int itemOffset) {
+    @Nullable private String getItemIdentity(final int itemOffset) {
         return itemIdentities.get(itemOffset);
     }
 
-    public void setItemIdentity(int itemOffset, String identity) {
+    public void setItemIdentity(final int itemOffset, final String identity) {
         itemIdentities.put(itemOffset + dexFile.getBaseDataOffset(), identity);
     }
 

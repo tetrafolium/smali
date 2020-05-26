@@ -40,7 +40,7 @@ public class BuilderStringReference extends BaseStringReference implements Build
     @Nonnull final String string;
     int index = DexWriter.NO_INDEX;
 
-    BuilderStringReference(@Nonnull String string) {
+    BuilderStringReference(final @Nonnull String string) {
         this.string = string;
     }
 
@@ -52,7 +52,7 @@ public class BuilderStringReference extends BaseStringReference implements Build
         return index;
     }
 
-    @Override public void setIndex(int index) {
+    @Override public void setIndex(final int index) {
         this.index = index;
     }
 }

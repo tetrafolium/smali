@@ -40,9 +40,9 @@ import java.util.Collection;
 
 public class AnnotationFormatter {
 
-    public static void writeTo(@Nonnull IndentingWriter writer,
-                               @Nonnull Collection<? extends Annotation> annotations,
-                               @Nullable String containingClass) throws IOException {
+    public static void writeTo(final @Nonnull IndentingWriter writer,
+                               final @Nonnull Collection<? extends Annotation> annotations,
+                               final @Nullable String containingClass) throws IOException {
         boolean first = true;
         for (Annotation annotation: annotations) {
             if (!first) {
@@ -54,8 +54,8 @@ public class AnnotationFormatter {
         }
     }
 
-    public static void writeTo(@Nonnull IndentingWriter writer, @Nonnull Annotation annotation,
-                               @Nullable String containingClass) throws IOException {
+    public static void writeTo(final @Nonnull IndentingWriter writer, final @Nonnull Annotation annotation,
+                               final @Nullable String containingClass) throws IOException {
         writer.write(".annotation ");
         writer.write(AnnotationVisibility.getVisibility(annotation.getVisibility()));
         writer.write(' ');

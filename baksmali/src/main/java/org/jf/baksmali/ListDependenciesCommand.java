@@ -61,7 +61,7 @@ public class ListDependenciesCommand extends Command {
     @ExtendedParameter(argumentNames = "file")
     private List<String> inputList = Lists.newArrayList();
 
-    public ListDependenciesCommand(@Nonnull List<JCommander> commandAncestors) {
+    public ListDependenciesCommand(final @Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);
     }
 
